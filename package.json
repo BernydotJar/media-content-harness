@@ -1,0 +1,28 @@
+{
+  "name": "media-content-harness",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Out-of-tree media production bundle and project model for DeepSeek Harness.",
+  "license": "MIT",
+  "packageManager": "pnpm@11.7.0",
+  "engines": {
+    "node": "^22.19.0 || >=24.0.0"
+  },
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "validate:examples": "node scripts/validate-examples.mjs",
+    "check": "pnpm run test && pnpm run validate:examples"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "files": [
+    "cordis.patch.yml",
+    "plugins/**/*.mjs",
+    "schemas/**/*.json",
+    "prompts/**/*.md"
+  ]
+}
