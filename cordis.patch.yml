@@ -1,0 +1,7 @@
+- insert:
+    - id: media-foundation
+      name: media-content-harness/plugins/media-foundation.mjs
+      config:
+        projectRoot: /data/documents/AI_Output/Media Content
+        releaseDirectory: 00_LISTO_PARA_SUBIR
+        failClosed: true
