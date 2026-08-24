@@ -5,3 +5,21 @@
         projectRoot: /data/documents/AI_Output/Media Content
         releaseDirectory: 00_LISTO_PARA_SUBIR
         failClosed: true
+    - id: media-seedance-policy
+      name: media-content-harness/plugins/media-seedance-policy.mjs
+      config:
+        failClosed: true
+        preferredModel: seedance-2.5
+        maxNativeClipSeconds: 30
+        requireHumanApprovalForCreditSpend: true
+        requireSyntheticProvenance: true
+        allowSyntheticPeople: false
+        allowSyntheticFactualEvents: false
+        allowedUses:
+          - abstract-transition
+          - light-texture
+          - water-texture
+          - particles
+          - motion-graphics
+          - stylized-non-documentary-insert
+          - reference-guided-broll-clearly-synthetic
