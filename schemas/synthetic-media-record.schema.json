@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/synthetic-media-record.schema.json",
+  "title": "Synthetic Media Evidence Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "kind",
+    "provider",
+    "model",
+    "surface",
+    "project_id",
+    "treatment_revision",
+    "use_class",
+    "prompt_sha256",
+    "reference_asset_sha256",
+    "generated_artifact_sha256",
+    "credit_gate_event_id",
+    "disclosure"
+  ],
+  "properties": {
+    "schema_version": { "const": "synthetic-media-record.v1" },
+    "kind": { "const": "synthetic-media" },
+    "provider": { "const": "capcut" },
+    "model": { "const": "seedance-2.5" },
+    "surface": { "const": "video-studio" },
+    "project_id": { "type": "string", "minLength": 1 },
+    "treatment_revision": { "type": "integer", "minimum": 0 },
+    "use_class": {
+      "enum": [
+        "abstract-transition",
+        "light-texture",
+        "water-texture",
+        "particles",
+        "motion-graphics",
+        "stylized-non-documentary-insert",
+        "reference-guided-broll-clearly-synthetic"
+      ]
+    },
+    "prompt_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "reference_asset_sha256": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+    },
+    "generated_artifact_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "credit_gate_event_id": { "type": "string", "minLength": 1 },
+    "disclosure": { "const": "explicitly-synthetic" },
+    "observed_credit_cost": { "type": ["number", "null"], "minimum": 0 },
+    "generated_duration_seconds": { "type": ["number", "null"], "minimum": 0, "maximum": 30 },
+    "status": {
+      "enum": ["generated", "used", "rejected", "blocked"]
+    }
+  }
+}
