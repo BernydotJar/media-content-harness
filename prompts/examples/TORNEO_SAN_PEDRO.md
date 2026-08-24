@@ -113,7 +113,20 @@ capcut_plan:
   ambience: continuous
   sfx: selective
   text: minimal
-  seedance: disabled-by-default
+  seedance: evaluate-through-separate-policy
+
+seedance_plan:
+  preferred_model: seedance-2.5
+  decision: not_needed
+  max_native_clip_seconds: 30
+  require_human_credit_gate: true
+  require_synthetic_provenance: true
+  allowed_use_classes:
+    - abstract-transition
+    - light-texture
+    - particles
+    - motion-graphics
+  prohibit_documentary_substitution: true
 
 sound_plan:
   music: optional

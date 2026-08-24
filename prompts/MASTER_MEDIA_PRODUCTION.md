@@ -16,7 +16,7 @@ Treat the following systems as complementary:
 - Chrome CDP = authenticated browser bridge when explicitly authorized.
 - Gemini Pro = Director, Critic/Red Team, and Independent Verifier roles.
 - CapCut Pro = primary creative finishing room.
-- Seedance = optional explicitly synthetic augmentation only.
+- Seedance 2.5 = optional synthetic creative capability inside CapCut Video Studio, governed by a separate credit/provenance gate.
 - Media filesystem + asset ledger = production source of truth for artifacts/provenance.
 - Dashboard = projection of durable state, never a second source of truth.
 
@@ -91,6 +91,7 @@ BRIEF
 -> INGEST
 -> DIRECTOR_TREATMENT
 -> CREATIVE_GATE
+-> SEEDANCE_DECISION (optional branch)
 -> PRODUCER_CAPCUT
 -> TECHNICAL_QA
 -> CRITIC
@@ -222,19 +223,47 @@ Known guardrails learned from production:
 
 If a CapCut draft becomes contaminated or export-stalls reproducibly, preserve evidence and rebuild a clean draft from the same locked EDL rather than accumulating opaque fixes.
 
-## Seedance
+## Seedance 2.5
 
-Use Seedance only when a clearly synthetic insert genuinely elevates the piece.
+Treat Seedance 2.5 as a separate creative capability inside CapCut Video Studio, not as a generic effect.
 
-Allowed examples:
+Current provider documentation describes native clips up to 30 seconds, native 4K generation, multimodal references, synchronized stereo audio, R2V motion control, and Intelligent Edit Mode. Availability and credit cost are session/provider facts: verify the actual authenticated UI before execution.
 
-- abstract water/light;
+The Director must make an explicit `seedance_decision` before generation:
+
+- `not_needed` — authentic media + CapCut can solve the creative problem better;
+- `proposed` — Seedance could materially improve a clearly synthetic/non-documentary beat;
+- `blocked` — the desired use would fabricate or ambiguously replace documentary reality.
+
+If `proposed`, instantiate the optional branch:
+
+```text
+SEEDANCE_DECISION
+-> HUMAN_CREDIT_GATE
+-> SEEDANCE_GENERATE
+-> SYNTHETIC_PROVENANCE
+-> SYNTHETIC_QA
+-> PRODUCER_CAPCUT
+```
+
+Generation MUST NOT start until the human credit gate passes. A general approval to edit the project does not authorize external credit spend.
+
+Allowed use classes:
+
+- abstract transitions;
+- light/water textures;
 - particles;
-- textures;
-- non-documentary transitions;
-- clearly stylized motion graphics.
+- motion graphics;
+- clearly stylized non-documentary inserts;
+- reference-guided B-roll that is explicitly synthetic and cannot reasonably be mistaken for event evidence.
 
-Do not synthesize people, crowds, infrastructure, actions, or factual event moments and present them as captured documentary evidence.
+Do not synthesize people, crowds, infrastructure, public-service actions, sporting actions, or factual event moments and present them as captured documentary evidence. A weak source shot is not permission to fabricate a stronger factual shot.
+
+Every generated artifact must persist synthetic provenance, including model, surface, prompt hash, reference hashes, treatment revision, credit-gate event id, generated artifact hash, and `disclosure: explicitly-synthetic`. Never persist cookies, signed URLs, or provider credentials.
+
+Reject a generated asset if it has continuity defects, uncanny behavior, unintended text/logos, weak reference fidelity, or could mislead a viewer about what actually happened. Rejected generations remain evidence but never enter the release timeline.
+
+See `docs/SEEDANCE_2_5_CAPABILITY.md` and `schemas/synthetic-media-record.schema.json`.
 
 ## Sound Director
 

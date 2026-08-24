@@ -69,6 +69,7 @@ A failed gate invalidates only the causally affected subgraph. Stale evidence ca
 - Original masters are preferred; proxies/transport derivatives are labeled explicitly.
 - A technically valid render is not automatically publication-ready.
 - Critic and verifier gates fail closed.
+- Seedance 2.5 generation is credit-gated and synthetic-by-provenance; it may augment a story but never impersonate documentary source evidence.
 - Verifier and release must refer to the same candidate hash.
 - No synthetic media may be presented as documentary fact.
 - Public-affairs/political content defaults to general-public documentary framing and does not use sensitive-trait voter microtargeting.

@@ -20,7 +20,7 @@ DeepSeek Harness session
     |      +--> Google Photos via authenticated browser bridge
     |      +--> Gemini Pro Director/Critic/Verifier
     |      +--> CapCut Pro finishing
-    |      +--> Seedance for explicitly synthetic inserts
+    |      +--> Seedance 2.5 for governed synthetic generation
     |
     +--> Sandbox execution
     |      +--> ffmpeg / ffprobe
@@ -70,6 +70,8 @@ SOURCE
 A node may be skipped only through an explicit recorded decision. Failed creative or technical gates never silently become PASS.
 
 ### External creative gateways
+
+Gemini, CapCut, and Seedance are adapters. Seedance 2.5 is modeled as a separate capability behind a human credit-spend gate and synthetic-provenance contract; it is not allowed to silently replace documentary source evidence. See `SEEDANCE_2_5_CAPABILITY.md`.
 
 Gemini and CapCut are adapters. A provider can be replaced without changing the project model.
 
