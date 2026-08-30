@@ -1,12 +1,13 @@
 import { execFile as execFileCallback } from 'node:child_process'
-import { access } from 'node:fs/promises'
-import { delimiter, relative, resolve, sep } from 'node:path'
+import { access, lstat, realpath } from 'node:fs/promises'
+import { dirname, isAbsolute, relative, resolve, sep } from 'node:path'
 import { promisify } from 'node:util'
 
 const execFileDefault = promisify(execFileCallback)
 const SHA256_RE = /^[a-f0-9]{64}$/
 const GIT_REV_RE = /^[a-f0-9]{40}$/
-const EVENT_ID_RE = /^[0-9a-fA-F-]{16,}$/
+const EVENT_ID_RE = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$/
+const IDENTIFIER_RE = /^[A-Za-z][A-Za-z0-9_-]{0,127}$/
 
 export const name = 'media-graph'
 
@@ -28,8 +29,11 @@ export class MediaGraphService {
     this.projectRoot = resolve(config.projectRoot)
     this.runtimeRoot = resolve(runtimeRoot)
     this.pinnedRevision = config.pinnedRevision
-    this.pythonExecutable = config.pythonExecutable || 'python3'
+    this.pythonExecutable = config.pythonExecutable || '/usr/bin/python3'
+    this.gitExecutable = config.gitExecutable || '/usr/bin/git'
+    if (!isAbsolute(this.pythonExecutable) || !isAbsolute(this.gitExecutable)) throw new MediaGraphError('media-graph requires absolute pythonExecutable and gitExecutable paths')
     this.moduleName = config.moduleName || 'graph_harness'
+    if (!/^[A-Za-z_][A-Za-z0-9_.]*$/.test(this.moduleName)) throw new MediaGraphError('moduleName is malformed')
     this.timeoutMs = config.timeoutMs || 30000
     this.maxBuffer = config.maxBuffer || 4 * 1024 * 1024
     this.execFile = options.execFile || execFileDefault
@@ -38,12 +42,13 @@ export class MediaGraphService {
 
   async runtimeInfo() {
     const actualRevision = await this.verifyRuntime()
-    return { runtimeRoot: this.runtimeRoot, pinnedRevision: this.pinnedRevision, actualRevision, pythonExecutable: this.pythonExecutable, moduleName: this.moduleName, enforcePinnedRevision: this.enforcePinnedRevision }
+    return { runtimeRoot: this.runtimeRoot, pinnedRevision: this.pinnedRevision, actualRevision, pythonExecutable: this.pythonExecutable, gitExecutable: this.gitExecutable, moduleName: this.moduleName, enforcePinnedRevision: this.enforcePinnedRevision }
   }
 
   async verifyRuntime() {
     await access(this.runtimeRoot)
-    const { stdout } = await this._exec('git', ['-C', this.runtimeRoot, 'rev-parse', 'HEAD'], { cwd: this.runtimeRoot, env: process.env })
+    await access(this.gitExecutable)
+    const { stdout } = await this._exec(this.gitExecutable, ['-C', this.runtimeRoot, 'rev-parse', 'HEAD'], { cwd: this.runtimeRoot, env: safeBaseEnv() })
     const actualRevision = stdout.trim()
     if (!GIT_REV_RE.test(actualRevision)) throw new MediaGraphError('Graph Harness runtime did not return a valid git revision', { actualRevision })
     if (this.enforcePinnedRevision && actualRevision !== this.pinnedRevision) throw new MediaGraphError('Graph Harness runtime revision mismatch', { expected: this.pinnedRevision, actual: actualRevision })
@@ -55,45 +60,47 @@ export class MediaGraphService {
   async readyNodes(paths) { const result = await this._run(paths, ['ready']); return result.ready_nodes || [] }
 
   async recordApproval(input) {
-    assertString(input.node, 'node'); assertString(input.actor, 'actor'); assertSha256(input.scopeHash, 'scopeHash'); assertString(input.note, 'note')
-    const args = ['record-approval', '--node', input.node, '--actor', input.actor, '--scope-hash', input.scopeHash, '--note', input.note]
+    assertIdentifier(input.node, 'node'); assertString(input.actor, 'actor'); assertSha256(input.scopeHash, 'scopeHash'); assertString(input.note, 'note')
+    const args = ['record-approval', flag('node', input.node), flag('actor', input.actor), flag('scope-hash', input.scopeHash), flag('note', input.note)]
     appendExpectedEvent(args, input.expectedLastEventId)
     return this._run(input, args)
   }
 
   async recordEvidence(input) {
-    assertString(input.node, 'node'); assertString(input.actor, 'actor'); assertString(input.kind, 'kind'); assertString(input.result, 'result'); assertString(input.artifact, 'artifact'); assertSha256(input.sha256, 'sha256'); assertString(input.command, 'command'); assertString(input.commit, 'commit')
-    const args = ['record-evidence', '--node', input.node, '--actor', input.actor, '--kind', input.kind, '--result', input.result, '--artifact', input.artifact, '--sha256', input.sha256, '--command-line', input.command, '--commit', input.commit, '--metadata-json', JSON.stringify(input.metadata || {})]
+    assertIdentifier(input.node, 'node'); assertString(input.actor, 'actor'); assertIdentifier(input.kind, 'kind'); assertString(input.result, 'result'); assertString(input.artifact, 'artifact'); assertSha256(input.sha256, 'sha256'); assertString(input.command, 'command'); assertString(input.commit, 'commit')
+    const args = ['record-evidence', flag('node', input.node), flag('actor', input.actor), flag('kind', input.kind), flag('result', input.result), flag('artifact', input.artifact), flag('sha256', input.sha256), flag('command-line', input.command), flag('commit', input.commit), flag('metadata-json', JSON.stringify(input.metadata || {}))]
     appendExpectedEvent(args, input.expectedLastEventId)
     return this._run(input, args)
   }
 
   async evaluateGate(input) {
-    assertString(input.node, 'node'); assertString(input.actor, 'actor'); assertString(input.gate, 'gate'); assertString(input.note, 'note')
+    assertIdentifier(input.node, 'node'); assertString(input.actor, 'actor'); assertIdentifier(input.gate, 'gate'); assertString(input.note, 'note')
     if (!['PASS', 'FAIL', 'BLOCKED'].includes(input.result)) throw new MediaGraphError('gate result must be PASS, FAIL, or BLOCKED')
-    if (!Array.isArray(input.evidenceIds) || input.evidenceIds.some(item => typeof item !== 'string')) throw new MediaGraphError('evidenceIds must be an array of strings')
-    const args = ['evaluate-gate', '--node', input.node, '--actor', input.actor, '--gate', input.gate, '--result', input.result, '--evidence', ...input.evidenceIds, '--note', input.note]
+    if (!Array.isArray(input.evidenceIds) || input.evidenceIds.some(item => !EVENT_ID_RE.test(item))) throw new MediaGraphError('evidenceIds must be an array of event ids')
+    const args = ['evaluate-gate', flag('node', input.node), flag('actor', input.actor), flag('gate', input.gate), flag('result', input.result)]
+    if (input.evidenceIds.length > 0) args.push('--evidence', ...input.evidenceIds)
+    args.push(flag('note', input.note))
     appendExpectedEvent(args, input.expectedLastEventId)
     return this._run(input, args)
   }
 
   async transition(input) {
-    assertString(input.node, 'node'); assertString(input.actor, 'actor'); assertString(input.to, 'to'); assertString(input.reason, 'reason')
-    const args = ['transition', '--node', input.node, '--actor', input.actor, '--to', input.to, '--reason', input.reason]
+    assertIdentifier(input.node, 'node'); assertString(input.actor, 'actor'); assertIdentifier(input.to, 'to'); assertString(input.reason, 'reason')
+    const args = ['transition', flag('node', input.node), flag('actor', input.actor), flag('to', input.to), flag('reason', input.reason)]
     appendExpectedEvent(args, input.expectedLastEventId)
     return this._run(input, args)
   }
 
   async failAndRepair(input) {
-    assertString(input.node, 'node'); assertString(input.actor, 'actor'); assertString(input.gate, 'gate'); assertString(input.reason, 'reason')
-    const args = ['fail', '--node', input.node, '--actor', input.actor, '--gate', input.gate, '--reason', input.reason]
+    assertIdentifier(input.node, 'node'); assertString(input.actor, 'actor'); assertIdentifier(input.gate, 'gate'); assertString(input.reason, 'reason')
+    const args = ['fail', flag('node', input.node), flag('actor', input.actor), flag('gate', input.gate), flag('reason', input.reason)]
     appendExpectedEvent(args, input.expectedLastEventId)
     return this._run(input, args)
   }
 
   async checkpoint(input) {
     assertString(input.actor, 'actor'); assertString(input.label, 'label'); assertString(input.commit, 'commit')
-    const args = ['checkpoint', '--actor', input.actor, '--label', input.label, '--commit', input.commit, '--summary-json', JSON.stringify(input.evidenceSummary || {})]
+    const args = ['checkpoint', flag('actor', input.actor), flag('label', input.label), flag('commit', input.commit), flag('summary-json', JSON.stringify(input.evidenceSummary || {}))]
     appendExpectedEvent(args, input.expectedLastEventId)
     return this._run(input, args)
   }
@@ -102,10 +109,12 @@ export class MediaGraphService {
     await this.verifyRuntime()
     const projectPath = this._projectPath(paths.projectPath)
     const eventsPath = this._eventsPath(paths.eventsPath)
-    const pythonPath = [this.runtimeRoot, process.env.PYTHONPATH].filter(Boolean).join(delimiter)
-    const args = ['-m', this.moduleName, '--project', projectPath, '--events', eventsPath, ...commandArgs]
-    const { stdout } = await this._exec(this.pythonExecutable, args, { cwd: this.runtimeRoot, env: { ...process.env, PYTHONPATH: pythonPath } })
-    return parseLastJsonLine(stdout)
+    await this._assertCanonicalConfinement(projectPath, eventsPath)
+    await access(this.pythonExecutable)
+    const env = { ...safeBaseEnv(), PYTHONPATH: this.runtimeRoot, PYTHONNOUSERSITE: '1', PYTHONDONTWRITEBYTECODE: '1' }
+    const args = ['-m', this.moduleName, flag('project', projectPath), flag('events', eventsPath), ...commandArgs]
+    const { stdout } = await this._exec(this.pythonExecutable, args, { cwd: this.runtimeRoot, env })
+    return parseJsonOutput(stdout)
   }
 
   _projectPath(value) { const path = this._pathWithinRoot(value, 'projectPath'); if (!path.endsWith('.json')) throw new MediaGraphError('projectPath must point to a .json project definition'); return path }
@@ -114,17 +123,27 @@ export class MediaGraphService {
   _pathWithinRoot(value, label) {
     assertString(value, label)
     const candidate = resolve(this.projectRoot, value)
-    const rel = relative(this.projectRoot, candidate)
-    if (rel === '' || rel === '..' || rel.startsWith(`..${sep}`)) {
-      const suffix = rel === '' ? 'must be a file below projectRoot' : 'escapes projectRoot'
-      throw new MediaGraphError(`${label} ${suffix}`, { value })
-    }
+    assertContainedLexically(this.projectRoot, candidate, label, value)
     return candidate
+  }
+
+  async _assertCanonicalConfinement(projectPath, eventsPath) {
+    const rootReal = await realpath(this.projectRoot)
+    const projectReal = await realpath(projectPath)
+    assertContainedLexically(rootReal, projectReal, 'projectPath', projectPath)
+    const eventsStat = await lstatIfExists(eventsPath)
+    if (eventsStat?.isSymbolicLink()) throw new MediaGraphError('eventsPath must not be a symbolic link', { value: eventsPath })
+    const eventsReal = await realpathIfExists(eventsPath)
+    if (eventsReal) assertContainedLexically(rootReal, eventsReal, 'eventsPath', eventsPath)
+    else {
+      const parentReal = await realpath(dirname(eventsPath))
+      assertContainedLexically(rootReal, parentReal, 'eventsPath parent', dirname(eventsPath), true)
+    }
   }
 
   async _exec(file, args, options) {
     try { return await this.execFile(file, args, { ...options, timeout: this.timeoutMs, maxBuffer: this.maxBuffer, windowsHide: true }) }
-    catch (error) { throw new MediaGraphError('Graph Harness command failed', { file, args, code: error.code, signal: error.signal, stdout: typeof error.stdout === 'string' ? error.stdout.slice(-4000) : '', stderr: typeof error.stderr === 'string' ? error.stderr.slice(-4000) : '' }) }
+    catch (error) { throw new MediaGraphError('Graph Harness command failed', { executable: file, argumentCount: args.length, code: error.code, signal: error.signal, stdout: typeof error.stdout === 'string' ? error.stdout.slice(-4000) : '', stderr: typeof error.stderr === 'string' ? error.stderr.slice(-4000) : '' }) }
   }
 }
 
@@ -133,16 +152,21 @@ export function apply(ctx, config) {
   ctx.provide('mediaGraph', new MediaGraphService(config))
 }
 
-function appendExpectedEvent(args, eventId) {
-  if (eventId === undefined || eventId === null || eventId === '') return
-  if (!EVENT_ID_RE.test(eventId)) throw new MediaGraphError('expectedLastEventId is malformed')
-  args.push('--expected-last-event-id', eventId)
+function safeBaseEnv() {
+  const env = {}
+  for (const key of ['PATH', 'HOME', 'LANG', 'LC_ALL', 'TMPDIR']) if (process.env[key]) env[key] = process.env[key]
+  return env
 }
+function flag(name, value) { return `--${name}=${String(value)}` }
+function appendExpectedEvent(args, eventId) { if (eventId === undefined || eventId === null || eventId === '') return; if (!EVENT_ID_RE.test(eventId)) throw new MediaGraphError('expectedLastEventId is malformed'); args.push(flag('expected-last-event-id', eventId)) }
 function assertString(value, label) { if (typeof value !== 'string' || value.trim() === '') throw new MediaGraphError(`${label} must be a non-empty string`) }
+function assertIdentifier(value, label) { if (!IDENTIFIER_RE.test(value || '')) throw new MediaGraphError(`${label} must be a safe identifier`) }
 function assertSha256(value, label) { if (!SHA256_RE.test(value || '')) throw new MediaGraphError(`${label} must be a lowercase SHA-256`) }
-function parseLastJsonLine(stdout) {
+function assertContainedLexically(root, candidate, label, original, allowRoot = false) { const rel = relative(root, candidate); if ((!allowRoot && rel === '') || rel === '..' || rel.startsWith(`..${sep}`)) throw new MediaGraphError(`${label} escapes projectRoot`, { value: original }) }
+async function realpathIfExists(path) { try { return await realpath(path) } catch (error) { if (error && error.code === 'ENOENT') return null; throw error } }
+async function lstatIfExists(path) { try { return await lstat(path) } catch (error) { if (error && error.code === 'ENOENT') return null; throw error } }
+function parseJsonOutput(stdout) {
   const lines = String(stdout || '').trim().split(/\r?\n/).filter(Boolean)
-  if (lines.length === 0) throw new MediaGraphError('Graph Harness command produced no JSON output')
-  try { return JSON.parse(lines.at(-1)) }
-  catch (error) { throw new MediaGraphError('Graph Harness output was not valid JSON', { output: lines.at(-1), cause: error.message }) }
+  for (let index = lines.length - 1; index >= 0; index -= 1) { try { return JSON.parse(lines[index]) } catch {} }
+  throw new MediaGraphError('Graph Harness command produced no valid JSON output', { outputTail: lines.slice(-10).join('\n') })
 }

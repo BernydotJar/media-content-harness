@@ -30,5 +30,6 @@
         projectRoot: /data/documents/AI_Output/Media Content
         pinnedRevision: 477bdcc3d390c30eb49d823e5c7fd105fee2cc4d
         enforcePinnedRevision: true
-        pythonExecutable: python3
+        pythonExecutable: /usr/bin/python3
+        gitExecutable: /usr/bin/git
         moduleName: graph_harness

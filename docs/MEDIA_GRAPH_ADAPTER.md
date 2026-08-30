@@ -53,3 +53,7 @@ BRIEF
 `CREATIVE_GATE` is intentionally `spec_ready`: current-revision creative evidence and explicit human approval are required before production can continue.
 
 A `critic_report` gate means a valid adversarial report exists. It does not lie by treating every report as a creative PASS. The media controller uses the report verdict to decide whether FIXER is a no-op or a real repair.
+
+## Trust boundary
+
+The adapter rejects lexical and canonical path escape, refuses a symlinked event store, uses absolute executable paths, strips inherited Git/Python control variables, and pins the Graph Harness commit. As with the upstream file-backed event store, the project root is expected to live inside the isolated production workspace rather than a hostile multi-tenant filesystem that can race path components between validation and open.
