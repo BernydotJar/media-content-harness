@@ -23,6 +23,9 @@
     "cordis.patch.yml",
     "plugins/**/*.mjs",
     "schemas/**/*.json",
-    "prompts/**/*.md"
+    "prompts/**/*.md",
+    "config/**/*.json",
+    "examples/**/*.json",
+    "docs/**/*.md"
   ]
 }

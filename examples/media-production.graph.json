@@ -1,0 +1,35 @@
+{
+  "schema_version": "graph-harness.project.v1",
+  "project_id": "media-production-example",
+  "mode": "SHIP",
+  "gate_definitions": [
+    {"id":"brief_spec","required_evidence_kinds":["brief_spec"],"blocking":true},
+    {"id":"source_authorization","required_evidence_kinds":["source_authorization"],"blocking":true},
+    {"id":"ingest_integrity","required_evidence_kinds":["ingest_manifest"],"blocking":true},
+    {"id":"treatment_consistency","required_evidence_kinds":["director_treatment"],"blocking":true},
+    {"id":"creative_approval","required_evidence_kinds":["creative_gate"],"blocking":true},
+    {"id":"seedance_decision","required_evidence_kinds":["seedance_decision"],"blocking":true},
+    {"id":"capcut_export","required_evidence_kinds":["capcut_export"],"blocking":true},
+    {"id":"technical_qa","required_evidence_kinds":["technical_qa"],"blocking":true},
+    {"id":"critic_report","required_evidence_kinds":["critic_report"],"blocking":true},
+    {"id":"fixer_resolution","required_evidence_kinds":["fixer_resolution"],"blocking":true},
+    {"id":"verifier_pass","required_evidence_kinds":["verifier_pass"],"blocking":true},
+    {"id":"compliance_pass","required_evidence_kinds":["compliance_pass"],"blocking":true},
+    {"id":"release_hash","required_evidence_kinds":["release_hash"],"blocking":true}
+  ],
+  "nodes": [
+    {"id":"BRIEF","kind":"brief","title":"Human brief","status":"spec_ready","depends_on":[],"capability":"human-gate","gates":{"approved":["brief_spec"]},"allowed_paths":["00_BRIEF/**"]},
+    {"id":"SOURCE","kind":"source","title":"Authorized source","status":"approved","depends_on":["BRIEF"],"capability":"source","gates":{"review":["source_authorization"]},"allowed_paths":["01_SOURCE/**"]},
+    {"id":"INGEST","kind":"ingest","title":"Asset ingest and provenance","status":"approved","depends_on":["SOURCE"],"capability":"ingest","gates":{"review":["ingest_integrity"]},"allowed_paths":["02_ASSETS/**"]},
+    {"id":"DIRECTOR_TREATMENT","kind":"director","title":"Director treatment","status":"approved","depends_on":["INGEST"],"capability":"gemini-director","gates":{"review":["treatment_consistency"]},"allowed_paths":["03_DIRECTOR/**"]},
+    {"id":"CREATIVE_GATE","kind":"approval","title":"Creative human gate","status":"spec_ready","depends_on":["DIRECTOR_TREATMENT"],"capability":"human-gate","gates":{"approved":["creative_approval"]},"allowed_paths":["03_DIRECTOR/**"]},
+    {"id":"SEEDANCE_DECISION","kind":"decision","title":"Seedance decision","status":"approved","depends_on":["CREATIVE_GATE"],"capability":"seedance","gates":{"review":["seedance_decision"]},"allowed_paths":["04_SEEDANCE/**"]},
+    {"id":"PRODUCER_CAPCUT","kind":"producer","title":"CapCut production","status":"approved","depends_on":["SEEDANCE_DECISION"],"capability":"capcut","gates":{"review":["capcut_export"]},"allowed_paths":["05_CAPCUT/**"]},
+    {"id":"TECHNICAL_QA","kind":"qa","title":"Technical QA","status":"approved","depends_on":["PRODUCER_CAPCUT"],"capability":"sandbox-qa","gates":{"review":["technical_qa"]},"allowed_paths":["06_QA/**"]},
+    {"id":"CRITIC","kind":"critic","title":"Adversarial critic","status":"approved","depends_on":["TECHNICAL_QA"],"capability":"gemini-critic","gates":{"review":["critic_report"]},"allowed_paths":["07_CRITIC/**"]},
+    {"id":"FIXER","kind":"fixer","title":"Localized repair","status":"approved","depends_on":["CRITIC"],"capability":"capcut-fixer","gates":{"review":["fixer_resolution"]},"allowed_paths":["08_FIXER/**"]},
+    {"id":"INDEPENDENT_VERIFIER","kind":"verifier","title":"Independent verifier","status":"approved","depends_on":["FIXER"],"capability":"gemini-verifier","gates":{"review":["verifier_pass"]},"allowed_paths":["09_VERIFIER/**"]},
+    {"id":"COMPLIANCE","kind":"compliance","title":"Compliance gate","status":"approved","depends_on":["INDEPENDENT_VERIFIER"],"capability":"compliance","gates":{"review":["compliance_pass"]},"allowed_paths":["10_COMPLIANCE/**"]},
+    {"id":"RELEASE","kind":"release","title":"Fail-closed release","status":"approved","depends_on":["COMPLIANCE"],"capability":"release","gates":{"review":["release_hash"]},"allowed_paths":["00_LISTO_PARA_SUBIR/**"]}
+  ]
+}

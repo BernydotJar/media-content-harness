@@ -1,0 +1,10 @@
+{
+  "deepseek_harness": {
+    "repository": "https://github.com/deepseek-ai/deepseek-harness.git",
+    "tested_revision": "0a53fb55bea101816fa226bb964ae2bed71c343b"
+  },
+  "graph_harness_sdlc": {
+    "repository": "https://github.com/BernydotJar/Graph-harness-sdlc.git",
+    "tested_revision": "477bdcc3d390c30eb49d823e5c7fd105fee2cc4d"
+  }
+}

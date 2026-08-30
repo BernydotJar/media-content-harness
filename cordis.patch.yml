@@ -23,3 +23,12 @@
           - motion-graphics
           - stylized-non-documentary-insert
           - reference-guided-broll-clearly-synthetic
+    - id: media-graph
+      name: media-content-harness/plugins/media-graph.mjs
+      config:
+        failClosed: true
+        projectRoot: /data/documents/AI_Output/Media Content
+        pinnedRevision: 477bdcc3d390c30eb49d823e5c7fd105fee2cc4d
+        enforcePinnedRevision: true
+        pythonExecutable: python3
+        moduleName: graph_harness

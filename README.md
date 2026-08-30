@@ -96,3 +96,9 @@ Current foundation includes:
 ## License
 
 MIT. DeepSeek Harness and Graph Harness SDLC remain separately licensed by their respective repositories.
+
+## Executable graph service
+
+The `media-graph` plugin exposes the pinned Graph Harness runtime as `ctx.mediaGraph`. It provides typed status, READY-node discovery, evidence/gate recording, validated transitions, optimistic concurrency, checkpoints, and localized repair while keeping Graph Harness outside this repository.
+
+Configure the runtime checkout with `GRAPH_HARNESS_RUNTIME_ROOT`. See `docs/MEDIA_GRAPH_ADAPTER.md` and `examples/media-production.graph.json`.

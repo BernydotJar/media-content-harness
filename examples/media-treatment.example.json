@@ -1,0 +1,35 @@
+{
+  "schema_version": "media-treatment.v1",
+  "project_id": "example-cinematic-short",
+  "mode": "SHIP",
+  "human_eval_frequency": "gated",
+  "intent": {
+    "title": "Example cinematic short",
+    "content_type": "cinematic-short",
+    "objective": "Tell one truthful visual story from explicitly authorized media.",
+    "audience_scope": "general-public",
+    "target_duration_seconds": [9, 13],
+    "aspect_ratio": "9:16"
+  },
+  "source": {
+    "authorization": "explicit",
+    "locator": "authorized-source-placeholder",
+    "scope_rule": "exact-source-only",
+    "temporal_policy": "single-event-block-preferred"
+  },
+  "creative_hypothesis": {
+    "hook": "Meaningful action before explanatory text.",
+    "arc": ["HOOK", "ACTION", "TEAM", "COMMUNITY", "RELEASE"],
+    "emotional_goal": "attention, belonging, recognition",
+    "visual_language": "premium documentary",
+    "sound_language": "diegetic-first with selective accents"
+  },
+  "beats": [
+    {"id":"b01","role":"HOOK","desired_action":"strong meaningful action","duration_seconds":[0.4,0.8],"crop_intent":"action-first","audio_intent":"real transient"},
+    {"id":"b02","role":"ACTION","desired_action":"make activity legible","duration_seconds":[1.2,2.2],"crop_intent":"preserve action","audio_intent":"continuous ambience"}
+  ],
+  "capcut_plan": {"source_policy":"originals-first","transitions":"motivated-only"},
+  "quality_contract": {"hook_works_muted":true,"technical":{"width":1080,"height":1920,"fps":30}},
+  "critic_contract": {"minimum_score":8.5,"adversarial":true},
+  "release": {"cinematic_master":true,"trend_ready_master":true,"sha256_manifest":true}
+}
