@@ -56,10 +56,13 @@ export async function handleApi(request,service){
  if(path.join('/')==='auth/logout'&&method==='POST'){fields(await jsonBody(request),[]);await service.auth.logout(session);return response({signed_out:true},200,{'set-cookie':cookie('',secure,true)})}
  if(path[0]==='me'&&path.length===1&&method==='GET')return response(await service.me(session))
  if(path[0]==='providers'&&path.length===1&&method==='GET')return response(await service.providerList(session))
+ if(path[0]==='admin'&&path[1]==='integrations'){if(path.length===2&&method==='GET')return response(await service.integrations(session));if(path.length===3&&method==='POST')return response(await service.updateIntegration(session,path[2],await jsonBody(request)))}
  if(path[0]==='tenants'){
    if(path.length===1){if(method==='GET')return response(await service.listTenants(session));if(method==='POST')return response(await service.createTenant(session,await jsonBody(request)),201)}
    const id=path[1]
    if(path.length===2&&method==='GET')return response(await service.getTenant(session,id))
+   if(path[2]==='journey'&&path.length===3&&method==='GET')return response(await service.journey(session,id))
+   if(path[2]==='creative-profiles'&&path.length===3){if(method==='GET')return response(await service.creativeProfiles(session,id));if(method==='POST')return response(await service.saveCreativeProfile(session,id,await jsonBody(request)),201)}
    if(path[2]==='dashboard'&&path.length===3&&method==='GET')return response(await service.dashboard(session,id))
    if(path[2]==='mascot'&&path.length===3&&method==='POST')return response(await service.setMascot(session,id,await jsonBody(request)))
    if(path[2]==='sources'){

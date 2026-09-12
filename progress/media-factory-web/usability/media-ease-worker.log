@@ -1,0 +1,16 @@
+TAP version 13
+# Subtest: mascot and place snapshots reach actual human treatment review, then block unsupported composition before generation
+ok 1 - mascot and place snapshots reach actual human treatment review, then block unsupported composition before generation
+  ---
+  duration_ms: 2626.031418
+  type: 'test'
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2813.752043

@@ -5,6 +5,8 @@ import { useState, useEffect, type FormEvent } from 'react';
 import { api, useLoad, items, Header, Icon, Tag, Empty, Loading, Problem, Field, Status, DateLabel, type Item, type Resource, type ApiError } from './ui';
 import { Sources, DNA } from './library';
 import { Planner } from './planner';
+import {CreationGuide} from './CreationGuide';
+import {CreativeProfiles} from './CreativeProfiles';
 export function Dashboard({ tenants, user }: { tenants: Resource; user: Item }) {
  const list = items(tenants.data);
  return <><Header eyebrow="TU ESTUDIO, EN ORDEN" title={'Hola, ' + (user.name?.split(' ')[0] || 'creador') + '.'} description="Dale forma a lo que viene. Cada historia empieza con una buena idea." action={<Link className="button primary" href="/workspaces"><Icon name="spark" />Crear contenido</Link>} /><section className="hero-panel"><div><Tag tone="warm">DE LA IDEA A LA ENTREGA</Tag><h2>Una semana de historias.<br /><em>Una sola visión.</em></h2><p>Combina material real, ideas nuevas y tu identidad en un plan que puedas revisar antes de producir.</p><Link className="button light" href={list.length === 1 ? '/workspace/' + list[0].tenant_id + '/weekly' : '/workspaces'}>Planear mi semana<Icon name="arrow" /></Link></div><div className="hero-art" aria-hidden="true"><div className="film-frame"><span>YOUR NEXT STORY</span><div className="abstract-orbit"><i /><b /><em /></div><small>PLAY. EXPLORE. CREATE.</small></div><div className="floating-label">Tu material + tu imaginación</div><div className="film-count">01—04</div></div></section><DashboardActivity tenants={list} /><div className="section-title"><h2>Tus espacios de trabajo</h2><Link href="/workspaces">Ver todos ↗</Link></div>{tenants.loading ? <Loading /> : tenants.error ? <Problem error={tenants.error} retry={tenants.reload} /> : list.length ? <div className="workspace-grid">{list.map(t => <WorkspaceCard key={t.tenant_id} tenant={t} />)}</div> : <Empty icon="grid" title="Dale un espacio a tu primera marca." action={<Link className="button secondary" href="/workspaces">Crear espacio de trabajo</Link>}>Organiza sus fuentes, su identidad y sus producciones en un mismo lugar.</Empty>}<div className="process-strip">{[['01', 'Trae tu mundo', 'Fuentes y referencias autorizadas'], ['02', 'Encuentra tu voz', 'Una identidad creativa compartida'], ['03', 'Dale forma', 'Planifica, produce y revisa']].map(([n, title, text]) => <div key={n}><span>{n}</span><div><h3>{title}</h3><p>{text}</p></div></div>)}</div></>;
@@ -20,9 +22,10 @@ export function TenantSurface({ id, view }: { id: string; view: string }) {
  if (tenant.loading) return <Loading />;
  if (tenant.error) return <Problem error={tenant.error} retry={tenant.reload} />;
  if (!tenant.data) return <Empty title="No encontramos este espacio.">Vuelve a tus espacios de trabajo para continuar.</Empty>;
- if (view === 'sources') return <Sources tenant={tenant.data} refresh={tenant.reload} />;
- if (view === 'content-dna') return <DNA tenant={tenant.data} />;
- if (view === 'weekly' || view === 'free') return <Planner tenant={tenant.data} free={view === 'free'} key={id + view} />;
+ if (view === 'sources') return <><CreationGuide id={id}/><Sources tenant={tenant.data} refresh={tenant.reload} /></>;
+ if (view === 'content-dna') return <><CreationGuide id={id}/><DNA tenant={tenant.data} /></>;
+ if (view === 'weekly' || view === 'free') return <><CreationGuide id={id}/><Planner tenant={tenant.data} free={view === 'free'} key={id + view} /></>;
+ if(view==='creative-profiles')return <CreativeProfiles tenant={tenant.data}/>;
  return <Empty title="Esta sección no existe.">Elige una sección del menú de tu espacio.</Empty>;
 }
 function DashboardActivity({tenants}:{tenants:Item[]}) {

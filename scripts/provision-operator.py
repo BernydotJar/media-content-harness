@@ -19,6 +19,7 @@ def main():
     parser.add_argument('--name', required=True)
     parser.add_argument('--tenant', action='append', default=[], help='Explicit existing tenant membership (owner)')
     parser.add_argument('--can-create-tenants', action='store_true')
+    parser.add_argument('--system-admin', action='store_true', help='Explicit global integration management authority')
     args = parser.parse_args()
     if not re.fullmatch(r'[a-zA-Z0-9][a-zA-Z0-9_-]{1,127}', args.id):
         parser.error('invalid user id')
@@ -51,7 +52,7 @@ def main():
             parser.error('passwords do not match')
         salt = secrets.token_bytes(24)
         derived = hashlib.scrypt(password.encode(), salt=salt, n=16384, r=8, p=1, dklen=64, maxmem=64 * 1024 * 1024)
-        existing['users'].append({'id': args.id, 'email': identifier, 'name': args.name.strip(), 'password': {'salt': salt.hex(), 'hash': derived.hex()}, 'memberships': [{'tenant_id': t, 'role': 'owner'} for t in sorted(set(args.tenant))], 'can_create_tenants': args.can_create_tenants})
+        existing['users'].append({'id': args.id, 'email': identifier, 'name': args.name.strip(), 'password': {'salt': salt.hex(), 'hash': derived.hex()}, 'memberships': [{'tenant_id': t, 'role': 'owner'} for t in sorted(set(args.tenant))], 'can_create_tenants': args.can_create_tenants, 'system_admin': args.system_admin})
         fd, temporary = tempfile.mkstemp(prefix=path.name + '.', dir=path.parent)
         with os.fdopen(fd, 'w') as output:
             os.fchmod(output.fileno(), 0o600)

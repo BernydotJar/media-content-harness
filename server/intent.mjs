@@ -7,7 +7,7 @@ const quantityPattern=new RegExp('\\b(\\d+|'+numbers+')\\b','gi')
 const aiPattern=/\b(?:ia|ai|generativ\w*|synthetic|sint[eé]tic\w*)\b/i
 const noAI=text=>/\b(?:no|sin|nunca|without|never|do not|don't)\b[^,.;:]{0,45}\b(?:ia|ai|inteligencia artificial|generaci[oó]n)\b/i.test(text)
 function strategyOf(text){if(noAI(text))return 'REAL_FOOTAGE';if(/h[ií]brid|hybrid/i.test(text))return 'HYBRID';if(aiPattern.test(text))return 'GENERATIVE';if(/\breal\b|\bmaterial\b|footage/i.test(text))return 'REAL_FOOTAGE';return 'AUTO'}
-export function interpretDraft(input,tenant,dna){
+export function interpretDraft(input,tenant,dna,profiles=[]){
  const text=boundedText(input.text,'Creative request',4000);assertAudienceSafe(text);const clarification=[]
  const sourceIds=input.source_ids??tenant.sources.filter(s=>s.purpose==='source').map(s=>s.id)
  invariant(Array.isArray(sourceIds)&&new Set(sourceIds).size===sourceIds.length&&sourceIds.every(s=>typeof s==='string'&&tenant.sources.some(a=>a.id===s&&a.purpose==='source')),'INVALID_SOURCE','Select authorized production sources')
@@ -17,8 +17,9 @@ export function interpretDraft(input,tenant,dna){
  if(!count||count>12)clarification.push('Specify a batch of one to twelve videos.')
  if(!/(crea|haz|make|create|produc|video|vídeo|reel)/i.test(text))clarification.push('Describe the videos you want to create.')
  if(/\b(borra|elimina|delete|bypass|ignora.*(?:regla|aproba)|publica|publish|target|segmenta)\b/i.test(text))clarification.push('This input creates draft video concepts only; clarify the creative request.')
+ const principal=profiles.find(p=>p.kind==='character'&&p.principal&&p.rights_confirmed);
  const mascot=/caballito|mascota|mascot|horse/i.test(text)
- if(mascot&&!tenant.brand.mascot_asset_key)clarification.push('Configure an authorized mascot asset for the character video.')
+ if(mascot&&!tenant.brand.mascot_asset_key&&!principal)clarification.push('Configure an authorized mascot asset for the character video.')
  const quantities=[...text.matchAll(quantityPattern)]
  const clauses=[]
  for(let i=0;i<quantities.length;i++){
@@ -34,7 +35,7 @@ export function interpretDraft(input,tenant,dna){
  const stories=assignments.map((assignment,index)=>{
    const {strategy,mascot:useMascot}=assignment;const available=dna?.story_devices||[]
    const selected=useMascot&&available.includes('recurring-character-bridge')?['recurring-character-bridge']:available.slice(0,2)
-   return {id:'story-'+String(index+1).padStart(2,'0'),title:useMascot?'Historia con el caballito':strategy==='GENERATIVE'?'Exploración creativa con IA':'Historia '+(index+1),objective:useMascot?'Incorporar el personaje autorizado como recurso narrativo.':strategy==='GENERATIVE'?'Crear una pieza estilizada con IA y procedencia sintética explícita.':strategy==='HYBRID'?'Combinar las fuentes autorizadas con una ampliación sintética explícita.':'Contar una historia con las fuentes seleccionadas, conservando la procedencia documental.',source_ids:[...sourceIds],story_devices:selected,strategy,preferred_provider:'AUTO',mascot:useMascot}
+   return {id:'story-'+String(index+1).padStart(2,'0'),title:useMascot?'Historia con el caballito':strategy==='GENERATIVE'?'Exploración creativa con IA':'Historia '+(index+1),objective:useMascot?'Incorporar el personaje autorizado como recurso narrativo.':strategy==='GENERATIVE'?'Crear una pieza estilizada con IA y procedencia sintética explícita.':strategy==='HYBRID'?'Combinar las fuentes autorizadas con una ampliación sintética explícita.':'Contar una historia con las fuentes seleccionadas, conservando la procedencia documental.',source_ids:[...sourceIds],story_devices:selected,strategy,preferred_provider:'AUTO',mascot:useMascot,character_id:useMascot?principal?.id||null:null}
  })
  return {mode:'free',week_of:input.week_of,text,stories,clarifications:clarification,ready_to_save:clarification.length===0,interpretation:'Deterministic draft; review and edit each concept before approval.'}
 }

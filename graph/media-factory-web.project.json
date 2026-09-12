@@ -226,6 +226,80 @@
         "deploy/**",
         "assets/**"
       ]
+    },
+    {
+      "id": "WEB007-EASE",
+      "title": "Guided creation, truthful activity, fictional characters/places and admin integrations",
+      "kind": "product-completion",
+      "status": "spec_ready",
+      "depends_on": [
+        "WEB006-RELEASE"
+      ],
+      "capability": "media-factory-web",
+      "gates": {
+        "review": [
+          "implementation_quality"
+        ]
+      },
+      "allowed_paths": [
+        "server/**",
+        "app/**",
+        "components/**",
+        "scripts/**",
+        "tests/**",
+        "docs/**",
+        "specs/**",
+        "progress/**",
+        "graph/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "*.json",
+        "*.mjs",
+        "*.yml",
+        "Dockerfile",
+        ".gitignore",
+        ".dockerignore",
+        "README.md",
+        "deploy/**",
+        "assets/**"
+      ]
+    },
+    {
+      "id": "WEB008-EASE-RELEASE",
+      "title": "Independent changed-scope verification and signed deployment of ease-of-creation improvements",
+      "kind": "product-completion",
+      "status": "spec_ready",
+      "depends_on": [
+        "WEB007-EASE"
+      ],
+      "capability": "media-factory-web",
+      "gates": {
+        "review": [
+          "implementation_quality"
+        ]
+      },
+      "allowed_paths": [
+        "server/**",
+        "app/**",
+        "components/**",
+        "scripts/**",
+        "tests/**",
+        "docs/**",
+        "specs/**",
+        "progress/**",
+        "graph/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "*.json",
+        "*.mjs",
+        "*.yml",
+        "Dockerfile",
+        ".gitignore",
+        ".dockerignore",
+        "README.md",
+        "deploy/**",
+        "assets/**"
+      ]
     }
   ]
 }

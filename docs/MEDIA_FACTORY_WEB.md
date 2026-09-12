@@ -73,3 +73,20 @@ The host verifier exercises container restart and authenticated public session l
 ### Visual entry and discovery
 
 See `MEDIA_FACTORY_DESIGN.md` for original artwork, Libraries.dev/Radix sources, motion and accessibility behavior; `MEDIA_FACTORY_SEO.md` for metadata, custom 404, canonical/public indexing policy, robots/sitemap/llms and the shared edge boundary. The login uses the same `api('/auth/login')` helper, which maps to `/api/preview/login`; signed-in product calls keep the versioned API and server membership checks.
+
+
+## Crear con guía, personajes y lugares
+
+El panel de cada espacio muestra el siguiente paso y trabajos reales: borrador, solicitud registrada, revisión humana o bloqueo. Guardar no inicia producción. La guía exige material seleccionado, Content DNA y una intención por historia; las flechas llevan al siguiente paso válido. Los enlaces a un plan guardado recuperan ese plan.
+
+En **Personajes y lugares**, usa **Con el caballito de Firmes** para preparar su ficha autorizada como protagonista principal. Conserva la referencia, descripción y material autorizado; también puedes crear otras mascotas ficticias y fichas de lugares. Los datos de lugares son información aportada con una fuente, no investigación automáticamente verificada. Cada plan y trabajo conserva la revisión y hash de sus fichas. Cambiar la ficha después no cambia una historia ya guardada.
+
+El Modo libre reconoce el personaje principal cuando pides un video con el caballito. Revisa los conceptos antes de aprobarlos. La composición animada del personaje sigue requiriendo un adaptador de producción; actualmente el tratamiento se puede revisar y la producción mostrará el bloqueo concreto antes de intentar generar. No se sustituye el personaje por otro video.
+
+## Administración de APIs
+
+El operador del despliegue compartido tiene **APIs e integraciones** en el menú. Con un archivo explícito de identidades, solo usuarios con `system_admin: true` acceden; ser dueño de un espacio no basta. El provisionador permite `--system-admin` para asignar ese permiso explícitamente.
+
+Las claves se guardan cifradas con AES-256-GCM en el almacén privado y nunca se devuelven a la interfaz. Puedes reemplazarlas o retirarlas; el historial registra actor y fecha sin revelar secretos. Guarda copias de seguridad del almacén y de su clave separada, ambos bajo permisos privados: perder la clave impide recuperar las credenciales. El sistema falla sin regenerarla cuando existe ciphertext.
+
+Guardar una API no implementa un adaptador ni autoriza consumo. El presupuesto es una referencia administrativa, no un límite aplicado. FFmpeg funciona localmente con material real; Seedance, Higgsfield, CapCut y Gemini continúan identificados según su disponibilidad real. No hay registro público: el administrador provisiona usuarios. La URL y acceso existentes se conservan.
