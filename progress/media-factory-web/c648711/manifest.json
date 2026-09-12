@@ -1,0 +1,21 @@
+{
+  "candidate_sha": "c648711cd2cf53d6371c1de5504165f4b423eda8",
+  "files": {
+    "campaignos-c648711cd2cf53d6371c1de5504165f4b423eda8-final.json": "5511aabe4421630eb094e9bc126b601d34ffdf6aa9e22bc3d54a61678656871e",
+    "media-e2e-orphan-cleanup.json": "f567a4754c3de22f08d26714ded68461191eb2cda43502b4df82ad3283386aa2",
+    "media-final-build.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "media-factory-final-gates.py": "25cf5c36e32b22a8d4caaf9c546debd4922b57cc257b4368d4d1a9ce832f184e",
+    "risk-request.json": "401e83ba5525021bdafb0a3d3fd17dc7d6232e57948402fbdfe49220e6176013",
+    "media-final-build.log": "adcde248b3436a0256b144079feda521791a59dad6f69527421f74a9ca0a7c92",
+    "media-factory-final-gates.log": "467be53655b8bf37c051e0131d9f176072b3c3922f14b87b1f23a392212d382c",
+    "risk-raw.json": "f81d090e5c23e3fdfc75a4fb0624f576f295213423dc1abb5e9d91f97e29ec80",
+    "release-dossier.json": "8d589d080f655f92deb128e41c78bf5085ed92d60c36d90b1dbcf6118294c2f5",
+    "exact-source-manifest.json": "cb76f3e352fdec6772b7a87d20857ea20b7a902ea824743bb81ace5079aaa0d4",
+    "review-runtime-notes.md": "a0af919a66a4717cb63b7177578518494063e975855e2c3fefc6eea71e56634a",
+    "rubric-raw.json": "22b7fb1b4c1bb0e4e216d3b4c1bd7d13bafd44ff5d077b1dd3cc36186112f4cd",
+    "rubric-request.json": "c3bf711b6e71eb45d845d07601fc066380a8d6f642856b523fec405fe9d2bf81",
+    "campaignos-c648711cd2cf53d6371c1de5504165f4b423eda8-final.sig": "941e632bee3d731feca3429ee46e692ab92b5ff84bf667f08d1ded3ec0e10738",
+    "media-final-independent-packaging-audit.json": "88d111a693e93c926731d26172d340932592e836315cae12f63aeff693814f47",
+    "media-final-delta-verification.json": "bb46ed3499f08d782783a628fd52625342b9c89c1c05cd062e96b8369e8429de"
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "recorded_at": "2026-09-12T21:23:08.902342+00:00",
+  "scope": "orphan processes from completed failed E2E fixture only",
+  "fixture_runtime": "/tmp/media-factory-browser-e2e-xn3OT0/runtime",
+  "failure_log": "/tmp/media-addendum-e2e.log",
+  "before": {
+    "pid": 88383,
+    "exists": true,
+    "name": "next-server (v1",
+    "state": "S (sleeping)",
+    "parent_pid": 1,
+    "cwd": "/tmp/media-factory-browser-e2e-xn3OT0/runtime",
+    "exe": "/usr/local/bin/node",
+    "children": [],
+    "start_ticks": "47831707"
+  },
+  "signals_sent": [
+    {
+      "pid": 88383,
+      "signal": "SIGTERM"
+    }
+  ],
+  "after": {
+    "pid": 88383,
+    "exists": true,
+    "name": "next-server (v1",
+    "state": "Z (zombie)",
+    "parent_pid": 1,
+    "cwd": null,
+    "exe": null,
+    "children": [],
+    "start_ticks": "47831707"
+  },
+  "other_requested_pids": [
+    {
+      "pid": 88396,
+      "exists": true,
+      "name": "chromium",
+      "state": "Z (zombie)",
+      "parent_pid": 1,
+      "cwd": null,
+      "exe": null,
+      "children": [],
+      "start_ticks": "47831873"
+    },
+    {
+      "pid": 88489,
+      "exists": true,
+      "name": "chromium",
+      "state": "Z (zombie)",
+      "parent_pid": 1,
+      "cwd": null,
+      "exe": null,
+      "children": [],
+      "start_ticks": "47831981"
+    }
+  ],
+  "other_action": "Existing Chromium zombies are already stopped; no signal or parent action taken.",
+  "files_deleted": [],
+  "new_servers_started": 0
+}
