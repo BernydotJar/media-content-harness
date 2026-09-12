@@ -70,3 +70,15 @@ A repair reopens only the affected graph descendants. The implemented bounded FF
 The singleton starts recovery on Node startup. Durable approval/repair journals and exclusive job leases let recovery reconcile the existing graph before resuming. Never remove a job ledger or edit it to force success. Resolve source availability, missing provider capability or reviewer authorization and retry through the product action. Unknown paid submissions must be reconciled with the provider before retry support is added.
 
 Product activity carries tenant/job/stage/event/timestamps. Internal request failures log request ID, error class and safe code, excluding raw input, passwords, cookies and stack paths. Evidence and artifact hashes remain available through tenant-authorized projections. Workflow counts use operational production events; no persuasion scores, voter profiles or sensitive audience analytics are collected.
+
+## Current media and immutable release provenance
+
+A job projects `provider_execution` only for its current produced candidate. It contains the executed provider, completion status, artifact SHA-256, explicit test/synthetic flags, zero-credit estimate and allowlisted consumed source IDs/hashes. Private adapter paths and credential metadata are never projected. `source_assets` exposes authorized media metadata and hashes; it does not mean every authorized asset was used by a synthetic test fixture.
+
+Critic, independent verification and release bind the same current artifact and provider-execution digest. The worker revalidates that digest both before human approval and in the final repository transaction. A changed provenance record produces `PROVENANCE_CHANGED`; an existing approval cannot silently authorize it. Repair clears the current artifact/provenance display and requests a fresh candidate. Previous release records retain their own artifact, provider, source and review snapshots.
+
+Release responses include `version`, `aspect_ratio`, `candidate_sha`, `artifact_sha256`, `provider_execution`, `source_assets`, `reviews`, final `approval`, downloadable artifact URLs and `publication_state`. The library displays those snapshots. `READY_FOR_MANUAL_PUBLISH` means approved for manual handoff; it does not mean a social account has published the file.
+
+## Authorized media byte ranges
+
+`GET /api/v1/jobs/:jobId/artifacts/:artifactId` supports one HTTP byte range after current authentication, tenant authorization and complete artifact-integrity validation. Closed, open-ended and suffix ranges return 206 with exact `Content-Range`, `Content-Length` and strong SHA-derived ETag. Invalid or unsatisfiable byte ranges return 416. A matching strong `If-Range` permits a partial response; other validators, unknown units and valid multiple ranges return the full representation. Every response remains private/no-store. Range metadata never bypasses membership or file-integrity checks.

@@ -62,3 +62,14 @@ Production media review needs distinct producer, critic and independent-verifier
 Backup the private `media-factory-data` volume together with its identity configuration using the host's established storage procedure. Preserve the entire state/graph/assets/evidence set. Rollback means request an earlier signed immutable software candidate through the same reconciler while retaining compatible durable data; do not delete the volume or manufacture new approvals to recover a release.
 
 The final runtime is assembled by `scripts/prepare-runtime.mjs` from an explicit allowlist, excluding build traces, tests, progress, secrets and private data. It rejects dependency symlinks escaping the package. Docker and browser E2E use this same prepared tree; E2E boots its actual `server.js` from temporary isolated storage. Next tracing exclusions alone are not treated as proof of package contents.
+
+
+### Shared-host operator access and rollback
+
+The existing host reconciler creates or reuses a product-specific operator credential. After successful onboarding, the operator can inspect `/Users/eduardosacahui/.local/share/cloud-sandbox/secrets/media-factory.credentials.json` locally with administrative permissions and use its username/password at `/login`. Keep that file private and do not paste its values into chats or evidence. The application receives only the password verifier. No self-service password reset or automatic account rotation is claimed.
+
+The host verifier exercises container restart and authenticated public session lifecycle. Its automatic rollback covers shared edge configuration (Caddy/cloudflared); software rollback requires requesting a prior immutable archive with its existing valid signed receipt. First onboarding has no previous Media Factory release, so a previous-version application rollback cannot be claimed as tested. Persistent media data is not reset by software deployment.
+
+### Visual entry and discovery
+
+See `MEDIA_FACTORY_DESIGN.md` for original artwork, Libraries.dev/Radix sources, motion and accessibility behavior; `MEDIA_FACTORY_SEO.md` for metadata, custom 404, canonical/public indexing policy, robots/sitemap/llms and the shared edge boundary. The login uses the same `api('/auth/login')` helper, which maps to `/api/preview/login`; signed-in product calls keep the versioned API and server membership checks.

@@ -1,0 +1,166 @@
+TAP version 13
+# Subtest: actual pinned Graph runs to hash-bound treatment and release; fixture evidence stays test-labeled
+ok 1 - actual pinned Graph runs to hash-bound treatment and release; fixture evidence stays test-labeled
+  ---
+  duration_ms: 6108.448294
+  type: 'test'
+  ...
+# Subtest: cross-tenant actions and artifacts fail before data access; viewers cannot approve
+ok 2 - cross-tenant actions and artifacts fail before data access; viewers cannot approve
+  ---
+  duration_ms: 1892.507584
+  type: 'test'
+  ...
+# Subtest: localized repair invalidates candidate and descendants while preserving ingested upstream
+ok 3 - localized repair invalidates candidate and descendants while preserving ingested upstream
+  ---
+  duration_ms: 2992.133877
+  type: 'test'
+  ...
+# Subtest: source authorization and DNA changes invalidate human approval
+ok 4 - source authorization and DNA changes invalidate human approval
+  ---
+  duration_ms: 2011.477043
+  type: 'test'
+  ...
+# Subtest: restart recovery and double start preserve one Graph history
+ok 5 - restart recovery and double start preserve one Graph history
+  ---
+  duration_ms: 1895.693501
+  type: 'test'
+  ...
+# Subtest: production missing source bytes is blocked in actual Graph, no fixture adapter exposed
+ok 6 - production missing source bytes is blocked in actual Graph, no fixture adapter exposed
+  ---
+  duration_ms: 861.589625
+  type: 'test'
+  ...
+# Subtest: media inspection rejects playlists and local or network indirection before ffprobe
+ok 7 - media inspection rejects playlists and local or network indirection before ffprobe
+  ---
+  duration_ms: 5.659333
+  type: 'test'
+  ...
+# Subtest: provider failure remains a blocker and cannot create release evidence
+ok 8 - provider failure remains a blocker and cannot create release evidence
+  ---
+  duration_ms: 2676.646085
+  type: 'test'
+  ...
+# Subtest: real footage adapter preserves all selected sources, target dimensions, and ambient audio
+ok 9 - real footage adapter preserves all selected sources, target dimensions, and ambient audio
+  ---
+  duration_ms: 629.744
+  type: 'test'
+  ...
+# Subtest: production uploaded media binds creative candidate, separate real reviewers, and final release
+ok 10 - production uploaded media binds creative candidate, separate real reviewers, and final release
+  ---
+  duration_ms: 7309.615337
+  type: 'test'
+  ...
+# Subtest: same fixture bytes after localized media repair receive a fresh candidate scope
+ok 11 - same fixture bytes after localized media repair receive a fresh candidate scope
+  ---
+  duration_ms: 8557.282921
+  type: 'test'
+  ...
+# Subtest: approval intent survives a crash after Graph approval and resumes without a second decision
+ok 12 - approval intent survives a crash after Graph approval and resumes without a second decision
+  ---
+  duration_ms: 7429.297252
+  type: 'test'
+  ...
+# Subtest: production arbitrary creative repair remains manual and never silently rerenders
+ok 13 - production arbitrary creative repair remains manual and never silently rerenders
+  ---
+  duration_ms: 2803.029209
+  type: 'test'
+  ...
+# Subtest: stable artifact candidate is shared by verifier and release, with stage replay rejected
+ok 14 - stable artifact candidate is shared by verifier and release, with stage replay rejected
+  ---
+  duration_ms: 5244.780045
+  type: 'test'
+  ...
+# Subtest: mascot request fails closed rather than exporting ordinary footage as the character
+ok 15 - mascot request fails closed rather than exporting ordinary footage as the character
+  ---
+  duration_ms: 1332.620709
+  type: 'test'
+  ...
+# Subtest: actual adapter paid capability or nonzero estimate is blocked before generate
+ok 16 - actual adapter paid capability or nonzero estimate is blocked before generate
+  ---
+  duration_ms: 2897.809709
+  type: 'test'
+  ...
+# Subtest: repair intent survives a crash after Graph invalidation without duplicating repair plans
+ok 17 - repair intent survives a crash after Graph invalidation without duplicating repair plans
+  ---
+  duration_ms: 3041.201709
+  type: 'test'
+  ...
+# Subtest: kernel job lease excludes concurrent workers and ignores obsolete dead reclaim files
+ok 18 - kernel job lease excludes concurrent workers and ignores obsolete dead reclaim files
+  ---
+  duration_ms: 25.632708
+  type: 'test'
+  ...
+# Subtest: rejection intent survives a crash after blocking Graph and becomes terminal on recovery
+ok 19 - rejection intent survives a crash after blocking Graph and becomes terminal on recovery
+  ---
+  duration_ms: 2203.758334
+  type: 'test'
+  ...
+# Subtest: changed provider provenance invalidates review before Graph approval or release
+ok 20 - changed provider provenance invalidates review before Graph approval or release
+  ---
+  duration_ms: 5275.41267
+  type: 'test'
+  ...
+# Subtest: provenance drift during approval cannot enter the immutable release snapshot
+ok 21 - provenance drift during approval cannot enter the immutable release snapshot
+  ---
+  duration_ms: 6269.410543
+  type: 'test'
+  ...
+# Subtest: requested repair clears current output provenance and keeps historical artifact bytes
+ok 22 - requested repair clears current output provenance and keeps historical artifact bytes
+  ---
+  duration_ms: 5263.400794
+  type: 'test'
+  ...
+# Subtest: provider provenance records consumed bytes and excludes private adapter metadata
+ok 23 - provider provenance records consumed bytes and excludes private adapter metadata
+  ---
+  duration_ms: 3.226875
+  type: 'test'
+  ...
+# Subtest: provider cannot claim other sources, omit selected bytes, or relabel an adapter
+ok 24 - provider cannot claim other sources, omit selected bytes, or relabel an adapter
+  ---
+  duration_ms: 1.578709
+  type: 'test'
+  ...
+# Subtest: test origin remains explicit and cannot be represented as consumed customer footage
+ok 25 - test origin remains explicit and cannot be represented as consumed customer footage
+  ---
+  duration_ms: 0.552208
+  type: 'test'
+  ...
+# Subtest: job and tenant-authorized release expose immutable reviewed provenance, not mutable job state
+ok 26 - job and tenant-authorized release expose immutable reviewed provenance, not mutable job state
+  ---
+  duration_ms: 22.92275
+  type: 'test'
+  ...
+1..26
+# tests 26
+# suites 0
+# pass 26
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 77040.278451

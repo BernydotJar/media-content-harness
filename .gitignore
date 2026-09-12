@@ -10,3 +10,4 @@ test-results/
 .pnpm-store/
 data/
 __pycache__/
+work/

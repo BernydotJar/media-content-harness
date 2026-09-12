@@ -1,0 +1,77 @@
+{
+  "candidate_sha": null,
+  "configured_health_release_sha": "83d7783ba860266e249691edd610f7086cffb733",
+  "working_tree_dirty": true,
+  "build_id": "eO9WwJNfynweo0veAMHCu",
+  "runtime_package": {
+    "format": "media-factory-runtime.v1",
+    "files": 1453,
+    "manifest_sha256": "ed7bffd03ea908c43463ffeb5d3d8efc149efb561c0f19deab967558da63b661",
+    "build_id": "eO9WwJNfynweo0veAMHCu",
+    "forbidden_entries": 0,
+    "external_symlinks": 0
+  },
+  "production_source_sha256": "1ea358cb50aa95d25eab40064df4621c7abc5c3aa0c437c8757b56490a90e3f1",
+  "test_only": true,
+  "temporary_storage": true,
+  "elapsed_ms": 15761,
+  "result": {
+    "status": "PASS",
+    "checks": [
+      "exact health identity",
+      "packaged authenticated service readiness and pinned Graph",
+      "anonymous API denied",
+      "public discovery endpoints exclude private resources and preview indexing",
+      "unknown route returns semantic custom 404 without authentication or reflected identifiers",
+      "public login metadata, trusted canonical and generated 1200x630 social image",
+      "original hero loads actual bundled image bytes with descriptive alternative text",
+      "hero motion pauses on demand, reduced motion and simulated hidden-document visibility",
+      "mobile hero and accessible sign-in remain ordered with no horizontal overflow",
+      "login and honest empty dashboard",
+      "private dashboard has generic page title and no indexing or canonical identity",
+      "quick create without tenants offers only workspace onboarding",
+      "workspace onboarding and authority-separated sources",
+      "reference proof upload and Content DNA",
+      "explicit tenant mascot source binding",
+      "Guided draft through shared contracts without approval side effects",
+      "exact four-video natural-language request strategies",
+      "asynchronous real pinned Graph reaches creative human gate",
+      "SSE progression and visibly marked deterministic provider fixture",
+      "hash-bound release and authenticated downloadable artifact",
+      "authenticated video byte ranges and browser preview seeking",
+      "released version visibly shows approved hashes, reviewer and actual provider provenance",
+      "release library",
+      "release library details and actual browser download match approved master hash",
+      "mobile release details and hash provenance fit the 390px viewport",
+      "tenant switching keeps plans separate",
+      "responsive mobile navigation and no horizontal overflow",
+      "quick create keyboard submenu and Escape restore focus",
+      "quick create keyboard selection navigates to the existing tenant Free Mode",
+      "safe diagonal pointer path preserves the intended submenu across sibling rows",
+      "touch opens a submenu and navigates without hover or horizontal overflow",
+      "real request loading retains accessible status and pauses decorative orb for reduced motion and simulated hidden visibility",
+      "no uncaught browser errors"
+    ],
+    "job_id": "mf_8eb5afaace3cb02ed5bee49f000b4180",
+    "release_candidate_sha": "b459db2a62ab239c0548bc8608f55dbef7ce115d2aafad718db41ea6d390bbee",
+    "artifact_sha256": "0fe5ea45fda5a9cadb8ce1e623c0db288ca849b1d53415539fd8aa4d682c9af1",
+    "download_sha256": "0fe5ea45fda5a9cadb8ce1e623c0db288ca849b1d53415539fd8aa4d682c9af1",
+    "release_id": "release_7108c2838d574121091cfa80",
+    "provider": "deterministic-test",
+    "media_responses": [
+      {
+        "status": 206,
+        "range": "bytes=0-",
+        "content_range": "bytes 0-2300/2301"
+      }
+    ],
+    "seeking": {
+      "duration": 1,
+      "target": 0.5,
+      "current_time": 0.5,
+      "ready_state": 4,
+      "error": null
+    }
+  },
+  "evidence_directory": "/tmp/media-factory-browser-e2e-iRYEhl"
+}

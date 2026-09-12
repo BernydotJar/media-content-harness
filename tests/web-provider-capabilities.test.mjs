@@ -1,0 +1,5 @@
+import test from 'node:test'
+import assert from 'node:assert/strict'
+import { ProviderRegistry } from '../server/providers.mjs'
+import { FFmpegAdapter } from '../server/worker-adapters.mjs'
+test('configured FFmpeg registry agrees with executable strategies and rejects hybrid preference',()=>{const adapter=new FFmpegAdapter(),registry=new ProviderRegistry({adapters:{ffmpeg:adapter}});const provider=registry.list().find(p=>p.id==='ffmpeg');assert.equal(provider.available,true);assert.deepEqual(provider.strategies,adapter.capabilities().strategies);assert.deepEqual(registry.validate('REAL_FOOTAGE','ffmpeg'),{strategy:'REAL_FOOTAGE',preferred_provider:'ffmpeg'});assert.throws(()=>registry.validate('HYBRID','ffmpeg'),{code:'PROVIDER_CAPABILITY'});assert.throws(()=>registry.validate('GENERATIVE','ffmpeg'),{code:'PROVIDER_CAPABILITY'});for(const id of ['seedance','higgsfield','capcut','gemini']){assert.equal(registry.list().find(p=>p.id===id).available,false);assert.throws(()=>registry.get(id),{code:'PROVIDER_UNAVAILABLE'})}})

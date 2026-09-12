@@ -1,0 +1,46 @@
+TAP version 13
+# Subtest: artifact download advertises byte ranges and preserves full-file integrity metadata
+ok 1 - artifact download advertises byte ranges and preserves full-file integrity metadata
+  ---
+  duration_ms: 150.627292
+  type: 'test'
+  ...
+# Subtest: single ranges return exact closed, open-ended and suffix bytes with clamped boundaries
+ok 2 - single ranges return exact closed, open-ended and suffix bytes with clamped boundaries
+  ---
+  duration_ms: 150.022875
+  type: 'test'
+  ...
+# Subtest: invalid and unsatisfiable single byte ranges return bounded 416 responses
+ok 3 - invalid and unsatisfiable single byte ranges return bounded 416 responses
+  ---
+  duration_ms: 220.284375
+  type: 'test'
+  ...
+# Subtest: If-Range requires the strong current ETag; unknown units and multipart fall back to full bytes
+ok 4 - If-Range requires the strong current ETag; unknown units and multipart fall back to full bytes
+  ---
+  duration_ms: 86.901084
+  type: 'test'
+  ...
+# Subtest: range requests enforce fresh session and tenant authorization before revealing metadata
+ok 5 - range requests enforce fresh session and tenant authorization before revealing metadata
+  ---
+  duration_ms: 77.93125
+  type: 'test'
+  ...
+# Subtest: range processing cannot bypass the artifact integrity gate
+ok 6 - range processing cannot bypass the artifact integrity gate
+  ---
+  duration_ms: 113.232583
+  type: 'test'
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 6
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1071.030292

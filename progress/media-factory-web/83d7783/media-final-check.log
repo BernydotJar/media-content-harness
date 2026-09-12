@@ -1,0 +1,548 @@
+$ pnpm run test && pnpm run validate:examples
+$ node --test tests/*.test.mjs
+TAP version 13
+# Subtest: requires fail-closed read-only policy
+ok 1 - requires fail-closed read-only policy
+  ---
+  duration_ms: 0.867375
+  type: 'test'
+  ...
+# Subtest: authorizes only the explicit source scope
+ok 2 - authorizes only the explicit source scope
+  ---
+  duration_ms: 0.353916
+  type: 'test'
+  ...
+# Subtest: rejects browser mutation and credential-bearing locators
+ok 3 - rejects browser mutation and credential-bearing locators
+  ---
+  duration_ms: 2.064208
+  type: 'test'
+  ...
+# Subtest: sanitizes observations to bounded public evidence fields
+ok 4 - sanitizes observations to bounded public evidence fields
+  ---
+  duration_ms: 1.472334
+  type: 'test'
+  ...
+# Subtest: registers mediaBrowserPolicy through Cordis provide
+ok 5 - registers mediaBrowserPolicy through Cordis provide
+  ---
+  duration_ms: 0.136417
+  type: 'test'
+  ...
+# Subtest: configuration may narrow but never widen the read-only allowlist
+ok 6 - configuration may narrow but never widen the read-only allowlist
+  ---
+  duration_ms: 0.0915
+  type: 'test'
+  ...
+# Subtest: prefix authorization is path-bounded and sensitive locators are rejected
+ok 7 - prefix authorization is path-bounded and sensitive locators are rejected
+  ---
+  duration_ms: 0.644292
+  type: 'test'
+  ...
+# Subtest: fails closed without runtime, pin, or absolute executables
+ok 8 - fails closed without runtime, pin, or absolute executables
+  ---
+  duration_ms: 1.0025
+  type: 'test'
+  ...
+# Subtest: rejects lexical graph path escape before graph command execution
+ok 9 - rejects lexical graph path escape before graph command execution
+  ---
+  duration_ms: 0.463625
+  type: 'test'
+  ...
+# Subtest: rejects canonical symlink escape from projectRoot
+ok 10 - rejects canonical symlink escape from projectRoot
+  ---
+  duration_ms: 16.584292
+  type: 'test'
+  ...
+# Subtest: rejects an events symlink even when its current target is missing
+ok 11 - rejects an events symlink even when its current target is missing
+  ---
+  duration_ms: 4.770042
+  type: 'test'
+  ...
+# Subtest: registers ctx.mediaGraph using Cordis provide()
+ok 12 - registers ctx.mediaGraph using Cordis provide()
+  ---
+  duration_ms: 0.260416
+  type: 'test'
+  ...
+# Subtest: uses argv flag=value framing and optimistic concurrency without a shell
+ok 13 - uses argv flag=value framing and optimistic concurrency without a shell
+  ---
+  duration_ms: 9.997334
+  type: 'test'
+  ...
+# Subtest: omits --evidence when a non-passing gate has no evidence ids
+ok 14 - omits --evidence when a non-passing gate has no evidence ids
+  ---
+  duration_ms: 3.277916
+  type: 'test'
+  ...
+# Subtest: sanitizes git and python environments
+ok 15 - sanitizes git and python environments
+  ---
+  duration_ms: 5.510416
+  type: 'test'
+  ...
+# Subtest: rejects a drifted Graph Harness runtime revision
+ok 16 - rejects a drifted Graph Harness runtime revision
+  ---
+  duration_ms: 0.618208
+  type: 'test'
+  ...
+# Subtest: integration: real Graph Harness exposes BRIEF flow and SOURCE readiness
+ok 17 - integration: real Graph Harness exposes BRIEF flow and SOURCE readiness
+  ---
+  duration_ms: 1859.72471
+  type: 'test'
+  ...
+# Subtest: reference observation keeps provenance separate from source copy
+ok 18 - reference observation keeps provenance separate from source copy
+  ---
+  duration_ms: 8.345042
+  type: 'test'
+  ...
+# Subtest: content DNA contains abstractions but not reference bytes or locators
+ok 19 - content DNA contains abstractions but not reference bytes or locators
+  ---
+  duration_ms: 3.465958
+  type: 'test'
+  ...
+# Subtest: content DNA provenance references a structured observation from the same tenant
+ok 20 - content DNA provenance references a structured observation from the same tenant
+  ---
+  duration_ms: 1.870583
+  type: 'test'
+  ...
+# Subtest: schemas fail closed on undeclared fields
+ok 21 - schemas fail closed on undeclared fields
+  ---
+  duration_ms: 4.800167
+  type: 'test'
+  ...
+# Subtest: story devices use a controlled abstraction vocabulary
+ok 22 - story devices use a controlled abstraction vocabulary
+  ---
+  duration_ms: 1.620208
+  type: 'test'
+  ...
+# Subtest: accepts the canonical safe Seedance 2.5 policy
+ok 23 - accepts the canonical safe Seedance 2.5 policy
+  ---
+  duration_ms: 0.638333
+  type: 'test'
+  ...
+# Subtest: rejects credit spend without a human gate
+ok 24 - rejects credit spend without a human gate
+  ---
+  duration_ms: 0.243458
+  type: 'test'
+  ...
+# Subtest: rejects synthetic factual-event reconstruction
+ok 25 - rejects synthetic factual-event reconstruction
+  ---
+  duration_ms: 0.100042
+  type: 'test'
+  ...
+# Subtest: rejects undeclared synthetic use classes
+ok 26 - rejects undeclared synthetic use classes
+  ---
+  duration_ms: 0.116083
+  type: 'test'
+  ...
+# Subtest: accepts a reusable general-audience tenant profile
+ok 27 - accepts a reusable general-audience tenant profile
+  ---
+  duration_ms: 5.229792
+  type: 'test'
+  ...
+# Subtest: rejects raw credentials and browser session material at any depth
+ok 28 - rejects raw credentials and browser session material at any depth
+  ---
+  duration_ms: 1.298458
+  type: 'test'
+  ...
+# Subtest: browser context references are opaque and tenant-owned
+ok 29 - browser context references are opaque and tenant-owned
+  ---
+  duration_ms: 0.403
+  type: 'test'
+  ...
+# Subtest: runtime namespaces and tenant IDs cannot collide
+ok 30 - runtime namespaces and tenant IDs cannot collide
+  ---
+  duration_ms: 0.512792
+  type: 'test'
+  ...
+# Subtest: public-affairs profiles remain general-audience and cannot enable voter microtargeting
+ok 31 - public-affairs profiles remain general-audience and cannot enable voter microtargeting
+  ---
+  duration_ms: 0.276667
+  type: 'test'
+  ...
+# Subtest: source authorization is explicit, unique, and secret-free
+ok 32 - source authorization is explicit, unique, and secret-free
+  ---
+  duration_ms: 0.4805
+  type: 'test'
+  ...
+# Subtest: production defaults require an ascending positive duration range
+ok 33 - production defaults require an ascending positive duration range
+  ---
+  duration_ms: 0.181917
+  type: 'test'
+  ...
+# Subtest: registers tenant service through Cordis provide
+ok 34 - registers tenant service through Cordis provide
+  ---
+  duration_ms: 0.151458
+  type: 'test'
+  ...
+# Subtest: authorization is semantic only inside a declared source record
+ok 35 - authorization is semantic only inside a declared source record
+  ---
+  duration_ms: 0.488917
+  type: 'test'
+  ...
+# Subtest: two distinct tenants can safely share the reusable engine
+ok 36 - two distinct tenants can safely share the reusable engine
+  ---
+  duration_ms: 1.206375
+  type: 'test'
+  ...
+# Subtest: builds a weekly video-production plan from tenant + DNA + approved stories
+ok 37 - builds a weekly video-production plan from tenant + DNA + approved stories
+  ---
+  duration_ms: 16.835333
+  type: 'test'
+  ...
+# Subtest: production jobs cannot treat a reference-only source as production media
+ok 38 - production jobs cannot treat a reference-only source as production media
+  ---
+  duration_ms: 2.453875
+  type: 'test'
+  ...
+# Subtest: rejects unknown sources and story devices outside Content DNA
+ok 39 - rejects unknown sources and story devices outside Content DNA
+  ---
+  duration_ms: 1.546666
+  type: 'test'
+  ...
+# Subtest: rejects unapproved stories and undeclared story fields
+ok 40 - rejects unapproved stories and undeclared story fields
+  ---
+  duration_ms: 1.310416
+  type: 'test'
+  ...
+# Subtest: rejects cross-tenant DNA and copying-policy drift
+ok 41 - rejects cross-tenant DNA and copying-policy drift
+  ---
+  duration_ms: 1.389959
+  type: 'test'
+  ...
+# Subtest: rejects invalid dates, duplicate job ids, and duplicate source ids
+ok 42 - rejects invalid dates, duplicate job ids, and duplicate source ids
+  ---
+  duration_ms: 4.587166
+  type: 'test'
+  ...
+# Subtest: source snapshot contains only production sources actually used by the weekly jobs
+ok 43 - source snapshot contains only production sources actually used by the weekly jobs
+  ---
+  duration_ms: 1.086958
+  type: 'test'
+  ...
+# Subtest: registers weekly factory through Cordis provide
+ok 44 - registers weekly factory through Cordis provide
+  ---
+  duration_ms: 0.116125
+  type: 'test'
+  ...
+# Subtest: weekly planner requires weekly cadence, Monday boundary, and unique DNA references
+ok 45 - weekly planner requires weekly cadence, Monday boundary, and unique DNA references
+  ---
+  duration_ms: 1.459042
+  type: 'test'
+  ...
+# Subtest: actual pinned Graph runs to hash-bound treatment and release; fixture evidence stays test-labeled
+ok 46 - actual pinned Graph runs to hash-bound treatment and release; fixture evidence stays test-labeled
+  ---
+  duration_ms: 10161.463046
+  type: 'test'
+  ...
+# Subtest: cross-tenant actions and artifacts fail before data access; viewers cannot approve
+ok 47 - cross-tenant actions and artifacts fail before data access; viewers cannot approve
+  ---
+  duration_ms: 2940.723585
+  type: 'test'
+  ...
+# Subtest: localized repair invalidates candidate and descendants while preserving ingested upstream
+ok 48 - localized repair invalidates candidate and descendants while preserving ingested upstream
+  ---
+  duration_ms: 4855.372502
+  type: 'test'
+  ...
+# Subtest: source authorization and DNA changes invalidate human approval
+ok 49 - source authorization and DNA changes invalidate human approval
+  ---
+  duration_ms: 2367.215377
+  type: 'test'
+  ...
+# Subtest: restart recovery and double start preserve one Graph history
+ok 50 - restart recovery and double start preserve one Graph history
+  ---
+  duration_ms: 2200.636751
+  type: 'test'
+  ...
+# Subtest: production missing source bytes is blocked in actual Graph, no fixture adapter exposed
+ok 51 - production missing source bytes is blocked in actual Graph, no fixture adapter exposed
+  ---
+  duration_ms: 1080.206626
+  type: 'test'
+  ...
+# Subtest: media inspection rejects playlists and local or network indirection before ffprobe
+ok 52 - media inspection rejects playlists and local or network indirection before ffprobe
+  ---
+  duration_ms: 18.656791
+  type: 'test'
+  ...
+# Subtest: provider failure remains a blocker and cannot create release evidence
+ok 53 - provider failure remains a blocker and cannot create release evidence
+  ---
+  duration_ms: 3177.575835
+  type: 'test'
+  ...
+# Subtest: real footage adapter preserves all selected sources, target dimensions, and ambient audio
+ok 54 - real footage adapter preserves all selected sources, target dimensions, and ambient audio
+  ---
+  duration_ms: 445.750458
+  type: 'test'
+  ...
+# Subtest: production uploaded media binds creative candidate, separate real reviewers, and final release
+ok 55 - production uploaded media binds creative candidate, separate real reviewers, and final release
+  ---
+  duration_ms: 7085.951961
+  type: 'test'
+  ...
+# Subtest: same fixture bytes after localized media repair receive a fresh candidate scope
+ok 56 - same fixture bytes after localized media repair receive a fresh candidate scope
+  ---
+  duration_ms: 7616.012587
+  type: 'test'
+  ...
+# Subtest: approval intent survives a crash after Graph approval and resumes without a second decision
+ok 57 - approval intent survives a crash after Graph approval and resumes without a second decision
+  ---
+  duration_ms: 5207.955085
+  type: 'test'
+  ...
+# Subtest: production arbitrary creative repair remains manual and never silently rerenders
+ok 58 - production arbitrary creative repair remains manual and never silently rerenders
+  ---
+  duration_ms: 1907.415543
+  type: 'test'
+  ...
+# Subtest: stable artifact candidate is shared by verifier and release, with stage replay rejected
+ok 59 - stable artifact candidate is shared by verifier and release, with stage replay rejected
+  ---
+  duration_ms: 4996.993336
+  type: 'test'
+  ...
+# Subtest: mascot request fails closed rather than exporting ordinary footage as the character
+ok 60 - mascot request fails closed rather than exporting ordinary footage as the character
+  ---
+  duration_ms: 1266.255251
+  type: 'test'
+  ...
+# Subtest: actual adapter paid capability or nonzero estimate is blocked before generate
+ok 61 - actual adapter paid capability or nonzero estimate is blocked before generate
+  ---
+  duration_ms: 2736.221501
+  type: 'test'
+  ...
+# Subtest: repair intent survives a crash after Graph invalidation without duplicating repair plans
+ok 62 - repair intent survives a crash after Graph invalidation without duplicating repair plans
+  ---
+  duration_ms: 2808.963792
+  type: 'test'
+  ...
+# Subtest: kernel job lease excludes concurrent workers and ignores obsolete dead reclaim files
+ok 63 - kernel job lease excludes concurrent workers and ignores obsolete dead reclaim files
+  ---
+  duration_ms: 18.477625
+  type: 'test'
+  ...
+# Subtest: rejection intent survives a crash after blocking Graph and becomes terminal on recovery
+ok 64 - rejection intent survives a crash after blocking Graph and becomes terminal on recovery
+  ---
+  duration_ms: 1970.093501
+  type: 'test'
+  ...
+# Subtest: existing host login, forward auth, exact workspace probe, logout and revocation share product session
+ok 65 - existing host login, forward auth, exact workspace probe, logout and revocation share product session
+  ---
+  duration_ms: 454.481917
+  type: 'test'
+  ...
+# Subtest: operator provisioning uses interoperable private verifiers and preserves an existing identity
+ok 66 - operator provisioning uses interoperable private verifiers and preserves an existing identity
+  ---
+  duration_ms: 291.820917
+  type: 'test'
+  ...
+# Subtest: runtime allowlist omits traces and source evidence, protects existing destinations, rejects escaping dependencies
+ok 67 - runtime allowlist omits traces and source evidence, protects existing destinations, rejects escaping dependencies
+  ---
+  duration_ms: 182.390333
+  type: 'test'
+  ...
+# Subtest: authentication preserves password bytes, revokes changed identity and starts without tenants
+ok 68 - authentication preserves password bytes, revokes changed identity and starts without tenants
+  ---
+  duration_ms: 193.336833
+  type: 'test'
+  ...
+# Subtest: tenant membership enforced for reads/writes and onboarding has no fake source
+ok 69 - tenant membership enforced for reads/writes and onboarding has no fake source
+  ---
+  duration_ms: 147.459833
+  type: 'test'
+  ...
+# Subtest: strict source/reference separation, provenance and secret validation
+ok 70 - strict source/reference separation, provenance and secret validation
+  ---
+  duration_ms: 134.886625
+  type: 'test'
+  ...
+# Subtest: private, browser and signed source locators are rejected
+ok 71 - private, browser and signed source locators are rejected
+  ---
+  duration_ms: 0.563708
+  type: 'test'
+  ...
+# Subtest: plans reject injected approval and produce same id under concurrent requests
+ok 72 - plans reject injected approval and produce same id under concurrent requests
+  ---
+  duration_ms: 187.699292
+  type: 'test'
+  ...
+# Subtest: source/DNA changes invalidate plans and idempotency includes strategy
+ok 73 - source/DNA changes invalidate plans and idempotency includes strategy
+  ---
+  duration_ms: 136.573959
+  type: 'test'
+  ...
+# Subtest: Free Mode exact mixed Spanish example becomes four unapproved concepts, no-AI remains real
+ok 74 - Free Mode exact mixed Spanish example becomes four unapproved concepts, no-AI remains real
+  ---
+  duration_ms: 116.01725
+  type: 'test'
+  ...
+# Subtest: targeted political or sensitive persuasion cannot enter plans/intent
+ok 75 - targeted political or sensitive persuasion cannot enter plans/intent
+  ---
+  duration_ms: 126.070542
+  type: 'test'
+  ...
+# Subtest: HTTP cookies, CSRF, malformed body, path traversal and safe errors
+ok 76 - HTTP cookies, CSRF, malformed body, path traversal and safe errors
+  ---
+  duration_ms: 134.219333
+  type: 'test'
+  ...
+# Subtest: repository serializes separate instances and rejects symlink state
+ok 77 - repository serializes separate instances and rejects symlink state
+  ---
+  duration_ms: 52.666375
+  type: 'test'
+  ...
+# Subtest: SSE rejects unauthorized reads and pushes durable state updates
+ok 78 - SSE rejects unauthorized reads and pushes durable state updates
+  ---
+  duration_ms: 133.562667
+  type: 'test'
+  ...
+# Subtest: HTTP rejects declared and streamed oversized JSON before parsing
+ok 79 - HTTP rejects declared and streamed oversized JSON before parsing
+  ---
+  duration_ms: 91.449042
+  type: 'test'
+  ...
+# Subtest: viewer cannot approve concepts and configured identity roles override persisted memberships
+ok 80 - viewer cannot approve concepts and configured identity roles override persisted memberships
+  ---
+  duration_ms: 123.876667
+  type: 'test'
+  ...
+# Subtest: reference DNA requires evidence bytes actually stored for the selected reference
+ok 81 - reference DNA requires evidence bytes actually stored for the selected reference
+  ---
+  duration_ms: 105.020042
+  type: 'test'
+  ...
+# Subtest: malformed durable state fails closed with controlled storage error
+ok 82 - malformed durable state fails closed with controlled storage error
+  ---
+  duration_ms: 1.316625
+  type: 'test'
+  ...
+# Subtest: ProductError identity remains stable across independently evaluated server bundles
+ok 83 - ProductError identity remains stable across independently evaluated server bundles
+  ---
+  duration_ms: 8.614625
+  type: 'test'
+  ...
+# Subtest: stored reference evidence tampering invalidates DNA analysis
+ok 84 - stored reference evidence tampering invalidates DNA analysis
+  ---
+  duration_ms: 110.464875
+  type: 'test'
+  ...
+# Subtest: mascot setup binds a selected production source and rejects a reference
+ok 85 - mascot setup binds a selected production source and rejects a reference
+  ---
+  duration_ms: 114.359709
+  type: 'test'
+  ...
+# Subtest: Free Mode respects indirect AI negations and explicit alternative distributions
+ok 86 - Free Mode respects indirect AI negations and explicit alternative distributions
+  ---
+  duration_ms: 107.23025
+  type: 'test'
+  ...
+# Subtest: login concurrency limit reserves capacity before awaiting identity loading
+ok 87 - login concurrency limit reserves capacity before awaiting identity loading
+  ---
+  duration_ms: 121.330458
+  type: 'test'
+  ...
+# Subtest: legacy planner contract rejection returns a controlled HTTP 400
+ok 88 - legacy planner contract rejection returns a controlled HTTP 400
+  ---
+  duration_ms: 90.398041
+  type: 'test'
+  ...
+# Subtest: browser exception call logs redact fixture passwords before reporting
+ok 89 - browser exception call logs redact fixture passwords before reporting
+  ---
+  duration_ms: 0.307333
+  type: 'test'
+  ...
+1..89
+# tests 89
+# suites 0
+# pass 89
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 63884.833821
+$ node scripts/validate-examples.mjs
+{"valid":true,"files":13}

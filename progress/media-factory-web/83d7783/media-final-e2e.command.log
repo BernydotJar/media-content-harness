@@ -1,0 +1,42 @@
+$ node scripts/test-e2e.mjs -- --require-clean
+{
+  "candidate_sha": "83d7783ba860266e249691edd610f7086cffb733",
+  "configured_health_release_sha": "83d7783ba860266e249691edd610f7086cffb733",
+  "working_tree_dirty": false,
+  "build_id": "wBB0buDMgeli7HDE1l1Gh",
+  "runtime_package": {
+    "format": "media-factory-runtime.v1",
+    "files": 1392,
+    "manifest_sha256": "3ad369f564eeaab812698e67a279bed9c2d288893621851ca9e6f22f26fbd7c7",
+    "build_id": "wBB0buDMgeli7HDE1l1Gh",
+    "forbidden_entries": 0,
+    "external_symlinks": 0
+  },
+  "production_source_sha256": "30abdee6220a3850519b3ed1489d8f29958c97d1d999d50bcc2f984d01b338fe",
+  "test_only": true,
+  "temporary_storage": true,
+  "elapsed_ms": 13349,
+  "result": {
+    "status": "PASS",
+    "checks": [
+      "exact health identity",
+      "anonymous API denied",
+      "login and honest empty dashboard",
+      "workspace onboarding and authority-separated sources",
+      "reference proof upload and Content DNA",
+      "explicit tenant mascot source binding",
+      "Guided draft through shared contracts without approval side effects",
+      "exact four-video natural-language request strategies",
+      "asynchronous real pinned Graph reaches creative human gate",
+      "SSE progression and visibly marked deterministic provider fixture",
+      "hash-bound release and authenticated downloadable artifact",
+      "release library",
+      "tenant switching keeps plans separate",
+      "responsive mobile navigation and no horizontal overflow",
+      "no uncaught browser errors"
+    ],
+    "job_id": "mf_9db6f86f17f54516c5f8dd9c07a01a4b",
+    "release_candidate_sha": "fd7476c445888261d46c00c20d6be75d58299d572aabc0f665bf40f8dd945c9d"
+  },
+  "evidence_directory": "/tmp/media-factory-browser-e2e-uE3uy8"
+}

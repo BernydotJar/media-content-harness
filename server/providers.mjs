@@ -5,7 +5,7 @@ const declarations = [
   {id:'higgsfield',name:'Higgsfield',strategies:['HYBRID','GENERATIVE'],capabilities:['stylized-generation'],credit_bearing:true},
   {id:'capcut',name:'CapCut',strategies:['REAL_FOOTAGE','HYBRID'],capabilities:['editing','finishing'],credit_bearing:false},
   {id:'gemini',name:'Gemini',strategies:['AUTO','REAL_FOOTAGE','HYBRID','GENERATIVE'],capabilities:['creative-direction','analysis'],credit_bearing:true},
-  {id:'ffmpeg',name:'FFmpeg',strategies:['REAL_FOOTAGE','HYBRID'],capabilities:['editing','technical-qa'],credit_bearing:false},
+  {id:'ffmpeg',name:'FFmpeg',strategies:['REAL_FOOTAGE'],capabilities:['editing','technical-qa'],credit_bearing:false},
 ]
 export class ProviderRegistry {
   constructor({ adapters = {}, testMode = false } = {}) { this.adapters = new Map(); for (const [id,adapter] of Object.entries(adapters)) { invariant(declarations.some(d=>d.id===id) || (testMode && id==='deterministic-test'), 'INVALID_PROVIDER', 'Unknown provider adapter'); for (const method of ['capabilities','estimate','prepare','generate','poll','collect','provenance']) invariant(typeof adapter[method]==='function','INVALID_PROVIDER','Provider adapter contract is incomplete'); this.adapters.set(id,adapter) }; this.testMode=testMode }

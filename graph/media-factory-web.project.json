@@ -43,7 +43,8 @@
         "Dockerfile",
         ".gitignore",
         ".dockerignore",
-        "README.md"
+        "README.md",
+        "assets/**"
       ]
     },
     {
@@ -76,7 +77,8 @@
         "Dockerfile",
         ".gitignore",
         ".dockerignore",
-        "README.md"
+        "README.md",
+        "assets/**"
       ]
     },
     {
@@ -109,7 +111,8 @@
         "Dockerfile",
         ".gitignore",
         ".dockerignore",
-        "README.md"
+        "README.md",
+        "assets/**"
       ]
     },
     {
@@ -146,7 +149,8 @@
         "Dockerfile",
         ".gitignore",
         ".dockerignore",
-        "README.md"
+        "README.md",
+        "assets/**"
       ]
     },
     {
@@ -182,7 +186,8 @@
         ".gitignore",
         ".dockerignore",
         "README.md",
-        "deploy/**"
+        "deploy/**",
+        "assets/**"
       ]
     },
     {
@@ -218,7 +223,8 @@
         ".gitignore",
         ".dockerignore",
         "README.md",
-        "deploy/**"
+        "deploy/**",
+        "assets/**"
       ]
     }
   ]

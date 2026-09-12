@@ -1,0 +1,26 @@
+{
+  "candidate_sha": "83d7783ba860266e249691edd610f7086cffb733",
+  "working_tree_clean": true,
+  "typecheck_build_e2e_exit_code": "0",
+  "build_id": "wBB0buDMgeli7HDE1l1Gh",
+  "production_source_sha256": "30abdee6220a3850519b3ed1489d8f29958c97d1d999d50bcc2f984d01b338fe",
+  "e2e_status": "PASS",
+  "e2e_checks": 15,
+  "configured_health_release_sha": "83d7783ba860266e249691edd610f7086cffb733",
+  "executed_runtime_directory": "/tmp/media-factory-browser-e2e-uE3uy8/runtime",
+  "entrypoint": "/tmp/media-factory-browser-e2e-uE3uy8/runtime/server.js",
+  "runtime_package": {
+    "format": "media-factory-runtime.v1",
+    "files": 1392,
+    "manifest_sha256": "3ad369f564eeaab812698e67a279bed9c2d288893621851ca9e6f22f26fbd7c7",
+    "build_id": "wBB0buDMgeli7HDE1l1Gh",
+    "forbidden_entries": 0,
+    "external_symlinks": 0
+  },
+  "independent_package_manifest_sha256": "3ad369f564eeaab812698e67a279bed9c2d288893621851ca9e6f22f26fbd7c7",
+  "forbidden_entries": [],
+  "external_symlinks": [],
+  "artifact_sha256": "0fe5ea45fda5a9cadb8ce1e623c0db288ca849b1d53415539fd8aa4d682c9af1",
+  "release_candidate_sha": "fd7476c445888261d46c00c20d6be75d58299d572aabc0f665bf40f8dd945c9d",
+  "result": "PASS"
+}

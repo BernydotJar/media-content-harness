@@ -1,5 +1,6 @@
 'use client';
 import { useCallback, useEffect, useState, useRef, type ReactNode } from 'react';
+import { CreativeActivity } from './CreativeActivity';
 export type Item = Record<string, any>;
 export type ApiError = { code: string; message: string };
 export type Resource = { data: any; loading: boolean; error: ApiError | null; reload: () => void };
@@ -26,7 +27,7 @@ export function Icon({ name }: { name: string }) { const paths: Record<string, R
  release: <path d="m4 12 8-9 8 9M12 3v14M4 17v4h16v-4" />,
  arrow: <path d="M4 12h16m-6-6 6 6-6 6" />, play: <path d="m8 4 12 8-12 8Z" />
  }; return <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">{paths[name] || paths.grid}</svg>; }
-export function Loading({ text = 'Cargando tu estudio…' }: { text?: string }) { return <div className="loading" role="status"><span className="spinner" />{text}</div>; }
+export function Loading({ text = 'Cargando tu estudio…' }: { text?: string }) { return <div className="loading" role="status"><CreativeActivity />{text}</div>; }
 export function Problem({ error, retry }: { error: ApiError | null; retry?: () => void }) { if (!error) return null; return <div className="notice danger" role="alert"><strong>{/403|FORBIDDEN|DENIED/.test(error.code) ? 'Este espacio necesita autorización.' : 'No pudimos completar esta acción.'}</strong><p>{error.message}</p>{retry && <button className="text-button" onClick={retry}>Volver a intentar</button>}</div>; }
 export function Empty({ icon = 'spark', title, children, action }: { icon?: string; title: string; children: ReactNode; action?: ReactNode }) { return <div className="empty"><div className="empty-icon"><Icon name={icon} /></div><h3>{title}</h3><p>{children}</p>{action}</div>; }
 export function Tag({ children, tone = '' }: { children: ReactNode; tone?: string }) { return <span className={'tag ' + tone}>{children}</span>; }
@@ -35,5 +36,5 @@ export function Status({ value }: { value: string }) { return <Tag tone={/BLOCK|
 export function DateLabel({ value }: { value: string }) { return <>{value && !isNaN(Date.parse(value)) ? new Intl.DateTimeFormat('es', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' }).format(new Date(value)) : 'Sin fecha'}</>; }
 export function Header({ eyebrow, title, description, action }: { eyebrow: string; title: string; description?: string; action?: ReactNode }) { return <header className="page-header"><div><p className="eyebrow">{eyebrow}</p><h1>{title}</h1>{description && <p className="description">{description}</p>}</div>{action}</header>; }
 export function Field({ label, children, help }: { label: string; children: ReactNode; help?: string }) { return <label className="field"><span>{label}</span>{children}{help && <small>{help}</small>}</label>; }
-export const strategies = [{ value: 'AUTO', title: 'Auto', text: 'Según la historia y los recursos disponibles.' }, { value: 'REAL_FOOTAGE', title: 'Material real', text: 'Tus fotos y videos autorizados.' }, { value: 'HYBRID', title: 'Híbrido', text: 'Material real y elementos generados.' }, { value: 'GENERATIVE', title: 'Generativo', text: 'Una propuesta con inteligencia artificial.' }];
+export const strategies = [{ value: 'AUTO', title: 'Auto', text: 'Según la historia y los recursos disponibles.' }, { value: 'REAL_FOOTAGE', title: 'Material real', text: 'Tus videos autorizados.' }, { value: 'HYBRID', title: 'Híbrido', text: 'Material real y elementos generados.' }, { value: 'GENERATIVE', title: 'Generativo', text: 'Una propuesta con inteligencia artificial.' }];
 export const deviceLabels: Record<string, string> = { 'participatory-brand-reveal': 'La marca se revela en la acción', 'recurring-character-bridge': 'Un personaje une las historias', 'movement-led-place-context': 'Descubrir el lugar en movimiento', 'activity-first-story': 'La actividad cuenta la historia', 'place-as-character': 'El lugar como protagonista', 'human-scale-intimacy': 'Detalles humanos', 'detail-led-context': 'El detalle como inicio', 'documentary-grounding': 'Textura documental', 'clearly-stylized-augmentation': 'Mundos imaginados', 'ambient-sound-presence': 'Ritmo del ambiente', 'low-text-visual-storytelling': 'Narrativa visual con poco texto' };

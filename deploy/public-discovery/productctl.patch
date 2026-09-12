@@ -1,0 +1,47 @@
+--- host-reconciler/productctl.py
++++ host-reconciler/productctl.py
+@@ -224,6 +224,20 @@
+     return 0
+ 
+ 
++MEDIA_FACTORY_PUBLIC_GET_PATHS = ("/robots.txt", "/sitemap.xml", "/llms.txt", "/llm.txt", "/opengraph-image")
++
++def validate_public_get_paths(key: str, policy: str, paths: list[str]) -> list[str]:
++    if not isinstance(paths, list) or any(not isinstance(path, str) for path in paths):
++        raise SystemExit("public GET paths must be a list of strings")
++    if len(paths) != len(set(paths)):
++        raise SystemExit("duplicate public GET path")
++    if paths and (key != "media-factory" or policy != "form_session_single_operator"):
++        raise SystemExit("public discovery is authorized only for Media Factory form-session mode")
++    if any(path not in MEDIA_FACTORY_PUBLIC_GET_PATHS for path in paths):
++        raise SystemExit("public discovery path is outside the reviewed exact allowlist")
++    return [path for path in MEDIA_FACTORY_PUBLIC_GET_PATHS if path in paths]
++
++
+ def cmd_request_deploy(args: argparse.Namespace) -> int:
+     if not SHA_RE.fullmatch(args.release_sha):
+         raise SystemExit("--release-sha must be 40 lowercase hexadecimal characters")
+@@ -260,6 +274,7 @@
+     with lock(root):
+         data = load(root)
+         key = resolve_key(data, args.product) or slugify(args.key or args.product)
++        public_get_paths = validate_public_get_paths(key, args.access_policy, args.public_get_path)
+         hostname = args.hostname or f"{key}.{data['defaults']['domain']}"
+         products = data.setdefault("products", {})
+         for other_key, other in products.items():
+@@ -317,6 +332,7 @@
+                 "tunnel_name": data["defaults"].get("tunnel_name"),
+                 "tunnel_id": data["defaults"].get("tunnel_id"),
+                 "blocked_paths": args.blocked_path,
++                "public_get_paths": public_get_paths,
+                 "runbook": args.runbook,
+                 "reconcile_request_id": request_id,
+                 "reconciliation_state": "pending",
+@@ -417,6 +433,7 @@
+     item.add_argument("--source-repository", required=True)
+     item.add_argument("--workspace-id")
+     item.add_argument("--runbook", required=True)
++    item.add_argument("--public-get-path", action="append", default=[], help="Exact public discovery GET/HEAD route; Media Factory form-session only")
+     item.add_argument("--blocked-path", action="append", default=[])
+     item.set_defaults(func=cmd_request_deploy)
+     return value

@@ -32,7 +32,7 @@ pnpm typecheck
 pnpm build
 pnpm test:e2e
 pnpm audit --prod
-PYTHONPATH=/home/agent/.cache/media-content-harness/graph-harness-sdlc python3 -m graph_harness --project graph/media-factory-web.project.json --events graph/media-factory-web.events.jsonl validate
+GRAPH_HARNESS_RUNTIME_ROOT=/home/agent/.cache/media-content-harness/graph-harness-sdlc node scripts/verify-web-evidence.mjs
 
 ## Human gates
 The current request authorizes implementation and software deployment within established mechanisms. This is not approval of future story concepts, paid generations, real-media final release, or social publication. Such actions must remain explicit product gates. No fabricated human approvals.

@@ -1,0 +1,38 @@
+--- host-reconciler/host_reconciler.py
++++ host-reconciler/host_reconciler.py
+@@ -301,6 +301,7 @@
+     deployment_root: Path,
+ ) -> None:
+     require(bool(KEY_RE.fullmatch(key)), "L0_REGISTRY", "invalid product key")
++    public_get_path_patterns(key, product)
+     require(
+         product.get("edge_management") == "host-reconciler",
+         "L0_REGISTRY",
+@@ -733,6 +734,18 @@
+     return stripped.replace(fallback, block + fallback, 1)
+ 
+ 
++MEDIA_FACTORY_PUBLIC_GET_PATHS = ("/robots.txt", "/sitemap.xml", "/llms.txt", "/llm.txt", "/opengraph-image")
++
++def public_get_path_patterns(key: str, product: dict[str, Any]) -> list[str]:
++    paths = product.get("public_get_paths", [])
++    require(isinstance(paths, list), "L0_REGISTRY", "public_get_paths must be a list")
++    require(all(isinstance(path, str) for path in paths), "L0_REGISTRY", "public GET paths must be strings")
++    require(len(paths) == len(set(paths)), "L0_REGISTRY", "duplicate public GET path")
++    require(not paths or (key == "media-factory" and product.get("access_policy") == "form_session_single_operator"), "L0_REGISTRY", "public discovery is authorized only for Media Factory form-session mode")
++    require(all(path in MEDIA_FACTORY_PUBLIC_GET_PATHS for path in paths), "L0_REGISTRY", "public discovery path is outside the reviewed exact allowlist")
++    return [path for path in MEDIA_FACTORY_PUBLIC_GET_PATHS if path in paths]
++
++
+ def blocked_path_patterns(product: dict[str, Any]) -> list[str]:
+     result: list[str] = []
+     for raw in product.get("blocked_paths", []):
+@@ -807,7 +820,7 @@
+     lines += [
+         f"            @{matcher}_entry {{",
+         "                method GET HEAD",
+-        "                path /login /favicon.ico /_next/static/*",
++        "                path /login /favicon.ico /_next/static/*" + (" " + " ".join(public_get_path_patterns(key, product)) if public_get_path_patterns(key, product) else ""),
+         "            }",
+         f"            handle @{matcher}_entry {{",
+         f"                reverse_proxy {upstream}",

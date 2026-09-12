@@ -1,0 +1,26 @@
+{
+  "format": "media-discovery-controller-promotion.v1",
+  "entries": [
+    {
+      "target": "host-reconciler/host_reconciler.py",
+      "source": "host_reconciler.py",
+      "before_sha256": "074cfea8afb469c112c87724e892862ffd8dfb2e52863d160349eb8509ee69bd",
+      "after_sha256": "aa40a01781d11f1857382b37037e6806bda6c5dd1235253ad9bafc45868716eb",
+      "mode": 420
+    },
+    {
+      "target": "host-reconciler/productctl.py",
+      "source": "productctl.py",
+      "before_sha256": "f282304749348053bec91fc9607dd1b06f844cb0c9c1c2fc05e475ab5cb8ab69",
+      "after_sha256": "46ba8e16972806a6668cf37a39e91c48ddbae046379bfca041e52d0a43dde5b4",
+      "mode": 420
+    },
+    {
+      "target": "productctl.py",
+      "source": "productctl.py",
+      "before_sha256": "f282304749348053bec91fc9607dd1b06f844cb0c9c1c2fc05e475ab5cb8ab69",
+      "after_sha256": "46ba8e16972806a6668cf37a39e91c48ddbae046379bfca041e52d0a43dde5b4",
+      "mode": 493
+    }
+  ]
+}

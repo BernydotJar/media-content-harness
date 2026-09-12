@@ -1,0 +1,42 @@
+{
+  "candidate_sha": "83d7783ba860266e249691edd610f7086cffb733",
+  "note": "89 tests, 13 contracts and 15 packaged browser checks passed on this clean candidate. Later final-surface changes require a new candidate verification.",
+  "files": [
+    {
+      "path": "media-final-audit.exit",
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "media-final-audit.log",
+      "sha256": "15950a68a7ed99c59779717acefdceb3f69cfd31bde67d2c954f2a3cea4d7955"
+    },
+    {
+      "path": "media-final-build.log",
+      "sha256": "f4a41d97d5b6193da592d919ed9c220f0281233660505066bce29af600c62125"
+    },
+    {
+      "path": "media-final-check.exit",
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "media-final-check.log",
+      "sha256": "6816fa5544af2b576265f86352541d31ade41806fd2757e9ba00c35edfd6b759"
+    },
+    {
+      "path": "media-final-e2e.command.log",
+      "sha256": "f900d8136c1534e0f1d0601e6acbbe11c130057d779b7b1062a54241ece3220c"
+    },
+    {
+      "path": "media-final-e2e.log",
+      "sha256": "1af78840b2dfef29fe6cc691ce99f590e0892ed2a0016225de991a5397880c16"
+    },
+    {
+      "path": "media-final-independent-packaging-audit.json",
+      "sha256": "d6014df7677656f6511d99caa80b2efa54013fb9c6407618ae06cc5314e80287"
+    },
+    {
+      "path": "media-final-typecheck.log",
+      "sha256": "8366207267355d3e3d5bf3bf6e8c94c5f93f6078c34f08973fa2b38cdda6cc92"
+    }
+  ]
+}

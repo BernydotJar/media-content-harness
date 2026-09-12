@@ -9,6 +9,41 @@ function cookie(value,secure,clear=false){return COOKIE+'='+value+'; Path=/; Htt
 async function bodyBytes(request,max){const declared=request.headers.get('content-length');invariant(!declared||(/^\d+$/.test(declared)&&Number(declared)<=max),'BODY_TOO_LARGE','Request body is too large',413);const reader=request.body?.getReader();if(!reader)return Buffer.alloc(0);let length=0;const chunks=[];try{while(true){const {done,value}=await reader.read();if(done)break;length+=value.byteLength;invariant(length<=max,'BODY_TOO_LARGE','Request body is too large',413);chunks.push(value)}}catch(e){await reader.cancel().catch(()=>{});throw e}return Buffer.concat(chunks)}
 async function jsonBody(request){invariant(request.headers.get('content-type')?.split(';')[0]==='application/json','UNSUPPORTED_MEDIA_TYPE','Send JSON input',415);const bytes=await bodyBytes(request,256*1024);let value;try{value=JSON.parse(bytes.toString('utf8'))}catch{throw new ProductError('INVALID_JSON','Request body must contain valid JSON')};invariant(value&&typeof value==='object'&&!Array.isArray(value),'INVALID_INPUT','Expected a JSON object');return value}
 function csrf(request,publicOrigin){if(['GET','HEAD','OPTIONS'].includes(request.method))return;const origin=request.headers.get('origin');const expected=publicOrigin||new URL(request.url).origin;invariant(origin===expected&&request.headers.get('sec-fetch-site')!=='cross-site','CSRF_REJECTED','Request must come from this application',403)}
+// RFC 9110: unsupported units/multipart requests fall back to the full representation.
+// Parse decimal offsets without rounding even when a client exceeds JS safe integers.
+function singleByteRange(value,size){
+ if(value===null)return null
+ const unit=value.match(/^([^=]+)=/)
+ if(unit&&unit[1].toLowerCase()!=='bytes')return null
+ if(value.length>8192)return false
+ const spec=value.match(/^bytes=(.*)$/i)
+ if(!spec)return false
+ const ranges=spec[1].split(',').map(part=>part.trim())
+ const parsed=[]
+ for(const range of ranges){
+  const match=range.match(/^(\d*)-(\d*)$/)
+  if(!match||(!match[1]&&!match[2]))return false
+  const first=match[1]?BigInt(match[1]):null,last=match[2]?BigInt(match[2]):null
+  if(first!==null&&last!==null&&first>last)return false
+  parsed.push({first,last})
+ }
+ if(parsed.length!==1)return null
+ const {first,last}=parsed[0],length=BigInt(size)
+ if(length===0n)return false
+ if(first===null){if(last===0n)return false;return {start:Number(last>=length?0n:length-last),end:size-1}}
+ if(first>=length)return false
+ return {start:Number(first),end:Number(last===null||last>=length?length-1n:last)}
+}
+function artifactResponse(request,artifact){
+ const bytes=artifact.bytes,size=bytes.byteLength,etag='"'+artifact.sha256+'"'
+ const headers={'content-type':artifact.mime_type,'content-disposition':'inline; filename="'+String(artifact.filename||'video.mp4').replace(/[^a-zA-Z0-9._-]/g,'_')+'"','cache-control':'private, no-store','x-content-type-options':'nosniff','etag':etag,'accept-ranges':'bytes','content-length':String(size)}
+ // No Last-Modified validator is published; dates and weak/mismatched tags cannot match.
+ const ifRange=request.headers.get('if-range')
+ const range=ifRange!==null&&ifRange!==etag?null:singleByteRange(request.headers.get('range'),size)
+ if(range===false)return new Response(null,{status:416,headers:{...headers,'content-range':'bytes */'+size,'content-length':'0'}})
+ if(range){const {start,end}=range;return new Response(bytes.subarray(start,end+1),{status:206,headers:{...headers,'content-range':'bytes '+start+'-'+end+'/'+size,'content-length':String(end-start+1)}})}
+ return new Response(bytes,{headers})
+}
 export async function handleApi(request,service){
  const requestId=randomUUID();const url=new URL(request.url);const session=token(request)
  try{
@@ -46,7 +81,7 @@ export async function handleApi(request,service){
    if(path.length===3&&method==='POST'&&['approve','request-changes','start','reject'].includes(path[2]))return response(await service.jobAction(session,id,path[2]==='request-changes'?'requestChanges':path[2],await jsonBody(request)),path[2]==='start'?202:200)
    if(path[2]==='evidence'&&path.length===3&&method==='GET')return response(await service.evidence(session,id))
    if(path[2]==='events'&&path.length===3&&method==='GET')return await eventStream(request,service,session,id)
-   if(path[2]==='artifacts'&&path.length===4&&method==='GET'){const artifact=await service.artifact(session,id,path[3]);return new Response(artifact.bytes,{headers:{'content-type':artifact.mime_type,'content-disposition':'inline; filename="'+String(artifact.filename||'video.mp4').replace(/[^a-zA-Z0-9._-]/g,'_')+'"','cache-control':'private, no-store','x-content-type-options':'nosniff','etag':'"'+artifact.sha256+'"'}})}
+   if(path[2]==='artifacts'&&path.length===4&&method==='GET'){const artifact=await service.artifact(session,id,path[3]);return artifactResponse(request,artifact)}
  }
  if(path[0]==='releases'&&method==='GET'){if(path.length===1)return response(await service.releases(session,url.searchParams.get('tenant_id')||undefined));if(path.length===2)return response(await service.release(session,path[1]))}
  throw new ProductError('NOT_FOUND','API route was not found',404)

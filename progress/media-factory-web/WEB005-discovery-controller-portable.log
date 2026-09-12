@@ -1,0 +1,13 @@
+test_all_326_allowlist_permutations_are_canonical (__main__.IndependentTests.test_all_326_allowlist_permutations_are_canonical) ... ok
+test_block_collision_stays_first_and_legacy_blocks_are_identical (__main__.IndependentTests.test_block_collision_stays_first_and_legacy_blocks_are_identical) ... ok
+test_canonical_original_hashes_and_exact_zero_fuzz_patch (__main__.IndependentTests.test_canonical_original_hashes_and_exact_zero_fuzz_patch) ... ok
+test_default_cli_request_matches_old_state_except_empty_new_field (__main__.IndependentTests.test_default_cli_request_matches_old_state_except_empty_new_field) ... ok
+test_invalid_public_input_does_not_mutate_or_save_registry (__main__.IndependentTests.test_invalid_public_input_does_not_mutate_or_save_registry) ... ok
+test_malformed_types_and_encoded_or_collision_paths_fail_closed (__main__.IndependentTests.test_malformed_types_and_encoded_or_collision_paths_fail_closed) ... ok
+test_omitting_optin_closes_prior_public_paths_on_next_desired_request (__main__.IndependentTests.test_omitting_optin_closes_prior_public_paths_on_next_desired_request) ... ok
+test_unknown_keys_policies_never_enable_discovery (__main__.IndependentTests.test_unknown_keys_policies_never_enable_discovery) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.029s
+
+OK
