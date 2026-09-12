@@ -13,3 +13,5 @@ UI: restrained dark creative studio, warm accent, typographic hierarchy, useful 
 Known release risks to investigate: configured login identity, actual source bytes, provider gateway capabilities, shared route registry, Web daemon lifetime and access to installed Graph runtime from deployed container.
 
 Sources checked 2026-09-12: Next.js installation/deployment official documentation https://nextjs.org/docs/app/getting-started/installation and https://nextjs.org/docs/app/getting-started/deploying. Registry resolves next 16.3.5, react 19.3.0. Use exact versions, lockfile, production audit.
+
+Execution scheduling clarification: service, studio and Graph runner producers use agreed interfaces and disjoint file ownership. They can be implemented independently; WEB004 integration validation depends on all three and is the first whole-product release gate. This avoids coupling producer work to UI readiness while retaining explicit verification dependencies.

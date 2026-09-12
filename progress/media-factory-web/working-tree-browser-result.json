@@ -1,0 +1,32 @@
+{
+  "candidate_sha": null,
+  "configured_health_release_sha": "4ccc21db549f250101db8b60cb0d23cf20f7261c",
+  "working_tree_dirty": true,
+  "build_id": "D0JZ3eVMg8gjYcqPMIEG4",
+  "production_source_sha256": "e6034954c0d2707a6f23da1c25e1a5e793e54811ca6f72af9f7101928f40849d",
+  "test_only": true,
+  "temporary_storage": true,
+  "elapsed_ms": 13778,
+  "result": {
+    "status": "PASS",
+    "checks": [
+      "exact health identity",
+      "anonymous API denied",
+      "login and honest empty dashboard",
+      "workspace onboarding and authority-separated sources",
+      "reference proof upload and Content DNA",
+      "explicit tenant mascot source binding",
+      "Guided draft through shared contracts without approval side effects",
+      "exact four-video natural-language request strategies",
+      "asynchronous real pinned Graph reaches creative human gate",
+      "SSE progression and visibly marked deterministic provider fixture",
+      "hash-bound release and authenticated downloadable artifact",
+      "release library",
+      "tenant switching keeps plans separate",
+      "responsive mobile navigation and no horizontal overflow",
+      "no uncaught browser errors"
+    ],
+    "job_id": "mf_8c8427e1f39e01167592ff71cfbfca10",
+    "release_candidate_sha": "d0688def9a03f723a1a6329ea40662c47ca95695ae4bfe9f9e6b3683d785157e"
+  }
+}

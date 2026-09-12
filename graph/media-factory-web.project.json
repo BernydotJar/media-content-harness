@@ -84,10 +84,7 @@
       "title": "Async Graph jobs, streaming, evidence and hash-bound review",
       "kind": "product-completion",
       "status": "spec_ready",
-      "depends_on": [
-        "WEB001-SERVICES",
-        "WEB002-STUDIO"
-      ],
+      "depends_on": [],
       "capability": "media-factory-web",
       "gates": {
         "review": [
@@ -121,6 +118,8 @@
       "kind": "product-completion",
       "status": "spec_ready",
       "depends_on": [
+        "WEB001-SERVICES",
+        "WEB002-STUDIO",
         "WEB003-EXECUTION"
       ],
       "capability": "media-factory-web",

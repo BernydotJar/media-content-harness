@@ -1,0 +1,40 @@
+TAP version 13
+# Subtest: restart recovery and double start preserve one Graph history
+ok 1 - restart recovery and double start preserve one Graph history
+  ---
+  duration_ms: 2536.583043
+  type: 'test'
+  ...
+# Subtest: approval intent survives a crash after Graph approval and resumes without a second decision
+ok 2 - approval intent survives a crash after Graph approval and resumes without a second decision
+  ---
+  duration_ms: 5629.205795
+  type: 'test'
+  ...
+# Subtest: repair intent survives a crash after Graph invalidation without duplicating repair plans
+ok 3 - repair intent survives a crash after Graph invalidation without duplicating repair plans
+  ---
+  duration_ms: 3102.157668
+  type: 'test'
+  ...
+# Subtest: kernel job lease excludes concurrent workers and ignores obsolete dead reclaim files
+ok 4 - kernel job lease excludes concurrent workers and ignores obsolete dead reclaim files
+  ---
+  duration_ms: 23.112959
+  type: 'test'
+  ...
+# Subtest: rejection intent survives a crash after blocking Graph and becomes terminal on recovery
+ok 5 - rejection intent survives a crash after blocking Graph and becomes terminal on recovery
+  ---
+  duration_ms: 2082.265418
+  type: 'test'
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 13429.362673

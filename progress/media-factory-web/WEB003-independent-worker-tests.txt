@@ -1,0 +1,112 @@
+TAP version 13
+# Subtest: actual pinned Graph runs to hash-bound treatment and release; fixture evidence stays test-labeled
+ok 1 - actual pinned Graph runs to hash-bound treatment and release; fixture evidence stays test-labeled
+  ---
+  duration_ms: 5518.946169
+  type: 'test'
+  ...
+# Subtest: cross-tenant actions and artifacts fail before data access; viewers cannot approve
+ok 2 - cross-tenant actions and artifacts fail before data access; viewers cannot approve
+  ---
+  duration_ms: 1967.74671
+  type: 'test'
+  ...
+# Subtest: localized repair invalidates candidate and descendants while preserving ingested upstream
+ok 3 - localized repair invalidates candidate and descendants while preserving ingested upstream
+  ---
+  duration_ms: 2953.365335
+  type: 'test'
+  ...
+# Subtest: source authorization and DNA changes invalidate human approval
+ok 4 - source authorization and DNA changes invalidate human approval
+  ---
+  duration_ms: 1907.533334
+  type: 'test'
+  ...
+# Subtest: restart recovery and double start preserve one Graph history
+ok 5 - restart recovery and double start preserve one Graph history
+  ---
+  duration_ms: 1938.90175
+  type: 'test'
+  ...
+# Subtest: production missing source bytes is blocked in actual Graph, no fixture adapter exposed
+ok 6 - production missing source bytes is blocked in actual Graph, no fixture adapter exposed
+  ---
+  duration_ms: 889.899417
+  type: 'test'
+  ...
+# Subtest: media inspection rejects playlists and local or network indirection before ffprobe
+ok 7 - media inspection rejects playlists and local or network indirection before ffprobe
+  ---
+  duration_ms: 5.978209
+  type: 'test'
+  ...
+# Subtest: provider failure remains a blocker and cannot create release evidence
+ok 8 - provider failure remains a blocker and cannot create release evidence
+  ---
+  duration_ms: 2653.053042
+  type: 'test'
+  ...
+# Subtest: real footage adapter preserves all selected sources, target dimensions, and ambient audio
+ok 9 - real footage adapter preserves all selected sources, target dimensions, and ambient audio
+  ---
+  duration_ms: 520.915125
+  type: 'test'
+  ...
+# Subtest: production uploaded media binds creative candidate, separate real reviewers, and final release
+ok 10 - production uploaded media binds creative candidate, separate real reviewers, and final release
+  ---
+  duration_ms: 6827.086128
+  type: 'test'
+  ...
+# Subtest: same fixture bytes after localized media repair receive a fresh candidate scope
+ok 11 - same fixture bytes after localized media repair receive a fresh candidate scope
+  ---
+  duration_ms: 7823.020545
+  type: 'test'
+  ...
+# Subtest: approval intent survives a crash after Graph approval and resumes without a second decision
+ok 12 - approval intent survives a crash after Graph approval and resumes without a second decision
+  ---
+  duration_ms: 5990.431544
+  type: 'test'
+  ...
+# Subtest: production arbitrary creative repair remains manual and never silently rerenders
+ok 13 - production arbitrary creative repair remains manual and never silently rerenders
+  ---
+  duration_ms: 2020.34046
+  type: 'test'
+  ...
+# Subtest: stable artifact candidate is shared by verifier and release, with stage replay rejected
+ok 14 - stable artifact candidate is shared by verifier and release, with stage replay rejected
+  ---
+  duration_ms: 4921.815294
+  type: 'test'
+  ...
+# Subtest: mascot request fails closed rather than exporting ordinary footage as the character
+ok 15 - mascot request fails closed rather than exporting ordinary footage as the character
+  ---
+  duration_ms: 1199.112251
+  type: 'test'
+  ...
+# Subtest: actual adapter paid capability or nonzero estimate is blocked before generate
+ok 16 - actual adapter paid capability or nonzero estimate is blocked before generate
+  ---
+  duration_ms: 2918.648751
+  type: 'test'
+  ...
+# Subtest: repair intent survives a crash after Graph invalidation without duplicating repair plans
+ok 17 - repair intent survives a crash after Graph invalidation without duplicating repair plans
+  ---
+  duration_ms: 3092.058501
+  type: 'test'
+  ...
+1..17
+# tests 17
+# suites 0
+# pass 17
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 53206.673109

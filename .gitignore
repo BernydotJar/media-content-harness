@@ -1,2 +1,12 @@
 node_modules/
 .DS_Store
+.next/
+*.tsbuildinfo
+.env*
+!.env.example
+.media-factory/
+playwright-report/
+test-results/
+.pnpm-store/
+data/
+__pycache__/

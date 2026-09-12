@@ -1,0 +1,96 @@
+{
+  "entries": [
+    {
+      "node": "MF001-GRAPH-RUNTIME-INTEGRITY",
+      "kind": "graph_runtime_test",
+      "artifact": "progress/media-factory-v1/MF001-graph-runtime-test.txt",
+      "exists": true,
+      "hash_matches": true,
+      "commit_resolves": false
+    },
+    {
+      "node": "MF002-BROWSER-BRIDGE",
+      "kind": "critique",
+      "artifact": "progress/media-factory-v1/MF002-critic.md",
+      "exists": true,
+      "hash_matches": true,
+      "commit_resolves": false
+    },
+    {
+      "node": "MF002-BROWSER-BRIDGE",
+      "kind": "browser_bridge_test",
+      "artifact": "progress/media-factory-v1/MF002-independent-verifier.txt",
+      "exists": true,
+      "hash_matches": true,
+      "commit_resolves": false
+    },
+    {
+      "node": "MF003-TENANT-ISOLATION",
+      "kind": "critique",
+      "artifact": "progress/media-factory-v1/MF003-critic.md",
+      "exists": true,
+      "hash_matches": true,
+      "commit_resolves": false
+    },
+    {
+      "node": "MF003-TENANT-ISOLATION",
+      "kind": "tenant_isolation_test",
+      "artifact": "progress/media-factory-v1/MF003-independent-verifier.txt",
+      "exists": true,
+      "hash_matches": true,
+      "commit_resolves": false
+    },
+    {
+      "node": "MF004-REFERENCE-CONTENT-DNA",
+      "kind": "critique",
+      "artifact": "progress/media-factory-v1/MF004-critic.md",
+      "exists": true,
+      "hash_matches": true,
+      "commit_resolves": false
+    },
+    {
+      "node": "MF004-REFERENCE-CONTENT-DNA",
+      "kind": "reference_dna_test",
+      "artifact": "progress/media-factory-v1/MF004-independent-verifier.txt",
+      "exists": true,
+      "hash_matches": true,
+      "commit_resolves": false
+    },
+    {
+      "node": "MF005-WEEKLY-FACTORY",
+      "kind": "critique",
+      "artifact": "progress/media-factory-v1/MF005-critic.md",
+      "exists": true,
+      "hash_matches": true,
+      "commit_resolves": false
+    },
+    {
+      "node": "MF005-WEEKLY-FACTORY",
+      "kind": "weekly_factory_test",
+      "artifact": "progress/media-factory-v1/MF005-independent-verifier.txt",
+      "exists": true,
+      "hash_matches": true,
+      "commit_resolves": false
+    },
+    {
+      "node": "MF006-RELEASE",
+      "kind": "critique",
+      "artifact": "progress/media-factory-v1/MF006-critic.md",
+      "exists": true,
+      "hash_matches": true,
+      "commit_resolves": true
+    },
+    {
+      "node": "MF006-RELEASE",
+      "kind": "release_verification",
+      "artifact": "progress/media-factory-v1/MF006-release-verifier.txt",
+      "exists": true,
+      "hash_matches": true,
+      "commit_resolves": true
+    }
+  ],
+  "all_files_exist": true,
+  "all_hashes_match": true,
+  "all_commits_resolve": false,
+  "interpretation": "Every historical evidence artifact exists and matches SHA256. Intermediate MF001-MF005 commit labels are WORKTREE, not missing Git commits; final MF006 evidence is bound to existing immutable candidate a09c0728f94b82d5efc2b5ee83ccdfbb0584d2d1. Original ledger remains unchanged. Web evidence must use actual commits."
+}

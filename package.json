@@ -12,7 +12,12 @@
   "scripts": {
     "test": "node --test tests/*.test.mjs",
     "validate:examples": "node scripts/validate-examples.mjs",
-    "check": "pnpm run test && pnpm run validate:examples"
+    "check": "pnpm run test && pnpm run validate:examples",
+    "dev": "next dev --hostname 0.0.0.0",
+    "build": "node scripts/build-web.mjs",
+    "start": "next start --hostname 0.0.0.0",
+    "typecheck": "tsc --noEmit",
+    "test:e2e": "node scripts/test-e2e.mjs"
   },
   "dsh": {
     "bundle": {
@@ -27,5 +32,19 @@
     "config/**/*.json",
     "examples/**/*.json",
     "docs/**/*.md"
-  ]
+  ],
+  "dependencies": {
+    "next": "16.3.5",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "ajv": "8.20.0",
+    "ajv-formats": "3.0.1"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3",
+    "@types/node": "22.19.1",
+    "@types/react": "19.2.7",
+    "@types/react-dom": "19.2.3",
+    "@playwright/test": "1.58.2"
+  }
 }

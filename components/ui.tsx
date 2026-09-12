@@ -1,0 +1,39 @@
+'use client';
+import { useCallback, useEffect, useState, useRef, type ReactNode } from 'react';
+export type Item = Record<string, any>;
+export type ApiError = { code: string; message: string };
+export type Resource = { data: any; loading: boolean; error: ApiError | null; reload: () => void };
+export async function api(path: string, body?: unknown) {
+ const response = await fetch(path === '/auth/login' ? '/api/preview/login' : '/api/v1' + path, { method: body === undefined ? 'GET' : 'POST', credentials: 'same-origin', headers: body === undefined ? {} : { 'Content-Type': 'application/json' }, body: body === undefined ? undefined : JSON.stringify(body), cache: 'no-store' });
+ let value: Item; try { value = await response.json(); } catch { throw { code: String(response.status), message: 'El servicio no respondió correctamente. Intenta de nuevo.' }; }
+ if (!response.ok) throw value.error || { code: String(response.status), message: 'No pudimos completar la solicitud.' }; return value.data;
+}
+export function useLoad(path: string | null): Resource {
+ const previousPath = useRef<string | null>(null); const [loadedPath, setLoadedPath] = useState<string | null>(null); const [data, setData] = useState<any>(null), [loading, setLoading] = useState(!!path), [error, setError] = useState<ApiError | null>(null), [revision, setRevision] = useState(0);
+ useEffect(() => { let active = true; if (previousPath.current !== path) { setData(null); setLoadedPath(null); previousPath.current = path; } if (!path) { setLoading(false); return; } setLoading(true); setError(null); api(path).then(v => { if (active) { setData(v); setLoadedPath(path); } }).catch(e => { if (active) setError(e); }).finally(() => { if (active) setLoading(false); }); return () => { active = false; }; }, [path, revision]);
+ return { data: loadedPath === path ? data : null, loading: loading || !!path && loadedPath !== path && !error, error, reload: useCallback(() => setRevision(v => v + 1), []) };
+}
+export function items(v: any): Item[] { return Array.isArray(v) ? v : v?.items || v?.jobs || v?.releases || v?.providers || v?.plans || []; }
+export function Mark({ small = false }: { small?: boolean }) { return <span className={'mark ' + (small ? 'small' : '')} aria-hidden="true"><i /><i /><i /></span>; }
+export function Icon({ name }: { name: string }) { const paths: Record<string, ReactNode> = {
+ home: <><path d="m3 10 9-7 9 7v10H3Z" /><path d="M9 20v-7h6v7" /></>,
+ grid: <><rect x="3" y="3" width="7" height="7" rx="1" /><rect x="14" y="3" width="7" height="7" rx="1" /><rect x="3" y="14" width="7" height="7" rx="1" /><rect x="14" y="14" width="7" height="7" rx="1" /></>,
+ sources: <><path d="M3 7h7l2 2h9v11H3Z" /><path d="M3 7V4h6l3 3" /></>,
+ dna: <path d="M6 3c0 9 12 9 12 18M18 3c0 9-12 9-12 18M7 6h10M7 18h10M9 10h6M9 14h6" />,
+ calendar: <><rect x="3" y="5" width="18" height="16" rx="2" /><path d="M7 2v6M17 2v6M3 11h18" /></>,
+ spark: <path d="m12 3 2.6 6.4L21 12l-6.4 2.6L12 21l-2.6-6.4L3 12l6.4-2.6ZM20 2v4M18 4h4" />,
+ review: <><rect x="4" y="3" width="16" height="18" rx="2" /><path d="m8 12 3 3 5-6" /></>,
+ release: <path d="m4 12 8-9 8 9M12 3v14M4 17v4h16v-4" />,
+ arrow: <path d="M4 12h16m-6-6 6 6-6 6" />, play: <path d="m8 4 12 8-12 8Z" />
+ }; return <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">{paths[name] || paths.grid}</svg>; }
+export function Loading({ text = 'Cargando tu estudio…' }: { text?: string }) { return <div className="loading" role="status"><span className="spinner" />{text}</div>; }
+export function Problem({ error, retry }: { error: ApiError | null; retry?: () => void }) { if (!error) return null; return <div className="notice danger" role="alert"><strong>{/403|FORBIDDEN|DENIED/.test(error.code) ? 'Este espacio necesita autorización.' : 'No pudimos completar esta acción.'}</strong><p>{error.message}</p>{retry && <button className="text-button" onClick={retry}>Volver a intentar</button>}</div>; }
+export function Empty({ icon = 'spark', title, children, action }: { icon?: string; title: string; children: ReactNode; action?: ReactNode }) { return <div className="empty"><div className="empty-icon"><Icon name={icon} /></div><h3>{title}</h3><p>{children}</p>{action}</div>; }
+export function Tag({ children, tone = '' }: { children: ReactNode; tone?: string }) { return <span className={'tag ' + tone}>{children}</span>; }
+const statusLabels: Record<string, string> = { DRAFT: 'Borrador', APPROVED: 'Aprobado', LAUNCHED: 'En producción', BRIEF: 'Por preparar', QUEUED: 'En cola', RUNNING: 'En producción', BLOCKED: 'Necesita atención', FAILED: 'Producción interrumpida', REVIEW: 'Lista para revisar', REVIEW_REQUIRED: 'Lista para revisar', AWAITING_REVIEW: 'Lista para revisar', RELEASED: 'Liberado', COMPLETED: 'Completado', DONE: 'Completado', REJECTED: 'Rechazado', CHANGES_REQUESTED: 'Cambios solicitados' };
+export function Status({ value }: { value: string }) { return <Tag tone={/BLOCK|FAIL|REJECT|CHANGE/.test(value || '') ? 'warning' : /APPROVED|RELEASED|DONE|COMPLETE/.test(value || '') ? 'success' : ''}>{statusLabels[value] || value || 'Pendiente'}</Tag>; }
+export function DateLabel({ value }: { value: string }) { return <>{value && !isNaN(Date.parse(value)) ? new Intl.DateTimeFormat('es', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' }).format(new Date(value)) : 'Sin fecha'}</>; }
+export function Header({ eyebrow, title, description, action }: { eyebrow: string; title: string; description?: string; action?: ReactNode }) { return <header className="page-header"><div><p className="eyebrow">{eyebrow}</p><h1>{title}</h1>{description && <p className="description">{description}</p>}</div>{action}</header>; }
+export function Field({ label, children, help }: { label: string; children: ReactNode; help?: string }) { return <label className="field"><span>{label}</span>{children}{help && <small>{help}</small>}</label>; }
+export const strategies = [{ value: 'AUTO', title: 'Auto', text: 'Según la historia y los recursos disponibles.' }, { value: 'REAL_FOOTAGE', title: 'Material real', text: 'Tus fotos y videos autorizados.' }, { value: 'HYBRID', title: 'Híbrido', text: 'Material real y elementos generados.' }, { value: 'GENERATIVE', title: 'Generativo', text: 'Una propuesta con inteligencia artificial.' }];
+export const deviceLabels: Record<string, string> = { 'participatory-brand-reveal': 'La marca se revela en la acción', 'recurring-character-bridge': 'Un personaje une las historias', 'movement-led-place-context': 'Descubrir el lugar en movimiento', 'activity-first-story': 'La actividad cuenta la historia', 'place-as-character': 'El lugar como protagonista', 'human-scale-intimacy': 'Detalles humanos', 'detail-led-context': 'El detalle como inicio', 'documentary-grounding': 'Textura documental', 'clearly-stylized-augmentation': 'Mundos imaginados', 'ambient-sound-presence': 'Ritmo del ambiente', 'low-text-visual-storytelling': 'Narrativa visual con poco texto' };
