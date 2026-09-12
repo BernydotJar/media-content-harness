@@ -1,0 +1,40 @@
+{
+  "schema_version": "media-first-video-verifier.v1",
+  "result": "PASS",
+  "source": {
+    "scope": "exact-authorized-page-only",
+    "page": "https://www.facebook.com/people/Firmes-Izabal/61593278846959/",
+    "video_id": "2727838567635466",
+    "sha256": "c1504301d3615a1a577a7fe0406ec6509de2bbe0adb05f6271211f46a0126000",
+    "dimensions": "720x1280",
+    "duration_seconds": 48.597333
+  },
+  "output": {
+    "path_private": "work/firmes-reference/video/firmes-izabal-v2-first.mp4",
+    "sha256": "e439c5cd0f6cc60e9463c6973ea9c4f860733ae110822d94eac37f8a3d188a5a",
+    "duration_seconds": 11.0,
+    "dimensions": "1080x1920",
+    "fps": 30,
+    "codec": "h264",
+    "audio": false,
+    "synthetic_media": false,
+    "publication_action": "none",
+    "decode": "PASS",
+    "black_detected": false,
+    "freeze_detected": false
+  },
+  "ui_execution": {
+    "evidence": "progress/media-factory-web/WEB011-v2-source-recovery-e2e.log",
+    "test_mode": false,
+    "deployment_class": "controlled_single_operator_preview",
+    "status": "PASS",
+    "same_job_resume": true,
+    "immutable_source_snapshot": true,
+    "mobile_390px": "PASS",
+    "reduced_motion": "PASS"
+  },
+  "audience_mode": "general-audience",
+  "sensitive_trait_targeting": false,
+  "voter_microtargeting": false,
+  "social_publication": false
+}

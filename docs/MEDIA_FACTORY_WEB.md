@@ -90,3 +90,9 @@ El operador del despliegue compartido tiene **APIs e integraciones** en el menú
 Las claves se guardan cifradas con AES-256-GCM en el almacén privado y nunca se devuelven a la interfaz. Puedes reemplazarlas o retirarlas; el historial registra actor y fecha sin revelar secretos. Guarda copias de seguridad del almacén y de su clave separada, ambos bajo permisos privados: perder la clave impide recuperar las credenciales. El sistema falla sin regenerarla cuando existe ciphertext.
 
 Guardar una API no implementa un adaptador ni autoriza consumo. El presupuesto es una referencia administrativa, no un límite aplicado. FFmpeg funciona localmente con material real; Seedance, Higgsfield, CapCut y Gemini continúan identificados según su disponibilidad real. No hay registro público: el administrador provisiona usuarios. La URL y acceso existentes se conservan.
+
+## FIRMES Brand Memory V2
+
+Tenant-specific FIRMES surfaces use the derived rules in [`FIRMES_BRAND_MEMORY.md`](FIRMES_BRAND_MEMORY.md). The source manual remains private under `work/` and is not shipped in the runtime. Media Factory keeps its global product identity; FIRMES colors, condensed display hierarchy, derived hexagonal cue and restrained Gooey motion activate only inside a FIRMES tenant or a job belonging to that tenant. The UI cue is not a substitute for the official horse imagotype in published media.
+
+Blocked `SOURCE_BYTES_REQUIRED` jobs now carry only the missing authorized source IDs. The job CTA deep-links to that exact material card; after upload, the browser verifies that the resume job belongs to the same tenant and references the uploaded source before restarting the same Graph. A malformed deep link cannot create an open redirect or requeue an unrelated job.

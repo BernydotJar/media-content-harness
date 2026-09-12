@@ -1,0 +1,22 @@
+TAP version 13
+# Subtest: production missing source bytes is blocked in actual Graph, no fixture adapter exposed
+ok 1 - production missing source bytes is blocked in actual Graph, no fixture adapter exposed
+  ---
+  duration_ms: 966.800417
+  type: 'test'
+  ...
+# Subtest: blocked production resumes the same Graph after its missing authorized video is uploaded
+ok 2 - blocked production resumes the same Graph after its missing authorized video is uploaded
+  ---
+  duration_ms: 2440.70671
+  type: 'test'
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 2
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 3614.981877

@@ -300,6 +300,154 @@
         "deploy/**",
         "assets/**"
       ]
+    },
+    {
+      "id": "WEB009-BLOCKER-RESOLUTION",
+      "title": "Directed source upload recovery from blocked production",
+      "kind": "product-completion",
+      "status": "spec_ready",
+      "depends_on": [
+        "WEB008-EASE-RELEASE"
+      ],
+      "capability": "media-factory-web",
+      "gates": {
+        "review": [
+          "implementation_quality"
+        ]
+      },
+      "allowed_paths": [
+        "server/**",
+        "app/**",
+        "components/**",
+        "scripts/**",
+        "tests/**",
+        "docs/**",
+        "specs/**",
+        "progress/**",
+        "graph/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "*.json",
+        "*.mjs",
+        "*.yml",
+        "Dockerfile",
+        ".gitignore",
+        ".dockerignore",
+        "README.md",
+        "deploy/**",
+        "assets/**"
+      ]
+    },
+    {
+      "id": "WEB010-BRAND-V2",
+      "title": "FIRMES brand-memory V2 typography logos and purposeful Gooey motion",
+      "kind": "product-completion",
+      "status": "spec_ready",
+      "depends_on": [
+        "WEB009-BLOCKER-RESOLUTION"
+      ],
+      "capability": "media-factory-web",
+      "gates": {
+        "review": [
+          "implementation_quality"
+        ]
+      },
+      "allowed_paths": [
+        "server/**",
+        "app/**",
+        "components/**",
+        "scripts/**",
+        "tests/**",
+        "docs/**",
+        "specs/**",
+        "progress/**",
+        "graph/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "*.json",
+        "*.mjs",
+        "*.yml",
+        "Dockerfile",
+        ".gitignore",
+        ".dockerignore",
+        "README.md",
+        "deploy/**",
+        "assets/**"
+      ]
+    },
+    {
+      "id": "WEB011-FIRST-VIDEO",
+      "title": "Authenticated end-to-end first playable authorized video",
+      "kind": "product-completion",
+      "status": "spec_ready",
+      "depends_on": [
+        "WEB010-BRAND-V2"
+      ],
+      "capability": "media-factory-web",
+      "gates": {
+        "review": [
+          "implementation_quality"
+        ]
+      },
+      "allowed_paths": [
+        "server/**",
+        "app/**",
+        "components/**",
+        "scripts/**",
+        "tests/**",
+        "docs/**",
+        "specs/**",
+        "progress/**",
+        "graph/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "*.json",
+        "*.mjs",
+        "*.yml",
+        "Dockerfile",
+        ".gitignore",
+        ".dockerignore",
+        "README.md",
+        "deploy/**",
+        "assets/**"
+      ]
+    },
+    {
+      "id": "WEB012-V2-RELEASE",
+      "title": "Independent V2 verification signed deployment and UI confirmation",
+      "kind": "product-completion",
+      "status": "spec_ready",
+      "depends_on": [
+        "WEB011-FIRST-VIDEO"
+      ],
+      "capability": "media-factory-web",
+      "gates": {
+        "review": [
+          "implementation_quality"
+        ]
+      },
+      "allowed_paths": [
+        "server/**",
+        "app/**",
+        "components/**",
+        "scripts/**",
+        "tests/**",
+        "docs/**",
+        "specs/**",
+        "progress/**",
+        "graph/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "*.json",
+        "*.mjs",
+        "*.yml",
+        "Dockerfile",
+        ".gitignore",
+        ".dockerignore",
+        "README.md",
+        "deploy/**",
+        "assets/**"
+      ]
     }
   ]
 }
