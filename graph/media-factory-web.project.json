@@ -1,0 +1,224 @@
+{
+  "schema_version": "graph-harness.project.v1",
+  "project_id": "media-factory-web",
+  "mode": "SHIP",
+  "gate_definitions": [
+    {
+      "id": "implementation_quality",
+      "required_evidence_kinds": [
+        "critique",
+        "independent_verification"
+      ],
+      "blocking": true
+    }
+  ],
+  "nodes": [
+    {
+      "id": "WEB001-SERVICES",
+      "title": "Contracts, authorization, repositories and provider-neutral product services",
+      "kind": "product-completion",
+      "status": "spec_ready",
+      "depends_on": [],
+      "capability": "media-factory-web",
+      "gates": {
+        "review": [
+          "implementation_quality"
+        ]
+      },
+      "allowed_paths": [
+        "server/**",
+        "app/**",
+        "components/**",
+        "scripts/**",
+        "tests/**",
+        "docs/**",
+        "specs/**",
+        "progress/**",
+        "graph/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "*.json",
+        "*.mjs",
+        "*.yml",
+        "Dockerfile",
+        ".gitignore",
+        ".dockerignore",
+        "README.md"
+      ]
+    },
+    {
+      "id": "WEB002-STUDIO",
+      "title": "Creative Web studio and Guided/Free interfaces",
+      "kind": "product-completion",
+      "status": "spec_ready",
+      "depends_on": [],
+      "capability": "media-factory-web",
+      "gates": {
+        "review": [
+          "implementation_quality"
+        ]
+      },
+      "allowed_paths": [
+        "server/**",
+        "app/**",
+        "components/**",
+        "scripts/**",
+        "tests/**",
+        "docs/**",
+        "specs/**",
+        "progress/**",
+        "graph/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "*.json",
+        "*.mjs",
+        "*.yml",
+        "Dockerfile",
+        ".gitignore",
+        ".dockerignore",
+        "README.md"
+      ]
+    },
+    {
+      "id": "WEB003-EXECUTION",
+      "title": "Async Graph jobs, streaming, evidence and hash-bound review",
+      "kind": "product-completion",
+      "status": "spec_ready",
+      "depends_on": [
+        "WEB001-SERVICES",
+        "WEB002-STUDIO"
+      ],
+      "capability": "media-factory-web",
+      "gates": {
+        "review": [
+          "implementation_quality"
+        ]
+      },
+      "allowed_paths": [
+        "server/**",
+        "app/**",
+        "components/**",
+        "scripts/**",
+        "tests/**",
+        "docs/**",
+        "specs/**",
+        "progress/**",
+        "graph/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "*.json",
+        "*.mjs",
+        "*.yml",
+        "Dockerfile",
+        ".gitignore",
+        ".dockerignore",
+        "README.md"
+      ]
+    },
+    {
+      "id": "WEB004-VALIDATION",
+      "title": "Integrated adversarial tests, browser E2E and documentation",
+      "kind": "product-completion",
+      "status": "spec_ready",
+      "depends_on": [
+        "WEB003-EXECUTION"
+      ],
+      "capability": "media-factory-web",
+      "gates": {
+        "review": [
+          "implementation_quality"
+        ]
+      },
+      "allowed_paths": [
+        "server/**",
+        "app/**",
+        "components/**",
+        "scripts/**",
+        "tests/**",
+        "docs/**",
+        "specs/**",
+        "progress/**",
+        "graph/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "*.json",
+        "*.mjs",
+        "*.yml",
+        "Dockerfile",
+        ".gitignore",
+        ".dockerignore",
+        "README.md"
+      ]
+    },
+    {
+      "id": "WEB005-DEPLOYMENT",
+      "title": "Verified runtime and existing shared HTTPS deployment",
+      "kind": "product-completion",
+      "status": "spec_ready",
+      "depends_on": [
+        "WEB004-VALIDATION"
+      ],
+      "capability": "media-factory-web",
+      "gates": {
+        "review": [
+          "implementation_quality"
+        ]
+      },
+      "allowed_paths": [
+        "server/**",
+        "app/**",
+        "components/**",
+        "scripts/**",
+        "tests/**",
+        "docs/**",
+        "specs/**",
+        "progress/**",
+        "graph/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "*.json",
+        "*.mjs",
+        "*.yml",
+        "Dockerfile",
+        ".gitignore",
+        ".dockerignore",
+        "README.md"
+      ]
+    },
+    {
+      "id": "WEB006-RELEASE",
+      "title": "Immutable verifier, release gate and terminal evidence",
+      "kind": "product-completion",
+      "status": "spec_ready",
+      "depends_on": [
+        "WEB005-DEPLOYMENT"
+      ],
+      "capability": "media-factory-web",
+      "gates": {
+        "review": [
+          "implementation_quality"
+        ]
+      },
+      "allowed_paths": [
+        "server/**",
+        "app/**",
+        "components/**",
+        "scripts/**",
+        "tests/**",
+        "docs/**",
+        "specs/**",
+        "progress/**",
+        "graph/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "*.json",
+        "*.mjs",
+        "*.yml",
+        "Dockerfile",
+        ".gitignore",
+        ".dockerignore",
+        "README.md"
+      ]
+    }
+  ]
+}

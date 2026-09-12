@@ -1,0 +1,123 @@
+{
+  "checkpoint_count": 6,
+  "event_count": 59,
+  "last_event_id": "a58d4990-cf15-43df-bf6d-cb937daac7ef",
+  "mode": "SHIP",
+  "nodes": [
+    {
+      "active_evidence_ids": [
+        "1ee36cb7-2257-49b3-a6bf-bc3e5e82da19"
+      ],
+      "active_gates": {
+        "graph_runtime_integrity": "PASS"
+      },
+      "approval_count": 1,
+      "capability": "graph-harness",
+      "depends_on": [],
+      "id": "MF001-GRAPH-RUNTIME-INTEGRITY",
+      "kind": "infrastructure",
+      "revision": 0,
+      "status": "done",
+      "title": "Pinned Graph Harness integration executes instead of silently skipping"
+    },
+    {
+      "active_evidence_ids": [
+        "134a49f8-fb0e-489f-991f-51e2d0738bbb",
+        "f98a8b51-e054-403d-8c4b-cfeaffbdb204"
+      ],
+      "active_gates": {
+        "browser_bridge_quality": "PASS"
+      },
+      "approval_count": 1,
+      "capability": "chrome-cdp",
+      "depends_on": [
+        "MF001-GRAPH-RUNTIME-INTEGRITY"
+      ],
+      "id": "MF002-BROWSER-BRIDGE",
+      "kind": "source-adapter",
+      "revision": 0,
+      "status": "done",
+      "title": "Read-only authorized Chrome CDP browser bridge"
+    },
+    {
+      "active_evidence_ids": [
+        "08d87397-4962-4efa-ab44-34d7ff1a81ae",
+        "3a289abb-45d4-4e11-b205-320c89402cf5"
+      ],
+      "active_gates": {
+        "tenant_isolation_quality": "PASS"
+      },
+      "approval_count": 1,
+      "capability": "multi-tenant-media",
+      "depends_on": [
+        "MF002-BROWSER-BRIDGE"
+      ],
+      "id": "MF003-TENANT-ISOLATION",
+      "kind": "product-core",
+      "revision": 0,
+      "status": "done",
+      "title": "Reusable tenant media profiles with isolated browser/source authority"
+    },
+    {
+      "active_evidence_ids": [
+        "431b0a4e-cb69-42b7-b820-95236de553a3",
+        "5d6e2e7d-ead4-4aed-b724-ff77848138c8"
+      ],
+      "active_gates": {
+        "reference_dna_quality": "PASS"
+      },
+      "approval_count": 1,
+      "capability": "content-dna",
+      "depends_on": [
+        "MF003-TENANT-ISOLATION"
+      ],
+      "id": "MF004-REFERENCE-CONTENT-DNA",
+      "kind": "reference-analysis",
+      "revision": 0,
+      "status": "done",
+      "title": "Reference-page observations become provenance-backed Content DNA without cloning creative work"
+    },
+    {
+      "active_evidence_ids": [
+        "6820961e-0693-4759-a1e6-8d4a26144613",
+        "b739db24-585d-4794-bdba-3038f84c7a64"
+      ],
+      "active_gates": {
+        "weekly_factory_quality": "PASS"
+      },
+      "approval_count": 1,
+      "capability": "weekly-media-factory",
+      "depends_on": [
+        "MF004-REFERENCE-CONTENT-DNA"
+      ],
+      "id": "MF005-WEEKLY-FACTORY",
+      "kind": "orchestration",
+      "revision": 0,
+      "status": "done",
+      "title": "Weekly modular media-production contract for approved general-audience stories"
+    },
+    {
+      "active_evidence_ids": [
+        "85fae7d5-5902-4a4a-a240-3c010067478d",
+        "f1c247e5-6bc6-422a-b33e-de889e615f07"
+      ],
+      "active_gates": {
+        "release_quality": "PASS"
+      },
+      "approval_count": 1,
+      "capability": "release",
+      "depends_on": [
+        "MF005-WEEKLY-FACTORY"
+      ],
+      "id": "MF006-RELEASE",
+      "kind": "release",
+      "revision": 0,
+      "status": "done",
+      "title": "End-to-end verification, evidence, documentation, and release readiness"
+    }
+  ],
+  "project_id": "media-factory-v1",
+  "ready_nodes": [],
+  "repair_plan_count": 0,
+  "schema_version": "graph-harness.state.v1"
+}

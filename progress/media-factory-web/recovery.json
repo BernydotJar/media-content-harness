@@ -1,0 +1,12 @@
+{
+  "baseline_head": "67f011aa7ec9565c59942fb7c77fb256cab30c6d",
+  "runtime_sha": "477bdcc3d390c30eb49d823e5c7fd105fee2cc4d",
+  "test_file": "progress/media-factory-web/baseline-check.txt",
+  "test_sha256": "626e1b0da86e66f775bd09efaa0d3dc525d2dc721445fa97b4e7e4b2b63ce5f1",
+  "tests": 45,
+  "skipped": 0,
+  "contracts": 13,
+  "event_count": 59,
+  "executor": "baseline_audit separate agent",
+  "graph_engineer_discovery": "No separately named Graph Engineer skill found; installed pinned Graph Harness runtime and its Graph Engineering/gated docs are the execution mechanism."
+}
