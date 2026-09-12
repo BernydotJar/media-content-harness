@@ -29,3 +29,24 @@ Verdict: PASS_FOR_BUILD_CANDIDATE. No unresolved material finding in the reviewe
 ## Remaining release gate evidence
 
 Actual Docker build, final traced files, container startup, volume permissions, pinned Graph readiness, controlled restart, exact release SHA, Caddy/DNS/TLS routing, authenticated public smoke and rollback evidence remain the host deployment verifier's responsibility. No public deployment readiness is claimed here. Sandbox Docker lacks the Compose plugin, so a sandbox `docker compose ... config --quiet` attempt could not validate Compose syntax; this is not counted as a pass and requires validation in the established host build path.
+
+## Supersession: actual Turbopack trace failure and allowlisted delivery
+
+The preceding PASS_FOR_BUILD_CANDIDATE and its exclusion-policy inference are superseded by the actual build failure: candidate f1ca865 retained 67 prohibited progress/spec/test entries in instrumentation NFT and standalone output. Checking that a glob matches an entry did not establish that the compiler applies it. Installed Next `build/index.js` excludes Turbopack from the JavaScript `collectBuildTraces` path, and `turbopack-build/impl.js` returns an undefined buildTraceContext. Therefore no assurance is now based on outputFileTracingExcludes.
+
+Replacement verdict: PASS_FOR_RUNTIME_TEST. The delivery boundary is now `scripts/prepare-runtime.mjs`, which creates a fresh separate tree containing standalone server.js, package.json, node_modules and required .next runtime files, explicitly adds static files, schemas, config, examples and the operator provisioner, and omits NFT files, cache and nested standalone trees. Docker copies only this prepared tree. Browser verification invokes the same preparer and boots its server.js from the isolated runtime directory; it no longer serves the repository through next start. The preparer is included in production source hashing.
+
+Independent review found one material omission: the initial audit rejected `.env` but allowed `.env.production`. The producer fixed the entire `.env*` family and added a negative fixture. Independent recheck of `node --test tests/web-runtime-package.test.mjs` passed 1/1 with zero skips after that change. Its assertions cover omission of evidence/traces, protection of an existing destination, rejection of environment files and rejection of dependency links escaping the runtime. Copy preserves internal pnpm links; audit verifies their resolved confinement and rejects unsupported file types. No source files were modified by this reviewer.
+
+A separate independent execution of the final preparer against the available built standalone tree created `/tmp/media-runtime-independent-44bac527-c265-4ef0-8cfc-802e45ef9742`: 1392 file/link manifest entries, zero prohibited entries, zero external links, build ID `Z--clmsUthbya4n54BOmK`, manifest SHA-256 `6dca0df28edc56715c1c7b96b7fbf4f07c1c54b9239f6ae72d4e24edd0c75bbd`. A separate filesystem scan of the equivalent producer output also found no forbidden entries or external links. These are package-construction checks against the available build, not a claim that the new committed candidate or image has passed end-to-end operation.
+
+| Final reviewed file | SHA-256 |
+| --- | --- |
+| scripts/prepare-runtime.mjs | ed43e104be117b3ebbed7d11f79ad4a8dd79686c8c6ac5848fa6f92821a5cbc5 |
+| tests/web-runtime-package.test.mjs | 4fe87bb694a7601fa12643841bc45a11285054605114472aab84a645d43b83d6 |
+| Dockerfile | f99eb75cb0495b13cf69d9e2ab54b84e68ad5f060b6c5e4951a8639f65a05d61 |
+| scripts/test-e2e.mjs | 36ba9fbe359e80979dc2a9e23d1342904545b66c47d31dbb85d5b367f0838d6b |
+| scripts/web-source-state.mjs | e31081b7635930265a1a691afa1c63b5bc8a722f34757d0b2e73813ba75ab8b4 |
+| docs/MEDIA_FACTORY_WEB.md | 43ae4d226bb971c3a34819650bc245fcb3aaad3d9921f299dda8dc9743029926 |
+
+There are no unresolved material findings for attempting the fresh candidate build and packaged-runtime E2E. Full E2E, real image startup/readiness, restart, signing and authenticated public deployment gates remain mandatory and are not passed by this source review.

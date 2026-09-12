@@ -1,3 +1,4 @@
+import { prepareRuntime } from './prepare-runtime.mjs'
 import { webSourceState } from './web-source-state.mjs'
 import { redactTestOutput } from './redact-test-output.mjs'
 import { mkdtemp, mkdir, writeFile, readFile } from 'node:fs/promises'
@@ -32,7 +33,9 @@ const sha = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).tri
 const env = { ...process.env, NODE_ENV: 'production', MEDIA_FACTORY_DATA_ROOT: dataRoot, MEDIA_FACTORY_IDENTITY_FILE: identityFile, MEDIA_FACTORY_PUBLIC_ORIGIN: origin, MEDIA_FACTORY_RELEASE_SHA: sha, MEDIA_FACTORY_DEPLOYMENT_CLASS: 'test', MEDIA_FACTORY_TEST_MODE: '1', NEXT_TELEMETRY_DISABLED: '1' }
 // Host identity must not bleed into an isolated browser verification run.
 for (const key of ['MEDIA_FACTORY_OPERATOR_USERNAME', 'MEDIA_FACTORY_OPERATOR_PASSWORD_VERIFIER']) delete env[key]
-const child = spawn(process.execPath, ['node_modules/next/dist/bin/next', 'start', '--hostname', '127.0.0.1', '--port', String(port)], { env, stdio: ['ignore', 'pipe', 'pipe'] })
+const runtimeDirectory=join(temp,'runtime')
+const runtimePackage=await prepareRuntime(runtimeDirectory)
+const child = spawn(process.execPath, [join(runtimeDirectory,'server.js')], { cwd:runtimeDirectory, env:{...env,HOSTNAME:'127.0.0.1',PORT:String(port)}, stdio: ['ignore', 'pipe', 'pipe'] })
 let log = ''
 for (const stream of [child.stdout, child.stderr]) stream.on('data', chunk => { log = (log + String(chunk)).slice(-150000) })
 const started = Date.now()
@@ -49,7 +52,7 @@ try {
   const afterState=await webSourceState()
   if(afterState.commit!==sourceState.commit||afterState.source_sha256!==sourceState.source_sha256||(immutable&&afterState.working_tree_dirty))throw new Error('Candidate changed during browser verification')
   if((await readFile('.next/BUILD_ID','utf8')).trim()!==buildState.build_id)throw new Error('Compiled output changed during browser verification')
-  const report = { candidate_sha: immutable?sha:null, configured_health_release_sha:sha, working_tree_dirty:sourceState.working_tree_dirty, build_id:buildState.build_id, production_source_sha256:sourceState.source_sha256, test_only: true, temporary_storage: true, elapsed_ms: Date.now() - started, result }
+  const report = { candidate_sha: immutable?sha:null, configured_health_release_sha:sha, working_tree_dirty:sourceState.working_tree_dirty, build_id:buildState.build_id, runtime_package:runtimePackage, production_source_sha256:sourceState.source_sha256, test_only: true, temporary_storage: true, elapsed_ms: Date.now() - started, result }
   await writeFile(join(temp, 'result.json'), JSON.stringify(report, null, 2) + '\n')
   console.log(JSON.stringify({ ...report, evidence_directory: temp }, null, 2))
 } catch (error) {
