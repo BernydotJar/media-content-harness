@@ -1,0 +1,33 @@
+{
+  "candidate_sha": "e37805e09e52ff9e8a4928d0be8a01bff57e0838",
+  "configured_health_release_sha": "e37805e09e52ff9e8a4928d0be8a01bff57e0838",
+  "working_tree_dirty": false,
+  "build_id": "e7P4kIPneUesMAMfJK5AP",
+  "production_source_sha256": "e6034954c0d2707a6f23da1c25e1a5e793e54811ca6f72af9f7101928f40849d",
+  "test_only": true,
+  "temporary_storage": true,
+  "elapsed_ms": 13604,
+  "result": {
+    "status": "PASS",
+    "checks": [
+      "exact health identity",
+      "anonymous API denied",
+      "login and honest empty dashboard",
+      "workspace onboarding and authority-separated sources",
+      "reference proof upload and Content DNA",
+      "explicit tenant mascot source binding",
+      "Guided draft through shared contracts without approval side effects",
+      "exact four-video natural-language request strategies",
+      "asynchronous real pinned Graph reaches creative human gate",
+      "SSE progression and visibly marked deterministic provider fixture",
+      "hash-bound release and authenticated downloadable artifact",
+      "release library",
+      "tenant switching keeps plans separate",
+      "responsive mobile navigation and no horizontal overflow",
+      "no uncaught browser errors"
+    ],
+    "job_id": "mf_23b08f7a82ccfdd69d8db478942985aa",
+    "release_candidate_sha": "52b3e21b17a57f5034f12e87402f8c31f14df73664e7220947adb44f82281c12"
+  },
+  "evidence_directory": "/tmp/media-factory-browser-e2e-4Nlp9Y"
+}

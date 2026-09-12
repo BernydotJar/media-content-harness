@@ -1,0 +1,13 @@
+.git
+node_modules
+.pnpm-store
+.next
+data
+.media-factory
+.critic*
+.env*
+work
+progress
+playwright-report
+test-results
+**/__pycache__

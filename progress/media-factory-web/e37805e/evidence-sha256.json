@@ -1,0 +1,13 @@
+{
+  "browser-checks.json": "e4d0d4c3565c3e3c66c25e23a43a0e8da877a7ed18f91e2f04d1c5d578841936",
+  "candidate-audit.log": "15950a68a7ed99c59779717acefdceb3f69cfd31bde67d2c954f2a3cea4d7955",
+  "candidate-build.log": "477a8e70ebc14a10f5c02f5191b1b304da527018c932b9bd885915e7dded2355",
+  "candidate-check.log": "05d893bc001d4c0fe08692db3bfa78367519c123b2036b0278b4ee7dcc671207",
+  "candidate-typecheck.log": "8366207267355d3e3d5bf3bf6e8c94c5f93f6078c34f08973fa2b38cdda6cc92",
+  "free-desktop.png": "fe63c163f21258d8b4e1011ea2d9ea6f688ba31b1436cd536a9847adfb8c38f2",
+  "independent-browser-e2e.json": "fdc2fc3e1b7cf319dbd1ac82690511fbc0b249c05d75eb30b78e071a2bf0ad43",
+  "login-desktop.png": "1dc0ee176d1e32da407b11e305e0c8a53eecbac062882a764d3a85d1f5b54c33",
+  "mobile-workspaces.png": "f769ead8c45f4b9673c9cd3f756c89773e4054d59ac5cc733f682c6a3831e79c",
+  "release-review-desktop.png": "a72709fa910194305463e27c74cab448479d3c141007e6b388d0d0eaf6153d8d",
+  "server.log": "6c6e963e6cc00e8b9efd139eabac1dcd80b6fa38a5c63cff46192def7745e116"
+}

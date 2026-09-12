@@ -1,0 +1,22 @@
+{
+  "checks": [
+    "exact health identity",
+    "anonymous API denied",
+    "login and honest empty dashboard",
+    "workspace onboarding and authority-separated sources",
+    "reference proof upload and Content DNA",
+    "explicit tenant mascot source binding",
+    "Guided draft through shared contracts without approval side effects",
+    "exact four-video natural-language request strategies",
+    "asynchronous real pinned Graph reaches creative human gate",
+    "SSE progression and visibly marked deterministic provider fixture",
+    "hash-bound release and authenticated downloadable artifact",
+    "release library",
+    "tenant switching keeps plans separate",
+    "responsive mobile navigation and no horizontal overflow",
+    "no uncaught browser errors"
+  ],
+  "job_id": "mf_23b08f7a82ccfdd69d8db478942985aa",
+  "candidate_sha": "52b3e21b17a57f5034f12e87402f8c31f14df73664e7220947adb44f82281c12",
+  "artifact_sha": "0fe5ea45fda5a9cadb8ce1e623c0db288ca849b1d53415539fd8aa4d682c9af1"
+}

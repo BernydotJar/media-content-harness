@@ -181,7 +181,8 @@
         "Dockerfile",
         ".gitignore",
         ".dockerignore",
-        "README.md"
+        "README.md",
+        "deploy/**"
       ]
     },
     {
@@ -216,7 +217,8 @@
         "Dockerfile",
         ".gitignore",
         ".dockerignore",
-        "README.md"
+        "README.md",
+        "deploy/**"
       ]
     }
   ]

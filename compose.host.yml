@@ -1,0 +1,32 @@
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    init: true
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      MEDIA_FACTORY_RELEASE_SHA: ${CAMPAIGNOS_RELEASE_SHA:?required}
+      MEDIA_FACTORY_DEPLOYMENT_CLASS: ${CAMPAIGNOS_DEPLOYMENT_CLASS:?required}
+      MEDIA_FACTORY_OPERATOR_USERNAME: ${CAMPAIGNOS_PREVIEW_USERNAME:?required}
+      MEDIA_FACTORY_OPERATOR_PASSWORD_VERIFIER: ${CAMPAIGNOS_PREVIEW_PASSWORD_VERIFIER:?required}
+      MEDIA_FACTORY_PUBLIC_ORIGIN: ${CAMPAIGNOS_PREVIEW_PUBLIC_ORIGIN:?required}
+      MEDIA_FACTORY_IDENTITY_FILE: ${MEDIA_FACTORY_IDENTITY_FILE:-}
+      MEDIA_FACTORY_DATA_ROOT: /app/data
+      GRAPH_HARNESS_RUNTIME_ROOT: /opt/graph-harness
+    volumes:
+      - media-factory-data:/app/data
+    read_only: true
+    tmpfs:
+      - /tmp:rw,nosuid,size=134217728
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    healthcheck:
+      test: [CMD, node, -e, "Promise.all(['/health','/api/v1/health'].map(p=>fetch('http://127.0.0.1:3000'+p))).then(async r=>{const [d,s]=await Promise.all(r.map(x=>x.json()));process.exit(r.every(x=>x.ok)&&d.product==='media-factory'&&d.release_sha===process.env.MEDIA_FACTORY_RELEASE_SHA&&s.data.status==='ready'?0:1)}).catch(()=>process.exit(1))"]
+      interval: 20s
+      timeout: 10s
+      start_period: 45s
+      retries: 5
+volumes:
+  media-factory-data:
