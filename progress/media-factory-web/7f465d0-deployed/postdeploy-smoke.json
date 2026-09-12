@@ -1,0 +1,46 @@
+{
+  "anonymous_https": {
+    "/admin/integrations": 401,
+    "/api/v1/admin/integrations": 401,
+    "/health": 401,
+    "/llm.txt": 200,
+    "/llms.txt": 200,
+    "/robots.txt": 200,
+    "/sitemap.xml": 200
+  },
+  "assertions": {
+    "admin_integrations_anonymous_denied": true,
+    "admin_page_anonymous_denied": true,
+    "anonymous_health_denied_by_access_policy": true,
+    "exact_release_converged": true,
+    "host_health_and_recovery_pass": true,
+    "public_discovery_routes_available": true
+  },
+  "deployment_evidence": "evidence/media-factory-host-reconcile-20260912T230143Z.json",
+  "host_layers": {
+    "L1_RELEASE": "PASS",
+    "L2_EDGE_NETWORK": "PASS",
+    "L2_RUNTIME": "PASS",
+    "L3_LOCAL_HEALTH": "PASS",
+    "L3_RECOVERY": "PASS",
+    "L4_CADDY": "PASS",
+    "L6_TUNNEL": "PASS",
+    "L7_DNS_L8_TLS_L9_PUBLIC": "PASS",
+    "L9_AUTHORIZATION": "PASS",
+    "L9_SECURITY": "PASS"
+  },
+  "known_product_limit": "Fictional mascot/character treatment is supported, but animation/compositing remains blocked until an operational generation/composition adapter is implemented and authorized.",
+  "last_result": "DEPLOYED_CONTROLLED_SINGLE_OPERATOR_PREVIEW",
+  "public_url": "https://media-factory.textilesdemedellin.com",
+  "registry_state": "converged",
+  "release_sha": "7f465d072f7faf05017b90e1da769e99a047674f",
+  "schema_version": "media-factory.postdeploy.v1",
+  "session_proof": {
+    "login_http_status": 200,
+    "logout_http_status": 303,
+    "revoked_http_status": 401,
+    "transport": "HTTP",
+    "workspace_body": "PASS",
+    "workspace_http_status": 200
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "schema_version": "media-factory.open-blockers.v1",
+  "release_sha": "7f465d072f7faf05017b90e1da769e99a047674f",
+  "software_release_state": "COMPLETED",
+  "broader_product_state": "PARTIAL_WITH_DOCUMENTED_BLOCKERS",
+  "blockers": [
+    {
+      "id": "MASCOT_ANIMATION_ADAPTER",
+      "status": "BLOCKED_CAPABILITY",
+      "scope": "Fictional mascot/character animation and compositing",
+      "remaining": "Implement and authorize an operational generation/composition adapter; keep synthetic provenance and human gates.",
+      "release_blocker": false
+    },
+    {
+      "id": "EXTERNAL_GENERATION_ADAPTERS",
+      "status": "INTEGRATION_REQUIRED",
+      "scope": "Seedance, Higgsfield, CapCut and Gemini generation execution",
+      "remaining": "A saved credential is configuration only. Each provider requires a real server-side adapter and execution verification before it may be marked operational.",
+      "release_blocker": false
+    },
+    {
+      "id": "PRODUCTION_REVIEW_IDENTITIES",
+      "status": "OPERATOR_CONFIGURATION_REQUIRED",
+      "scope": "Real multi-actor production review outside the controlled single-operator preview",
+      "remaining": "Provision named production reviewers and memberships when moving beyond the current preview deployment class.",
+      "release_blocker": false
+    }
+  ]
+}
