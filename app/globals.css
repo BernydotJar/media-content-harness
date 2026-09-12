@@ -18,3 +18,5 @@
 @media(max-width:600px){.creation-guide{padding:18px}.journey-steps{grid-template-columns:1fr 1fr;gap:18px}.journey-steps li:nth-child(2):after{display:none}.guide-heading h2{font-size:19px}.guided-sticky{bottom:8px;padding:12px}.guided-sticky button{flex:1}.guided-sticky>span:not(.guided-hint){font-size:11px}.integration-card input,.creative-profile-grid input{font-size:16px}.guide-jobs a{font-size:12px}}
 
 .planner-fields{border:0;padding:0;margin:0;min-width:0}.stepper button:disabled{cursor:not-allowed;opacity:.45}
+
+.creative-profile-grid a.primary{color:#242016}@media(max-width:600px){.guided-sticky{position:static;box-shadow:none}}

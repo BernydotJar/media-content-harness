@@ -47,7 +47,7 @@ try {
     await new Promise(resolve => setTimeout(resolve, 250))
   }
   if (!ready) throw new Error('Browser E2E startup timeout')
-  const { runStudioE2E } = await import('../tests/e2e/ease.mjs')
+  const { runStudioE2E } = await import(process.argv.includes('--visual-only')?'../tests/e2e/ease-visual.mjs':'../tests/e2e/ease.mjs')
   const result = await runStudioE2E({ origin, email, password, dataRoot, identityFile, temp, sha })
   const afterState=await webSourceState()
   if(afterState.commit!==sourceState.commit||afterState.source_sha256!==sourceState.source_sha256||(immutable&&afterState.working_tree_dirty))throw new Error('Candidate changed during browser verification')
