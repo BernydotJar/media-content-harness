@@ -4,6 +4,10 @@ A plugin-first media-production operating system built on DeepSeek Harness and g
 
 Media Content Harness turns an agent runtime into a durable production system for cinematic social content: explicit source authorization, asset provenance, Director Treatments, CapCut/Gemini orchestration, critic/fixer/verifier loops, deterministic media QA, compliance gates, release manifests, and dashboard-ready state.
 
+## Media Factory Web delivered preview
+
+[Open the controlled-access studio](https://media-factory.textilesdemedellin.com/login). Software release `c648711` is deployed through the existing shared host. See the [verified release report](progress/media-factory-web/c648711-deployed/RELEASE_REPORT.md) for evidence, supported providers and documented blockers. Full generative production remains partial.
+
 ## Runtime strategy
 
 This repository does **not** fork or patch the DeepSeek agent loop and does **not** copy the Graph Harness runtime.

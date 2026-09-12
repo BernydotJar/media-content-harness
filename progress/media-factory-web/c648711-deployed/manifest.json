@@ -1,0 +1,22 @@
+{
+  "software_release_sha": "c648711cd2cf53d6371c1de5504165f4b423eda8",
+  "terminal_state": "PARTIAL_WITH_DOCUMENTED_BLOCKERS",
+  "files": {
+    "FINAL_STATE.json": "25e4c07831e147b7d175cb991282c041dc220f34823ea29c57e30cb0b63e4b81",
+    "OPEN_BLOCKERS.json": "89a12efa909a8ecd09d6bc25e096ac0686995584a39030c001a5d78faab2db1e",
+    "RELEASE_REPORT.md": "6f459a93f572eea334f8911b43e9589823ff942a9ad0ffe46b16e6b0ffea702d",
+    "closure-orchestration-note.md": "ec4148c02680d129a23fe861919793381cb3a998a68645b5fc52b6c5a955cf99",
+    "controller-promotion.json": "25538a99676e418faf6e9ccb8698a84b957e62feb2534b011a18b1eb36e934ce",
+    "deployment-critic.md": "612217161af65c34b24679935e9742ab056adaa7493a546ca003310667201cc5",
+    "deployment-request.jsonl": "05882aa297c8b9080e8944bf2320f085a8845e94a6b246bbea8006858bf4bbaa",
+    "graph-evidence-integrity.json": "81ee65906521ba0fd59f8e972b238b1030a7646f05fcf76c8d0a6a178e457edb",
+    "graph-final-status.json": "67aa8a01ad0187d94b812ba4815f16fbe3e8879c3d3528bb0de8bb71ff094b11",
+    "host-observation.json": "a86ce9f71b5474294b019fe9b1faca328103a9b5e561cdee69980003b41a492e",
+    "host-reconcile.json": "8e7d01e024c904e4aa0574adeaa26b156f6dc9dac6141b43b806260257f9d937",
+    "media-close-release.mjs": "0a706e64b282a5dfa1db7aa11d3cb92d5072c92b926430b1b890deb7d9260632",
+    "media-finish-release.mjs": "922fb1ae4e4acee73af155c55745bb13cd7388caa3ddf5d7738f267bb7698b79",
+    "public-verification.json": "dfed4b92c218045a51ed27aa326c952acd11319b44aeecb46adb0c36d9e475fb",
+    "public-verifier.py": "9ba3b7e81db42043a6909b802213a715c705faa9d5e8d2ce3c8af4f17ef7238d",
+    "release-independent-review.md": "9fdebd6e26a59a7ccf5164a15c4e304755bc59f5a6f113d46955c8869efd0d8e"
+  }
+}

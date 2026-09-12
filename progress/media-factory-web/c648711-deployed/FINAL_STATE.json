@@ -1,0 +1,19 @@
+{
+  "terminal_state": "PARTIAL_WITH_DOCUMENTED_BLOCKERS",
+  "software_release_sha": "c648711cd2cf53d6371c1de5504165f4b423eda8",
+  "product_url": "https://media-factory.textilesdemedellin.com/login",
+  "health_url": "https://media-factory.textilesdemedellin.com/health",
+  "repository": "https://github.com/BernydotJar/media-content-harness",
+  "branch": "main",
+  "nodes": {
+    "WEB001-SERVICES": "done",
+    "WEB002-STUDIO": "done",
+    "WEB003-EXECUTION": "done",
+    "WEB004-VALIDATION": "done",
+    "WEB005-DEPLOYMENT": "done",
+    "WEB006-RELEASE": "done"
+  },
+  "ready_nodes": [],
+  "blockers": "progress/media-factory-web/c648711-deployed/OPEN_BLOCKERS.json",
+  "release_report": "progress/media-factory-web/c648711-deployed/RELEASE_REPORT.md"
+}

@@ -1,0 +1,48 @@
+{
+  "kind": "independent_read_only_existing_deployment_evidence_observation",
+  "observed_at": "2026-09-12T21:36:31.666048+00:00",
+  "product": "media-factory",
+  "request_id": "3f932cee-be65-4206-8460-3e442b08c355",
+  "release_sha": "c648711cd2cf53d6371c1de5504165f4b423eda8",
+  "registry": {
+    "status": "active",
+    "reconciliation_state": "converged",
+    "last_applied_request_id": "3f932cee-be65-4206-8460-3e442b08c355",
+    "last_result": "DEPLOYED_CONTROLLED_SINGLE_OPERATOR_PREVIEW",
+    "last_commit": "c648711cd2cf53d6371c1de5504165f4b423eda8",
+    "last_deployed_at": "2026-09-12T21:34:31.239826+00:00"
+  },
+  "evidence": {
+    "path": "evidence/media-factory-host-reconcile-20260912T213431Z.json",
+    "sha256": "8e7d01e024c904e4aa0574adeaa26b156f6dc9dac6141b43b806260257f9d937",
+    "started_at": "2026-09-12T21:32:05.718160+00:00",
+    "completed_at": "2026-09-12T21:34:31.234833+00:00",
+    "result": "DEPLOYED",
+    "layers": {
+      "L1_RELEASE": "PASS",
+      "L2_RUNTIME": "PASS",
+      "L2_EDGE_NETWORK": "PASS",
+      "L3_LOCAL_HEALTH": "PASS",
+      "L3_RECOVERY": "PASS",
+      "L4_CADDY": "PASS",
+      "L6_TUNNEL": "PASS",
+      "L7_DNS_L8_TLS_L9_PUBLIC": "PASS",
+      "L9_SECURITY": "PASS",
+      "L9_AUTHORIZATION": "PASS"
+    },
+    "public_probe": {
+      "transport": "dns_pinned_https_no_redirect",
+      "http_status": 200,
+      "anonymous_http_status": 401,
+      "form_session_workspace": {
+        "transport": "HTTP",
+        "login_http_status": 200,
+        "workspace_http_status": 200,
+        "workspace_body": "PASS",
+        "logout_http_status": 303,
+        "revoked_http_status": 401
+      }
+    }
+  },
+  "boundary": "Read only observation of existing host proof. No additional model run, test, smoke, deploy request, restart, credential access or repository edit."
+}

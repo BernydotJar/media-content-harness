@@ -1,0 +1,277 @@
+{
+  "result": "PASS",
+  "candidate_sha": "c648711cd2cf53d6371c1de5504165f4b423eda8",
+  "origin": "https://media-factory.textilesdemedellin.com",
+  "credentials_used": false,
+  "elapsed_seconds": 7.62,
+  "checks": [
+    "anonymous login metadata and publicly served OG match the candidate asset",
+    "GET and HEAD discovery documents preserve MIME and preview noindex with an empty private-free sitemap",
+    "anonymous private pages and APIs are denied or return only same-origin login redirects",
+    "discovery POST requests do not inherit the public GET/HEAD bypass",
+    "public session endpoint stays404 and health requires authentication"
+  ],
+  "opengraph_sha256": "080c7262f16a947da959362480261851c050b3b5f1c79f5305bf9f0778a9d57d",
+  "requests": [
+    {
+      "method": "GET",
+      "path": "/login",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "x_robots_tag": null,
+      "location": null,
+      "body_sha256": "9204a9d866629418785b2f66a998e6a8836a1b7fd490e1b41c585ba20959792d",
+      "body_bytes": 13828
+    },
+    {
+      "method": "GET",
+      "path": "/_next/static/media/media-factory-og.2caqiraunec0r.png",
+      "status": 200,
+      "content_type": "image/png",
+      "x_robots_tag": null,
+      "location": null,
+      "body_sha256": "080c7262f16a947da959362480261851c050b3b5f1c79f5305bf9f0778a9d57d",
+      "body_bytes": 888964
+    },
+    {
+      "method": "GET",
+      "path": "/robots.txt",
+      "status": 200,
+      "content_type": "text/plain; charset=utf-8",
+      "x_robots_tag": null,
+      "location": null,
+      "body_sha256": "5ab9260ebe82a21746c60312cc9f21acc4106123ca6e4feb9d73a2750d2ccc39",
+      "body_bytes": 1929
+    },
+    {
+      "method": "HEAD",
+      "path": "/robots.txt",
+      "status": 200,
+      "content_type": "text/plain; charset=utf-8",
+      "x_robots_tag": null,
+      "location": null,
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "body_bytes": 0
+    },
+    {
+      "method": "GET",
+      "path": "/sitemap.xml",
+      "status": 200,
+      "content_type": "application/xml",
+      "x_robots_tag": null,
+      "location": null,
+      "body_sha256": "1214c52cace28c40b45da48b46ef96fe9ad1bb0584cde1ba6f66c9a70a5ed5df",
+      "body_bytes": 110
+    },
+    {
+      "method": "HEAD",
+      "path": "/sitemap.xml",
+      "status": 200,
+      "content_type": "application/xml",
+      "x_robots_tag": null,
+      "location": null,
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "body_bytes": 0
+    },
+    {
+      "method": "GET",
+      "path": "/llms.txt",
+      "status": 200,
+      "content_type": "text/plain; charset=utf-8",
+      "x_robots_tag": "noindex",
+      "location": null,
+      "body_sha256": "c6de632972e8772801c932f7ee89df5b7b5d34bab73fea996697b9fd90038a42",
+      "body_bytes": 848
+    },
+    {
+      "method": "HEAD",
+      "path": "/llms.txt",
+      "status": 200,
+      "content_type": "text/plain; charset=utf-8",
+      "x_robots_tag": "noindex",
+      "location": null,
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "body_bytes": 0
+    },
+    {
+      "method": "GET",
+      "path": "/llm.txt",
+      "status": 200,
+      "content_type": "text/plain; charset=utf-8",
+      "x_robots_tag": "noindex",
+      "location": null,
+      "body_sha256": "c6de632972e8772801c932f7ee89df5b7b5d34bab73fea996697b9fd90038a42",
+      "body_bytes": 848
+    },
+    {
+      "method": "HEAD",
+      "path": "/llm.txt",
+      "status": 200,
+      "content_type": "text/plain; charset=utf-8",
+      "x_robots_tag": "noindex",
+      "location": null,
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "body_bytes": 0
+    },
+    {
+      "method": "GET",
+      "path": "/dashboard",
+      "status": 303,
+      "content_type": "",
+      "x_robots_tag": "noindex, nofollow, noarchive",
+      "location": "/login",
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "body_bytes": 0
+    },
+    {
+      "method": "GET",
+      "path": "/workspaces",
+      "status": 303,
+      "content_type": "",
+      "x_robots_tag": "noindex, nofollow, noarchive",
+      "location": "/login",
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "body_bytes": 0
+    },
+    {
+      "method": "GET",
+      "path": "/workspace/public-probe/weekly",
+      "status": 303,
+      "content_type": "",
+      "x_robots_tag": "noindex, nofollow, noarchive",
+      "location": "/login",
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "body_bytes": 0
+    },
+    {
+      "method": "GET",
+      "path": "/jobs/public-probe",
+      "status": 303,
+      "content_type": "",
+      "x_robots_tag": "noindex, nofollow, noarchive",
+      "location": "/login",
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "body_bytes": 0
+    },
+    {
+      "method": "GET",
+      "path": "/jobs/public-probe/review",
+      "status": 303,
+      "content_type": "",
+      "x_robots_tag": "noindex, nofollow, noarchive",
+      "location": "/login",
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "body_bytes": 0
+    },
+    {
+      "method": "GET",
+      "path": "/review",
+      "status": 303,
+      "content_type": "",
+      "x_robots_tag": "noindex, nofollow, noarchive",
+      "location": "/login",
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "body_bytes": 0
+    },
+    {
+      "method": "GET",
+      "path": "/releases",
+      "status": 303,
+      "content_type": "",
+      "x_robots_tag": "noindex, nofollow, noarchive",
+      "location": "/login",
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "body_bytes": 0
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/tenants",
+      "status": 401,
+      "content_type": "application/json",
+      "x_robots_tag": "noindex, nofollow, noarchive",
+      "location": null,
+      "body_sha256": "42ca6208f80c6f3e9c31b89eba26b2d7a352fc98c660e1fe2fa0dc6323505152",
+      "body_bytes": 120
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/jobs",
+      "status": 401,
+      "content_type": "application/json",
+      "x_robots_tag": "noindex, nofollow, noarchive",
+      "location": null,
+      "body_sha256": "81aa65f30282683532acfce9c90f77357efe7e2d96a2e3224ac0d379c5bbee6a",
+      "body_bytes": 120
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/releases",
+      "status": 401,
+      "content_type": "application/json",
+      "x_robots_tag": "noindex, nofollow, noarchive",
+      "location": null,
+      "body_sha256": "40f4a9b21aed4325d272cdeecc161c670d6789112f37e9b097827a9f44db57f2",
+      "body_bytes": 120
+    },
+    {
+      "method": "POST",
+      "path": "/robots.txt",
+      "status": 401,
+      "content_type": "application/json",
+      "x_robots_tag": "noindex, nofollow, noarchive",
+      "location": null,
+      "body_sha256": "b5ac9a8322b0dfb32bbebd0a0bc481f94733c830565564139103aad9332b948b",
+      "body_bytes": 120
+    },
+    {
+      "method": "POST",
+      "path": "/sitemap.xml",
+      "status": 401,
+      "content_type": "application/json",
+      "x_robots_tag": "noindex, nofollow, noarchive",
+      "location": null,
+      "body_sha256": "94945d11490d585206cfe96815020e60c4398d22c579f4f610add2d033e81d2b",
+      "body_bytes": 120
+    },
+    {
+      "method": "POST",
+      "path": "/llms.txt",
+      "status": 401,
+      "content_type": "application/json",
+      "x_robots_tag": "noindex, nofollow, noarchive",
+      "location": null,
+      "body_sha256": "12df4ad01c8b67f7f961e37af8d44fa229b8181708e91359edc72e0698259bb3",
+      "body_bytes": 120
+    },
+    {
+      "method": "POST",
+      "path": "/llm.txt",
+      "status": 401,
+      "content_type": "application/json",
+      "x_robots_tag": "noindex, nofollow, noarchive",
+      "location": null,
+      "body_sha256": "72015ad0f88969d78dd6974872ce6e9245c0311764d744924018a428559c5b88",
+      "body_bytes": 120
+    },
+    {
+      "method": "GET",
+      "path": "/api/preview/session",
+      "status": 404,
+      "content_type": "",
+      "x_robots_tag": null,
+      "location": null,
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "body_bytes": 0
+    },
+    {
+      "method": "GET",
+      "path": "/health",
+      "status": 401,
+      "content_type": "",
+      "x_robots_tag": null,
+      "location": null,
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "body_bytes": 0
+    }
+  ]
+}

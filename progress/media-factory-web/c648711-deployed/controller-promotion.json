@@ -1,0 +1,21 @@
+{
+  "status": "APPLIED",
+  "backup": "/shared-auth/deployment/control-plane-backups/media-discovery-20260912T213125Z-75c0175b48f246429ddc1e52878f9738",
+  "installed": [
+    {
+      "path": "host-reconciler/host_reconciler.py",
+      "sha256": "aa40a01781d11f1857382b37037e6806bda6c5dd1235253ad9bafc45868716eb",
+      "expected_sha256": "aa40a01781d11f1857382b37037e6806bda6c5dd1235253ad9bafc45868716eb"
+    },
+    {
+      "path": "host-reconciler/productctl.py",
+      "sha256": "46ba8e16972806a6668cf37a39e91c48ddbae046379bfca041e52d0a43dde5b4",
+      "expected_sha256": "46ba8e16972806a6668cf37a39e91c48ddbae046379bfca041e52d0a43dde5b4"
+    },
+    {
+      "path": "productctl.py",
+      "sha256": "46ba8e16972806a6668cf37a39e91c48ddbae046379bfca041e52d0a43dde5b4",
+      "expected_sha256": "46ba8e16972806a6668cf37a39e91c48ddbae046379bfca041e52d0a43dde5b4"
+    }
+  ]
+}

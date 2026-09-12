@@ -1,7 +1,7 @@
-# Current product completion state
+# Current Media Factory Web delivery
 
-As of 2026-09-12: WEB001-SERVICES, WEB002-STUDIO, WEB003-EXECUTION and WEB004-VALIDATION are DONE under the actual pinned Graph runtime. Exact candidate e37805e09e52ff9e8a4928d0be8a01bff57e0838 passed88tests/13contracts/typecheck/build/prod audit and15independent browser checks. GitHub main contains that candidate.
+2026-09-12 — **PARTIAL_WITH_DOCUMENTED_BLOCKERS**. Signed software candidate `c648711cd2cf53d6371c1de5504165f4b423eda8` is deployed **active/converged** at https://media-factory.textilesdemedellin.com/login through the existing shared host, Caddy and Cloudflare named tunnel. See [verified release report](c648711-deployed/RELEASE_REPORT.md) and [concrete blockers](c648711-deployed/OPEN_BLOCKERS.json).
 
-WEB005-DEPLOYMENT is RUNNING. Runtime packaging reuses the existing host reconciler, Caddy and named tunnel, with a signed exact-SHA review still required before publication. WEB006-RELEASE remains dependency-locked. No public deployment or product-terminal completion is claimed.
+The append-only `graph/media-factory-web.events.jsonl` is authoritative for the six existing software delivery nodes and final terminal checkpoint. The controlled Web delivery can close while the broader product remains partial; an all-done software graph does not assert paid-provider or customer-media completion.
 
-Functional limits remain explicit: unconfigured external providers and credit-bearing generation; mascot compositing; arbitrary creative repairs; automatic reference/browser observation; unrestricted conversational creative direction. The available production adapter handles authorized uploaded video editing with FFmpeg and independent authenticated human reviews. The browser's provider fixture is test-only.
+Tests already performed were reused per the user's instruction, preserving exact source identities and diagnostic labels. The newly required candidate delta, signed reviews, host deployment and public discovery gates passed. Real uploaded-video editing uses FFmpeg; generative/hybrid providers, mascot finishing, broader creative automation and real reviewer/customer configuration remain explicitly unresolved. No social publication or paid generation was authorized or performed.

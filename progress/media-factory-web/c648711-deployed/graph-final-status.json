@@ -1,0 +1,126 @@
+{
+  "checkpoint_count": 3,
+  "event_count": 94,
+  "last_event_id": "eb0e6ba4-ebfe-4567-acb9-6e43c6b6553f",
+  "mode": "SHIP",
+  "nodes": [
+    {
+      "active_evidence_ids": [
+        "089d47e2-4603-4934-8425-c03985dc6e2c",
+        "fd2fc301-c91d-4be6-83b9-12ccde7c9bff"
+      ],
+      "active_gates": {
+        "implementation_quality": "PASS"
+      },
+      "approval_count": 1,
+      "capability": "media-factory-web",
+      "depends_on": [],
+      "id": "WEB001-SERVICES",
+      "kind": "product-completion",
+      "revision": 0,
+      "status": "done",
+      "title": "Contracts, authorization, repositories and provider-neutral product services"
+    },
+    {
+      "active_evidence_ids": [
+        "31be9ec8-e4f0-4c0f-b315-eb7f81fb22ed",
+        "a9321df3-abc9-460d-bf16-4b7905041527"
+      ],
+      "active_gates": {
+        "implementation_quality": "PASS"
+      },
+      "approval_count": 1,
+      "capability": "media-factory-web",
+      "depends_on": [],
+      "id": "WEB002-STUDIO",
+      "kind": "product-completion",
+      "revision": 1,
+      "status": "done",
+      "title": "Creative Web studio and Guided/Free interfaces"
+    },
+    {
+      "active_evidence_ids": [
+        "0556ec63-3329-49cd-b5de-a7de5267f8a2",
+        "75c17055-3602-48bc-87c4-10f6b7720f27"
+      ],
+      "active_gates": {
+        "implementation_quality": "PASS"
+      },
+      "approval_count": 1,
+      "capability": "media-factory-web",
+      "depends_on": [],
+      "id": "WEB003-EXECUTION",
+      "kind": "product-completion",
+      "revision": 0,
+      "status": "done",
+      "title": "Async Graph jobs, streaming, evidence and hash-bound review"
+    },
+    {
+      "active_evidence_ids": [
+        "7a05c270-8b5b-4740-b7a0-5a167ff68c80",
+        "e29af4b1-9f50-4c96-836e-6ad44d57bf32"
+      ],
+      "active_gates": {
+        "implementation_quality": "PASS"
+      },
+      "approval_count": 1,
+      "capability": "media-factory-web",
+      "depends_on": [
+        "WEB001-SERVICES",
+        "WEB002-STUDIO",
+        "WEB003-EXECUTION"
+      ],
+      "id": "WEB004-VALIDATION",
+      "kind": "product-completion",
+      "revision": 1,
+      "status": "done",
+      "title": "Integrated adversarial tests, browser E2E and documentation"
+    },
+    {
+      "active_evidence_ids": [
+        "5270fb8f-888b-4425-bb93-2f90e9c99af8",
+        "60155c84-7fd2-491a-8778-c2013fbc77e4",
+        "6ac067c3-7aa8-47c9-af7e-09cfc9dcb33b",
+        "e3078356-c997-4cbc-a9ff-a109d1a1dbd5"
+      ],
+      "active_gates": {
+        "implementation_quality": "PASS"
+      },
+      "approval_count": 1,
+      "capability": "media-factory-web",
+      "depends_on": [
+        "WEB004-VALIDATION"
+      ],
+      "id": "WEB005-DEPLOYMENT",
+      "kind": "product-completion",
+      "revision": 1,
+      "status": "done",
+      "title": "Verified runtime and existing shared HTTPS deployment"
+    },
+    {
+      "active_evidence_ids": [
+        "c072e4b5-bbc0-4df8-bc13-943a0a18bdcc",
+        "cc26e653-2e2d-49cc-a679-86108fa80bfd",
+        "f25b09b6-926b-40d7-82e2-bc64d239949b",
+        "fa69b1cf-9f73-4b23-9102-3c8557ea5339"
+      ],
+      "active_gates": {
+        "implementation_quality": "PASS"
+      },
+      "approval_count": 1,
+      "capability": "media-factory-web",
+      "depends_on": [
+        "WEB005-DEPLOYMENT"
+      ],
+      "id": "WEB006-RELEASE",
+      "kind": "product-completion",
+      "revision": 0,
+      "status": "done",
+      "title": "Immutable verifier, release gate and terminal evidence"
+    }
+  ],
+  "project_id": "media-factory-web",
+  "ready_nodes": [],
+  "repair_plan_count": 1,
+  "schema_version": "graph-harness.state.v1"
+}
