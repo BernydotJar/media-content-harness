@@ -1,0 +1,20 @@
+{
+  "schema_version": "content-dna.v1",
+  "tenant_id": "community-demo",
+  "source_observation_ids": ["reference-observation-001"],
+  "story_devices": [
+    "participatory-brand-reveal",
+    "recurring-character-bridge",
+    "movement-led-place-context",
+    "activity-first-story",
+    "place-as-character"
+  ],
+  "pacing_profile": ["moderate"],
+  "branding_profile": ["subtle"],
+  "audience_mode": "general-audience",
+  "copying_policy": {
+    "direct_text_reuse": false,
+    "shot_for_shot_copying": false,
+    "source_audio_reuse": false
+  }
+}

@@ -99,3 +99,16 @@ Recommended views:
 ## Upstream strategy
 
 DeepSeek Harness is currently developer-preview software. This project therefore keeps upstream as an external runtime and pins tested revisions for production profiles. Media-specific packages remain in this repository so upstream can be upgraded independently.
+
+## Media Factory v1
+
+```text
+Tenant Profile
+  -> Structured Reference Observation
+  -> Content DNA
+  -> Human-approved Story Set
+  -> Weekly Production Plan
+  -> BRIEF -> existing Media Graph -> RELEASE
+```
+
+Reference observations and production sources remain distinct authority classes. Tenant runtime namespaces and browser-context references are isolated. Weekly jobs may use only sources declared for production and do not perform publication as part of planning.

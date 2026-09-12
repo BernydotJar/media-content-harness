@@ -1,0 +1,53 @@
+{
+  "schema_version": "weekly-production-plan.v1",
+  "plan_id": "community-demo-2026-09-14",
+  "tenant_id": "community-demo",
+  "week_of": "2026-09-14",
+  "cadence": "weekly",
+  "audience_mode": "general-audience",
+  "source_authorization_snapshot": [
+    {
+      "id": "authorized-album",
+      "locator": "https://example.com/source-album/",
+      "authorization": "explicit",
+      "purpose": "source"
+    }
+  ],
+  "content_dna_observation_ids": [
+    "reference-observation-001"
+  ],
+  "jobs": [
+    {
+      "id": "story-01",
+      "title": "A community moment",
+      "objective": "Build one short activity-first story from authorized source material.",
+      "source_ids": [
+        "authorized-album"
+      ],
+      "story_devices": [
+        "activity-first-story",
+        "place-as-character"
+      ],
+      "target": {
+        "aspect_ratio": "9:16",
+        "resolution": "1080x1920",
+        "duration_seconds": [
+          8,
+          25
+        ]
+      },
+      "pipeline": "media-graph-v1",
+      "initial_graph_node": "BRIEF",
+      "human_approval_required": true,
+      "publication_action": "none",
+      "status": "PLANNED"
+    }
+  ],
+  "deliverables": [
+    "master-videos",
+    "caption-drafts",
+    "thumbnail-drafts",
+    "provenance-manifest",
+    "release-report"
+  ]
+}

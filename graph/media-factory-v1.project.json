@@ -1,0 +1,21 @@
+{
+  "schema_version": "graph-harness.project.v1",
+  "project_id": "media-factory-v1",
+  "mode": "SHIP",
+  "gate_definitions": [
+    {"id":"graph_runtime_integrity","required_evidence_kinds":["graph_runtime_test"],"blocking":true},
+    {"id":"browser_bridge_quality","required_evidence_kinds":["browser_bridge_test"],"blocking":true},
+    {"id":"tenant_isolation_quality","required_evidence_kinds":["tenant_isolation_test"],"blocking":true},
+    {"id":"reference_dna_quality","required_evidence_kinds":["reference_dna_test"],"blocking":true},
+    {"id":"weekly_factory_quality","required_evidence_kinds":["weekly_factory_test"],"blocking":true},
+    {"id":"release_quality","required_evidence_kinds":["release_verification"],"blocking":true}
+  ],
+  "nodes": [
+    {"id":"MF001-GRAPH-RUNTIME-INTEGRITY","kind":"infrastructure","title":"Pinned Graph Harness integration executes instead of silently skipping","status":"spec_ready","depends_on":[],"capability":"graph-harness","gates":{"review":["graph_runtime_integrity"]},"allowed_paths":["tests/media-graph.test.mjs","graph/**","progress/**","specs/**"]},
+    {"id":"MF002-BROWSER-BRIDGE","kind":"source-adapter","title":"Read-only authorized Chrome CDP browser bridge","status":"spec_ready","depends_on":["MF001-GRAPH-RUNTIME-INTEGRITY"],"capability":"chrome-cdp","gates":{"review":["browser_bridge_quality"]},"allowed_paths":["plugins/**","tests/**","docs/**","cordis.patch.yml","progress/**","specs/**"]},
+    {"id":"MF003-TENANT-ISOLATION","kind":"product-core","title":"Reusable tenant media profiles with isolated browser/source authority","status":"spec_ready","depends_on":["MF002-BROWSER-BRIDGE"],"capability":"multi-tenant-media","gates":{"review":["tenant_isolation_quality"]},"allowed_paths":["plugins/**","schemas/**","tests/**","docs/**","examples/**","progress/**","specs/**"]},
+    {"id":"MF004-REFERENCE-CONTENT-DNA","kind":"reference-analysis","title":"Reference-page observations become provenance-backed Content DNA without cloning creative work","status":"spec_ready","depends_on":["MF003-TENANT-ISOLATION"],"capability":"content-dna","gates":{"review":["reference_dna_quality"]},"allowed_paths":["plugins/**","schemas/**","tests/**","docs/**","examples/**","progress/**","specs/**"]},
+    {"id":"MF005-WEEKLY-FACTORY","kind":"orchestration","title":"Weekly modular media-production contract for approved general-audience stories","status":"spec_ready","depends_on":["MF004-REFERENCE-CONTENT-DNA"],"capability":"weekly-media-factory","gates":{"review":["weekly_factory_quality"]},"allowed_paths":["plugins/**","schemas/**","tests/**","docs/**","examples/**","prompts/**","progress/**","specs/**"]},
+    {"id":"MF006-RELEASE","kind":"release","title":"End-to-end verification, evidence, documentation, and release readiness","status":"spec_ready","depends_on":["MF005-WEEKLY-FACTORY"],"capability":"release","gates":{"review":["release_quality"]},"allowed_paths":["README.md","docs/**","examples/**","graph/**","progress/**","specs/**","tests/**","package.json","cordis.patch.yml"]}
+  ]
+}

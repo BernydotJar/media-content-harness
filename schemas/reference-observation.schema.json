@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/reference-observation.schema.json",
+  "title": "Reference Observation",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "id", "tenant_id", "authorization_id", "locator", "evidence_sha256", "format", "pacing", "branding", "observed_elements"],
+  "properties": {
+    "schema_version": { "const": "reference-observation.v1" },
+    "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,127}$" },
+    "tenant_id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]{1,63}$" },
+    "authorization_id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,127}$" },
+    "locator": { "type": "string", "format": "uri" },
+    "evidence_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "format": { "enum": ["video", "reel", "post", "image", "mixed"] },
+    "pacing": { "enum": ["quiet", "moderate", "fast"] },
+    "branding": { "enum": ["subtle", "moderate", "prominent"] },
+    "observed_elements": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "brand-made-by-hand",
+          "mascot-character",
+          "walking-observation",
+          "community-activity",
+          "place-detail",
+          "human-closeup",
+          "object-closeup",
+          "documentary-footage",
+          "stylized-animation",
+          "ambient-sound",
+          "minimal-on-screen-text"
+        ]
+      }
+    }
+  }
+}

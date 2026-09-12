@@ -1,0 +1,44 @@
+{
+  "schema_version": "tenant-media-profile.v1",
+  "tenant_id": "community-demo",
+  "organization": "Community Demo",
+  "territory": "Example Territory",
+  "runtime_namespace": "community-demo",
+  "browser_context_ref": "community-demo-browser",
+  "content_context": "community",
+  "audience_policy": {
+    "mode": "general-audience",
+    "sensitive_trait_targeting": false,
+    "voter_microtargeting": false
+  },
+  "brand": {
+    "display_name": "Community Demo",
+    "logo_asset_key": "brand/logo-primary",
+    "mascot_asset_key": "brand/mascot-primary",
+    "visual_language": "warm documentary, activity-first, community-scale"
+  },
+  "sources": [
+    {
+      "id": "reference-page",
+      "locator": "https://example.com/reference/",
+      "authorization": "explicit",
+      "match": "exact",
+      "purpose": "reference"
+    },
+    {
+      "id": "authorized-album",
+      "locator": "https://example.com/source-album/",
+      "authorization": "explicit",
+      "match": "exact",
+      "purpose": "source"
+    }
+  ],
+  "production_defaults": {
+    "aspect_ratio": "9:16",
+    "cadence": "weekly",
+    "duration_seconds": [
+      8,
+      25
+    ]
+  }
+}

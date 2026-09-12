@@ -1,0 +1,16 @@
+{
+  "result": "PASS",
+  "authorization_id": "firmes-izabal-reference",
+  "operation": "discover-authorized-page",
+  "read_only": true,
+  "target": {
+    "title": "(3) Facebook",
+    "type": "page",
+    "url": "https://www.facebook.com/people/Firmes-Izabal/61593278846959/"
+  },
+  "privacy": {
+    "cookies_persisted": false,
+    "websocket_url_persisted": false,
+    "other_tabs_persisted": false
+  }
+}

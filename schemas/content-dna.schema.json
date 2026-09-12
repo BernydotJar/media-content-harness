@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/content-dna.schema.json",
+  "title": "Content DNA",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "tenant_id",
+    "source_observation_ids",
+    "story_devices",
+    "pacing_profile",
+    "branding_profile",
+    "audience_mode",
+    "copying_policy"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "content-dna.v1"
+    },
+    "tenant_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]{1,63}$"
+    },
+    "source_observation_ids": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,127}$"
+      }
+    },
+    "story_devices": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "participatory-brand-reveal",
+          "recurring-character-bridge",
+          "movement-led-place-context",
+          "activity-first-story",
+          "place-as-character",
+          "human-scale-intimacy",
+          "detail-led-context",
+          "documentary-grounding",
+          "clearly-stylized-augmentation",
+          "ambient-sound-presence",
+          "low-text-visual-storytelling"
+        ]
+      }
+    },
+    "pacing_profile": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "quiet",
+          "moderate",
+          "fast"
+        ]
+      }
+    },
+    "branding_profile": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "subtle",
+          "moderate",
+          "prominent"
+        ]
+      }
+    },
+    "audience_mode": {
+      "const": "general-audience"
+    },
+    "copying_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "direct_text_reuse",
+        "shot_for_shot_copying",
+        "source_audio_reuse"
+      ],
+      "properties": {
+        "direct_text_reuse": {
+          "const": false
+        },
+        "shot_for_shot_copying": {
+          "const": false
+        },
+        "source_audio_reuse": {
+          "const": false
+        }
+      }
+    }
+  }
+}

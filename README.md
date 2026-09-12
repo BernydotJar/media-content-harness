@@ -81,7 +81,7 @@ A failed gate invalidates only the causally affected subgraph. Stale evidence ca
 
 ## Status
 
-Foundation in active development.
+Media Factory v1 control plane is a release candidate; creative finishing remains in the existing external adapters.
 
 Current foundation includes:
 
@@ -102,3 +102,25 @@ MIT. DeepSeek Harness and Graph Harness SDLC remain separately licensed by their
 The `media-graph` plugin exposes the pinned Graph Harness runtime as `ctx.mediaGraph`. It provides typed status, READY-node discovery, evidence/gate recording, validated transitions, optimistic concurrency, checkpoints, and localized repair while keeping Graph Harness outside this repository.
 
 Configure the runtime checkout with `GRAPH_HARNESS_RUNTIME_ROOT`. See `docs/MEDIA_GRAPH_ADAPTER.md` and `examples/media-production.graph.json`.
+
+## Media Factory v1 release candidate
+
+The reusable control plane adds four product contracts ahead of the existing per-video production graph:
+
+- tenant media profiles with isolated namespaces, source authority, brand defaults, and general-audience policy;
+- structured reference observations plus Content DNA, keeping provenance separate from reusable creative abstractions;
+- weekly production plans that bind approved stories to production-authorized sources and Content DNA;
+- fail-closed read-only reference-inspection policy and sanitized evidence records.
+
+Each weekly job starts at `BRIEF` in the existing Media Graph, requires human approval, and has no automatic publication action. Finishing remains in the existing creative adapters; Media Factory v1 is the orchestration and governance control plane, not an embedded editor.
+
+Key contracts and guides:
+
+- `schemas/tenant-media-profile.schema.json`
+- `schemas/reference-observation.schema.json`
+- `schemas/content-dna.schema.json`
+- `schemas/weekly-production-plan.schema.json`
+- `docs/BROWSER_BRIDGE.md`
+- `docs/TENANT_MEDIA_PROFILES.md`
+- `docs/CONTENT_DNA.md`
+- `docs/WEEKLY_MEDIA_FACTORY.md`

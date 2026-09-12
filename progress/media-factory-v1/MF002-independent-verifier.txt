@@ -1,0 +1,140 @@
+MF002 INDEPENDENT VERIFIER
+candidate=WORKTREE
+
+1) browser policy tests
+TAP version 13
+# Subtest: requires fail-closed read-only policy
+ok 1 - requires fail-closed read-only policy
+  ---
+  duration_ms: 0.49725
+  type: 'test'
+  ...
+# Subtest: authorizes only the explicit source scope
+ok 2 - authorizes only the explicit source scope
+  ---
+  duration_ms: 0.194542
+  type: 'test'
+  ...
+# Subtest: rejects browser mutation and credential-bearing locators
+ok 3 - rejects browser mutation and credential-bearing locators
+  ---
+  duration_ms: 0.67125
+  type: 'test'
+  ...
+# Subtest: sanitizes observations to bounded public evidence fields
+ok 4 - sanitizes observations to bounded public evidence fields
+  ---
+  duration_ms: 0.819375
+  type: 'test'
+  ...
+# Subtest: registers mediaBrowserPolicy through Cordis provide
+ok 5 - registers mediaBrowserPolicy through Cordis provide
+  ---
+  duration_ms: 0.069709
+  type: 'test'
+  ...
+# Subtest: configuration may narrow but never widen the read-only allowlist
+ok 6 - configuration may narrow but never widen the read-only allowlist
+  ---
+  duration_ms: 0.057209
+  type: 'test'
+  ...
+# Subtest: prefix authorization is path-bounded and sensitive locators are rejected
+ok 7 - prefix authorization is path-bounded and sensitive locators are rejected
+  ---
+  duration_ms: 0.245708
+  type: 'test'
+  ...
+1..7
+# tests 7
+# suites 0
+# pass 7
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 32.35325
+
+2) real Graph Harness integration
+TAP version 13
+# Subtest: fails closed without runtime, pin, or absolute executables
+ok 1 - fails closed without runtime, pin, or absolute executables
+  ---
+  duration_ms: 0.68225
+  type: 'test'
+  ...
+# Subtest: rejects lexical graph path escape before graph command execution
+ok 2 - rejects lexical graph path escape before graph command execution
+  ---
+  duration_ms: 0.2565
+  type: 'test'
+  ...
+# Subtest: rejects canonical symlink escape from projectRoot
+ok 3 - rejects canonical symlink escape from projectRoot
+  ---
+  duration_ms: 4.514333
+  type: 'test'
+  ...
+# Subtest: rejects an events symlink even when its current target is missing
+ok 4 - rejects an events symlink even when its current target is missing
+  ---
+  duration_ms: 2.442
+  type: 'test'
+  ...
+# Subtest: registers ctx.mediaGraph using Cordis provide()
+ok 5 - registers ctx.mediaGraph using Cordis provide()
+  ---
+  duration_ms: 0.203459
+  type: 'test'
+  ...
+# Subtest: uses argv flag=value framing and optimistic concurrency without a shell
+ok 6 - uses argv flag=value framing and optimistic concurrency without a shell
+  ---
+  duration_ms: 3.139084
+  type: 'test'
+  ...
+# Subtest: omits --evidence when a non-passing gate has no evidence ids
+ok 7 - omits --evidence when a non-passing gate has no evidence ids
+  ---
+  duration_ms: 1.890208
+  type: 'test'
+  ...
+# Subtest: sanitizes git and python environments
+ok 8 - sanitizes git and python environments
+  ---
+  duration_ms: 1.612417
+  type: 'test'
+  ...
+# Subtest: rejects a drifted Graph Harness runtime revision
+ok 9 - rejects a drifted Graph Harness runtime revision
+  ---
+  duration_ms: 0.489292
+  type: 'test'
+  ...
+# Subtest: integration: real Graph Harness exposes BRIEF flow and SOURCE readiness
+ok 10 - integration: real Graph Harness exposes BRIEF flow and SOURCE readiness
+  ---
+  duration_ms: 383.169833
+  type: 'test'
+  ...
+1..10
+# tests 10
+# suites 0
+# pass 10
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 432.128417
+
+3) live authorized-page discovery evidence
+{"result": "PASS", "type": "page", "url": "https://www.facebook.com/people/Firmes-Izabal/61593278846959/", "title": "(3) Facebook"}
+
+4) persisted live evidence privacy boundary
+privacy_boundary=PASS
+
+5) diff integrity
+diff_check=PASS
+
+6) production dependency audit
+No known vulnerabilities found

@@ -1,0 +1,18 @@
+{
+  "schema_version": "reference-observation.v1",
+  "id": "reference-observation-001",
+  "tenant_id": "community-demo",
+  "authorization_id": "reference-page",
+  "locator": "https://example.com/reference/",
+  "evidence_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "format": "reel",
+  "pacing": "moderate",
+  "branding": "subtle",
+  "observed_elements": [
+    "brand-made-by-hand",
+    "mascot-character",
+    "walking-observation",
+    "community-activity",
+    "place-detail"
+  ]
+}

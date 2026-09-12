@@ -11,6 +11,7 @@ import { MediaGraphService, apply } from '../plugins/media-graph.mjs'
 
 const execFile = promisify(execFileCallback)
 const GRAPH_REVISION = '477bdcc3d390c30eb49d823e5c7fd105fee2cc4d'
+const REAL_GRAPH_ROOT = process.env.GRAPH_HARNESS_RUNTIME_ROOT
 
 function config(overrides = {}) {
   return {
@@ -152,16 +153,16 @@ test('rejects a drifted Graph Harness runtime revision', async () => {
   await assert.rejects(service.verifyRuntime(), /revision mismatch/)
 })
 
-test('integration: real Graph Harness exposes BRIEF flow and SOURCE readiness', { skip: !existsSync('/workspace/graph_harness') }, async () => {
+test('integration: real Graph Harness exposes BRIEF flow and SOURCE readiness', { skip: !REAL_GRAPH_ROOT || !existsSync(join(REAL_GRAPH_ROOT, 'graph_harness')) }, async () => {
   const root = await mkdtemp(join(tmpdir(), 'media-graph-integration-'))
   const projectPath = join(root, 'project.json')
   const eventsPath = join(root, 'events.jsonl')
   const template = await readFile(new URL('../examples/media-production.graph.json', import.meta.url), 'utf8')
   await writeFile(projectPath, template)
-  const { stdout } = await execFile('/usr/bin/git', ['-C', '/workspace', 'rev-parse', 'HEAD'])
+  const { stdout } = await execFile('/usr/bin/git', ['-C', REAL_GRAPH_ROOT, 'rev-parse', 'HEAD'])
   assert.equal(stdout.trim(), GRAPH_REVISION)
 
-  const service = new MediaGraphService(config({ runtimeRoot: '/workspace', projectRoot: root }))
+  const service = new MediaGraphService(config({ runtimeRoot: REAL_GRAPH_ROOT, projectRoot: root }))
   const validated = await service.validate({ projectPath: 'project.json', eventsPath: 'events.jsonl' })
   assert.equal(validated.valid, true)
   assert.deepEqual(await service.readyNodes({ projectPath: 'project.json', eventsPath: 'events.jsonl' }), [])

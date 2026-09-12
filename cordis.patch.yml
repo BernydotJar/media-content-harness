@@ -23,6 +23,36 @@
           - motion-graphics
           - stylized-non-documentary-insert
           - reference-guided-broll-clearly-synthetic
+    - id: media-browser-policy
+      name: media-content-harness/plugins/media-browser-policy.mjs
+      config:
+        failClosed: true
+        readOnly: true
+        allowedOperations:
+          - discover-authorized-page
+          - inspect-main-content
+          - capture-main-evidence
+        deniedOperations:
+          - navigate
+          - evaluate-script
+          - click
+          - type
+          - submit
+          - download
+          - cookie-read
+          - storage-read
+          - message
+          - comment
+          - react
+          - publish
+    - id: media-tenant-profile
+      name: media-content-harness/plugins/media-tenant-profile.mjs
+      config:
+        failClosed: true
+    - id: media-weekly-factory
+      name: media-content-harness/plugins/media-weekly-factory.mjs
+      config:
+        failClosed: true
     - id: media-graph
       name: media-content-harness/plugins/media-graph.mjs
       config:
