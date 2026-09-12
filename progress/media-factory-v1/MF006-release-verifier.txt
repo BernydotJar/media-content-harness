@@ -1,0 +1,311 @@
+MF006 RELEASE VERIFIER
+candidate=a09c0728f94b82d5efc2b5ee83ccdfbb0584d2d1
+
+1) immutable candidate identity and clean worktree
+candidate_identity=PASS
+worktree_clean=PASS
+
+2) global check with real pinned Graph Harness runtime
+$ pnpm run test && pnpm run validate:examples
+$ node --test tests/*.test.mjs
+TAP version 13
+# Subtest: requires fail-closed read-only policy
+ok 1 - requires fail-closed read-only policy
+  ---
+  duration_ms: 0.706083
+  type: 'test'
+  ...
+# Subtest: authorizes only the explicit source scope
+ok 2 - authorizes only the explicit source scope
+  ---
+  duration_ms: 0.298584
+  type: 'test'
+  ...
+# Subtest: rejects browser mutation and credential-bearing locators
+ok 3 - rejects browser mutation and credential-bearing locators
+  ---
+  duration_ms: 0.855917
+  type: 'test'
+  ...
+# Subtest: sanitizes observations to bounded public evidence fields
+ok 4 - sanitizes observations to bounded public evidence fields
+  ---
+  duration_ms: 2.535917
+  type: 'test'
+  ...
+# Subtest: registers mediaBrowserPolicy through Cordis provide
+ok 5 - registers mediaBrowserPolicy through Cordis provide
+  ---
+  duration_ms: 0.151709
+  type: 'test'
+  ...
+# Subtest: configuration may narrow but never widen the read-only allowlist
+ok 6 - configuration may narrow but never widen the read-only allowlist
+  ---
+  duration_ms: 0.109917
+  type: 'test'
+  ...
+# Subtest: prefix authorization is path-bounded and sensitive locators are rejected
+ok 7 - prefix authorization is path-bounded and sensitive locators are rejected
+  ---
+  duration_ms: 0.47975
+  type: 'test'
+  ...
+# Subtest: fails closed without runtime, pin, or absolute executables
+ok 8 - fails closed without runtime, pin, or absolute executables
+  ---
+  duration_ms: 0.832666
+  type: 'test'
+  ...
+# Subtest: rejects lexical graph path escape before graph command execution
+ok 9 - rejects lexical graph path escape before graph command execution
+  ---
+  duration_ms: 0.368125
+  type: 'test'
+  ...
+# Subtest: rejects canonical symlink escape from projectRoot
+ok 10 - rejects canonical symlink escape from projectRoot
+  ---
+  duration_ms: 10.382333
+  type: 'test'
+  ...
+# Subtest: rejects an events symlink even when its current target is missing
+ok 11 - rejects an events symlink even when its current target is missing
+  ---
+  duration_ms: 2.057583
+  type: 'test'
+  ...
+# Subtest: registers ctx.mediaGraph using Cordis provide()
+ok 12 - registers ctx.mediaGraph using Cordis provide()
+  ---
+  duration_ms: 0.246709
+  type: 'test'
+  ...
+# Subtest: uses argv flag=value framing and optimistic concurrency without a shell
+ok 13 - uses argv flag=value framing and optimistic concurrency without a shell
+  ---
+  duration_ms: 2.944041
+  type: 'test'
+  ...
+# Subtest: omits --evidence when a non-passing gate has no evidence ids
+ok 14 - omits --evidence when a non-passing gate has no evidence ids
+  ---
+  duration_ms: 2.268042
+  type: 'test'
+  ...
+# Subtest: sanitizes git and python environments
+ok 15 - sanitizes git and python environments
+  ---
+  duration_ms: 3.301625
+  type: 'test'
+  ...
+# Subtest: rejects a drifted Graph Harness runtime revision
+ok 16 - rejects a drifted Graph Harness runtime revision
+  ---
+  duration_ms: 0.713958
+  type: 'test'
+  ...
+# Subtest: integration: real Graph Harness exposes BRIEF flow and SOURCE readiness
+ok 17 - integration: real Graph Harness exposes BRIEF flow and SOURCE readiness
+  ---
+  duration_ms: 437.046291
+  type: 'test'
+  ...
+# Subtest: reference observation keeps provenance separate from source copy
+ok 18 - reference observation keeps provenance separate from source copy
+  ---
+  duration_ms: 6.683875
+  type: 'test'
+  ...
+# Subtest: content DNA contains abstractions but not reference bytes or locators
+ok 19 - content DNA contains abstractions but not reference bytes or locators
+  ---
+  duration_ms: 2.429667
+  type: 'test'
+  ...
+# Subtest: content DNA provenance references a structured observation from the same tenant
+ok 20 - content DNA provenance references a structured observation from the same tenant
+  ---
+  duration_ms: 1.694917
+  type: 'test'
+  ...
+# Subtest: schemas fail closed on undeclared fields
+ok 21 - schemas fail closed on undeclared fields
+  ---
+  duration_ms: 2.754125
+  type: 'test'
+  ...
+# Subtest: story devices use a controlled abstraction vocabulary
+ok 22 - story devices use a controlled abstraction vocabulary
+  ---
+  duration_ms: 0.828167
+  type: 'test'
+  ...
+# Subtest: accepts the canonical safe Seedance 2.5 policy
+ok 23 - accepts the canonical safe Seedance 2.5 policy
+  ---
+  duration_ms: 0.689333
+  type: 'test'
+  ...
+# Subtest: rejects credit spend without a human gate
+ok 24 - rejects credit spend without a human gate
+  ---
+  duration_ms: 0.211417
+  type: 'test'
+  ...
+# Subtest: rejects synthetic factual-event reconstruction
+ok 25 - rejects synthetic factual-event reconstruction
+  ---
+  duration_ms: 0.088917
+  type: 'test'
+  ...
+# Subtest: rejects undeclared synthetic use classes
+ok 26 - rejects undeclared synthetic use classes
+  ---
+  duration_ms: 0.101583
+  type: 'test'
+  ...
+# Subtest: accepts a reusable general-audience tenant profile
+ok 27 - accepts a reusable general-audience tenant profile
+  ---
+  duration_ms: 1.794292
+  type: 'test'
+  ...
+# Subtest: rejects raw credentials and browser session material at any depth
+ok 28 - rejects raw credentials and browser session material at any depth
+  ---
+  duration_ms: 0.336125
+  type: 'test'
+  ...
+# Subtest: browser context references are opaque and tenant-owned
+ok 29 - browser context references are opaque and tenant-owned
+  ---
+  duration_ms: 0.290708
+  type: 'test'
+  ...
+# Subtest: runtime namespaces and tenant IDs cannot collide
+ok 30 - runtime namespaces and tenant IDs cannot collide
+  ---
+  duration_ms: 0.351083
+  type: 'test'
+  ...
+# Subtest: public-affairs profiles remain general-audience and cannot enable voter microtargeting
+ok 31 - public-affairs profiles remain general-audience and cannot enable voter microtargeting
+  ---
+  duration_ms: 0.214334
+  type: 'test'
+  ...
+# Subtest: source authorization is explicit, unique, and secret-free
+ok 32 - source authorization is explicit, unique, and secret-free
+  ---
+  duration_ms: 0.36475
+  type: 'test'
+  ...
+# Subtest: production defaults require an ascending positive duration range
+ok 33 - production defaults require an ascending positive duration range
+  ---
+  duration_ms: 0.097459
+  type: 'test'
+  ...
+# Subtest: registers tenant service through Cordis provide
+ok 34 - registers tenant service through Cordis provide
+  ---
+  duration_ms: 0.085125
+  type: 'test'
+  ...
+# Subtest: authorization is semantic only inside a declared source record
+ok 35 - authorization is semantic only inside a declared source record
+  ---
+  duration_ms: 0.258416
+  type: 'test'
+  ...
+# Subtest: two distinct tenants can safely share the reusable engine
+ok 36 - two distinct tenants can safely share the reusable engine
+  ---
+  duration_ms: 0.357667
+  type: 'test'
+  ...
+# Subtest: builds a weekly video-production plan from tenant + DNA + approved stories
+ok 37 - builds a weekly video-production plan from tenant + DNA + approved stories
+  ---
+  duration_ms: 8.945875
+  type: 'test'
+  ...
+# Subtest: production jobs cannot treat a reference-only source as production media
+ok 38 - production jobs cannot treat a reference-only source as production media
+  ---
+  duration_ms: 2.276125
+  type: 'test'
+  ...
+# Subtest: rejects unknown sources and story devices outside Content DNA
+ok 39 - rejects unknown sources and story devices outside Content DNA
+  ---
+  duration_ms: 1.525709
+  type: 'test'
+  ...
+# Subtest: rejects unapproved stories and undeclared story fields
+ok 40 - rejects unapproved stories and undeclared story fields
+  ---
+  duration_ms: 1.262166
+  type: 'test'
+  ...
+# Subtest: rejects cross-tenant DNA and copying-policy drift
+ok 41 - rejects cross-tenant DNA and copying-policy drift
+  ---
+  duration_ms: 1.207875
+  type: 'test'
+  ...
+# Subtest: rejects invalid dates, duplicate job ids, and duplicate source ids
+ok 42 - rejects invalid dates, duplicate job ids, and duplicate source ids
+  ---
+  duration_ms: 1.618583
+  type: 'test'
+  ...
+# Subtest: source snapshot contains only production sources actually used by the weekly jobs
+ok 43 - source snapshot contains only production sources actually used by the weekly jobs
+  ---
+  duration_ms: 1.552208
+  type: 'test'
+  ...
+# Subtest: registers weekly factory through Cordis provide
+ok 44 - registers weekly factory through Cordis provide
+  ---
+  duration_ms: 0.141166
+  type: 'test'
+  ...
+# Subtest: weekly planner requires weekly cadence, Monday boundary, and unique DNA references
+ok 45 - weekly planner requires weekly cadence, Monday boundary, and unique DNA references
+  ---
+  duration_ms: 1.359375
+  type: 'test'
+  ...
+1..45
+# tests 45
+# suites 0
+# pass 45
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 495.741958
+$ node scripts/validate-examples.mjs
+{"valid":true,"files":13}
+
+3) dependency audit
+No known vulnerabilities found
+
+4) Graph program validation on candidate
+{"event_count": 53, "project_id": "media-factory-v1", "ready_nodes": [], "valid": true}
+
+5) deterministic weekly-plan regeneration
+deterministic_plan=PASS
+
+6) committed browser evidence privacy boundary
+browser_evidence_privacy=PASS
+
+7) production-effects boundary
+effects_boundary=PASS
+
+8) diff and JSON integrity
+diff_check=PASS
+json_syntax=PASS
