@@ -1,0 +1,60 @@
+{
+  "operation": "inspect-main-content+capture-main-evidence",
+  "read_only": true,
+  "target": {
+    "origin": "https://media-factory.textilesdemedellin.com",
+    "path": "/jobs/mf_76e0f9795197d32b4c854721de7833d3",
+    "title": "Detalle de producción · Media Factory"
+  },
+  "screenshot_sha256": "b46b6ff9d2d5194ec09e43887e49de2db1f04b1672d2d48924aff482f0cc84e7",
+  "semantic_count": 339,
+  "matched_semantics": [
+    {
+      "role": "RootWebArea",
+      "name": "Detalle de producción · Media Factory"
+    },
+    {
+      "role": "link",
+      "name": "Media Factory CREATIVE STUDIO"
+    },
+    {
+      "role": "button",
+      "name": "Volver a comprobar recursos"
+    },
+    {
+      "role": "StaticText",
+      "name": "Media Factory"
+    },
+    {
+      "role": "StaticText",
+      "name": "Necesita atención"
+    },
+    {
+      "role": "StaticText",
+      "name": "Volver a comprobar recursos"
+    },
+    {
+      "role": "StaticText",
+      "name": "Media Factory"
+    },
+    {
+      "role": "InlineTextBox",
+      "name": "Media Factory"
+    },
+    {
+      "role": "InlineTextBox",
+      "name": "Necesita atención"
+    },
+    {
+      "role": "InlineTextBox",
+      "name": "Volver a comprobar recursos"
+    },
+    {
+      "role": "InlineTextBox",
+      "name": "Media Factory"
+    }
+  ],
+  "freshness": "STALE_DOCUMENT_PREDEPLOY",
+  "acceptance_use": "DIAGNOSTIC_ONLY_NOT_POSTDEPLOY_ACCEPTANCE",
+  "reason": "Authenticated Chrome tab was not navigated or reloaded because the Browser Bridge contract is read-only and explicitly denies navigation; captured document remains the pre-deploy page instance."
+}

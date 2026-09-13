@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "product_key": "media-factory",
+  "public_url": "https://media-factory.textilesdemedellin.com",
+  "release_sha": "a72b2e927055beca050a4e72757855c96c6bc4dc",
+  "request_id": "cd98b770-9907-4b1c-8302-84a791a1c4c5",
+  "result": "DEPLOYED",
+  "started_at": "2026-09-13T06:36:55.251748+00:00",
+  "completed_at": "2026-09-13T06:38:02.700053+00:00",
+  "layers": {
+    "L1_RELEASE": "PASS",
+    "L2_RUNTIME": "PASS",
+    "L2_EDGE_NETWORK": "PASS",
+    "L3_LOCAL_HEALTH": "PASS",
+    "L3_RECOVERY": "PASS",
+    "L4_CADDY": "PASS",
+    "L6_TUNNEL": "PASS",
+    "L7_DNS_L8_TLS_L9_PUBLIC": "PASS",
+    "L9_SECURITY": "PASS",
+    "L9_AUTHORIZATION": "PASS"
+  },
+  "public_probe": {
+    "transport": "dns_pinned_https_no_redirect",
+    "http_status": 200,
+    "anonymous_http_status": 401,
+    "form_session_workspace": {
+      "transport": "HTTP",
+      "login_http_status": 200,
+      "workspace_http_status": 200,
+      "workspace_body": "PASS",
+      "logout_http_status": 303,
+      "revoked_http_status": 401
+    }
+  },
+  "registry": {
+    "reconciliation_state": "converged",
+    "last_result": "DEPLOYED_CONTROLLED_SINGLE_OPERATOR_PREVIEW",
+    "desired_release_sha": "a72b2e927055beca050a4e72757855c96c6bc4dc",
+    "last_commit": "a72b2e927055beca050a4e72757855c96c6bc4dc",
+    "last_applied_request_id": "cd98b770-9907-4b1c-8302-84a791a1c4c5",
+    "last_deployed_at": "2026-09-13T06:38:02.701471+00:00",
+    "last_verified_at": "2026-09-13T06:38:02.701480+00:00",
+    "public_health": "PASS_HTTP_200",
+    "process_recovery": "PASS",
+    "last_error": null,
+    "deployment_evidence": "evidence/media-factory-host-reconcile-20260913T063802Z.json"
+  }
+}

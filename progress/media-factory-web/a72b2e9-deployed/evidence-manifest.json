@@ -1,0 +1,34 @@
+{
+  "host-reconcile-summary.json": {
+    "sha256": "1df357c2ea88fb5a395866bf4c08243979dc565cb63311dfe72ea7dcb7c66450",
+    "bytes": 1676
+  },
+  "postdeploy-public-smoke.json": {
+    "sha256": "733974297144830e3c6d0370da7ce03f5c07995ea8725733a913deece09dc401",
+    "bytes": 1198
+  },
+  "postdeploy-browser-stale-diagnostic.json": {
+    "sha256": "016888cbfb0d74da72b151e62f1c1cdccea71e27c6c1e05866c55714288944b9",
+    "bytes": 1618
+  },
+  "postdeploy-browser-stale-diagnostic.png": {
+    "sha256": "b46b6ff9d2d5194ec09e43887e49de2db1f04b1672d2d48924aff482f0cc84e7",
+    "bytes": 257889
+  },
+  "granite-risk-raw.json": {
+    "sha256": "7f37ba53737400e360e454b3ad0ef49a074a3ba6cdb909b49a1e5e5f2da78223",
+    "bytes": 418
+  },
+  "granite-rubric-raw.json": {
+    "sha256": "f49128bd86e5224a82b54744f6dffe705f4c45275f1a5b9ccdfefad31d465a34",
+    "bytes": 704
+  },
+  "critic-receipt.json": {
+    "sha256": "9ca52ab9bc22d18a5396e85e1d00eb1b89d92c7b1fc3494a07b9d42078ab8d6c",
+    "bytes": 1327
+  },
+  "critic-receipt.sig": {
+    "sha256": "ac9d2ac4815fe86f58172332a37f8b9aaa34074218d21d6bf3c610f66f6a0580",
+    "bytes": 384
+  }
+}

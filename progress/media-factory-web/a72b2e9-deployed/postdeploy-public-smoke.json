@@ -1,0 +1,54 @@
+{
+  "checked_at": "2026-09-13T06:45:04Z",
+  "origin": "https://media-factory.textilesdemedellin.com",
+  "results": [
+    {
+      "path": "/login",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "location": null
+    },
+    {
+      "path": "/robots.txt",
+      "status": 200,
+      "content_type": "text/plain; charset=utf-8",
+      "location": null
+    },
+    {
+      "path": "/sitemap.xml",
+      "status": 200,
+      "content_type": "application/xml",
+      "location": null
+    },
+    {
+      "path": "/llms.txt",
+      "status": 200,
+      "content_type": "text/plain; charset=utf-8",
+      "location": null
+    },
+    {
+      "path": "/llm.txt",
+      "status": 200,
+      "content_type": "text/plain; charset=utf-8",
+      "location": null
+    },
+    {
+      "path": "/jobs/mf_76e0f9795197d32b4c854721de7833d3",
+      "status": 401,
+      "content_type": "application/json",
+      "location": null
+    },
+    {
+      "path": "/api/v1/admin/integrations",
+      "status": 401,
+      "content_type": "application/json",
+      "location": null
+    },
+    {
+      "path": "/health",
+      "status": 401,
+      "content_type": null,
+      "location": null
+    }
+  ]
+}

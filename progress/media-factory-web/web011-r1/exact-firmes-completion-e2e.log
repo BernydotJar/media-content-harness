@@ -1,0 +1,42 @@
+{
+  "candidate_sha": "a72b2e927055beca050a4e72757855c96c6bc4dc",
+  "working_tree_dirty": false,
+  "production_source_sha256": "e062d560c1ab744e1b3a10c42784a41071c94ab2f9b0133469bf267f9c728d09",
+  "build_id": "ce4BeJs87UEC2NzKAMLXl",
+  "runtime_package": {
+    "format": "media-factory-runtime.v1",
+    "files": 1453,
+    "manifest_sha256": "245e45f0bc528e7f60a415d61608f597ea2a0730db0aa8a0a5a4c165483413c5",
+    "build_id": "ce4BeJs87UEC2NzKAMLXl",
+    "forbidden_entries": 0,
+    "external_symlinks": 0
+  },
+  "test_mode": false,
+  "deployment_class": "controlled_single_operator_preview",
+  "source_fixture_sha256": "c1504301d3615a1a577a7fe0406ec6509de2bbe0adb05f6271211f46a0126000",
+  "generated_media": {
+    "sha256": "fb04b3a78dd794b2b7974e41c955f5014e76492090fa98f2538f5aafc931de66",
+    "width": 1080,
+    "height": 1920,
+    "duration_seconds": 8
+  },
+  "elapsed_ms": 20549,
+  "result": {
+    "status": "PASS",
+    "job_id": "mf_da2cc86cd7f63e38b3cafa620bcaa26c",
+    "release_id": "release_bbd8febffbf20e7aff15f7d7",
+    "artifact_sha256": "fb04b3a78dd794b2b7974e41c955f5014e76492090fa98f2538f5aafc931de66",
+    "source_sha256": "c1504301d3615a1a577a7fe0406ec6509de2bbe0adb05f6271211f46a0126000",
+    "brand_asset_sha256": "b17c55ffb0eec46bfa719128ee68a9f18475c45afb90d6d73ce9d82567938397",
+    "checks": [
+      "Dashboard is tenant-scoped FIRMES with burgundy/gold tokens and the authorized caballito visible.",
+      "The real workflow fails closed for missing authorized source bytes while preserving FIRMES identity.",
+      "Exact authorized bytes resume the same job and are frozen into the Graph source snapshot.",
+      "A non-test MP4 is produced by the local zero-credit adapter with immutable caballito provenance before independent critique.",
+      "A separate authenticated critic approved the exact hash-bound candidate.",
+      "A third authenticated identity independently verified the unchanged artifact candidate.",
+      "Final owner release preserves the exact artifact/provenance snapshot and performs no automatic social publication."
+    ]
+  },
+  "evidence_directory": "/tmp/media-factory-firmes-completion-xxa6MI"
+}
