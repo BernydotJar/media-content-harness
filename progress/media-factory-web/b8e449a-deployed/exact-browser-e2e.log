@@ -1,0 +1,32 @@
+{
+  "candidate_sha": "b8e449ab57af2706171a556cc8f820b712ed8c6c",
+  "working_tree_dirty": false,
+  "production_source_sha256": "4ab46e4bebcae52640759d0d4b14c05662ace989eb6c6719765480419c9f9c91",
+  "build_id": "2HyaVmXKJRGcnlnyvotGE",
+  "runtime_package": {
+    "format": "media-factory-runtime.v1",
+    "files": 1450,
+    "manifest_sha256": "365babffa1d14f7181a410398de50471b35047df6cc9838bdbf4898d3f3e38c6",
+    "build_id": "2HyaVmXKJRGcnlnyvotGE",
+    "forbidden_entries": 0,
+    "external_symlinks": 0
+  },
+  "test_mode": false,
+  "deployment_class": "controlled_single_operator_preview",
+  "source_fixture_sha256": "c1504301d3615a1a577a7fe0406ec6509de2bbe0adb05f6271211f46a0126000",
+  "elapsed_ms": 6729,
+  "result": {
+    "status": "PASS",
+    "job_id": "mf_e4063079efe6c3bb21cabee9ea388717",
+    "source_sha256": "c1504301d3615a1a577a7fe0406ec6509de2bbe0adb05f6271211f46a0126000",
+    "checks": [
+      "Production reaches a real SOURCE_BYTES_REQUIRED blocker with the exact missing authorized source id.",
+      "Blocked job renders the tenant-scoped FIRMES V2 identity and exact directed recovery CTA.",
+      "CTA lands on the exact missing source card, preserving FIRMES V2 context.",
+      "Uploading the exact authorized bytes resumes the same Graph and freezes the source SHA into the job snapshot.",
+      "Resumed FIRMES V2 job remains usable on a 390px mobile viewport without horizontal overflow.",
+      "prefers-reduced-motion disables continuous FIRMES Gooey animation."
+    ]
+  },
+  "evidence_directory": "/tmp/media-factory-v2-source-2tl4fI"
+}

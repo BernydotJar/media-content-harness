@@ -1,15 +1,13 @@
 # Current Media Factory Web delivery
 
-2026-09-12 — **software release COMPLETED; broader product PARTIAL_WITH_DOCUMENTED_BLOCKERS**.
+2026-09-13 — **FIRMES V2 software release COMPLETED**.
 
-Exact candidate `7f465d072f7faf05017b90e1da769e99a047674f` is deployed **active/converged** at https://media-factory.textilesdemedellin.com/login through the existing shared Mac host, Caddy edge and `cloud-sandbox-mac` Cloudflare tunnel.
+Exact candidate `b8e449ab57af2706171a556cc8f820b712ed8c6c` is deployed active/converged at https://media-factory.textilesdemedellin.com/login through the existing shared Mac host, Caddy edge and `cloud-sandbox-mac` tunnel.
 
-The ease-of-creation release includes Guided Mode improvements, truthful production state, fictional character/place profiles, the authorized Firmes caballito as a reusable principal profile, Free Mode profile resolution, exact plan links, mobile navigation fixes and administrator-only API/integration configuration. Provider credentials remain distinct from provider operational state.
+The release fixes directed missing-source upload recovery, adds tenant-scoped FIRMES V2 brand treatment and accessible Gooey motion, and preserves same-job Graph resumption after authorized source upload. A real authorized 11-second vertical first-video proof was produced and verified; no social publication occurred.
 
-The exact SHA passed the IBM Granite release gate (`P/NONE`, 10/10 rubric PASS), received the canonical detached signature, and was deployed by the existing host reconciler. Host release/runtime/network/health/recovery/Caddy/tunnel/DNS-TLS-public/security/authorization layers all passed. Anonymous access to both `/admin/integrations` and `/api/v1/admin/integrations` returns `401`.
+Independent authority: IBM Granite 3.3 2B risk `P/NONE`, enterprise rubric 10/10 PASS, canonical signed receipt and detached signature, followed by host reconcile PASS across release/runtime/network/health/recovery/Caddy/tunnel/DNS-TLS/security/authorization.
 
-The append-only `graph/media-factory-web.events.jsonl` is authoritative: 113 events validate and all nodes `WEB001` through `WEB008` are `done` with no READY node.
+See [`b8e449a-deployed/RELEASE_REPORT.md`](b8e449a-deployed/RELEASE_REPORT.md), [`b8e449a-deployed/postdeploy-smoke.json`](b8e449a-deployed/postdeploy-smoke.json), and [`b8e449a-deployed/OPEN_BLOCKERS.json`](b8e449a-deployed/OPEN_BLOCKERS.json).
 
-See [`7f465d0-deployed/RELEASE_REPORT.md`](7f465d0-deployed/RELEASE_REPORT.md) and [`7f465d0-deployed/OPEN_BLOCKERS.json`](7f465d0-deployed/OPEN_BLOCKERS.json).
-
-The remaining blocker most relevant to the requested creative workflow is explicit: configuring the caballito and saving provider APIs does not itself enable animation/compositing. A real generation/composition adapter (for example a future Seedance/Higgsfield implementation) must be added, verified and authorized before that production stage can become operational. No paid generation or social publication was performed by this release.
+Documented non-blocking capability limit: mascot animation/compositing still requires a separately authorized operational provider adapter.

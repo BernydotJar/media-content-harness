@@ -1,0 +1,13 @@
+{
+  "broader_capability_limits": [
+    {
+      "blocks_current_v2_release": false,
+      "description": "Actual fictional mascot animation/compositing requires an operational authorized generation/composition adapter.",
+      "id": "MASCOT_COMPOSITION_ADAPTER",
+      "status": "DOCUMENTED_LIMIT"
+    }
+  ],
+  "release_sha": "b8e449ab57af2706171a556cc8f820b712ed8c6c",
+  "schema_version": "media-factory.open-blockers.v2",
+  "software_release": "COMPLETED"
+}

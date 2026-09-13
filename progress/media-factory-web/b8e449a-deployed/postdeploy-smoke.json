@@ -1,0 +1,57 @@
+{
+  "anonymous_https": {
+    "/admin/integrations": 401,
+    "/api/v1/admin/integrations": 401,
+    "/health": 401,
+    "/llm.txt": 200,
+    "/llms.txt": 200,
+    "/login": 200,
+    "/robots.txt": 200,
+    "/sitemap.xml": 200
+  },
+  "assertions": {
+    "admin_integrations_anonymous_denied": true,
+    "admin_page_anonymous_denied": true,
+    "anonymous_health_denied_by_access_policy": true,
+    "authenticated_workspace_session_proved_by_host_reconciler": true,
+    "exact_release_converged": true,
+    "host_health_and_recovery_pass": true,
+    "login_available": true,
+    "public_discovery_routes_available": true
+  },
+  "deployment_evidence": "evidence/media-factory-host-reconcile-20260913T010352Z.json",
+  "first_video_proof": {
+    "format": "11s 1080x1920 30fps H264",
+    "output_sha256": "e439c5cd0f6cc60e9463c6973ea9c4f860733ae110822d94eac37f8a3d188a5a",
+    "publication_action": "none",
+    "source_sha256": "c1504301d3615a1a577a7fe0406ec6509de2bbe0adb05f6271211f46a0126000",
+    "source_video_id": "2727838567635466",
+    "synthetic_media": false
+  },
+  "host_layers": {
+    "L1_RELEASE": "PASS",
+    "L2_EDGE_NETWORK": "PASS",
+    "L2_RUNTIME": "PASS",
+    "L3_LOCAL_HEALTH": "PASS",
+    "L3_RECOVERY": "PASS",
+    "L4_CADDY": "PASS",
+    "L6_TUNNEL": "PASS",
+    "L7_DNS_L8_TLS_L9_PUBLIC": "PASS",
+    "L9_AUTHORIZATION": "PASS",
+    "L9_SECURITY": "PASS"
+  },
+  "known_product_limit": "Fictional mascot treatment is supported, but animation/compositing requires an operational authorized generation/composition adapter.",
+  "last_result": "DEPLOYED_CONTROLLED_SINGLE_OPERATOR_PREVIEW",
+  "public_url": "https://media-factory.textilesdemedellin.com",
+  "registry_state": "converged",
+  "release_sha": "b8e449ab57af2706171a556cc8f820b712ed8c6c",
+  "schema_version": "media-factory.postdeploy.v2",
+  "session_proof": {
+    "login_http_status": 200,
+    "logout_http_status": 303,
+    "revoked_http_status": 401,
+    "transport": "HTTP",
+    "workspace_body": "PASS",
+    "workspace_http_status": 200
+  }
+}
