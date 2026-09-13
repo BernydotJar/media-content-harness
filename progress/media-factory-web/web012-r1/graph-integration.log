@@ -1,0 +1,70 @@
+TAP version 13
+# Subtest: fails closed without runtime, pin, or absolute executables
+ok 1 - fails closed without runtime, pin, or absolute executables
+  ---
+  duration_ms: 0.856208
+  type: 'test'
+  ...
+# Subtest: rejects lexical graph path escape before graph command execution
+ok 2 - rejects lexical graph path escape before graph command execution
+  ---
+  duration_ms: 0.363084
+  type: 'test'
+  ...
+# Subtest: rejects canonical symlink escape from projectRoot
+ok 3 - rejects canonical symlink escape from projectRoot
+  ---
+  duration_ms: 4.938917
+  type: 'test'
+  ...
+# Subtest: rejects an events symlink even when its current target is missing
+ok 4 - rejects an events symlink even when its current target is missing
+  ---
+  duration_ms: 1.261542
+  type: 'test'
+  ...
+# Subtest: registers ctx.mediaGraph using Cordis provide()
+ok 5 - registers ctx.mediaGraph using Cordis provide()
+  ---
+  duration_ms: 0.235958
+  type: 'test'
+  ...
+# Subtest: uses argv flag=value framing and optimistic concurrency without a shell
+ok 6 - uses argv flag=value framing and optimistic concurrency without a shell
+  ---
+  duration_ms: 2.386583
+  type: 'test'
+  ...
+# Subtest: omits --evidence when a non-passing gate has no evidence ids
+ok 7 - omits --evidence when a non-passing gate has no evidence ids
+  ---
+  duration_ms: 1.652625
+  type: 'test'
+  ...
+# Subtest: sanitizes git and python environments
+ok 8 - sanitizes git and python environments
+  ---
+  duration_ms: 2.286833
+  type: 'test'
+  ...
+# Subtest: rejects a drifted Graph Harness runtime revision
+ok 9 - rejects a drifted Graph Harness runtime revision
+  ---
+  duration_ms: 0.661167
+  type: 'test'
+  ...
+# Subtest: integration: real Graph Harness exposes BRIEF flow and SOURCE readiness
+ok 10 - integration: real Graph Harness exposes BRIEF flow and SOURCE readiness
+  ---
+  duration_ms: 445.677834
+  type: 'test'
+  ...
+1..10
+# tests 10
+# suites 0
+# pass 10
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 497.250833

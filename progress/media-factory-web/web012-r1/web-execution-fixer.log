@@ -1,0 +1,148 @@
+TAP version 13
+# Subtest: actual pinned Graph runs to hash-bound treatment and release; fixture evidence stays test-labeled
+ok 1 - actual pinned Graph runs to hash-bound treatment and release; fixture evidence stays test-labeled
+  ---
+  duration_ms: 6098.173003
+  type: 'test'
+  ...
+# Subtest: cross-tenant actions and artifacts fail before data access; viewers cannot approve
+ok 2 - cross-tenant actions and artifacts fail before data access; viewers cannot approve
+  ---
+  duration_ms: 2222.329792
+  type: 'test'
+  ...
+# Subtest: localized repair invalidates candidate and descendants while preserving ingested upstream
+ok 3 - localized repair invalidates candidate and descendants while preserving ingested upstream
+  ---
+  duration_ms: 3210.205793
+  type: 'test'
+  ...
+# Subtest: source authorization and DNA changes invalidate human approval
+ok 4 - source authorization and DNA changes invalidate human approval
+  ---
+  duration_ms: 2032.215585
+  type: 'test'
+  ...
+# Subtest: restart recovery and double start preserve one Graph history
+ok 5 - restart recovery and double start preserve one Graph history
+  ---
+  duration_ms: 2012.901417
+  type: 'test'
+  ...
+# Subtest: production missing source bytes is blocked in actual Graph, no fixture adapter exposed
+ok 6 - production missing source bytes is blocked in actual Graph, no fixture adapter exposed
+  ---
+  duration_ms: 1011.396417
+  type: 'test'
+  ...
+# Subtest: blocked production resumes the same Graph after its missing authorized video is uploaded
+ok 7 - blocked production resumes the same Graph after its missing authorized video is uploaded
+  ---
+  duration_ms: 2809.355543
+  type: 'test'
+  ...
+# Subtest: media inspection rejects playlists and local or network indirection before ffprobe
+ok 8 - media inspection rejects playlists and local or network indirection before ffprobe
+  ---
+  duration_ms: 6.24525
+  type: 'test'
+  ...
+# Subtest: provider failure remains a blocker and cannot create release evidence
+ok 9 - provider failure remains a blocker and cannot create release evidence
+  ---
+  duration_ms: 3058.012085
+  type: 'test'
+  ...
+# Subtest: real footage adapter preserves all selected sources, target dimensions, and ambient audio
+ok 10 - real footage adapter preserves all selected sources, target dimensions, and ambient audio
+  ---
+  duration_ms: 586.660417
+  type: 'test'
+  ...
+# Subtest: production uploaded media binds creative candidate, separate real reviewers, and final release
+ok 11 - production uploaded media binds creative candidate, separate real reviewers, and final release
+  ---
+  duration_ms: 7793.241171
+  type: 'test'
+  ...
+# Subtest: same fixture bytes after localized media repair receive a fresh candidate scope
+ok 12 - same fixture bytes after localized media repair receive a fresh candidate scope
+  ---
+  duration_ms: 8850.405504
+  type: 'test'
+  ...
+# Subtest: approval intent survives a crash after Graph approval and resumes without a second decision
+ok 13 - approval intent survives a crash after Graph approval and resumes without a second decision
+  ---
+  duration_ms: 5993.698962
+  type: 'test'
+  ...
+# Subtest: production arbitrary creative repair remains manual and never silently rerenders
+ok 14 - production arbitrary creative repair remains manual and never silently rerenders
+  ---
+  duration_ms: 3090.592959
+  type: 'test'
+  ...
+# Subtest: stable artifact candidate is shared by verifier and release, with stage replay rejected
+ok 15 - stable artifact candidate is shared by verifier and release, with stage replay rejected
+  ---
+  duration_ms: 6025.485419
+  type: 'test'
+  ...
+# Subtest: mascot request reaches human creative review, then fails closed before unsupported composition
+ok 16 - mascot request reaches human creative review, then fails closed before unsupported composition
+  ---
+  duration_ms: 3528.040294
+  type: 'test'
+  ...
+# Subtest: actual adapter paid capability or nonzero estimate is blocked before generate
+ok 17 - actual adapter paid capability or nonzero estimate is blocked before generate
+  ---
+  duration_ms: 4299.331627
+  type: 'test'
+  ...
+# Subtest: repair intent survives a crash after Graph invalidation without duplicating repair plans
+ok 18 - repair intent survives a crash after Graph invalidation without duplicating repair plans
+  ---
+  duration_ms: 4238.807544
+  type: 'test'
+  ...
+# Subtest: kernel job lease excludes concurrent workers and ignores obsolete dead reclaim files
+ok 19 - kernel job lease excludes concurrent workers and ignores obsolete dead reclaim files
+  ---
+  duration_ms: 28.831709
+  type: 'test'
+  ...
+# Subtest: rejection intent survives a crash after blocking Graph and becomes terminal on recovery
+ok 20 - rejection intent survives a crash after blocking Graph and becomes terminal on recovery
+  ---
+  duration_ms: 3077.511625
+  type: 'test'
+  ...
+# Subtest: changed provider provenance invalidates review before Graph approval or release
+ok 21 - changed provider provenance invalidates review before Graph approval or release
+  ---
+  duration_ms: 6233.644128
+  type: 'test'
+  ...
+# Subtest: provenance drift during approval cannot enter the immutable release snapshot
+ok 22 - provenance drift during approval cannot enter the immutable release snapshot
+  ---
+  duration_ms: 6815.566462
+  type: 'test'
+  ...
+# Subtest: requested repair clears current output provenance and keeps historical artifact bytes
+ok 23 - requested repair clears current output provenance and keeps historical artifact bytes
+  ---
+  duration_ms: 6313.38067
+  type: 'test'
+  ...
+1..23
+# tests 23
+# suites 0
+# pass 23
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 89579.486249
