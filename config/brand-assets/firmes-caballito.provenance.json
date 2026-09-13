@@ -1,0 +1,12 @@
+{
+  "schema_version": "media-factory.brand-asset.v1",
+  "asset_id": "firmes-caballito-manual-p42",
+  "brand": "FIRMES",
+  "kind": "authorized-fictional-character-reference",
+  "sha256": "b17c55ffb0eec46bfa719128ee68a9f18475c45afb90d6d73ce9d82567938397",
+  "source_document_sha256": "5f1a384df3da3aa3d36b6efe85142e72d4b633ac7ba6796ddb845579987569d9",
+  "source_pdf_page": 42,
+  "extraction": "embedded color image plus embedded soft mask, transparent crop with restrained margin",
+  "authorization": "user-authorized FIRMES manual reference for Media Factory caballito use",
+  "synthetic": false
+}

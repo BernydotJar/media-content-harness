@@ -31,7 +31,8 @@
         "display_name": { "type": "string", "minLength": 1, "maxLength": 200 },
         "logo_asset_key": { "type": ["string", "null"] },
         "mascot_asset_key": { "type": ["string", "null"] },
-        "visual_language": { "type": ["string", "null"], "maxLength": 500 }
+        "visual_language": { "type": ["string", "null"], "maxLength": 500 },
+        "identity_key": { "type": ["string", "null"], "pattern": "^[a-z0-9][a-z0-9-]{1,63}$" }
       }
     },
     "sources": {

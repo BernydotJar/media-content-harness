@@ -1,0 +1,648 @@
+{
+  "operation": "inspect-main-content+capture-main-evidence",
+  "read_only": true,
+  "target": {
+    "origin": "https://media-factory.textilesdemedellin.com",
+    "path": "/jobs/mf_76e0f9795197d32b4c854721de7833d3",
+    "title": "Detalle de producción · Media Factory"
+  },
+  "visible_semantics": [
+    {
+      "role": "link",
+      "name": "Saltar al contenido"
+    },
+    {
+      "role": "StaticText",
+      "name": "Saltar al contenido"
+    },
+    {
+      "role": "link",
+      "name": "Media Factory CREATIVE STUDIO"
+    },
+    {
+      "role": "StaticText",
+      "name": "Cada historia, con intención."
+    },
+    {
+      "role": "StaticText",
+      "name": "O"
+    },
+    {
+      "role": "StaticText",
+      "name": "Operator"
+    },
+    {
+      "role": "button",
+      "name": "Cerrar sesión"
+    },
+    {
+      "role": "StaticText",
+      "name": "ESTUDIO DE PRODUCCIÓN"
+    },
+    {
+      "role": "StaticText",
+      "name": "Revisión humana en cada entrega"
+    },
+    {
+      "role": "button",
+      "name": "Crear"
+    },
+    {
+      "role": "link",
+      "name": "← Todas las producciones"
+    },
+    {
+      "role": "StaticText",
+      "name": "Actualizaciones en vivo"
+    },
+    {
+      "role": "button",
+      "name": "Actualizar ahora"
+    },
+    {
+      "role": "button",
+      "name": "Volver a comprobar recursos"
+    },
+    {
+      "role": "StaticText",
+      "name": "Media Factory"
+    },
+    {
+      "role": "StaticText",
+      "name": "ESTUDIO"
+    },
+    {
+      "role": "link",
+      "name": "Inicio"
+    },
+    {
+      "role": "link",
+      "name": "Espacios de trabajo"
+    },
+    {
+      "role": "StaticText",
+      "name": "ENTREGAS"
+    },
+    {
+      "role": "link",
+      "name": "Revisión"
+    },
+    {
+      "role": "link",
+      "name": "Liberaciones"
+    },
+    {
+      "role": "link",
+      "name": "APIs e integraciones"
+    },
+    {
+      "role": "StaticText",
+      "name": "La creatividad empieza contigo."
+    },
+    {
+      "role": "StaticText",
+      "name": "Tu cuenta"
+    },
+    {
+      "role": "StaticText",
+      "name": "↗"
+    },
+    {
+      "role": "StaticText",
+      "name": "Crear"
+    },
+    {
+      "role": "StaticText",
+      "name": "← Todas las producciones"
+    },
+    {
+      "role": "heading",
+      "name": "Mostrar antigua guatmala"
+    },
+    {
+      "role": "StaticText",
+      "name": "Necesita atención"
+    },
+    {
+      "role": "StaticText",
+      "name": "Actualizar ahora"
+    },
+    {
+      "role": "StaticText",
+      "name": "Esta historia necesita un paso más."
+    },
+    {
+      "role": "StaticText",
+      "name": "La producción podrá continuar cuando estén disponibles los recursos necesarios."
+    },
+    {
+      "role": "StaticText",
+      "name": "Volver a comprobar recursos"
+    },
+    {
+      "role": "heading",
+      "name": "La historia antes de producirla."
+    },
+    {
+      "role": "heading",
+      "name": "Mostrar antigua guatmala"
+    },
+    {
+      "role": "link",
+      "name": "Ver planes del espacio →"
+    },
+    {
+      "role": "heading",
+      "name": "Actividad y evidencia"
+    },
+    {
+      "role": "StaticText",
+      "name": "9"
+    },
+    {
+      "role": "StaticText",
+      "name": " registros"
+    },
+    {
+      "role": "StaticText",
+      "name": "12 sept 2026"
+    },
+    {
+      "role": "StaticText",
+      "name": "12 sept 2026"
+    },
+    {
+      "role": "StaticText",
+      "name": "13 sept 2026"
+    },
+    {
+      "role": "StaticText",
+      "name": "13 sept 2026"
+    },
+    {
+      "role": "StaticText",
+      "name": "13 sept 2026"
+    },
+    {
+      "role": "StaticText",
+      "name": "13 sept 2026"
+    },
+    {
+      "role": "StaticText",
+      "name": "13 sept 2026"
+    },
+    {
+      "role": "StaticText",
+      "name": "13 sept 2026"
+    },
+    {
+      "role": "StaticText",
+      "name": "13 sept 2026"
+    },
+    {
+      "role": "StaticText",
+      "name": "Media Factory"
+    },
+    {
+      "role": "StaticText",
+      "name": "Ideas propias. Fuentes claras. Historias que conectan."
+    },
+    {
+      "role": "button",
+      "name": "Chat with page"
+    },
+    {
+      "role": "button",
+      "name": "✕ Merlin ⌘M Open Merlin"
+    },
+    {
+      "role": "button",
+      "name": "Settings"
+    },
+    {
+      "role": "StaticText",
+      "name": "CREATIVE STUDIO"
+    },
+    {
+      "role": "StaticText",
+      "name": "Inicio"
+    },
+    {
+      "role": "StaticText",
+      "name": "Espacios de trabajo"
+    },
+    {
+      "role": "StaticText",
+      "name": "Revisión"
+    },
+    {
+      "role": "StaticText",
+      "name": "Liberaciones"
+    },
+    {
+      "role": "StaticText",
+      "name": "ADMINISTRACIÓN"
+    },
+    {
+      "role": "StaticText",
+      "name": "APIs e integraciones"
+    },
+    {
+      "role": "StaticText",
+      "name": "TU HISTORIA / PRODUCCIÓN"
+    },
+    {
+      "role": "StaticText",
+      "name": "Mostrar antigua guatmala"
+    },
+    {
+      "role": "StaticText",
+      "name": "Material real"
+    },
+    {
+      "role": "StaticText",
+      "name": "Brief"
+    },
+    {
+      "role": "StaticText",
+      "name": "Fuentes"
+    },
+    {
+      "role": "StaticText",
+      "name": "Preparación"
+    },
+    {
+      "role": "StaticText",
+      "name": "Tratamiento"
+    },
+    {
+      "role": "StaticText",
+      "name": "Concepto"
+    },
+    {
+      "role": "StaticText",
+      "name": "Revisión creativa"
+    },
+    {
+      "role": "StaticText",
+      "name": "Producción"
+    },
+    {
+      "role": "StaticText",
+      "name": "Calidad técnica"
+    },
+    {
+      "role": "StaticText",
+      "name": "Revisión crítica"
+    },
+    {
+      "role": "StaticText",
+      "name": "Ajustes"
+    },
+    {
+      "role": "StaticText",
+      "name": "Verificación"
+    },
+    {
+      "role": "StaticText",
+      "name": "Conformidad"
+    },
+    {
+      "role": "StaticText",
+      "name": "Entrega"
+    },
+    {
+      "role": "StaticText",
+      "name": "Uploaded footage is too short for the requested duration"
+    },
+    {
+      "role": "StaticText",
+      "name": "La producción está bloqueada"
+    },
+    {
+      "role": "StaticText",
+      "name": "6"
+    },
+    {
+      "role": "StaticText",
+      "name": " de "
+    },
+    {
+      "role": "StaticText",
+      "name": "13"
+    },
+    {
+      "role": "StaticText",
+      "name": " etapas verificadas · Identificador: "
+    },
+    {
+      "role": "StaticText",
+      "name": "mf_76e0f9795197d32b4c854721de7833d3"
+    },
+    {
+      "role": "StaticText",
+      "name": "La actividad y sus fechas aparecen debajo. No se estima un porcentaje de render sin información del proveedor."
+    },
+    {
+      "role": "StaticText",
+      "name": "PRODUCCIÓN"
+    },
+    {
+      "role": "StaticText",
+      "name": "La historia antes de producirla."
+    },
+    {
+      "role": "StaticText",
+      "name": "CONCEPTO"
+    },
+    {
+      "role": "StaticText",
+      "name": "Mostrar antigua guatmala"
+    },
+    {
+      "role": "StaticText",
+      "name": "la antigua guatemala es linda"
+    },
+    {
+      "role": "StaticText",
+      "name": "Ver planes del espacio →"
+    },
+    {
+      "role": "StaticText",
+      "name": "Actividad y evidencia"
+    },
+    {
+      "role": "StaticText",
+      "name": "Brief"
+    },
+    {
+      "role": "StaticText",
+      "name": "PASS"
+    },
+    {
+      "role": "StaticText",
+      "name": "Fuentes"
+    },
+    {
+      "role": "StaticText",
+      "name": "PASS"
+    },
+    {
+      "role": "StaticText",
+      "name": "Preparación"
+    },
+    {
+      "role": "StaticText",
+      "name": "PASS"
+    },
+    {
+      "role": "StaticText",
+      "name": "Tratamiento"
+    },
+    {
+      "role": "StaticText",
+      "name": "PASS"
+    },
+    {
+      "role": "StaticText",
+      "name": "Concepto"
+    },
+    {
+      "role": "StaticText",
+      "name": "PASS"
+    },
+    {
+      "role": "StaticText",
+      "name": "Revisión creativa"
+    },
+    {
+      "role": "StaticText",
+      "name": "PASS"
+    },
+    {
+      "role": "StaticText",
+      "name": "Tratamiento"
+    },
+    {
+      "role": "StaticText",
+      "name": "PASS"
+    },
+    {
+      "role": "StaticText",
+      "name": "Concepto"
+    },
+    {
+      "role": "StaticText",
+      "name": "PASS"
+    },
+    {
+      "role": "StaticText",
+      "name": "Revisión creativa"
+    },
+    {
+      "role": "StaticText",
+      "name": "PASS"
+    },
+    {
+      "role": "StaticText",
+      "name": "⌘M"
+    },
+    {
+      "role": "StaticText",
+      "name": "TRATAMIENTO"
+    },
+    {
+      "role": "StaticText",
+      "name": "Estrategia"
+    },
+    {
+      "role": "StaticText",
+      "name": "Material real"
+    },
+    {
+      "role": "StaticText",
+      "name": "Proveedor preferido"
+    },
+    {
+      "role": "StaticText",
+      "name": "Auto"
+    },
+    {
+      "role": "StaticText",
+      "name": "Etapa actual"
+    },
+    {
+      "role": "StaticText",
+      "name": "Producción"
+    },
+    {
+      "role": "StaticText",
+      "name": "Creación"
+    },
+    {
+      "role": "StaticText",
+      "name": "12 sept 2026"
+    },
+    {
+      "role": "StaticText",
+      "name": "Versión y procedencia"
+    },
+    {
+      "role": "StaticText",
+      "name": "Ver etapas verificables"
+    },
+    {
+      "role": "StaticText",
+      "name": "Chat with page"
+    },
+    {
+      "role": "StaticText",
+      "name": "✕"
+    },
+    {
+      "role": "StaticText",
+      "name": "Open Merlin"
+    },
+    {
+      "role": "StaticText",
+      "name": "Settings"
+    },
+    {
+      "role": "StaticText",
+      "name": "TÍTULO"
+    },
+    {
+      "role": "StaticText",
+      "name": "Mostrar antigua guatmala"
+    },
+    {
+      "role": "StaticText",
+      "name": "INTENCIÓN"
+    },
+    {
+      "role": "StaticText",
+      "name": "la antigua guatemala es linda"
+    },
+    {
+      "role": "StaticText",
+      "name": "PERSONAJES Y LUGAR DE ESTA VERSIÓN"
+    },
+    {
+      "role": "StaticText",
+      "name": "RECURSOS NARRATIVOS"
+    },
+    {
+      "role": "StaticText",
+      "name": "MATERIAL AUTORIZADO"
+    },
+    {
+      "role": "StaticText",
+      "name": "ESTRATEGIA"
+    },
+    {
+      "role": "StaticText",
+      "name": "REAL_FOOTAGE"
+    },
+    {
+      "role": "StaticText",
+      "name": "FORMATO DE ENTREGA"
+    },
+    {
+      "role": "StaticText",
+      "name": "REPAIR INSTRUCTIONS"
+    },
+    {
+      "role": "StaticText",
+      "name": "User explicitly changed the blocked production to real footage only"
+    },
+    {
+      "role": "StaticText",
+      "name": "REPAIR CONTROLS"
+    },
+    {
+      "role": "StaticText",
+      "name": "AUTHORSHIP"
+    },
+    {
+      "role": "StaticText",
+      "name": "structured production draft"
+    },
+    {
+      "role": "StaticText",
+      "name": "EDIT PLAN"
+    },
+    {
+      "role": "StaticText",
+      "name": "Every selected source contributes an equal-duration segment; retain existing audio; fit with padding to requested aspect ratio."
+    },
+    {
+      "role": "StaticText",
+      "name": "TEST"
+    },
+    {
+      "role": "StaticText",
+      "name": "No"
+    },
+    {
+      "role": "StaticText",
+      "name": "PERSONAJE PRINCIPAL"
+    },
+    {
+      "role": "StaticText",
+      "name": "LUGAR"
+    },
+    {
+      "role": "StaticText",
+      "name": "detail-led-context"
+    },
+    {
+      "role": "StaticText",
+      "name": "participatory-brand-reveal"
+    },
+    {
+      "role": "StaticText",
+      "name": "place-as-character"
+    },
+    {
+      "role": "StaticText",
+      "name": "album"
+    },
+    {
+      "role": "StaticText",
+      "name": "FORMATO"
+    },
+    {
+      "role": "StaticText",
+      "name": "9:16"
+    },
+    {
+      "role": "StaticText",
+      "name": "RESOLUTION"
+    },
+    {
+      "role": "StaticText",
+      "name": "1080x1920"
+    },
+    {
+      "role": "StaticText",
+      "name": "DURACIÓN EN SEGUNDOS"
+    },
+    {
+      "role": "StaticText",
+      "name": "BLOCKER ACTION"
+    },
+    {
+      "role": "StaticText",
+      "name": "USE_REAL_FOOTAGE"
+    },
+    {
+      "role": "StaticText",
+      "name": "8"
+    },
+    {
+      "role": "StaticText",
+      "name": "25"
+    }
+  ],
+  "screenshot": "progress/media-factory-web/web015/pre-fix-live-job.png"
+}

@@ -50,3 +50,19 @@ The V2 implementation studies Gooey mechanics internally rather than adding the 
 ## Content boundary
 
 This memory is for general-audience creative/brand consistency. It does not authorize sensitive-trait targeting, voter microtargeting, individualized political persuasion, automatic publication, or fabrication of documentary events. Synthetic or composited media must be clearly labeled in provenance.
+
+## Authorized caballito production asset
+
+The manual contains separate horse references for brand identity and character applications. Media Factory does **not** reinterpret the UI-only hexagonal monogram as the official horse mark. For the product's fictional-character workflow, the user-authorized manual supplies an exact plush-horse image on PDF page 42 (`CABALLO DE PELUCHE`). That embedded image is tracked as a bounded production asset with its original alpha mask:
+
+- Runtime asset: `config/brand-assets/firmes-caballito.png`
+- Asset ID: `firmes-caballito-manual-p42`
+- Asset SHA-256: `b17c55ffb0eec46bfa719128ee68a9f18475c45afb90d6d73ce9d82567938397`
+- Source document SHA-256: `5f1a384df3da3aa3d36b6efe85142e72d4b633ac7ba6796ddb845579987569d9`
+- Source page: 42
+- Provenance record: `config/brand-assets/firmes-caballito.provenance.json`
+- Classification: authorized fictional-character reference, non-synthetic.
+
+The local zero-credit FFmpeg adapter may composite this exact authorized caballito over authorized real footage when the job's immutable character snapshot is the rights-confirmed `Caballito de Firmes`. The output provenance records both the consumed source-video hashes and the exact caballito asset hash. Any other mascot remains fail-closed with `MASCOT_RENDER_UNAVAILABLE` unless a separately approved adapter is available.
+
+This support does **not** authorize a model to redraw the official FIRMES imagotype, does not fabricate documentary events, and does not automatically publish to social networks. The exact official vector logo is still required for uses that claim the canonical imagotype.
