@@ -448,6 +448,80 @@
         "deploy/**",
         "assets/**"
       ]
+    },
+    {
+      "id": "WEB013-REPAIR-UX-BRAND-V3",
+      "title": "Actionable blocked-production repair and dominant tenant-scoped FIRMES branding",
+      "kind": "product-completion",
+      "status": "spec_ready",
+      "depends_on": [
+        "WEB012-V2-RELEASE"
+      ],
+      "capability": "media-factory-web",
+      "gates": {
+        "review": [
+          "implementation_quality"
+        ]
+      },
+      "allowed_paths": [
+        "server/**",
+        "app/**",
+        "components/**",
+        "scripts/**",
+        "tests/**",
+        "docs/**",
+        "specs/**",
+        "progress/**",
+        "graph/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "*.json",
+        "*.mjs",
+        "*.yml",
+        "Dockerfile",
+        ".gitignore",
+        ".dockerignore",
+        "README.md",
+        "deploy/**",
+        "assets/**"
+      ]
+    },
+    {
+      "id": "WEB014-V3-RELEASE",
+      "title": "Independent V3 verification signed deployment and browser confirmation",
+      "kind": "product-completion",
+      "status": "spec_ready",
+      "depends_on": [
+        "WEB013-REPAIR-UX-BRAND-V3"
+      ],
+      "capability": "media-factory-web",
+      "gates": {
+        "review": [
+          "implementation_quality"
+        ]
+      },
+      "allowed_paths": [
+        "server/**",
+        "app/**",
+        "components/**",
+        "scripts/**",
+        "tests/**",
+        "docs/**",
+        "specs/**",
+        "progress/**",
+        "graph/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "*.json",
+        "*.mjs",
+        "*.yml",
+        "Dockerfile",
+        ".gitignore",
+        ".dockerignore",
+        "README.md",
+        "deploy/**",
+        "assets/**"
+      ]
     }
   ]
 }

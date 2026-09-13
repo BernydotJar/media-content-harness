@@ -82,6 +82,7 @@ export async function handleApi(request,service){
    const id=path[1]
    if(path.length===2&&method==='GET')return response(await service.job(session,id))
    if(path.length===3&&method==='POST'&&['approve','request-changes','start','reject'].includes(path[2]))return response(await service.jobAction(session,id,path[2]==='request-changes'?'requestChanges':path[2],await jsonBody(request)),path[2]==='start'?202:200)
+   if(path.length===3&&method==='POST'&&path[2]==='repair')return response(await service.repairJob(session,id,await jsonBody(request)),202)
    if(path[2]==='evidence'&&path.length===3&&method==='GET')return response(await service.evidence(session,id))
    if(path[2]==='events'&&path.length===3&&method==='GET')return await eventStream(request,service,session,id)
    if(path[2]==='artifacts'&&path.length===4&&method==='GET'){const artifact=await service.artifact(session,id,path[3]);return artifactResponse(request,artifact)}
