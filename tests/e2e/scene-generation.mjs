@@ -1,0 +1,66 @@
+import {chromium,expect} from '@playwright/test'
+import assert from 'node:assert/strict'
+import {join} from 'node:path'
+import {readFile} from 'node:fs/promises'
+
+const wait=ms=>new Promise(resolve=>setTimeout(resolve,ms))
+
+export async function runSceneGenerationE2E({origin,accounts,temp,firstImage,acceptedImage,environmentImage,finalVideo}){
+ const browser=await chromium.launch({executablePath:process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE||'/usr/bin/chromium',headless:true,args:['--no-sandbox']})
+ const context=await browser.newContext({viewport:{width:1440,height:1100},reducedMotion:'reduce'}),page=await context.newPage(),errors=[],checks=[]
+ page.on('pageerror',error=>errors.push(error.message));page.setDefaultTimeout(30000)
+ const api=async(path,{method='GET',data,headers={}}={})=>{const response=await context.request.fetch(origin+'/api/v1'+path,{method,headers:{Origin:origin,...headers},...(data===undefined?{}:{data})});let value=null;try{value=await response.json()}catch{};assert.ok(response.ok(),`${method} ${path}: ${response.status()} ${JSON.stringify(value)}`);return value?.data}
+ const pollJob=async(id,predicate,label)=>{let value;for(let i=0;i<180;i++){value=await api('/jobs/'+id);if(predicate(value))return value;await wait(120)}throw new Error(label+': '+JSON.stringify({status:value?.status,stage:value?.stage,blockers:value?.blockers}))}
+ const login=async account=>{await page.goto(origin+'/login');await page.getByLabel('Usuario o correo').fill(account.email);await page.getByLabel('Contraseña',{exact:true}).fill(account.password);await page.getByRole('button',{name:'Entrar al estudio'}).click();await expect(page).toHaveURL(/dashboard/)}
+ const logout=async()=>{await page.getByRole('button',{name:'Cerrar sesión'}).click();await expect(page).toHaveURL(/login/)}
+ const uploadExternal=async file=>{const responsePromise=page.waitForResponse(response=>response.url().includes('/external-result')&&response.request().method()==='POST');await page.locator('.external-upload input[type=file]').setInputFiles(file);const response=await responsePromise;let body=null;try{body=await response.json()}catch{};assert.ok(response.ok(),'external result upload failed: '+response.status()+' '+JSON.stringify(body));return body?.data}
+ try{
+  await login(accounts.owner)
+  const profile={schema_version:'tenant-media-profile.v1',tenant_id:'firmes-scene',organization:'FIRMES Antigua Guatemala',territory:'Antigua Guatemala',runtime_namespace:'firmes-scene',browser_context_ref:'firmes-scene-browser',content_context:'community',audience_policy:{mode:'general-audience',sensitive_trait_targeting:false,voter_microtargeting:false},brand:{display_name:'FIRMES Antigua Guatemala',identity_key:'firmes',logo_asset_key:'brand/firmes-authorized',mascot_asset_key:'brand/firmes-caballito-manual-p42',visual_language:'FIRMES burgundy and gold, documentary, community-first'},sources:[{id:'activation-source',locator:'https://example.org/authorized-video',authorization:'explicit',match:'exact',purpose:'source'}],production_defaults:{aspect_ratio:'9:16',cadence:'weekly',duration_seconds:[5,15]}}
+  const tenant=await api('/tenants',{method:'POST',data:{profile}})
+  await page.goto(origin+'/workspace/'+tenant.tenant_id+'/scene')
+  await expect(page.getByRole('heading',{name:'Crea la escena. El estudio arma la producción.'})).toBeVisible()
+  await expect(page.getByAltText('Referencia autorizada del Caballito FIRMES')).toBeVisible()
+  await expect(page.getByText('Predeterminado del espacio')).toBeVisible()
+  await expect(page.getByRole('textbox',{name:'Lugar',exact:true})).toHaveValue('Calle del Arco, Antigua Guatemala, Guatemala')
+  const environmentResponse=page.waitForResponse(response=>response.url().includes('/scene-references/ENVIRONMENT_ONLY')&&response.request().method()==='POST');await page.locator('input[type=file][accept=\"image/png,image/jpeg\"]').first().setInputFiles(environmentImage);const environmentUpload=await environmentResponse;assert.ok(environmentUpload.ok(),'environment upload failed: '+environmentUpload.status());await expect(page.getByText('Referencia de entorno cargada y marcada como ENVIRONMENT ONLY.')).toBeVisible()
+  await page.getByLabel('Medio').selectOption('video');await expect(page.getByLabel('Duración')).toHaveValue('6')
+  checks.push('Escena guiada abre con Caballito FIRMES preseleccionado, referencia de entorno aislada y video image-first.')
+
+  await page.getByRole('button',{name:'Ver prompt compilado'}).click()
+  await expect(page.getByRole('heading',{name:'Prompt compilado'})).toBeVisible()
+  const prompt=page.locator('pre').filter({hasText:'REFERENCE PRIORITY RULES'});await expect(prompt).toContainText('IMAGE 1 = CHARACTER IDENTITY ONLY.');await expect(prompt).toContainText('IMAGE 2 = ENVIRONMENT ONLY.');await expect(prompt).toContainText('Santa Catalina Arch');await expect(prompt).toContainText('shipping containers');await expect(page.getByText(/REFERENCE A · CHARACTER IDENTITY ONLY/)).toBeVisible();await expect(page.getByText(/REFERENCE B · ENVIRONMENT ONLY/)).toBeVisible()
+  checks.push('El compilador determinista materializa identidad, Antigua, acción selfie y exclusiones con roles explícitos.')
+  await page.screenshot({path:join(temp,'scene-builder-compiled.png'),fullPage:true})
+
+  await page.getByRole('button',{name:'Preparar generación'}).click();await expect(page).toHaveURL(/\/jobs\//)
+  const jobId=page.url().split('/jobs/')[1].split(/[?#]/)[0]
+  let job=await pollJob(jobId,value=>value.status==='WAITING_EXTERNAL_GENERATION','manual external package did not become available')
+  assert.equal(job.id,jobId);assert.equal(job.external_generation_package.adapter_id,'manual-external');assert.deepEqual(job.external_generation_package.references.slice(0,2).map(r=>r.role),['CHARACTER_IDENTITY_ONLY','ENVIRONMENT_ONLY']);assert.equal(job.external_generation_package.generation_phase,'HERO_IMAGE');assert.equal(job.external_generation_package.expected_output.medium,'image')
+  await page.reload();await expect(page.getByText('GENERACIÓN EXTERNA / MISMO JOB')).toBeVisible();await expect(page.getByRole('button',{name:'Copiar prompt'})).toBeVisible();await expect(page.getByRole('link',{name:/Ver personaje/})).toBeVisible();await expect(page.locator('.external-generation-panel .notice').filter({hasText:'Salida esperada:'})).toContainText('9:16')
+  checks.push('Generación externa es un estado operativo del mismo job; video exige primero una hero image y conserva las dos referencias por rol.')
+  await page.screenshot({path:join(temp,'scene-external-package.png'),fullPage:true})
+
+  await uploadExternal(firstImage)
+  job=await pollJob(jobId,value=>value.stage==='CRITIC'&&value.review_state==='AWAITING_REVIEW','uploaded result did not resume to critic')
+  assert.equal(job.id,jobId);assert.equal(job.generation_attempts.length,1);const firstSha=job.artifact_sha256
+  await page.reload();await expect(page.getByText('RÚBRICA ESTRUCTURADA')).toBeVisible();await expect(page.getByText('Must be absent: shipping containers')).toBeVisible();checks.push('El resultado vuelve al mismo job y Critic recibe la rúbrica estructurada de la escena.')
+
+  await logout();await login(accounts.critic);await page.goto(origin+'/jobs/'+jobId);await expect(page.getByText('RÚBRICA ESTRUCTURADA')).toBeVisible();await page.getByRole('button',{name:'Apareció vestuario o equipo industrial prohibido.'}).click();await expect(page.getByLabel('Comentarios para la revisión')).toHaveValue('Apareció vestuario o equipo industrial prohibido.');await page.getByRole('button',{name:'Solicitar cambios'}).click()
+  job=await pollJob(jobId,value=>value.status==='WAITING_EXTERNAL_GENERATION','critic repair did not return same job to external generation');assert.equal(job.id,jobId);assert.equal(job.blockers.length,0);assert.equal(job.generation_attempts.length,2);assert.equal(job.critic_findings.at(-1).finding,'Apareció vestuario o equipo industrial prohibido.')
+  await page.reload();await expect(page.getByText('GENERACIÓN EXTERNA / MISMO JOB')).toBeVisible();await expect(page.getByRole('link',{name:'Ir a revisión humana'})).toHaveCount(0);checks.push('Un fallo de Critic regenera sobre el mismo job sin bucle blocker→review.')
+  await page.screenshot({path:join(temp,'scene-critic-repair.png'),fullPage:true})
+
+  await logout();await login(accounts.owner);await page.goto(origin+'/jobs/'+jobId);await expect(page.locator('.external-upload input[type=file]')).toHaveAttribute('accept','image/png,image/jpeg');const acceptedUpload=await context.request.post(origin+'/api/v1/jobs/'+jobId+'/external-result',{headers:{Origin:origin,'Content-Type':'image/png'},data:await readFile(acceptedImage)});let acceptedUploadBody=null;try{acceptedUploadBody=await acceptedUpload.json()}catch{};assert.ok(acceptedUpload.ok(),'accepted hero upload failed: '+acceptedUpload.status()+' '+JSON.stringify(acceptedUploadBody))
+  job=await pollJob(jobId,value=>value.stage==='CRITIC'&&value.review_state==='AWAITING_REVIEW','accepted result did not return to critic');assert.notEqual(job.artifact_sha256,firstSha);const acceptedSha=job.artifact_sha256
+  await logout();await login(accounts.critic);await page.goto(origin+'/jobs/'+jobId);await page.getByRole('button',{name:'Aprobar esta versión'}).click();job=await pollJob(jobId,value=>value.status==='WAITING_EXTERNAL_GENERATION'&&value.generation_phase==='VIDEO_FROM_APPROVED_HERO','approved hero did not become image-to-video input');assert.equal(job.id,jobId);assert.equal(job.hero_image.sha256,acceptedSha);assert.equal(job.external_generation_package.generation_phase,'VIDEO_FROM_APPROVED_HERO');const heroRef=job.external_generation_package.references.find(r=>r.role==='APPROVED_HERO_IMAGE');assert.ok(heroRef);assert.equal(heroRef.sha256,acceptedSha);await page.reload();await expect(page.getByText('Anima la imagen hero aprobada.')).toBeVisible();checks.push('La hero aprobada por Critic queda fijada por SHA como entrada explícita del video.')
+  await logout();await login(accounts.owner);await page.goto(origin+'/jobs/'+jobId);await expect(page.locator('.external-upload input[type=file]')).toHaveAttribute('accept','video/mp4');const videoUpload=await context.request.post(origin+'/api/v1/jobs/'+jobId+'/external-result',{headers:{Origin:origin,'Content-Type':'video/mp4'},data:await readFile(finalVideo)});let videoUploadBody=null;try{videoUploadBody=await videoUpload.json()}catch{};assert.ok(videoUpload.ok(),'final video upload failed: '+videoUpload.status()+' '+JSON.stringify(videoUploadBody));job=await pollJob(jobId,value=>value.stage==='CRITIC'&&value.review_state==='AWAITING_REVIEW'&&value.generation_phase==='FINAL_MEDIA_REVIEW','final video did not return to critic');assert.notEqual(job.artifact_sha256,acceptedSha);const finalVideoSha=job.artifact_sha256;assert.equal(job.generation_attempts.length,3);assert.equal(job.generation_attempts.at(-1).input_assets.at(-1).role,'APPROVED_HERO_IMAGE');assert.equal(job.generation_attempts.at(-1).input_assets.at(-1).sha256,acceptedSha);await page.screenshot({path:join(temp,'scene-video-from-hero.png'),fullPage:true})
+  await logout();await login(accounts.critic);await page.goto(origin+'/jobs/'+jobId);await page.getByRole('button',{name:'Aprobar esta versión'}).click();job=await pollJob(jobId,value=>value.stage==='INDEPENDENT_VERIFIER'&&value.review_state==='AWAITING_REVIEW','final video critic approval did not reach verifier')
+  await logout();await login(accounts.verifier);await page.goto(origin+'/jobs/'+jobId);await page.getByRole('button',{name:'Aprobar esta versión'}).click();job=await pollJob(jobId,value=>value.stage==='RELEASE'&&value.review_state==='AWAITING_REVIEW','verifier approval did not reach release')
+  await logout();await login(accounts.owner);await page.goto(origin+'/jobs/'+jobId);await page.getByRole('button',{name:'Liberar entrega'}).click();job=await pollJob(jobId,value=>value.status==='RELEASED','release did not complete');assert.equal(job.artifact_sha256,finalVideoSha)
+  const release=await api('/releases/'+job.release_id);assert.equal(release.artifact_sha256,finalVideoSha);assert.equal(release.scene_provenance.result_sha256,finalVideoSha);assert.equal(release.scene_provenance.character_id,'brand_character_firmes_caballito_v1');assert.equal(release.scene_provenance.approved_hero.sha256,acceptedSha);assert.ok(release.scene_provenance.generation_input_assets.some(value=>value.role==='APPROVED_HERO_IMAGE'&&value.sha256===acceptedSha));assert.equal(release.scene_provenance.generation_prompt_sha256,release.scene_provenance.final_prompt_sha256);assert.equal(release.publication_state,'READY_FOR_MANUAL_PUBLISH')
+  await page.reload();await expect(page.getByText('Entrega liberada y registrada. La publicación social se realiza por separado.')).toBeVisible();await page.screenshot({path:join(temp,'scene-released.png'),fullPage:true});checks.push('Critic, verifier y release conservan el hash del video final; la hero aprobada permanece como input trazable y no hay publicación automática.')
+  assert.deepEqual(errors,[])
+  return {status:'PASS',job_id:jobId,release_id:job.release_id,artifact_sha256:finalVideoSha,approved_hero_sha256:acceptedSha,generation_attempt_count:job.generation_attempt_count,scene_provenance:release.scene_provenance,checks}
+ } finally {await browser.close()}
+}

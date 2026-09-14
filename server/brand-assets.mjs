@@ -19,6 +19,19 @@ export function isFirmesTenantRecord(tenant){
 
 export async function authorizedFirmesCaballito(state,job){
  if(!job?.mascot)return null
+ const resolvedCharacterId=job.prompt_compilation?.resolved_character_id
+ if(resolvedCharacterId){
+  const character=state.brand_characters?.[job.tenant_id]?.[resolvedCharacterId]
+  const asset=character&&state.brand_assets?.[job.tenant_id]?.[character.reference_asset_id]
+  const tenant=state.tenants?.[job.tenant_id]
+  if(!character||!asset||character.tenant_id!==job.tenant_id||asset.tenant_id!==job.tenant_id||asset.rights_state!=='AUTHORIZED'||!isFirmesTenantRecord(tenant))return null
+  invariant(asset.storage_ref===FIRMES_CABALLITO.relative_path,'BRAND_ASSET_CHANGED','The authorized FIRMES caballito storage reference changed; production was stopped',409)
+  const path=join(process.cwd(),'config','brand-assets','firmes-caballito.png')
+  const bytes=await readFile(path)
+  const sha256=createHash('sha256').update(bytes).digest('hex')
+  invariant(sha256===asset.sha256&&sha256===FIRMES_CABALLITO.sha256,'BRAND_ASSET_CHANGED','The authorized FIRMES caballito asset changed; production was stopped',409)
+  return {id:asset.asset_id,asset_id:asset.asset_id,path,sha256,synthetic:false,mime_type:asset.mime_type,character_id:character.character_id}
+ }
  const character=job.creative_context?.character
  const tenant=state.tenants?.[job.tenant_id]
  if(!character||character.rights_confirmed!==true||character.name!=='Caballito de Firmes'||!isFirmesTenantRecord(tenant))return null

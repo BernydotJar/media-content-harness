@@ -1,0 +1,28 @@
+{
+  "critic_finalizer_sha256": "edff9a10ef314ca38473af0e741aa7121611764c90626ae2e2cf7f69c785fb82",
+  "critic_public_key_sha256": "b61542031a4c61e9ccc270aac3ee2adb464508012d0b979eb40575da43d13e9e",
+  "critic_workspace": "3b915109-6200-4890-a21b-78fc23fb471c",
+  "material_findings_open": 0,
+  "model": "ibm/granite3.3:2b",
+  "raw_response_sha256": "00e3aef6b8260f9431dd3da3a3c3cbfeff5cfbe761846b1472e124acee55c9a5",
+  "recorded_at": "2026-09-13T20:02:43.532506+00:00",
+  "reviewed_sha": "c4d5d47db4c4c23244785cf7a16b9c2c8de0a9e7",
+  "risk_decision_sha256": "95a4c88e2772a4d7fc1fcb57a583e62685fa746e1b82e2770f694450e91dd6c3",
+  "risk_raw_response_sha256": "2dc641ab25f5e4b0dc4176e3a4686bee5b5794bfa5377df210e22b573c3e60dc",
+  "rubric": {
+    "agent_tool_governance": "PASS",
+    "architecture": "PASS",
+    "evidence_release_integrity": "PASS",
+    "fail_closed_behavior": "PASS",
+    "operations_recovery": "PASS",
+    "portability": "PASS",
+    "security_privacy": "PASS",
+    "state_concurrency": "PASS",
+    "supply_chain": "PASS",
+    "testing": "PASS"
+  },
+  "rubric_decision_sha256": "d1b103a00f00d762a980fce0a3a60002589e831c731ea371a78b145376afc310",
+  "rubric_raw_response_sha256": "2e0928fca13c5436b0d3bc8dfb46a98ed30d21039a65361b3356655e36ade83d",
+  "signature_algorithm": "rsa-pkcs1v15-sha256",
+  "verdict": "PASS"
+}

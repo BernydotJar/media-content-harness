@@ -7,6 +7,7 @@ import { Sources, DNA } from './library';
 import { Planner } from './planner';
 import {CreationGuide} from './CreationGuide';
 import {CreativeProfiles} from './CreativeProfiles';
+import {SceneBuilder} from './SceneBuilder';
 import {FirmesCaballito,FirmesFrame,isFirmesTenant} from './FirmesBrand';
 export function Dashboard({ tenants, user, tenant }: { tenants: Resource; user: Item; tenant?:Item|null }) {
  const list = items(tenants.data), firmes=isFirmesTenant(tenant);
@@ -27,6 +28,7 @@ export function TenantSurface({ id, view }: { id: string; view: string }) {
  let content;
  if (view === 'sources') content=<><CreationGuide id={id}/><Sources tenant={tenant.data} refresh={tenant.reload} /></>;
  else if (view === 'content-dna') content=<><CreationGuide id={id}/><DNA tenant={tenant.data} /></>;
+ else if (view === 'scene') content=<SceneBuilder tenant={tenant.data}/>;
  else if (view === 'weekly' || view === 'free') content=<><CreationGuide id={id}/><Planner tenant={tenant.data} free={view === 'free'} key={id + view} /></>;
  else if(view==='creative-profiles')content=<CreativeProfiles tenant={tenant.data}/>;
  else content=<Empty title="Esta sección no existe.">Elige una sección del menú de tu espacio.</Empty>;

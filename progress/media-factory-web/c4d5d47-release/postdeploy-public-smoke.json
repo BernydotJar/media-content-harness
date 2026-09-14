@@ -1,0 +1,56 @@
+{
+  "checked_at": "2026-09-13T20:05:18.095105+00:00",
+  "origin": "https://media-factory.textilesdemedellin.com",
+  "transport": "public_https_browser_user_agent",
+  "results": [
+    {
+      "path": "/login",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "location": null,
+      "curl_exit": 0
+    },
+    {
+      "path": "/robots.txt",
+      "status": 200,
+      "content_type": "text/plain; charset=utf-8",
+      "location": null,
+      "curl_exit": 0
+    },
+    {
+      "path": "/sitemap.xml",
+      "status": 200,
+      "content_type": "application/xml",
+      "location": null,
+      "curl_exit": 0
+    },
+    {
+      "path": "/llms.txt",
+      "status": 200,
+      "content_type": "text/plain; charset=utf-8",
+      "location": null,
+      "curl_exit": 0
+    },
+    {
+      "path": "/llm.txt",
+      "status": 200,
+      "content_type": "text/plain; charset=utf-8",
+      "location": null,
+      "curl_exit": 0
+    },
+    {
+      "path": "/api/v1/admin/integrations",
+      "status": 401,
+      "content_type": "application/json",
+      "location": null,
+      "curl_exit": 0
+    },
+    {
+      "path": "/health",
+      "status": 401,
+      "content_type": null,
+      "location": null,
+      "curl_exit": 0
+    }
+  ]
+}

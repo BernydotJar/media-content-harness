@@ -22,7 +22,7 @@ export default function Studio({ segments }: { segments: string[] }) {
  const tenantList=items(tenants.data), shellTenantId = tenantId || routeJob.data?.tenant_id || (tenantList.length===1?tenantList[0].tenant_id:null);
  const tenant = tenantList.find(t => t.tenant_id === shellTenantId), firmesShell=isFirmesTenant(tenant);
  const nav = [{ href: '/dashboard', label: 'Inicio', icon: 'home', active: !segments.length || segments[0] === 'dashboard' }, { href: '/workspaces', label: 'Espacios de trabajo', icon: 'grid', active: segments[0] === 'workspaces' }];
- const local = tenantId ? [{ key: 'sources', label: 'Fuentes y referencias', icon: 'sources' }, { key: 'content-dna', label: 'Content DNA', icon: 'dna' }, { key: 'weekly', label: 'Producción semanal', icon: 'calendar' }, { key: 'free', label: 'Modo libre', icon: 'spark' }, {key:'creative-profiles',label:'Personajes y lugares',icon:'dna'}] : [];
+ const local = tenantId ? [{ key: 'sources', label: 'Fuentes y referencias', icon: 'sources' }, { key: 'content-dna', label: 'Content DNA', icon: 'dna' }, { key: 'scene', label: 'Escena guiada', icon: 'spark' }, { key: 'weekly', label: 'Producción semanal', icon: 'calendar' }, { key: 'free', label: 'Modo libre', icon: 'spark' }, {key:'creative-profiles',label:'Personajes y lugares',icon:'dna'}] : [];
  let content: ReactNode;
  if (!segments.length || segments[0] === 'dashboard') content = <Dashboard tenants={tenants} user={me.data} tenant={tenant} />;
  else if (segments[0] === 'workspaces') content = <Workspaces resource={tenants} />;

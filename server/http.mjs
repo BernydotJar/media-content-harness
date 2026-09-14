@@ -61,6 +61,14 @@ export async function handleApi(request,service){
    if(path.length===1){if(method==='GET')return response(await service.listTenants(session));if(method==='POST')return response(await service.createTenant(session,await jsonBody(request)),201)}
    const id=path[1]
    if(path.length===2&&method==='GET')return response(await service.getTenant(session,id))
+   if(path[2]==='brand-profile'&&path.length===3&&method==='GET')return response(await service.brandProfile(session,id))
+   if(path[2]==='brand-characters'&&path.length===3&&method==='GET')return response(await service.brandCharacters(session,id))
+   if(path[2]==='brand-assets'&&path.length===4&&method==='GET'){const asset=await service.brandAsset(session,id,path[3]);return artifactResponse(request,{...asset,filename:asset.asset_id+'.png'})}
+   if(path[2]==='scene-presets'&&path.length===3&&method==='GET')return response(await service.scenePresets(session,id))
+   if(path[2]==='scenes'&&path.length===3&&method==='POST')return response(await service.createScene(session,id,await jsonBody(request)),202)
+   if(path[2]==='scenes'&&path[3]==='preview'&&path.length===4&&method==='POST')return response(await service.previewScene(session,id,await jsonBody(request)))
+   if(path[2]==='scene-references'&&path.length===4&&method==='POST'){const bytes=await bodyBytes(request,8*1024*1024);return response(await service.uploadSceneReference(session,id,path[3],{bytes,mime_type:request.headers.get('content-type')?.split(';')[0]}),201)}
+   if(path[2]==='scene-references'&&path.length===4&&method==='GET'){const asset=await service.sceneReference(session,id,path[3]);return artifactResponse(request,{...asset,filename:asset.asset_id+(asset.mime_type==='image/jpeg'?'.jpg':'.png')})}
    if(path[2]==='journey'&&path.length===3&&method==='GET')return response(await service.journey(session,id))
    if(path[2]==='creative-profiles'&&path.length===3){if(method==='GET')return response(await service.creativeProfiles(session,id));if(method==='POST')return response(await service.saveCreativeProfile(session,id,await jsonBody(request)),201)}
    if(path[2]==='dashboard'&&path.length===3&&method==='GET')return response(await service.dashboard(session,id))
@@ -81,6 +89,8 @@ export async function handleApi(request,service){
    if(path.length===1&&method==='GET')return response(await service.jobs(session,url.searchParams.get('tenant_id')||undefined))
    const id=path[1]
    if(path.length===2&&method==='GET')return response(await service.job(session,id))
+   if(path[2]==='external-package'&&path.length===3&&method==='GET')return response(await service.externalPackage(session,id))
+   if(path[2]==='external-result'&&path.length===3&&method==='POST'){const bytes=await bodyBytes(request,40*1024*1024);return response(await service.uploadExternalResult(session,id,{bytes,mime_type:request.headers.get('content-type')?.split(';')[0]}),202)}
    if(path.length===3&&method==='POST'&&['approve','request-changes','start','reject'].includes(path[2]))return response(await service.jobAction(session,id,path[2]==='request-changes'?'requestChanges':path[2],await jsonBody(request)),path[2]==='start'?202:200)
    if(path.length===3&&method==='POST'&&path[2]==='repair')return response(await service.repairJob(session,id,await jsonBody(request)),202)
    if(path[2]==='evidence'&&path.length===3&&method==='GET')return response(await service.evidence(session,id))

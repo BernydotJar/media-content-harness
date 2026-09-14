@@ -5,7 +5,7 @@ import styles from './QuickCreate.module.css';
 
 type Workspace = { tenant_id: string; organization: string };
 export function QuickCreate({ tenants, loading = false, brand }: { tenants: Workspace[]; loading?: boolean; brand?: 'firmes' }) {
-  const modes = [{ path: 'weekly', label: 'Producción semanal', description: 'Planifica una semana de historias' }, { path: 'free', label: 'Modo libre', description: 'Empieza con tus propias palabras' }];
+  const modes = [{ path: 'scene', label: 'Escena guiada', description: 'Crea con personaje, entorno y acción' }, { path: 'weekly', label: 'Producción semanal', description: 'Planifica una semana de historias' }, { path: 'free', label: 'Modo libre', description: 'Empieza con tus propias palabras' }];
   return <DropdownMenu.Root>
     <DropdownMenu.Trigger className={styles.trigger + (brand==='firmes' ? ' '+styles.firmes : '')} disabled={loading} aria-busy={loading || undefined}>
       <span aria-hidden="true" className={styles.plus}>+</span>Crear<Chevron down />
