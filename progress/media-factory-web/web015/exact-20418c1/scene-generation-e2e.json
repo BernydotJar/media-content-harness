@@ -1,0 +1,109 @@
+{
+  "candidate_sha": "20418c13e51cf07d2f068ba5144affd69f2a91b0",
+  "working_tree_dirty": false,
+  "production_source_sha256": "dda83de709e3208758d9c2a437a3541e804750405052a3b3dcba0666c1b99644",
+  "build_id": "s_EBmOJNJ8k8XlkaJSSNF",
+  "runtime_package": {
+    "format": "media-factory-runtime.v1",
+    "files": 1453,
+    "manifest_sha256": "8c0549b4d57a0e85277b32a8b34a4544be293e1b64d7a960bef5cd4326f38609",
+    "build_id": "s_EBmOJNJ8k8XlkaJSSNF",
+    "forbidden_entries": 0,
+    "external_symlinks": 0
+  },
+  "test_mode": false,
+  "deployment_class": "controlled_single_operator_preview",
+  "elapsed_ms": 18689,
+  "result": {
+    "status": "PASS",
+    "job_id": "mf_scene_e0bcc2d1e8e8d9377f9a11ca6d87",
+    "release_id": "release_d34d1dc3cb5969d4909836e6",
+    "artifact_sha256": "b05193935207058e1c1bf30ce37849245f886b36f0195e1b1aee6fba428a0b3d",
+    "approved_hero_sha256": "28de0345ff8ffd02a368631bbd5052d01f475b514964c50b73aa766c410a4f63",
+    "generation_attempt_count": 3,
+    "scene_provenance": {
+      "tenant_id": "firmes-scene",
+      "job_id": "mf_scene_e0bcc2d1e8e8d9377f9a11ca6d87",
+      "job_revision": 6,
+      "character_id": "brand_character_firmes_caballito_v1",
+      "character_asset_id": "brand_asset_firmes_caballito_v1",
+      "character_asset_sha256": "b17c55ffb0eec46bfa719128ee68a9f18475c45afb90d6d73ce9d82567938397",
+      "reference_roles": [
+        {
+          "reference_id": "REFERENCE_A",
+          "asset_id": "brand_asset_firmes_caballito_v1",
+          "role": "CHARACTER_IDENTITY_ONLY",
+          "sha256": "b17c55ffb0eec46bfa719128ee68a9f18475c45afb90d6d73ce9d82567938397",
+          "authorization": "AUTHORIZED",
+          "tenant_id": "firmes-scene"
+        },
+        {
+          "reference_id": "REFERENCE_B",
+          "asset_id": "scene_ref_3dbcb27e2beb919d30bb1a68bc5dbc76",
+          "role": "ENVIRONMENT_ONLY",
+          "sha256": "2d7c3924ce855d76b83e1e37ddb59921b6b2b94c45add6bf5a7457c3c45d5504",
+          "authorization": "OPERATOR_AUTHORIZED",
+          "tenant_id": "firmes-scene"
+        }
+      ],
+      "structured_request_sha256": "f07730e0cb91810ea6ea6279d998e45acd199a9aa2de55ad4f357de654ad1ec9",
+      "prompt_compiler_version": "mascot-scene-compiler.v1",
+      "base_compiled_prompt_sha256": "2f5e0f614ed3d44fcfcd2bedb2a0588d8f281555bcf59975b00284f9a8e72df7",
+      "final_prompt_sha256": "2f5e0f614ed3d44fcfcd2bedb2a0588d8f281555bcf59975b00284f9a8e72df7",
+      "operator_override_sha256": null,
+      "tenant_brand_profile_version": 1,
+      "generation_attempt_id": "gen_40953f9d-a7c2-4473-ab4c-f526ca7b8a12",
+      "generation_adapter_id": "manual-external",
+      "provider_model": null,
+      "generation_request_sha256": "f07730e0cb91810ea6ea6279d998e45acd199a9aa2de55ad4f357de654ad1ec9",
+      "generation_prompt_sha256": "2f5e0f614ed3d44fcfcd2bedb2a0588d8f281555bcf59975b00284f9a8e72df7",
+      "generation_input_assets": [
+        {
+          "asset_id": "brand_asset_firmes_caballito_v1",
+          "role": "CHARACTER_IDENTITY_ONLY",
+          "sha256": "b17c55ffb0eec46bfa719128ee68a9f18475c45afb90d6d73ce9d82567938397"
+        },
+        {
+          "asset_id": "scene_ref_3dbcb27e2beb919d30bb1a68bc5dbc76",
+          "role": "ENVIRONMENT_ONLY",
+          "sha256": "2d7c3924ce855d76b83e1e37ddb59921b6b2b94c45add6bf5a7457c3c45d5504"
+        },
+        {
+          "asset_id": "artifact_28de0345ff8ffd02a368631bbd5052d01f475b514964c50b73aa766c410a4f63",
+          "role": "APPROVED_HERO_IMAGE",
+          "sha256": "28de0345ff8ffd02a368631bbd5052d01f475b514964c50b73aa766c410a4f63"
+        }
+      ],
+      "approved_hero": {
+        "artifact_id": "artifact_28de0345ff8ffd02a368631bbd5052d01f475b514964c50b73aa766c410a4f63",
+        "sha256": "28de0345ff8ffd02a368631bbd5052d01f475b514964c50b73aa766c410a4f63",
+        "prompt_sha256": "2f5e0f614ed3d44fcfcd2bedb2a0588d8f281555bcf59975b00284f9a8e72df7",
+        "approved_candidate_sha": "5810368dd10d5c9b727c6a1d1202d7d1977a2e30463b8e6cc2a85b87ae92e283",
+        "approved_by": "scene-critic",
+        "approved_at": "2026-09-14T21:28:30.963Z"
+      },
+      "result_sha256": "b05193935207058e1c1bf30ce37849245f886b36f0195e1b1aee6fba428a0b3d",
+      "critic_decision": {
+        "stage": "CRITIC",
+        "candidate_sha": "8ac954696c9b931e90db402c6f6eeef9ae2999e6e2a29c6d8bbde994a46b8563",
+        "actor": "scene-critic",
+        "created_at": "2026-09-14T21:28:34.775Z"
+      },
+      "verifier_decision": {
+        "stage": "INDEPENDENT_VERIFIER",
+        "candidate_sha": "8ac954696c9b931e90db402c6f6eeef9ae2999e6e2a29c6d8bbde994a46b8563",
+        "actor": "scene-verifier",
+        "created_at": "2026-09-14T21:28:36.737Z"
+      }
+    },
+    "checks": [
+      "Escena guiada abre con Caballito FIRMES preseleccionado, referencia de entorno aislada y video image-first.",
+      "El compilador determinista materializa identidad, Antigua, acción selfie y exclusiones con roles explícitos.",
+      "Generación externa es un estado operativo del mismo job; video exige primero una hero image y conserva las dos referencias por rol.",
+      "El resultado vuelve al mismo job y Critic recibe la rúbrica estructurada de la escena.",
+      "Un fallo de Critic regenera sobre el mismo job sin bucle blocker→review.",
+      "La hero aprobada por Critic queda fijada por SHA como entrada explícita del video.",
+      "Critic, verifier y release conservan el hash del video final; la hero aprobada permanece como input trazable y no hay publicación automática."
+    ]
+  }
+}

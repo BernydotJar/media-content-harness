@@ -1,0 +1,70 @@
+TAP version 13
+# Subtest: FIRMES resolves immutable default mascot across asset, character and tenant profile layers
+ok 1 - FIRMES resolves immutable default mascot across asset, character and tenant profile layers
+  ---
+  duration_ms: 6.414209
+  type: 'test'
+  ...
+# Subtest: structured compiler is deterministic, separates reference roles and keeps operator override provenance
+ok 2 - structured compiler is deterministic, separates reference roles and keeps operator override provenance
+  ---
+  duration_ms: 1.963583
+  type: 'test'
+  ...
+# Subtest: reference role and authorization drift invalidate a compiled scene even when bytes are unchanged
+ok 3 - reference role and authorization drift invalidate a compiled scene even when bytes are unchanged
+  ---
+  duration_ms: 0.414042
+  type: 'test'
+  ...
+# Subtest: default is optional, cross-tenant character IDs and wrong reference roles fail closed
+ok 4 - default is optional, cross-tenant character IDs and wrong reference roles fail closed
+  ---
+  duration_ms: 0.358375
+  type: 'test'
+  ...
+# Subtest: generic tenant does not require a FIRMES character and receives neutral preset labels
+ok 5 - generic tenant does not require a FIRMES character and receives neutral preset labels
+  ---
+  duration_ms: 0.201875
+  type: 'test'
+  ...
+# Subtest: provider registry exposes manual external as operational and unconfigured generators truthfully
+ok 6 - provider registry exposes manual external as operational and unconfigured generators truthfully
+  ---
+  duration_ms: 0.1115
+  type: 'test'
+  ...
+# Subtest: external package changes from hero-image creation to exact approved hero animation
+ok 7 - external package changes from hero-image creation to exact approved hero animation
+  ---
+  duration_ms: 0.421542
+  type: 'test'
+  ...
+# Subtest: scene-reference identity is role-bound and non-editors cannot upload references
+ok 8 - scene-reference identity is role-bound and non-editors cannot upload references
+  ---
+  duration_ms: 233.20875
+  type: 'test'
+  ...
+# Subtest: manual external generation resumes the same job, critic repair regenerates, verifier and release bind the exact accepted SHA
+ok 9 - manual external generation resumes the same job, critic repair regenerates, verifier and release bind the exact accepted SHA
+  ---
+  duration_ms: 8239.677921
+  type: 'test'
+  ...
+# Subtest: video scene is image-first and the approved hero SHA becomes an explicit animation input in the same job
+ok 10 - video scene is image-first and the approved hero SHA becomes an explicit animation input in the same job
+  ---
+  duration_ms: 5976.073962
+  type: 'test'
+  ...
+1..10
+# tests 10
+# suites 0
+# pass 10
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 14663.274465
