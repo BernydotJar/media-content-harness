@@ -1,0 +1,123 @@
+{
+  "authorization_security": [
+    "Tenant membership required for brand/reference/job reads.",
+    "Editor-equivalent role required for scene-reference and external-result uploads.",
+    "Cross-tenant character/reference assets fail closed.",
+    "External media is bounded and inspected; hash, aspect ratio and video duration are validated before review.",
+    "Existing CSRF, path traversal, session revocation, artifact integrity, range authorization and private-metadata tests remain passing."
+  ],
+  "deployment_class": "controlled_single_operator_preview",
+  "exact_verification": {
+    "candidate_sha": "20418c13e51cf07d2f068ba5144affd69f2a91b0",
+    "contracts": "13/13 PASS",
+    "focused_tests": "10/10 PASS",
+    "full_suite": "146 discovered; 145 PASS; 0 FAIL; 1 pre-existing SKIP",
+    "independent_verifier": "PASS exact candidate",
+    "post_fix_critic": "PASS; material_findings_open=0",
+    "production_build": "PASS",
+    "production_dependency_audit": "No known vulnerabilities found",
+    "production_mode_browser_e2e": "PASS --require-clean; test_mode=false",
+    "runtime_package": {
+      "build_id": "s_EBmOJNJ8k8XlkaJSSNF",
+      "external_symlinks": 0,
+      "files": 1453,
+      "forbidden_entries": 0,
+      "format": "media-factory-runtime.v1",
+      "manifest_sha256": "8c0549b4d57a0e85277b32a8b34a4544be293e1b64d7a960bef5cd4326f38609"
+    },
+    "typecheck": "PASS",
+    "working_tree_dirty_during_e2e": false
+  },
+  "first_failed_gate_preserved": {
+    "analysis_artifact": "progress/media-factory-web/web016/GRANITE_FAILURE_ANALYSIS.md",
+    "decision": "F/MATERIAL_FINDINGS",
+    "diagnostic_interpretation": "Diagnostic repeated the four RESOLVED_AND_VERIFIED controls above as findings and repeated the three predeployment conditions above as evidence gaps. No new negative runtime behavior was identified.",
+    "risk_raw_sha256": "0ab7de5b84ce37b5802e8ed9bcd016f34cad2a61a00b24b0fff699880d405298"
+  },
+  "gate_rule": "Return failure if any material issue remains unresolved. Do not treat an item explicitly marked RESOLVED_AND_VERIFIED or a post-sign predeployment condition as an open defect unless the supplied evidence is internally inconsistent.",
+  "image_first_release_evidence": {
+    "approved_hero_frozen_in_release_provenance": true,
+    "approved_hero_sha256": "28de0345ff8ffd02a368631bbd5052d01f475b514964c50b73aa766c410a4f63",
+    "final_output_frozen_in_release_provenance": true,
+    "final_video_sha256": "b05193935207058e1c1bf30ce37849245f886b36f0195e1b1aee6fba428a0b3d",
+    "terminal_generation_input_roles": [
+      "CHARACTER_IDENTITY_ONLY",
+      "ENVIRONMENT_ONLY",
+      "APPROVED_HERO_IMAGE"
+    ]
+  },
+  "open_material_findings": [],
+  "operations_recovery": {
+    "base_process_recovery": "PASS",
+    "base_public_health": "PASS_HTTP_200",
+    "candidate_runtime_package": "PASS with zero forbidden entries/external symlinks",
+    "currently_deployed_base": "c4d5d47db4c4c23244785cf7a16b9c2c8de0a9e7",
+    "required_postdeploy_gate": "Existing host reconciler must prove runtime restart recovery, local health, edge, TLS/public health and authenticated session lifecycle before deployment is complete."
+  },
+  "predeployment_conditions_not_defects": [
+    "Granite risk must return P/NONE and all ten rubric categories must return P before the canonical finalizer may sign.",
+    "The existing host reconciler, not the product workspace, owns Docker/Caddy/DNS/TLS/tunnel mutation and must verify restart recovery, authenticated session lifecycle and public HTTPS health after deployment.",
+    "The public environment is intentionally controlled_single_operator_preview; isolated production-mode acceptance identities verify critic/verifier separation without claiming those accounts are provisioned publicly."
+  ],
+  "provider_governance": {
+    "automatic_social_publication_authorized": false,
+    "manual_external": "Explicit operator-mediated external generation path; not represented as an API integration.",
+    "paid_execution_authorized": false,
+    "unconfigured_named_providers": "Seedance, Higgsfield, CapCut and Gemini remain INTEGRATION_REQUIRED unless executable adapters exist."
+  },
+  "release_identity": {
+    "candidate_present_on_remote_history": true,
+    "meaning": "Later commit a696a45 contains only graph/progress verification evidence; the deployable product candidate remains exact SHA 20418c13.",
+    "post_candidate_delta_runtime_affecting_paths": [],
+    "remote_head_after_verification": "a696a45870ac0dc6168b35b407813df1d260cb15"
+  },
+  "resolved_findings": [
+    {
+      "behavior": "Each compiled reference is re-resolved in current tenant state; tenant, SHA, semantic role and authorization must all still match or execution fails with REFERENCE_CHANGED.",
+      "exact_code": "server/worker-policy.mjs:15-18",
+      "id": "REFERENCE_SEMANTIC_DRIFT",
+      "result": "PASS",
+      "status": "RESOLVED_AND_VERIFIED",
+      "test": "reference role and authorization drift invalidate a compiled scene even when bytes are unchanged"
+    },
+    {
+      "behavior": "Immutable release provenance copies compiled semantic references, terminal generation request/prompt hashes, terminal generation input assets, approved hero decision, final output SHA and separate critic/verifier decisions.",
+      "exact_code": "server/scene-generation.mjs:220-259 and server/execution.mjs release snapshot",
+      "id": "RELEASE_PROVENANCE_INPUT_FREEZE",
+      "result": "PASS",
+      "status": "RESOLVED_AND_VERIFIED",
+      "test": "manual external generation resumes the same job, critic repair regenerates, verifier and release bind the exact accepted SHA"
+    },
+    {
+      "behavior": "Operator text is appended under OPERATOR OVERRIDE (LOWER PRIORITY) and cannot change reference-role semantics or hard constraints.",
+      "exact_code": "server/scene-generation.mjs:120-157",
+      "id": "OPERATOR_OVERRIDE_PRECEDENCE",
+      "result": "PASS",
+      "status": "RESOLVED_AND_VERIFIED",
+      "test": "structured compiler is deterministic, separates reference roles and keeps operator override provenance"
+    },
+    {
+      "behavior": "Non-FIRMES tenant profile defaults have null mascot IDs and neutral presets; FIRMES assets are seeded only for FIRMES tenant identity.",
+      "exact_code": "server/scene-generation.mjs:20-55,161-180",
+      "id": "GENERIC_TENANT_FIRMES_COUPLING",
+      "result": "PASS",
+      "status": "RESOLVED_AND_VERIFIED",
+      "test": "generic tenant does not require a FIRMES character and receives neutral preset labels"
+    }
+  ],
+  "review_purpose": "Predeployment exact-candidate risk authorization only. Deployment success is not claimed by this review.",
+  "reviewed_sha": "20418c13e51cf07d2f068ba5144affd69f2a91b0",
+  "semantic_reference_evidence": {
+    "character_reference": {
+      "asset_sha256": "b17c55ffb0eec46bfa719128ee68a9f18475c45afb90d6d73ce9d82567938397",
+      "authorization": "AUTHORIZED",
+      "role": "CHARACTER_IDENTITY_ONLY"
+    },
+    "drift_rule": "Role or authorization drift is invalid even if bytes/SHA are unchanged.",
+    "environment_reference": {
+      "asset_sha256": "2d7c3924ce855d76b83e1e37ddb59921b6b2b94c45add6bf5a7457c3c45d5504",
+      "authorization": "OPERATOR_AUTHORIZED",
+      "role": "ENVIRONMENT_ONLY"
+    }
+  }
+}

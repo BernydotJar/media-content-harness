@@ -1,0 +1,33 @@
+{
+  "blocking_control": {
+    "canonical_finalizer": "FAIL_PRIVATE_PUBLIC_KEY_MISMATCH",
+    "code": "CENTRAL_SIGNER_PRIVATE_KEY_UNAVAILABLE",
+    "discoverable_private_key_derived_public_sha256": "eef80f5fd016b7deb7a2f31710ea3b1b814cfb12e6e2e9c90b2ab84febbaa173",
+    "safe_unblock": "restore matching central private signer or execute separately reviewed cross-product trust-root rotation",
+    "shared_trust_root_consumers": 2,
+    "trusted_public_key_sha256": "b61542031a4c61e9ccc270aac3ee2adb464508012d0b979eb40575da43d13e9e"
+  },
+  "deployment_request_submitted": false,
+  "evidence": {
+    "granite_risk": "progress/media-factory-web/web016/granite-risk-r1-raw.json",
+    "granite_rubric": "progress/media-factory-web/web016/granite-rubric-r1-raw.json",
+    "release_dossier": "progress/media-factory-web/web016/release-dossier-v2.json",
+    "signer_blocker": "progress/media-factory-web/web016/SIGNER_BLOCKER.md",
+    "signer_probe": "progress/media-factory-web/web016/signer-probe/probe.log"
+  },
+  "fresh_granite_risk": "PASS_P_NONE",
+  "fresh_granite_rubric": "PASS_10_OF_10",
+  "graph_node": "WEB016-OPERATIONAL-CREATION-RELEASE",
+  "graph_node_revision": 2,
+  "graph_node_status": "repair_required",
+  "preserved_public_release": {
+    "last_result": "DEPLOYED_CONTROLLED_SINGLE_OPERATOR_PREVIEW",
+    "process_recovery": "PASS",
+    "reconciliation_state": "converged",
+    "recorded_public_health": "PASS_HTTP_200",
+    "sha": "c4d5d47db4c4c23244785cf7a16b9c2c8de0a9e7"
+  },
+  "product_candidate_sha": "20418c13e51cf07d2f068ba5144affd69f2a91b0",
+  "product_implementation": "COMPLETE_AND_EXACT_VERIFIED",
+  "terminal_state": "PARTIAL_WITH_DOCUMENTED_BLOCKERS"
+}

@@ -1,0 +1,4 @@
+usage: critic_finalizer.py [-h] --sha SHA --risk-raw RISK_RAW --rubric-raw
+                           RUBRIC_RAW --private-key PRIVATE_KEY --public-key
+                           PUBLIC_KEY --output-root OUTPUT_ROOT
+critic_finalizer.py: error: private/public key mismatch
