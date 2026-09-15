@@ -1,0 +1,27 @@
+{
+  "actor": "deterministic-red-team",
+  "checks": {
+    "atomic_replace": true,
+    "baseline_pin": true,
+    "directory_fsync": true,
+    "exact_hash_resolution": true,
+    "exact_sha": "d434452f92be821f20304056c319ea732da020c3",
+    "file_fsync": true,
+    "group_world_write_rejected": true,
+    "no_private_pem_versioned": true,
+    "rollback_active_user_guard": true,
+    "rollback_historical_receipt_guard": true,
+    "root_ownership_enforced": true,
+    "symlink_rejected": true
+  },
+  "file_sha256": {
+    "deploy/critic-keyring/critic_keyring.py": "22b4ef5c78a3ed089f436121b4229eec70cf54a78da04a71a9a2e57900477afe",
+    "deploy/critic-keyring/promote.py": "00af5dc5d9a41f2350b1ee7f0b5caee30bd70b62d15a92800da864de77e5e200",
+    "deploy/critic-keyring/test_critic_keyring.py": "cfd0c814d777660d4bc380059007fc91dd29fa18037f6120a57b9c81f01f31cf"
+  },
+  "finding": "No material unresolved trust-root defect after Fixer hardening.",
+  "kind": "critique",
+  "material_findings_open": 0,
+  "reviewed_sha": "d434452f92be821f20304056c319ea732da020c3",
+  "verdict": "PASS"
+}

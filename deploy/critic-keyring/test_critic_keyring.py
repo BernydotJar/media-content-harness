@@ -32,10 +32,12 @@ class CriticKeyringUnitTests(unittest.TestCase):
             ROOT / "trusted" / "b61542031a4c61e9ccc270aac3ee2adb464508012d0b979eb40575da43d13e9e.pem",
             self.legacy,
         )
+        self.legacy.chmod(0o644)
         self.keydir = self.root / "critic_public_keys"
         self.keydir.mkdir()
         self.successor = self.keydir / "eef80f5fd016b7deb7a2f31710ea3b1b814cfb12e6e2e9c90b2ab84febbaa173.pem"
         shutil.copy2(ROOT / "trusted" / self.successor.name, self.successor)
+        self.successor.chmod(0o644)
 
     def tearDown(self) -> None:
         self.tmp.cleanup()
@@ -122,7 +124,9 @@ class HostVerifierIntegrationTests(unittest.TestCase):
         keydir = self.host_dir / "critic_public_keys"
         keydir.mkdir()
         shutil.copy2(self.public, keydir / f"{self.public_hash}.pem")
+        (keydir / f"{self.public_hash}.pem").chmod(0o644)
         shutil.copy2(ROOT / "trusted" / "b61542031a4c61e9ccc270aac3ee2adb464508012d0b979eb40575da43d13e9e.pem", self.host_dir / "critic_public_key.pem")
+        (self.host_dir / "critic_public_key.pem").chmod(0o644)
 
         sys.path.insert(0, str(self.host_dir))
         host_spec = importlib.util.spec_from_file_location("keyring_host_reconciler", self.host_dir / "host_reconciler.py")

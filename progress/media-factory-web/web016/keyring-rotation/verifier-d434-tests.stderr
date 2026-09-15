@@ -1,0 +1,67 @@
+test_group_writable_keyring_fails_closed (__main__.CriticKeyringUnitTests.test_group_writable_keyring_fails_closed) ... ok
+test_group_writable_successor_fails_closed (__main__.CriticKeyringUnitTests.test_group_writable_successor_fails_closed) ... ok
+test_legacy_key_remains_trusted (__main__.CriticKeyringUnitTests.test_legacy_key_remains_trusted) ... ERROR
+test_successor_key_is_selected_by_exact_hash (__main__.CriticKeyringUnitTests.test_successor_key_is_selected_by_exact_hash) ... ERROR
+test_symlinked_keyring_fails_closed (__main__.CriticKeyringUnitTests.test_symlinked_keyring_fails_closed) ... ok
+test_symlinked_successor_fails_closed (__main__.CriticKeyringUnitTests.test_symlinked_successor_fails_closed) ... ok
+test_tampered_successor_fails_closed (__main__.CriticKeyringUnitTests.test_tampered_successor_fails_closed) ... ok
+test_unknown_hash_fails_closed (__main__.CriticKeyringUnitTests.test_unknown_hash_fails_closed) ... ok
+test_new_keyring_signature_verifies (__main__.HostVerifierIntegrationTests.test_new_keyring_signature_verifies) ... ERROR
+test_signature_key_swap_fails (__main__.HostVerifierIntegrationTests.test_signature_key_swap_fails) ... ok
+test_unknown_key_hash_fails_before_signature_acceptance (__main__.HostVerifierIntegrationTests.test_unknown_key_hash_fails_before_signature_acceptance) ... ok
+test_promote_then_rollback_restores_exact_baseline (__main__.PromotionRollbackTests.test_promote_then_rollback_restores_exact_baseline) ... ok
+test_rollback_refuses_after_historical_successor_receipt_even_when_registry_no_longer_uses_key (__main__.PromotionRollbackTests.test_rollback_refuses_after_historical_successor_receipt_even_when_registry_no_longer_uses_key) ... ok
+test_rollback_refuses_while_active_product_uses_successor (__main__.PromotionRollbackTests.test_rollback_refuses_while_active_product_uses_successor) ... ok
+
+======================================================================
+ERROR: test_legacy_key_remains_trusted (__main__.CriticKeyringUnitTests.test_legacy_key_remains_trusted)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/web016-verifier-1HlbhI/deploy/critic-keyring/test_critic_keyring.py", line 44, in test_legacy_key_remains_trusted
+    found = keyring.resolve_trusted_public_key(legacy_public_key=self.legacy, expected_sha256=sha(self.legacy))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/web016-verifier-1HlbhI/deploy/critic-keyring/critic_keyring.py", line 74, in resolve_trusted_public_key
+    require_regular_file(legacy_public_key, "legacy critic public key")
+  File "/tmp/web016-verifier-1HlbhI/deploy/critic-keyring/critic_keyring.py", line 45, in require_regular_file
+    raise KeyringError(f"{label} must not be group/world writable")
+critic_keyring.KeyringError: legacy critic public key must not be group/world writable
+
+======================================================================
+ERROR: test_successor_key_is_selected_by_exact_hash (__main__.CriticKeyringUnitTests.test_successor_key_is_selected_by_exact_hash)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/web016-verifier-1HlbhI/deploy/critic-keyring/test_critic_keyring.py", line 48, in test_successor_key_is_selected_by_exact_hash
+    found = keyring.resolve_trusted_public_key(legacy_public_key=self.legacy, expected_sha256=sha(self.successor))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/web016-verifier-1HlbhI/deploy/critic-keyring/critic_keyring.py", line 74, in resolve_trusted_public_key
+    require_regular_file(legacy_public_key, "legacy critic public key")
+  File "/tmp/web016-verifier-1HlbhI/deploy/critic-keyring/critic_keyring.py", line 45, in require_regular_file
+    raise KeyringError(f"{label} must not be group/world writable")
+critic_keyring.KeyringError: legacy critic public key must not be group/world writable
+
+======================================================================
+ERROR: test_new_keyring_signature_verifies (__main__.HostVerifierIntegrationTests.test_new_keyring_signature_verifies)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/tmpg84549zi/host-reconciler/host_reconciler.py", line 454, in verify_critic_signature
+    public_key = resolve_trusted_public_key(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/tmpg84549zi/host-reconciler/critic_keyring.py", line 74, in resolve_trusted_public_key
+    require_regular_file(legacy_public_key, "legacy critic public key")
+  File "/tmp/tmpg84549zi/host-reconciler/critic_keyring.py", line 45, in require_regular_file
+    raise KeyringError(f"{label} must not be group/world writable")
+critic_keyring.KeyringError: legacy critic public key must not be group/world writable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/tmp/web016-verifier-1HlbhI/deploy/critic-keyring/test_critic_keyring.py", line 178, in test_new_keyring_signature_verifies
+    self.host.verify_critic_signature(product, self.root, self.host_dir / "critic_public_key.pem")
+  File "/tmp/tmpg84549zi/host-reconciler/host_reconciler.py", line 459, in verify_critic_signature
+    raise ReconcileError("L1_RELEASE", f"critic trust root rejected: {exc}") from exc
+keyring_host_reconciler.ReconcileError: critic trust root rejected: legacy critic public key must not be group/world writable
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.766s
+
+FAILED (errors=3)
