@@ -25,6 +25,7 @@ BASE_HOST_SHA256 = "aa40a01781d11f1857382b37037e6806bda6c5dd1235253ad9bafc458687
 EXPECTED_AFTER_HOST_SHA256 = "c0d99f7049cbed4e0ebf5f970d70a0828c35f1603b82e6f69688d6f0d5581bc7"
 LEGACY_PUBLIC_KEY_SHA256 = "b61542031a4c61e9ccc270aac3ee2adb464508012d0b979eb40575da43d13e9e"
 SUCCESSOR_PUBLIC_KEY_SHA256 = "eef80f5fd016b7deb7a2f31710ea3b1b814cfb12e6e2e9c90b2ab84febbaa173"
+PREVIOUS_KEYRING_MODULE_SHA256 = "22b4ef5c78a3ed089f436121b4229eec70cf54a78da04a71a9a2e57900477afe"
 
 IMPORT_NEEDLE = "from uuid import UUID\n"
 IMPORT_REPLACEMENT = "from uuid import UUID\n\nfrom critic_keyring import KeyringError, resolve_trusted_public_key\n"
@@ -58,6 +59,27 @@ def materialize_host(source: bytes, *, check_expected: bool = True) -> bytes:
     if check_expected and EXPECTED_AFTER_HOST_SHA256 != "TO_BE_FILLED":
         if sha256_bytes(result) != EXPECTED_AFTER_HOST_SHA256:
             raise RuntimeError("materialized host reconciler hash mismatch")
+    return result
+
+
+def dematerialize_host(source: bytes) -> bytes:
+    """Recover the exact reviewed baseline from either supported host state."""
+
+    digest = sha256_bytes(source)
+    if digest == BASE_HOST_SHA256:
+        return source
+    if digest != EXPECTED_AFTER_HOST_SHA256:
+        raise RuntimeError("installed host reconciler is not a reviewed keyring state")
+    text = source.decode("utf-8")
+    if text.count(IMPORT_REPLACEMENT) != 1:
+        raise RuntimeError("promoted host reconciler import anchor mismatch")
+    if text.count(VERIFY_REPLACEMENT) != 1:
+        raise RuntimeError("promoted host reconciler verifier anchor mismatch")
+    text = text.replace(IMPORT_REPLACEMENT, IMPORT_NEEDLE, 1)
+    text = text.replace(VERIFY_REPLACEMENT, VERIFY_NEEDLE, 1)
+    result = text.encode("utf-8")
+    if sha256_bytes(result) != BASE_HOST_SHA256:
+        raise RuntimeError("dematerialized host reconciler hash mismatch")
     return result
 
 
@@ -160,6 +182,56 @@ def promote(deployment_root: Path, *, apply: bool) -> dict[str, object]:
     )
     return plan
 
+
+
+def update_resolver(deployment_root: Path) -> dict[str, object]:
+    """Atomically update only the keyring resolver on an already-promoted host."""
+
+    host_dir = deployment_root / "host-reconciler"
+    host = host_dir / "host_reconciler.py"
+    legacy = host_dir / "critic_public_key.pem"
+    keyring_dir = host_dir / "critic_public_keys"
+    successor_target = keyring_dir / f"{SUCCESSOR_PUBLIC_KEY_SHA256}.pem"
+    module_target = host_dir / "critic_keyring.py"
+    desired_module = ROOT / "critic_keyring.py"
+
+    if sha256_file(host) != EXPECTED_AFTER_HOST_SHA256:
+        raise RuntimeError("installed host reconciler is not the reviewed promoted version")
+    if sha256_file(legacy) != LEGACY_PUBLIC_KEY_SHA256:
+        raise RuntimeError("historical critic public key changed")
+    if keyring_dir.is_symlink() or not keyring_dir.is_dir():
+        raise RuntimeError("installed critic keyring directory is invalid")
+    if successor_target.is_symlink() or sha256_file(successor_target) != SUCCESSOR_PUBLIC_KEY_SHA256:
+        raise RuntimeError("installed successor public key changed")
+    if module_target.is_symlink() or not module_target.is_file():
+        raise RuntimeError("installed keyring resolver is invalid")
+
+    current_hash = sha256_file(module_target)
+    desired_hash = sha256_file(desired_module)
+    if current_hash == desired_hash:
+        return {
+            "operation": "critic_keyring_resolver_update",
+            "previous_module_sha256": current_hash,
+            "installed_module_sha256": desired_hash,
+            "result": "ALREADY_UPDATED",
+        }
+    if current_hash != PREVIOUS_KEYRING_MODULE_SHA256:
+        raise RuntimeError("installed keyring resolver is not the reviewed predecessor")
+
+    backup = deployment_root / "control-plane-backups" / f"critic-keyring-resolver-{utcstamp()}-{os.getpid()}"
+    backup.mkdir(parents=True, mode=0o700)
+    shutil.copy2(module_target, backup / "critic_keyring.py")
+    atomic_write(module_target, desired_module.read_bytes(), 0o644)
+    if sha256_file(module_target) != desired_hash:
+        raise RuntimeError("installed keyring resolver hash mismatch")
+
+    return {
+        "operation": "critic_keyring_resolver_update",
+        "backup": str(backup),
+        "previous_module_sha256": current_hash,
+        "installed_module_sha256": desired_hash,
+        "result": "UPDATED",
+    }
 
 
 def successor_receipt_references(deployment_root: Path) -> list[str]:
@@ -268,12 +340,18 @@ def main() -> int:
     parser.add_argument("--deployment-root", type=Path, default=Path("/shared-auth/deployment"))
     action = parser.add_mutually_exclusive_group()
     action.add_argument("--apply", action="store_true")
+    action.add_argument("--update-resolver", action="store_true")
     action.add_argument("--rollback", type=Path)
     args = parser.parse_args()
     root = args.deployment_root.resolve()
     with locked(root / "host-reconciler.execution.lock"):
         with locked(root / "registry.lock"):
-            result = rollback(root, args.rollback) if args.rollback else promote(root, apply=args.apply)
+            if args.rollback:
+                result = rollback(root, args.rollback)
+            elif args.update_resolver:
+                result = update_resolver(root)
+            else:
+                result = promote(root, apply=args.apply)
     print(json.dumps(result, indent=2))
     return 0
 

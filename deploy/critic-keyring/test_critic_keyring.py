@@ -10,6 +10,8 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from types import SimpleNamespace
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parent
 
@@ -42,6 +44,15 @@ class CriticKeyringUnitTests(unittest.TestCase):
     def tearDown(self) -> None:
         self.tmp.cleanup()
 
+    def owner_patch(self, mapping: dict[Path, int]):
+        original = Path.lstat
+
+        def fake_lstat(path: Path):
+            info = original(path)
+            return SimpleNamespace(st_mode=info.st_mode, st_uid=mapping.get(path, info.st_uid))
+
+        return patch.object(Path, "lstat", fake_lstat)
+
     def test_legacy_key_remains_trusted(self) -> None:
         found = keyring.resolve_trusted_public_key(legacy_public_key=self.legacy, expected_sha256=sha(self.legacy))
         self.assertEqual(found, self.legacy)
@@ -49,6 +60,38 @@ class CriticKeyringUnitTests(unittest.TestCase):
     def test_successor_key_is_selected_by_exact_hash(self) -> None:
         found = keyring.resolve_trusted_public_key(legacy_public_key=self.legacy, expected_sha256=sha(self.successor))
         self.assertEqual(found, self.successor)
+
+    def test_nonzero_control_plane_owner_is_supported(self) -> None:
+        simulated_mac_uid = 501
+        mapping = {
+            self.root: simulated_mac_uid,
+            self.legacy: simulated_mac_uid,
+            self.keydir: simulated_mac_uid,
+            self.successor: simulated_mac_uid,
+        }
+        with self.owner_patch(mapping):
+            found = keyring.resolve_trusted_public_key(legacy_public_key=self.legacy, expected_sha256=sha(self.successor))
+        self.assertEqual(found, self.successor)
+
+    def test_legacy_owner_mismatch_fails_closed(self) -> None:
+        with self.owner_patch({self.root: 501, self.legacy: 502}):
+            with self.assertRaisesRegex(keyring.KeyringError, "trusted control-plane owner"):
+                keyring.resolve_trusted_public_key(legacy_public_key=self.legacy, expected_sha256=sha(self.legacy))
+
+    def test_keyring_owner_mismatch_fails_closed(self) -> None:
+        with self.owner_patch({self.root: 501, self.legacy: 501, self.keydir: 502}):
+            with self.assertRaisesRegex(keyring.KeyringError, "trusted control-plane owner"):
+                keyring.resolve_trusted_public_key(legacy_public_key=self.legacy, expected_sha256=sha(self.successor))
+
+    def test_successor_owner_mismatch_fails_closed(self) -> None:
+        with self.owner_patch({self.root: 501, self.legacy: 501, self.keydir: 501, self.successor: 502}):
+            with self.assertRaisesRegex(keyring.KeyringError, "trusted control-plane owner"):
+                keyring.resolve_trusted_public_key(legacy_public_key=self.legacy, expected_sha256=sha(self.successor))
+
+    def test_group_writable_trust_anchor_fails_closed(self) -> None:
+        self.root.chmod(0o770)
+        with self.assertRaises(keyring.KeyringError):
+            keyring.resolve_trusted_public_key(legacy_public_key=self.legacy, expected_sha256=sha(self.successor))
 
     def test_unknown_hash_fails_closed(self) -> None:
         with self.assertRaises(keyring.KeyringError):
@@ -113,7 +156,14 @@ class HostVerifierIntegrationTests(unittest.TestCase):
         canonical = Path("/shared-auth/deployment/host-reconciler/host_reconciler.py")
         if not canonical.is_file():
             self.skipTest("canonical shared host reconciler unavailable")
-        patched = promote.materialize_host(canonical.read_bytes())
+        canonical_bytes = canonical.read_bytes()
+        canonical_hash = hashlib.sha256(canonical_bytes).hexdigest()
+        if canonical_hash == promote.BASE_HOST_SHA256:
+            patched = promote.materialize_host(canonical_bytes)
+        elif canonical_hash == promote.EXPECTED_AFTER_HOST_SHA256:
+            patched = canonical_bytes
+        else:
+            self.fail("canonical shared host reconciler is not a reviewed keyring state")
         (self.host_dir / "host_reconciler.py").write_bytes(patched)
 
         self.private = self.root / "private.pem"
@@ -210,7 +260,9 @@ class PromotionRollbackTests(unittest.TestCase):
         self.root = Path(self.tmp.name) / "deployment"
         host_dir = self.root / "host-reconciler"
         host_dir.mkdir(parents=True)
-        shutil.copy2("/shared-auth/deployment/host-reconciler/host_reconciler.py", host_dir / "host_reconciler.py")
+        canonical = Path("/shared-auth/deployment/host-reconciler/host_reconciler.py")
+        baseline = self.promote.dematerialize_host(canonical.read_bytes())
+        (host_dir / "host_reconciler.py").write_bytes(baseline)
         shutil.copy2(ROOT / "trusted" / "b61542031a4c61e9ccc270aac3ee2adb464508012d0b979eb40575da43d13e9e.pem", host_dir / "critic_public_key.pem")
         (self.root / "control-plane-backups").mkdir()
         (self.root / "host-reconciler.execution.lock").write_text("")
@@ -245,6 +297,56 @@ class PromotionRollbackTests(unittest.TestCase):
         }))
         with self.assertRaises(RuntimeError):
             self.promote.rollback(self.root, Path(result["backup"]))
+
+
+class ResolverUpdateTests(unittest.TestCase):
+    def setUp(self) -> None:
+        promote_spec = importlib.util.spec_from_file_location("resolver_update_promote", ROOT / "promote.py")
+        self.promote = importlib.util.module_from_spec(promote_spec)
+        assert promote_spec.loader
+        promote_spec.loader.exec_module(self.promote)
+        self.tmp = tempfile.TemporaryDirectory()
+        self.root = Path(self.tmp.name) / "deployment"
+        self.host_dir = self.root / "host-reconciler"
+        self.host_dir.mkdir(parents=True)
+        canonical = Path("/shared-auth/deployment/host-reconciler/host_reconciler.py")
+        canonical_bytes = canonical.read_bytes()
+        if hashlib.sha256(canonical_bytes).hexdigest() == self.promote.BASE_HOST_SHA256:
+            canonical_bytes = self.promote.materialize_host(canonical_bytes)
+        self.assertEqual(hashlib.sha256(canonical_bytes).hexdigest(), self.promote.EXPECTED_AFTER_HOST_SHA256)
+        (self.host_dir / "host_reconciler.py").write_bytes(canonical_bytes)
+        shutil.copy2(ROOT / "trusted" / f"{self.promote.LEGACY_PUBLIC_KEY_SHA256}.pem", self.host_dir / "critic_public_key.pem")
+        keydir = self.host_dir / "critic_public_keys"
+        keydir.mkdir()
+        shutil.copy2(ROOT / "trusted" / f"{self.promote.SUCCESSOR_PUBLIC_KEY_SHA256}.pem", keydir / f"{self.promote.SUCCESSOR_PUBLIC_KEY_SHA256}.pem")
+        shutil.copy2(ROOT / "fixtures" / "critic_keyring.v1.py", self.host_dir / "critic_keyring.py")
+        (self.root / "control-plane-backups").mkdir()
+
+    def tearDown(self) -> None:
+        self.tmp.cleanup()
+
+    def test_update_resolver_changes_only_reviewed_module(self) -> None:
+        host_before = sha(self.host_dir / "host_reconciler.py")
+        legacy_before = sha(self.host_dir / "critic_public_key.pem")
+        successor = self.host_dir / "critic_public_keys" / f"{self.promote.SUCCESSOR_PUBLIC_KEY_SHA256}.pem"
+        successor_before = sha(successor)
+        result = self.promote.update_resolver(self.root)
+        self.assertEqual(result["result"], "UPDATED")
+        self.assertEqual(result["previous_module_sha256"], self.promote.PREVIOUS_KEYRING_MODULE_SHA256)
+        self.assertEqual(sha(self.host_dir / "critic_keyring.py"), sha(ROOT / "critic_keyring.py"))
+        self.assertEqual(sha(self.host_dir / "host_reconciler.py"), host_before)
+        self.assertEqual(sha(self.host_dir / "critic_public_key.pem"), legacy_before)
+        self.assertEqual(sha(successor), successor_before)
+
+    def test_update_resolver_is_idempotent_after_exact_update(self) -> None:
+        self.promote.update_resolver(self.root)
+        result = self.promote.update_resolver(self.root)
+        self.assertEqual(result["result"], "ALREADY_UPDATED")
+
+    def test_update_resolver_rejects_unreviewed_predecessor(self) -> None:
+        (self.host_dir / "critic_keyring.py").write_text("tampered\n")
+        with self.assertRaisesRegex(RuntimeError, "reviewed predecessor"):
+            self.promote.update_resolver(self.root)
 
 
 if __name__ == "__main__":

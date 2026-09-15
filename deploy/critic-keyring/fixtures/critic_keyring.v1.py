@@ -30,29 +30,7 @@ def file_sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
-def require_trust_anchor(path: Path, label: str) -> int:
-    """Validate the trusted control-plane directory and return its owner uid.
-
-    Linux workstations expose this control plane as uid 0, while the macOS host
-    owns it with the dedicated local administrator account. The invariant is
-    ownership consistency with the already-trusted control-plane directory,
-    not a platform-specific numeric uid.
-    """
-
-    try:
-        info = path.lstat()
-    except FileNotFoundError as exc:
-        raise KeyringError(f"{label} missing") from exc
-    if stat.S_ISLNK(info.st_mode):
-        raise KeyringError(f"{label} must not be a symlink")
-    if not stat.S_ISDIR(info.st_mode):
-        raise KeyringError(f"{label} must be a directory")
-    if info.st_mode & (stat.S_IWGRP | stat.S_IWOTH):
-        raise KeyringError(f"{label} must not be group/world writable")
-    return info.st_uid
-
-
-def require_regular_file(path: Path, label: str, trusted_owner_uid: int) -> None:
+def require_regular_file(path: Path, label: str) -> None:
     try:
         info = path.lstat()
     except FileNotFoundError as exc:
@@ -61,13 +39,13 @@ def require_regular_file(path: Path, label: str, trusted_owner_uid: int) -> None
         raise KeyringError(f"{label} must not be a symlink")
     if not stat.S_ISREG(info.st_mode):
         raise KeyringError(f"{label} must be a regular file")
-    if info.st_uid != trusted_owner_uid:
-        raise KeyringError(f"{label} must be owned by the trusted control-plane owner")
+    if info.st_uid != 0:
+        raise KeyringError(f"{label} must be root-owned")
     if info.st_mode & (stat.S_IWGRP | stat.S_IWOTH):
         raise KeyringError(f"{label} must not be group/world writable")
 
 
-def require_directory(path: Path, label: str, trusted_owner_uid: int) -> None:
+def require_directory(path: Path, label: str) -> None:
     try:
         info = path.lstat()
     except FileNotFoundError as exc:
@@ -76,8 +54,8 @@ def require_directory(path: Path, label: str, trusted_owner_uid: int) -> None:
         raise KeyringError(f"{label} must not be a symlink")
     if not stat.S_ISDIR(info.st_mode):
         raise KeyringError(f"{label} must be a directory")
-    if info.st_uid != trusted_owner_uid:
-        raise KeyringError(f"{label} must be owned by the trusted control-plane owner")
+    if info.st_uid != 0:
+        raise KeyringError(f"{label} must be root-owned")
     if info.st_mode & (stat.S_IWGRP | stat.S_IWOTH):
         raise KeyringError(f"{label} must not be group/world writable")
 
@@ -87,22 +65,20 @@ def resolve_trusted_public_key(*, legacy_public_key: Path, expected_sha256: str)
 
     Historical releases keep working through the legacy single-key path. New
     keys must be explicitly provisioned under a content-addressed keyring. An
-    unknown hash, ownership mismatch, tampered key, or symlink fails closed.
+    unknown hash, tampered key, or symlink fails closed.
     """
 
     if not HASH_RE.fullmatch(expected_sha256):
         raise KeyringError("critic public key hash is invalid")
 
-    trust_anchor = legacy_public_key.parent
-    trusted_owner_uid = require_trust_anchor(trust_anchor, "critic trust anchor")
-    require_regular_file(legacy_public_key, "legacy critic public key", trusted_owner_uid)
+    require_regular_file(legacy_public_key, "legacy critic public key")
     if file_sha256(legacy_public_key) == expected_sha256:
         return legacy_public_key
 
     keyring = legacy_public_key.parent / KEYRING_DIR_NAME
-    require_directory(keyring, "critic public keyring", trusted_owner_uid)
+    require_directory(keyring, "critic public keyring")
     candidate = keyring / f"{expected_sha256}.pem"
-    require_regular_file(candidate, "requested critic public key", trusted_owner_uid)
+    require_regular_file(candidate, "requested critic public key")
     if file_sha256(candidate) != expected_sha256:
         raise KeyringError("requested critic public key hash mismatch")
     return candidate
