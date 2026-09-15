@@ -83,6 +83,11 @@ def atomic_write(path: Path, body: bytes, mode: int) -> None:
             os.fsync(handle.fileno())
         os.chmod(temp_name, mode)
         os.replace(temp_name, path)
+        directory_fd = os.open(path.parent, os.O_RDONLY | getattr(os, "O_DIRECTORY", 0))
+        try:
+            os.fsync(directory_fd)
+        finally:
+            os.close(directory_fd)
     finally:
         if os.path.exists(temp_name):
             os.unlink(temp_name)
@@ -157,6 +162,42 @@ def promote(deployment_root: Path, *, apply: bool) -> dict[str, object]:
 
 
 
+def successor_receipt_references(deployment_root: Path) -> list[str]:
+    """Return signed receipt-like JSON files that bind the successor trust root.
+
+    Trust roots are append-only once used. This deliberately scans all JSON
+    below the deployment root (excluding control-plane backups) so a future
+    product cannot make a successor-signed historical receipt invisible merely
+    by moving it to a new product-specific directory. Malformed/unrelated JSON
+    is ignored; a receipt-like object naming the successor key is sufficient to
+    block trust-root removal.
+    """
+
+    refs: list[str] = []
+    backup_root = (deployment_root / "control-plane-backups").resolve()
+    for path in deployment_root.rglob("*.json"):
+        try:
+            resolved = path.resolve()
+        except OSError:
+            continue
+        if resolved == backup_root or backup_root in resolved.parents:
+            continue
+        try:
+            value = json.loads(path.read_text())
+        except (OSError, UnicodeDecodeError, json.JSONDecodeError):
+            continue
+        if not isinstance(value, dict):
+            continue
+        if value.get("critic_public_key_sha256") != SUCCESSOR_PUBLIC_KEY_SHA256:
+            continue
+        if value.get("signature_algorithm") != "rsa-pkcs1v15-sha256":
+            continue
+        if not isinstance(value.get("reviewed_sha"), str):
+            continue
+        refs.append(str(path.relative_to(deployment_root)))
+    return sorted(refs)
+
+
 def rollback(deployment_root: Path, backup: Path) -> dict[str, object]:
     backup_root = (deployment_root / "control-plane-backups").resolve()
     backup = backup.resolve()
@@ -177,6 +218,12 @@ def rollback(deployment_root: Path, backup: Path) -> dict[str, object]:
         raise RuntimeError(
             "cannot roll back critic keyring while active products depend on successor key: "
             + ",".join(sorted(users))
+        )
+    historical_receipts = successor_receipt_references(deployment_root)
+    if historical_receipts:
+        raise RuntimeError(
+            "cannot roll back a trust root after a signed receipt has used it: "
+            + ",".join(historical_receipts)
         )
 
     host_dir = deployment_root / "host-reconciler"

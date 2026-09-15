@@ -71,6 +71,23 @@ class CriticKeyringUnitTests(unittest.TestCase):
                 expected_sha256=sha(target),
             )
 
+
+    def test_group_writable_successor_fails_closed(self) -> None:
+        self.successor.chmod(0o664)
+        with self.assertRaises(keyring.KeyringError):
+            keyring.resolve_trusted_public_key(
+                legacy_public_key=self.legacy,
+                expected_sha256=sha(self.successor),
+            )
+
+    def test_group_writable_keyring_fails_closed(self) -> None:
+        self.keydir.chmod(0o775)
+        with self.assertRaises(keyring.KeyringError):
+            keyring.resolve_trusted_public_key(
+                legacy_public_key=self.legacy,
+                expected_sha256=sha(self.successor),
+            )
+
     def test_symlinked_keyring_fails_closed(self) -> None:
         external = self.root / "external"
         self.keydir.rename(external)
@@ -210,6 +227,18 @@ class PromotionRollbackTests(unittest.TestCase):
     def test_rollback_refuses_while_active_product_uses_successor(self) -> None:
         result = self.promote.promote(self.root, apply=True)
         (self.root / "registry.json").write_text(json.dumps({"products": {"media-factory": {"desired_public_state": "active", "critic_public_key_sha256": self.promote.SUCCESSOR_PUBLIC_KEY_SHA256}}}))
+        with self.assertRaises(RuntimeError):
+            self.promote.rollback(self.root, Path(result["backup"]))
+
+    def test_rollback_refuses_after_historical_successor_receipt_even_when_registry_no_longer_uses_key(self) -> None:
+        result = self.promote.promote(self.root, apply=True)
+        receipt = self.root / "critic-receipts" / "media-factory" / "historical.json"
+        receipt.parent.mkdir(parents=True)
+        receipt.write_text(json.dumps({
+            "reviewed_sha": "a" * 40,
+            "signature_algorithm": "rsa-pkcs1v15-sha256",
+            "critic_public_key_sha256": self.promote.SUCCESSOR_PUBLIC_KEY_SHA256,
+        }))
         with self.assertRaises(RuntimeError):
             self.promote.rollback(self.root, Path(result["backup"]))
 

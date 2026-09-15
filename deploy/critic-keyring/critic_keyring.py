@@ -39,6 +39,10 @@ def require_regular_file(path: Path, label: str) -> None:
         raise KeyringError(f"{label} must not be a symlink")
     if not stat.S_ISREG(info.st_mode):
         raise KeyringError(f"{label} must be a regular file")
+    if info.st_uid != 0:
+        raise KeyringError(f"{label} must be root-owned")
+    if info.st_mode & (stat.S_IWGRP | stat.S_IWOTH):
+        raise KeyringError(f"{label} must not be group/world writable")
 
 
 def require_directory(path: Path, label: str) -> None:
@@ -50,6 +54,10 @@ def require_directory(path: Path, label: str) -> None:
         raise KeyringError(f"{label} must not be a symlink")
     if not stat.S_ISDIR(info.st_mode):
         raise KeyringError(f"{label} must be a directory")
+    if info.st_uid != 0:
+        raise KeyringError(f"{label} must be root-owned")
+    if info.st_mode & (stat.S_IWGRP | stat.S_IWOTH):
+        raise KeyringError(f"{label} must not be group/world writable")
 
 
 def resolve_trusted_public_key(*, legacy_public_key: Path, expected_sha256: str) -> Path:
