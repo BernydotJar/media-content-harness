@@ -1,0 +1,12 @@
+{
+  "schema_version": "critic-trust-root-keyring.v1",
+  "scope": "shared host release verifier for CampaignOS and Media Factory",
+  "baseline_host_reconciler_sha256": "aa40a01781d11f1857382b37037e6806bda6c5dd1235253ad9bafc45868716eb",
+  "promoted_host_reconciler_sha256": "c0d99f7049cbed4e0ebf5f970d70a0828c35f1603b82e6f69688d6f0d5581bc7",
+  "legacy_public_key_sha256": "b61542031a4c61e9ccc270aac3ee2adb464508012d0b979eb40575da43d13e9e",
+  "successor_public_key_sha256": "eef80f5fd016b7deb7a2f31710ea3b1b814cfb12e6e2e9c90b2ab84febbaa173",
+  "selection": "exact critic_public_key_sha256 only",
+  "legacy_receipts_preserved": true,
+  "private_key_versioned": false,
+  "rollback_guard": "refuse rollback while an active product depends on successor key"
+}
