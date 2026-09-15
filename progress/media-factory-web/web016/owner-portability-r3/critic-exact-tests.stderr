@@ -1,0 +1,27 @@
+test_group_writable_keyring_fails_closed (__main__.CriticKeyringUnitTests.test_group_writable_keyring_fails_closed) ... ok
+test_group_writable_successor_fails_closed (__main__.CriticKeyringUnitTests.test_group_writable_successor_fails_closed) ... ok
+test_group_writable_trust_anchor_fails_closed (__main__.CriticKeyringUnitTests.test_group_writable_trust_anchor_fails_closed) ... ok
+test_keyring_owner_mismatch_fails_closed (__main__.CriticKeyringUnitTests.test_keyring_owner_mismatch_fails_closed) ... ok
+test_legacy_key_remains_trusted (__main__.CriticKeyringUnitTests.test_legacy_key_remains_trusted) ... ok
+test_legacy_owner_mismatch_fails_closed (__main__.CriticKeyringUnitTests.test_legacy_owner_mismatch_fails_closed) ... ok
+test_nonzero_control_plane_owner_is_supported (__main__.CriticKeyringUnitTests.test_nonzero_control_plane_owner_is_supported) ... ok
+test_successor_key_is_selected_by_exact_hash (__main__.CriticKeyringUnitTests.test_successor_key_is_selected_by_exact_hash) ... ok
+test_successor_owner_mismatch_fails_closed (__main__.CriticKeyringUnitTests.test_successor_owner_mismatch_fails_closed) ... ok
+test_symlinked_keyring_fails_closed (__main__.CriticKeyringUnitTests.test_symlinked_keyring_fails_closed) ... ok
+test_symlinked_successor_fails_closed (__main__.CriticKeyringUnitTests.test_symlinked_successor_fails_closed) ... ok
+test_tampered_successor_fails_closed (__main__.CriticKeyringUnitTests.test_tampered_successor_fails_closed) ... ok
+test_unknown_hash_fails_closed (__main__.CriticKeyringUnitTests.test_unknown_hash_fails_closed) ... ok
+test_new_keyring_signature_verifies (__main__.HostVerifierIntegrationTests.test_new_keyring_signature_verifies) ... ok
+test_signature_key_swap_fails (__main__.HostVerifierIntegrationTests.test_signature_key_swap_fails) ... ok
+test_unknown_key_hash_fails_before_signature_acceptance (__main__.HostVerifierIntegrationTests.test_unknown_key_hash_fails_before_signature_acceptance) ... ok
+test_promote_then_rollback_restores_exact_baseline (__main__.PromotionRollbackTests.test_promote_then_rollback_restores_exact_baseline) ... ok
+test_rollback_refuses_after_historical_successor_receipt_even_when_registry_no_longer_uses_key (__main__.PromotionRollbackTests.test_rollback_refuses_after_historical_successor_receipt_even_when_registry_no_longer_uses_key) ... ok
+test_rollback_refuses_while_active_product_uses_successor (__main__.PromotionRollbackTests.test_rollback_refuses_while_active_product_uses_successor) ... ok
+test_update_resolver_changes_only_reviewed_module (__main__.ResolverUpdateTests.test_update_resolver_changes_only_reviewed_module) ... ok
+test_update_resolver_is_idempotent_after_exact_update (__main__.ResolverUpdateTests.test_update_resolver_is_idempotent_after_exact_update) ... ok
+test_update_resolver_rejects_unreviewed_predecessor (__main__.ResolverUpdateTests.test_update_resolver_rejects_unreviewed_predecessor) ... ok
+
+----------------------------------------------------------------------
+Ran 22 tests in 0.579s
+
+OK

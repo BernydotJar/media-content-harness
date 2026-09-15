@@ -1,0 +1,320 @@
+diff --git a/deploy/critic-keyring/README.md b/deploy/critic-keyring/README.md
+index f7f463a..4d62ee3 100644
+--- a/deploy/critic-keyring/README.md
++++ b/deploy/critic-keyring/README.md
+@@ -2,17 +2,18 @@
+ 
+ This repair is an owner-authorized, backwards-compatible rotation of the shared release-signing trust root used by the host reconciler.
+ 
+-The historical `critic_public_key.pem` remains unchanged so existing CampaignOS and Media Factory receipts and rollback candidates continue to verify. A successor public key is installed as `critic_public_keys/<sha256>.pem`. `host_reconciler.py` resolves the exact key requested by `critic_public_key_sha256`; unknown hashes, symlinks and content-address mismatches fail closed. There is no latest-key fallback.
++The historical `critic_public_key.pem` remains unchanged so existing CampaignOS and Media Factory receipts and rollback candidates continue to verify. A successor public key is installed as `critic_public_keys/<sha256>.pem`. `host_reconciler.py` resolves the exact key requested by `critic_public_key_sha256`; unknown hashes, symlinks, ownership mismatches and content-address mismatches fail closed. Ownership is anchored to the trusted `host-reconciler` directory owner rather than assuming Linux uid 0, so the same invariant works on the macOS host. There is no latest-key fallback.
+ 
+ Only public verification material is versioned here. The private signer stays in persistent private state and is never copied into the repository, deployment registry, evidence, or release bundle.
+ 
+-`promote.py` targets the exact installed host-controller SHA after the already-reviewed public-discovery promotion. It acquires the existing execution and registry locks, verifies the historical trust root, creates a control-plane backup, and atomically installs the resolver, successor public key and exact patched host controller. Dry-run is the default; `--apply` performs the authorized promotion.
++`promote.py` targets the exact installed host-controller SHA after the already-reviewed public-discovery promotion. It acquires the existing execution and registry locks, verifies the historical trust root, creates a control-plane backup, and atomically installs the resolver, successor public key and exact patched host controller. Dry-run is the default; `--apply` performs the authorized promotion. After the initial promotion, `--update-resolver` is the only supported narrow mutation for a reviewed resolver repair: it requires the exact promoted host SHA, exact historical/successor key hashes, the exact reviewed predecessor module hash, both existing host locks, a control-plane backup, and an atomic replacement of only `critic_keyring.py`.
+ 
+ Validation:
+ 
+ ```sh
+ python3 deploy/critic-keyring/test_critic_keyring.py
+ python3 deploy/critic-keyring/promote.py --deployment-root /shared-auth/deployment
++python3 deploy/critic-keyring/promote.py --deployment-root /shared-auth/deployment --update-resolver
+ ```
+ 
+ After promotion, verify both a historical `b615...` receipt and a new `eef80f...` receipt before issuing a deployment request.
+diff --git a/deploy/critic-keyring/critic_keyring.py b/deploy/critic-keyring/critic_keyring.py
+index 9db84b8..b861528 100644
+--- a/deploy/critic-keyring/critic_keyring.py
++++ b/deploy/critic-keyring/critic_keyring.py
+@@ -30,7 +30,29 @@ def file_sha256(path: Path) -> str:
+     return digest.hexdigest()
+ 
+ 
+-def require_regular_file(path: Path, label: str) -> None:
++def require_trust_anchor(path: Path, label: str) -> int:
++    """Validate the trusted control-plane directory and return its owner uid.
++
++    Linux workstations expose this control plane as uid 0, while the macOS host
++    owns it with the dedicated local administrator account. The invariant is
++    ownership consistency with the already-trusted control-plane directory,
++    not a platform-specific numeric uid.
++    """
++
++    try:
++        info = path.lstat()
++    except FileNotFoundError as exc:
++        raise KeyringError(f"{label} missing") from exc
++    if stat.S_ISLNK(info.st_mode):
++        raise KeyringError(f"{label} must not be a symlink")
++    if not stat.S_ISDIR(info.st_mode):
++        raise KeyringError(f"{label} must be a directory")
++    if info.st_mode & (stat.S_IWGRP | stat.S_IWOTH):
++        raise KeyringError(f"{label} must not be group/world writable")
++    return info.st_uid
++
++
++def require_regular_file(path: Path, label: str, trusted_owner_uid: int) -> None:
+     try:
+         info = path.lstat()
+     except FileNotFoundError as exc:
+@@ -39,13 +61,13 @@ def require_regular_file(path: Path, label: str) -> None:
+         raise KeyringError(f"{label} must not be a symlink")
+     if not stat.S_ISREG(info.st_mode):
+         raise KeyringError(f"{label} must be a regular file")
+-    if info.st_uid != 0:
+-        raise KeyringError(f"{label} must be root-owned")
++    if info.st_uid != trusted_owner_uid:
++        raise KeyringError(f"{label} must be owned by the trusted control-plane owner")
+     if info.st_mode & (stat.S_IWGRP | stat.S_IWOTH):
+         raise KeyringError(f"{label} must not be group/world writable")
+ 
+ 
+-def require_directory(path: Path, label: str) -> None:
++def require_directory(path: Path, label: str, trusted_owner_uid: int) -> None:
+     try:
+         info = path.lstat()
+     except FileNotFoundError as exc:
+@@ -54,8 +76,8 @@ def require_directory(path: Path, label: str) -> None:
+         raise KeyringError(f"{label} must not be a symlink")
+     if not stat.S_ISDIR(info.st_mode):
+         raise KeyringError(f"{label} must be a directory")
+-    if info.st_uid != 0:
+-        raise KeyringError(f"{label} must be root-owned")
++    if info.st_uid != trusted_owner_uid:
++        raise KeyringError(f"{label} must be owned by the trusted control-plane owner")
+     if info.st_mode & (stat.S_IWGRP | stat.S_IWOTH):
+         raise KeyringError(f"{label} must not be group/world writable")
+ 
+@@ -65,20 +87,22 @@ def resolve_trusted_public_key(*, legacy_public_key: Path, expected_sha256: str)
+ 
+     Historical releases keep working through the legacy single-key path. New
+     keys must be explicitly provisioned under a content-addressed keyring. An
+-    unknown hash, tampered key, or symlink fails closed.
++    unknown hash, ownership mismatch, tampered key, or symlink fails closed.
+     """
+ 
+     if not HASH_RE.fullmatch(expected_sha256):
+         raise KeyringError("critic public key hash is invalid")
+ 
+-    require_regular_file(legacy_public_key, "legacy critic public key")
++    trust_anchor = legacy_public_key.parent
++    trusted_owner_uid = require_trust_anchor(trust_anchor, "critic trust anchor")
++    require_regular_file(legacy_public_key, "legacy critic public key", trusted_owner_uid)
+     if file_sha256(legacy_public_key) == expected_sha256:
+         return legacy_public_key
+ 
+     keyring = legacy_public_key.parent / KEYRING_DIR_NAME
+-    require_directory(keyring, "critic public keyring")
++    require_directory(keyring, "critic public keyring", trusted_owner_uid)
+     candidate = keyring / f"{expected_sha256}.pem"
+-    require_regular_file(candidate, "requested critic public key")
++    require_regular_file(candidate, "requested critic public key", trusted_owner_uid)
+     if file_sha256(candidate) != expected_sha256:
+         raise KeyringError("requested critic public key hash mismatch")
+     return candidate
+diff --git a/deploy/critic-keyring/fixtures/critic_keyring.v1.py b/deploy/critic-keyring/fixtures/critic_keyring.v1.py
+new file mode 100644
+index 0000000..9db84b8
+--- /dev/null
++++ b/deploy/critic-keyring/fixtures/critic_keyring.v1.py
+@@ -0,0 +1,84 @@
++#!/usr/bin/env python3
++"""Fail-closed critic public-key resolution for host release verification.
++
++The historical ``critic_public_key.pem`` remains a compatibility trust root.
++Additional trusted public keys live in ``critic_public_keys/<sha256>.pem``.
++The release request selects the exact trusted key by SHA-256; no key is chosen
++by recency, filename aliases, or fallback order.
++"""
++
++from __future__ import annotations
++
++import hashlib
++import re
++import stat
++from pathlib import Path
++
++HASH_RE = re.compile(r"^[0-9a-f]{64}$")
++KEYRING_DIR_NAME = "critic_public_keys"
++
++
++class KeyringError(RuntimeError):
++    """Raised when the requested release-signing key is not exactly trusted."""
++
++
++def file_sha256(path: Path) -> str:
++    digest = hashlib.sha256()
++    with path.open("rb") as handle:
++        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
++            digest.update(chunk)
++    return digest.hexdigest()
++
++
++def require_regular_file(path: Path, label: str) -> None:
++    try:
++        info = path.lstat()
++    except FileNotFoundError as exc:
++        raise KeyringError(f"{label} missing") from exc
++    if stat.S_ISLNK(info.st_mode):
++        raise KeyringError(f"{label} must not be a symlink")
++    if not stat.S_ISREG(info.st_mode):
++        raise KeyringError(f"{label} must be a regular file")
++    if info.st_uid != 0:
++        raise KeyringError(f"{label} must be root-owned")
++    if info.st_mode & (stat.S_IWGRP | stat.S_IWOTH):
++        raise KeyringError(f"{label} must not be group/world writable")
++
++
++def require_directory(path: Path, label: str) -> None:
++    try:
++        info = path.lstat()
++    except FileNotFoundError as exc:
++        raise KeyringError(f"{label} missing") from exc
++    if stat.S_ISLNK(info.st_mode):
++        raise KeyringError(f"{label} must not be a symlink")
++    if not stat.S_ISDIR(info.st_mode):
++        raise KeyringError(f"{label} must be a directory")
++    if info.st_uid != 0:
++        raise KeyringError(f"{label} must be root-owned")
++    if info.st_mode & (stat.S_IWGRP | stat.S_IWOTH):
++        raise KeyringError(f"{label} must not be group/world writable")
++
++
++def resolve_trusted_public_key(*, legacy_public_key: Path, expected_sha256: str) -> Path:
++    """Return the exact trusted public key selected by ``expected_sha256``.
++
++    Historical releases keep working through the legacy single-key path. New
++    keys must be explicitly provisioned under a content-addressed keyring. An
++    unknown hash, tampered key, or symlink fails closed.
++    """
++
++    if not HASH_RE.fullmatch(expected_sha256):
++        raise KeyringError("critic public key hash is invalid")
++
++    require_regular_file(legacy_public_key, "legacy critic public key")
++    if file_sha256(legacy_public_key) == expected_sha256:
++        return legacy_public_key
++
++    keyring = legacy_public_key.parent / KEYRING_DIR_NAME
++    require_directory(keyring, "critic public keyring")
++    candidate = keyring / f"{expected_sha256}.pem"
++    require_regular_file(candidate, "requested critic public key")
++    if file_sha256(candidate) != expected_sha256:
++        raise KeyringError("requested critic public key hash mismatch")
++    return candidate
+diff --git a/deploy/critic-keyring/promote.py b/deploy/critic-keyring/promote.py
+index fe2271f..a91d38c 100644
+--- a/deploy/critic-keyring/promote.py
++++ b/deploy/critic-keyring/promote.py
+@@ -25,6 +25,7 @@ BASE_HOST_SHA256 = "aa40a01781d11f1857382b37037e6806bda6c5dd1235253ad9bafc458687
+ EXPECTED_AFTER_HOST_SHA256 = "c0d99f7049cbed4e0ebf5f970d70a0828c35f1603b82e6f69688d6f0d5581bc7"
+ LEGACY_PUBLIC_KEY_SHA256 = "b61542031a4c61e9ccc270aac3ee2adb464508012d0b979eb40575da43d13e9e"
+ SUCCESSOR_PUBLIC_KEY_SHA256 = "eef80f5fd016b7deb7a2f31710ea3b1b814cfb12e6e2e9c90b2ab84febbaa173"
++PREVIOUS_KEYRING_MODULE_SHA256 = "22b4ef5c78a3ed089f436121b4229eec70cf54a78da04a71a9a2e57900477afe"
+ 
+ IMPORT_NEEDLE = "from uuid import UUID\n"
+ IMPORT_REPLACEMENT = "from uuid import UUID\n\nfrom critic_keyring import KeyringError, resolve_trusted_public_key\n"
+@@ -61,6 +62,27 @@ def materialize_host(source: bytes, *, check_expected: bool = True) -> bytes:
+     return result
+ 
+ 
++def dematerialize_host(source: bytes) -> bytes:
++    """Recover the exact reviewed baseline from either supported host state."""
++
++    digest = sha256_bytes(source)
++    if digest == BASE_HOST_SHA256:
++        return source
++    if digest != EXPECTED_AFTER_HOST_SHA256:
++        raise RuntimeError("installed host reconciler is not a reviewed keyring state")
++    text = source.decode("utf-8")
++    if text.count(IMPORT_REPLACEMENT) != 1:
++        raise RuntimeError("promoted host reconciler import anchor mismatch")
++    if text.count(VERIFY_REPLACEMENT) != 1:
++        raise RuntimeError("promoted host reconciler verifier anchor mismatch")
++    text = text.replace(IMPORT_REPLACEMENT, IMPORT_NEEDLE, 1)
++    text = text.replace(VERIFY_REPLACEMENT, VERIFY_NEEDLE, 1)
++    result = text.encode("utf-8")
++    if sha256_bytes(result) != BASE_HOST_SHA256:
++        raise RuntimeError("dematerialized host reconciler hash mismatch")
++    return result
++
++
+ @contextmanager
+ def locked(path: Path):
+     if not path.is_file():
+@@ -162,6 +184,56 @@ def promote(deployment_root: Path, *, apply: bool) -> dict[str, object]:
+ 
+ 
+ 
++def update_resolver(deployment_root: Path) -> dict[str, object]:
++    """Atomically update only the keyring resolver on an already-promoted host."""
++
++    host_dir = deployment_root / "host-reconciler"
++    host = host_dir / "host_reconciler.py"
++    legacy = host_dir / "critic_public_key.pem"
++    keyring_dir = host_dir / "critic_public_keys"
++    successor_target = keyring_dir / f"{SUCCESSOR_PUBLIC_KEY_SHA256}.pem"
++    module_target = host_dir / "critic_keyring.py"
++    desired_module = ROOT / "critic_keyring.py"
++
++    if sha256_file(host) != EXPECTED_AFTER_HOST_SHA256:
++        raise RuntimeError("installed host reconciler is not the reviewed promoted version")
++    if sha256_file(legacy) != LEGACY_PUBLIC_KEY_SHA256:
++        raise RuntimeError("historical critic public key changed")
++    if keyring_dir.is_symlink() or not keyring_dir.is_dir():
++        raise RuntimeError("installed critic keyring directory is invalid")
++    if successor_target.is_symlink() or sha256_file(successor_target) != SUCCESSOR_PUBLIC_KEY_SHA256:
++        raise RuntimeError("installed successor public key changed")
++    if module_target.is_symlink() or not module_target.is_file():
++        raise RuntimeError("installed keyring resolver is invalid")
++
++    current_hash = sha256_file(module_target)
++    desired_hash = sha256_file(desired_module)
++    if current_hash == desired_hash:
++        return {
++            "operation": "critic_keyring_resolver_update",
++            "previous_module_sha256": current_hash,
++            "installed_module_sha256": desired_hash,
++            "result": "ALREADY_UPDATED",
++        }
++    if current_hash != PREVIOUS_KEYRING_MODULE_SHA256:
++        raise RuntimeError("installed keyring resolver is not the reviewed predecessor")
++
++    backup = deployment_root / "control-plane-backups" / f"critic-keyring-resolver-{utcstamp()}-{os.getpid()}"
++    backup.mkdir(parents=True, mode=0o700)
++    shutil.copy2(module_target, backup / "critic_keyring.py")
++    atomic_write(module_target, desired_module.read_bytes(), 0o644)
++    if sha256_file(module_target) != desired_hash:
++        raise RuntimeError("installed keyring resolver hash mismatch")
++
++    return {
++        "operation": "critic_keyring_resolver_update",
++        "backup": str(backup),
++        "previous_module_sha256": current_hash,
++        "installed_module_sha256": desired_hash,
++        "result": "UPDATED",
++    }
++
++
+ def successor_receipt_references(deployment_root: Path) -> list[str]:
+     """Return signed receipt-like JSON files that bind the successor trust root.
+ 
+@@ -268,12 +340,18 @@ def main() -> int:
+     parser.add_argument("--deployment-root", type=Path, default=Path("/shared-auth/deployment"))
+     action = parser.add_mutually_exclusive_group()
+     action.add_argument("--apply", action="store_true")
++    action.add_argument("--update-resolver", action="store_true")
+     action.add_argument("--rollback", type=Path)
+     args = parser.parse_args()
+     root = args.deployment_root.resolve()
+     with locked(root / "host-reconciler.execution.lock"):
+         with locked(root / "registry.lock"):
+-            result = rollback(root, args.rollback) if args.rollback else promote(root, apply=args.apply)
++            if args.rollback:
++                result = rollback(root, args.rollback)
++            elif args.update_resolver:
++                result = update_resolver(root)
++            else:
++                result = promote(root, apply=args.apply)
+     print(json.dumps(result, indent=2))

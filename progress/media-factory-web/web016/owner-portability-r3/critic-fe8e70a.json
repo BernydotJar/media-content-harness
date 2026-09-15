@@ -1,0 +1,33 @@
+{
+  "actor": "red-team-exact",
+  "checks": {
+    "control_plane_anchor_not_symlink": true,
+    "control_plane_anchor_not_group_world_writable": true,
+    "cross_platform_nonzero_owner_supported": true,
+    "legacy_key_owner_must_match_anchor": true,
+    "keyring_directory_owner_must_match_anchor": true,
+    "successor_key_owner_must_match_anchor": true,
+    "keyring_and_keys_not_group_world_writable": true,
+    "symlinked_keyring_or_key_rejected": true,
+    "exact_content_addressed_key_selection": true,
+    "unknown_key_fails_closed": true,
+    "reviewed_predecessor_module_hash_required": true,
+    "host_reconciler_hash_pinned": true,
+    "legacy_and_successor_key_hashes_pinned": true,
+    "resolver_only_update_uses_existing_locks": true,
+    "resolver_only_update_creates_backup": true,
+    "resolver_only_update_uses_atomic_replace_and_fsync": true,
+    "trust_root_rollback_guards_preserved": true,
+    "private_signing_material_versioned": false
+  },
+  "exact_archive_tests": "22/22 PASS",
+  "material_findings": [],
+  "material_findings_open": 0,
+  "non_material_notes": [
+    "The resolver performs lstat then open/hash; replacement by the trusted control-plane owner is inside the explicit trust boundary. Group/world writers are denied by the anchor and keyring mode checks.",
+    "The narrow updater intentionally leaves host_reconciler.py and both trust keys unchanged and refuses any resolver predecessor other than the reviewed v1 hash."
+  ],
+  "result": "READY_FOR_RESOLVER_UPDATE",
+  "reviewed_sha": "fe8e70a50abbce18db628838cd75cf5339b05f9d",
+  "verdict": "PASS"
+}

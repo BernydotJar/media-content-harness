@@ -1,0 +1,5 @@
+0:0 root:root 755 /shared-auth/deployment/host-reconciler
+0:0 root:root 644 /shared-auth/deployment/host-reconciler/critic_keyring.py
+0:0 root:root 644 /shared-auth/deployment/host-reconciler/critic_public_key.pem
+0:0 root:root 755 /shared-auth/deployment/host-reconciler/critic_public_keys
+0:0 root:root 644 /shared-auth/deployment/host-reconciler/critic_public_keys/eef80f5fd016b7deb7a2f31710ea3b1b814cfb12e6e2e9c90b2ab84febbaa173.pem

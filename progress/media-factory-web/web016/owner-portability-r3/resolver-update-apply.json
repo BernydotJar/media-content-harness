@@ -1,0 +1,7 @@
+{
+  "operation": "critic_keyring_resolver_update",
+  "backup": "/shared-auth/deployment/control-plane-backups/critic-keyring-resolver-20260915T021934Z-354328",
+  "previous_module_sha256": "22b4ef5c78a3ed089f436121b4229eec70cf54a78da04a71a9a2e57900477afe",
+  "installed_module_sha256": "3034d6fc5275a04d43bbafdf1b8d828b255974ce38ccb8ffe348945cd4c82889",
+  "result": "UPDATED"
+}

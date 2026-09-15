@@ -1,0 +1,30 @@
+{
+  "actor": "independent-verifier-exact",
+  "candidate_resolver_sha256": "3034d6fc5275a04d43bbafdf1b8d828b255974ce38ccb8ffe348945cd4c82889",
+  "checks": {
+    "campaignos": {
+      "critic_public_key_sha256": "b61542031a4c61e9ccc270aac3ee2adb464508012d0b979eb40575da43d13e9e",
+      "desired_release_sha": "d67489904a3e35352b952f7b35848632eecf5b94",
+      "receipt_sha256": "aa26ca71c819c68ac2b51a813739d060d07544632a6cb7138c5ea07a6ee56273",
+      "result": "PASS",
+      "signature_sha256": "9fecfd478a550eae29eea3bd7946e86c5ef1c76c3e1d06e8f3e6553833f30a2d"
+    },
+    "media-factory": {
+      "critic_public_key_sha256": "eef80f5fd016b7deb7a2f31710ea3b1b814cfb12e6e2e9c90b2ab84febbaa173",
+      "desired_release_sha": "20418c13e51cf07d2f068ba5144affd69f2a91b0",
+      "receipt_sha256": "93ed7037f33860c8ea4c8ec89929d5708515c2436aa9f11d8f29b91af9ebac14",
+      "result": "PASS",
+      "signature_sha256": "2b5b5375da34c68a6d49d9f240f1b83f696d17310656d044767333a4a737bb61"
+    },
+    "media-factory-c4d5d47-historical": {
+      "critic_public_key_sha256": "b61542031a4c61e9ccc270aac3ee2adb464508012d0b979eb40575da43d13e9e",
+      "receipt_sha256": "0d2d8f3a29259222b1a289838fa7592c63b372ba6688bc5e005ae4bc28c3feb9",
+      "result": "PASS",
+      "signature_sha256": "ab91326653a11d7371fd425772019563d96863bd83b4809b4da5183f25989b57"
+    }
+  },
+  "host_reconciler_sha256": "c0d99f7049cbed4e0ebf5f970d70a0828c35f1603b82e6f69688d6f0d5581bc7",
+  "material_findings_open": 0,
+  "reviewed_sha": "fe8e70a50abbce18db628838cd75cf5339b05f9d",
+  "verdict": "PASS"
+}

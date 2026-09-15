@@ -1,0 +1,14 @@
+{
+  "browser": "chromium-headless",
+  "checks": {
+    "html_nonempty": true,
+    "login_route_rendered": true,
+    "media_factory_text": true,
+    "no_chromium_error_page": true,
+    "password_input": true,
+    "screenshot_nonempty": true
+  },
+  "stderr_bytes": 9328,
+  "url": "https://media-factory.textilesdemedellin.com/login",
+  "verdict": "PASS"
+}

@@ -1,0 +1,56 @@
+{
+  "control_plane": {
+    "host_reconciler_sha256": "c0d99f7049cbed4e0ebf5f970d70a0828c35f1603b82e6f69688d6f0d5581bc7",
+    "legacy_public_key_sha256": "b61542031a4c61e9ccc270aac3ee2adb464508012d0b979eb40575da43d13e9e",
+    "resolver_sha256": "3034d6fc5275a04d43bbafdf1b8d828b255974ce38ccb8ffe348945cd4c82889",
+    "resolver_update_result": "UPDATED",
+    "successor_public_key_sha256": "eef80f5fd016b7deb7a2f31710ea3b1b814cfb12e6e2e9c90b2ab84febbaa173"
+  },
+  "deployment": {
+    "host_evidence_sha256": "e559673f0c3f20d1b39164f23895c94e8be5bf590c2facc7e9cdd462d1a1a023",
+    "host_layers": {
+      "L1_RELEASE": "PASS",
+      "L2_EDGE_NETWORK": "PASS",
+      "L2_RUNTIME": "PASS",
+      "L3_LOCAL_HEALTH": "PASS",
+      "L3_RECOVERY": "PASS",
+      "L4_CADDY": "PASS",
+      "L6_TUNNEL": "PASS",
+      "L7_DNS_L8_TLS_L9_PUBLIC": "PASS",
+      "L9_AUTHORIZATION": "PASS",
+      "L9_SECURITY": "PASS"
+    },
+    "last_commit": "20418c13e51cf07d2f068ba5144affd69f2a91b0",
+    "process_recovery": "PASS",
+    "public_health": "PASS_HTTP_200",
+    "request_id": "aa1e2f7c-61cf-4659-843d-61505d675955",
+    "result": "DEPLOYED_CONTROLLED_SINGLE_OPERATOR_PREVIEW",
+    "state": "converged"
+  },
+  "fixer_commit": "fe8e70a50abbce18db628838cd75cf5339b05f9d",
+  "product_candidate_sha": "20418c13e51cf07d2f068ba5144affd69f2a91b0",
+  "public_checks": {
+    "browser_evidence_sha256": "94539ad860f3ea60761b13112cb20f2feab59c36bc7772edd8daceff59278253",
+    "browser_screenshot_sha256": "4077ba66bf8508186639b0873a151717ecaa78f65b6b7c0312d2dda6f03c3d3c",
+    "browser_verdict": "PASS",
+    "https_smoke_sha256": "a6c40c143c65db336cc8ded348ec1c38d48dab9f285c27ab7dad10073d009316"
+  },
+  "schema_version": "media-factory.web016.release-evidence.v1",
+  "signed_release": {
+    "bundle_sha256": "a1c64c1a2d04c9a14c767404413f2ba7a3a46bf22e6bb829af09da1b987d510e",
+    "critic_public_key_sha256": "eef80f5fd016b7deb7a2f31710ea3b1b814cfb12e6e2e9c90b2ab84febbaa173",
+    "finalizer_sha256": "edff9a10ef314ca38473af0e741aa7121611764c90626ae2e2cf7f69c785fb82",
+    "receipt_sha256": "93ed7037f33860c8ea4c8ec89929d5708515c2436aa9f11d8f29b91af9ebac14",
+    "signature_sha256": "2b5b5375da34c68a6d49d9f240f1b83f696d17310656d044767333a4a737bb61"
+  },
+  "terminal_state": "COMPLETED",
+  "verification": {
+    "campaignos_legacy_receipt": "PASS",
+    "critic_exact_archive": "PASS",
+    "fixer_tests": "22/22 PASS",
+    "independent_verifier": "PASS",
+    "media_factory_historical_receipt": "PASS",
+    "media_factory_successor_receipt": "PASS"
+  },
+  "web016_revision": 3
+}
