@@ -1,0 +1,32 @@
+{
+  "actor": "red-team-exact",
+  "checks": {
+    "active_user_rollback_guard": true,
+    "atomic_replace": true,
+    "directory_fsync": true,
+    "exact_hash_only": true,
+    "file_fsync": true,
+    "group_world_write_rejected": true,
+    "historical_receipt_rollback_guard": true,
+    "root_owned_required": true,
+    "symlink_rejected": true
+  },
+  "focused_tests": "14/14 PASS from fresh Git archive",
+  "historical_receipts": {
+    "campaignos": {
+      "key": "b61542031a4c61e9ccc270aac3ee2adb464508012d0b979eb40575da43d13e9e",
+      "release": "d67489904a3e35352b952f7b35848632eecf5b94",
+      "result": "PASS"
+    },
+    "media-factory": {
+      "key": "b61542031a4c61e9ccc270aac3ee2adb464508012d0b979eb40575da43d13e9e",
+      "release": "c4d5d47db4c4c23244785cf7a16b9c2c8de0a9e7",
+      "result": "PASS"
+    }
+  },
+  "kind": "critique",
+  "material_findings_open": 0,
+  "result": "READY_FOR_PROMOTION",
+  "reviewed_sha": "bc3b9fb90c746fbf382e5b9e2f3a3a18b9365f61",
+  "verdict": "PASS"
+}
