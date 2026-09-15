@@ -596,6 +596,82 @@
         "deploy/**",
         "assets/**"
       ]
+    },
+    {
+      "id": "WEB017-REPAIR-LOOP-POLISH",
+      "title": "Same-job supported creative repair, real-media acceptance and FIRMES favicon",
+      "kind": "product-completion",
+      "status": "spec_ready",
+      "depends_on": [
+        "WEB016-OPERATIONAL-CREATION-RELEASE"
+      ],
+      "capability": "media-factory-web",
+      "gates": {
+        "review": [
+          "implementation_quality"
+        ]
+      },
+      "allowed_paths": [
+        "server/**",
+        "app/**",
+        "components/**",
+        "scripts/**",
+        "tests/**",
+        "docs/**",
+        "specs/**",
+        "progress/**",
+        "graph/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "*.json",
+        "*.mjs",
+        "*.yml",
+        "Dockerfile",
+        ".gitignore",
+        ".dockerignore",
+        "README.md",
+        "deploy/**",
+        "assets/**",
+        "config/**"
+      ]
+    },
+    {
+      "id": "WEB018-REPAIR-LOOP-RELEASE",
+      "title": "Independent verification signed deployment and public confirmation of repair-loop polish",
+      "kind": "product-completion",
+      "status": "spec_ready",
+      "depends_on": [
+        "WEB017-REPAIR-LOOP-POLISH"
+      ],
+      "capability": "media-factory-web",
+      "gates": {
+        "review": [
+          "implementation_quality"
+        ]
+      },
+      "allowed_paths": [
+        "server/**",
+        "app/**",
+        "components/**",
+        "scripts/**",
+        "tests/**",
+        "docs/**",
+        "specs/**",
+        "progress/**",
+        "graph/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "*.json",
+        "*.mjs",
+        "*.yml",
+        "Dockerfile",
+        ".gitignore",
+        ".dockerignore",
+        "README.md",
+        "deploy/**",
+        "assets/**",
+        "config/**"
+      ]
     }
   ]
 }

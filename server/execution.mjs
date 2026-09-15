@@ -9,12 +9,25 @@ import { ProductError, invariant, safeId, boundedText } from './errors.mjs'
 import { ProviderRegistry } from './providers.mjs'
 import { FFmpegAdapter, DeterministicTestAdapter, inspectVideo } from './worker-adapters.mjs'
 import { authorizedFirmesCaballito } from './brand-assets.mjs'
-import {criticRubricForScene,externalGenerationPackage,inspectImage,assertAspectRatio,sceneReleaseProvenance} from './scene-generation.mjs'
+import {criticRubricForScene,externalGenerationPackage,inspectImage,assertAspectRatio,sceneReleaseProvenance,seedTenantBrandModels} from './scene-generation.mjs'
 import {uploadExternalResult as uploadExternalResultImpl} from './external-generation-execution.mjs'
 import {maybeAdvanceSceneAfterApproval} from './scene-review-routing.mjs'
 import { GRAPH_REVISION, STAGES, HUMAN_STAGES, digest, requireActor, assertCurrent, buildJobGraph, event } from './worker-policy.mjs'
 const HASH=/^[a-f0-9]{64}$/
 const MAX_BYTES=40*1024*1024
+function normalizeRepairText(value){return String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase()}
+function requestedMascotRepair(reason,job){
+  if(job?.creation_mode==='GUIDED_SCENE'||!['AUTO','REAL_FOOTAGE'].includes(job?.strategy||'AUTO'))return null
+  const text=normalizeRepairText(reason)
+  if(!/(?:\bcaballito\b|\bcaballo\b|\bmascota\b|\bhorse\b|\bmascot\b)/.test(text))return null
+  const explicitRemove=/(?:\bquitar\b|\bquita\b|\beliminar\b|\belimina\b|\bretirar\b|\bretira\b|\bremove\b|\bwithout\b|\bsin\s+(?:el\s+|la\s+)?(?:caballito|caballo|mascota)\b)/.test(text)
+  const addVerb='(?:agregar|agrega|anadir|anade|poner|pon|incluir|incluye|sumar|add|include)'
+  const negatedAdd=new RegExp('(?:\\bno\\s+(?:necesitamos\\s+|queremos\\s+|debemos\\s+|vamos\\s+a\\s+)?'+addVerb+'\\b|\\bdo\\s+not\\s+'+addVerb+'\\b|\\bdon.t\\s+'+addVerb+'\\b)').test(text)
+  const explicitAdd=!negatedAdd&&new RegExp('\\b'+addVerb+'\\b').test(text)
+  if(explicitRemove&&job.mascot===true)return 'REMOVE_MASCOT'
+  if(explicitAdd&&job.mascot!==true)return 'ADD_FIRMES_MASCOT'
+  return null
+}
 function assertReviewCurrent(job){invariant(job.review_candidate&&digest(job.review_candidate)===job.candidate_sha,'STALE_CANDIDATE','The reviewed manifest changed; review the current candidate',409);if(job.review_candidate.treatment)invariant(job.treatment&&digest(job.treatment)===digest(job.review_candidate.treatment),'TREATMENT_CHANGED','The creative treatment changed after this candidate was prepared',409);if(job.review_candidate.treatment_sha)invariant(job.treatment&&digest(job.treatment)===job.review_candidate.treatment_sha,'TREATMENT_CHANGED','The creative treatment changed after this candidate was prepared',409);if(job.provider_execution||job.review_candidate.provider_execution_sha)invariant(job.provider_execution&&job.provider_execution.artifact_sha256===job.artifact_sha256&&digest(job.provider_execution)===job.review_candidate.provider_execution_sha,'PROVENANCE_CHANGED','The media provenance changed after this candidate was prepared',409)}
 export class ExecutionService {
   constructor({repository,dataRoot=repository.root,graphRuntimeRoot=process.env.GRAPH_HARNESS_RUNTIME_ROOT,providers,testMode=false,deploymentClass=process.env.MEDIA_FACTORY_DEPLOYMENT_CLASS||'production',releaseSha=process.env.MEDIA_FACTORY_RELEASE_SHA,clock=()=>Date.now()}) {
@@ -44,6 +57,13 @@ export class ExecutionService {
       if(node==='DIRECTOR_TREATMENT'){const brandState=await this.repository.read();const mascotAsset=await authorizedFirmesCaballito(brandState,j);const authorizedBrandAssets=mascotAsset?[{asset_id:mascotAsset.id,sha256:mascotAsset.sha256,synthetic:false}]:[];const treatment={title:j.title,objective:j.objective,...(j.creative_context?{creative_context:j.creative_context}:{}),story_devices:j.story_devices||[],source_ids:j.source_ids,content_dna_revision:j.content_dna_revision,strategy:j.strategy,target:j.target,repair_revision:j.repair_revision||0,repair_instructions:j.repair_instructions||null,repair_controls:j.repair_controls||null,authorship:'structured production draft',edit_plan:j.mascot?'Character-led scene planning. The exact authorized character asset is hash-bound here when locally supported; unsupported characters fail closed at provider production.':'Every selected source contributes an equal-duration segment; retain existing audio; fit with padding to requested aspect ratio.',character_composition_status:!j.mascot?'NOT_APPLICABLE':mascotAsset?'AUTHORIZED_LOCAL_COMPOSITE':'ADAPTER_REQUIRED',authorized_brand_assets:authorizedBrandAssets,test:this.testMode};await this.repository.transact(st=>{st.jobs[id].treatment=treatment;return null});await this.complete(j,node,{treatment,treatment_sha:digest(treatment)});continue}
       if(node==='CONCEPT_REVIEW'&&!['HYBRID','GENERATIVE'].includes(j.strategy)){await this.complete(j,node,{not_applicable:true,reason:'Real footage uses no generated concept'});continue}
       if((node==='CONCEPT_REVIEW'||node==='CREATIVE_GATE')&&j.creation_mode==='GUIDED_SCENE'){await this.complete(j,node,{structured_scene_contract:true,prompt_sha256:j.prompt_compilation?.final_prompt_sha256,reference_roles:j.prompt_compilation?.reference_roles||[]});continue}
+      if(node==='CREATIVE_GATE'&&j.repair_controls?.auto_approve_creative_gate===true&&['ADD_FIRMES_MASCOT','REMOVE_MASCOT'].includes(j.repair_controls?.blocker_action)){
+        const authorizedBy=j.repair_controls.authorized_by,reviewIntentId=j.repair_controls.authorized_review_id
+        invariant(typeof authorizedBy==='string'&&authorizedBy.length>0&&typeof reviewIntentId==='string'&&reviewIntentId.length>0,'REPAIR_AUTHORITY_REQUIRED','The supported repair is missing its authenticated review authority',409)
+        await this.complete(j,node,{narrow_supported_repair:true,repair_action:j.repair_controls.blocker_action,repair_intent_id:reviewIntentId,human_actor:authorizedBy,authenticated:true},authorizedBy)
+        await this.repository.transact(st=>{const x=st.jobs[id];event(st,x,'supported_repair_authorized','La solicitud de cambio autenticada autorizó el delta determinístico '+j.repair_controls.blocker_action,this.clock());return null})
+        continue
+      }
       if(node==='CONCEPT_REVIEW'||node==='CREATIVE_GATE'){await this.waiting(j,node,{stage:node,treatment:j.treatment,source_sha:digest(j.source_authorization_snapshot),source_asset_sha:digest(j.source_asset_snapshot),dna_revision:j.content_dna_revision});return}
       if(node==='PROVIDER_PRODUCTION'&&j.creation_mode==='GUIDED_SCENE'&&j.preferred_provider==='manual-external'){let providerState=await graph.status(paths),providerNode=providerState.nodes.find(n=>n.id===node);if(providerNode.status==='approved'){await graph.transition({...paths,node,actor:'media-worker',to:'ready',reason:'Structured scene and references validated for external generation'});providerNode.status='ready'}if(providerNode.status==='ready')await graph.transition({...paths,node,actor:'media-worker',to:'running',reason:'External generation package prepared'});await this.repository.transact(st=>{const x=st.jobs[id];assertCurrent(st,x);const pending=(x.generation_attempts||[]).find(a=>a.adapter_id==='manual-external'&&a.status==='WAITING_EXTERNAL_RESULT'&&a.prompt_sha256===x.prompt_compilation.final_prompt_sha256);if(!pending){x.generation_attempts??=[];x.generation_attempts.push({attempt_id:'gen_'+randomUUID(),job_id:id,job_revision:x.job_revision||1,adapter_id:'manual-external',provider:null,provider_model:null,request_sha256:x.prompt_compilation.structured_request_sha256,prompt_sha256:x.prompt_compilation.final_prompt_sha256,input_assets:[...(x.prompt_compilation.reference_roles||[]).map(r=>({asset_id:r.asset_id,role:r.role,sha256:r.sha256})),...(x.generation_phase==='VIDEO_FROM_APPROVED_HERO'&&x.hero_image?[{asset_id:x.hero_image.artifact_id,role:'APPROVED_HERO_IMAGE',sha256:x.hero_image.sha256}]:[])],started_at:new Date(this.clock()).toISOString(),completed_at:null,status:'WAITING_EXTERNAL_RESULT',provider_request_id:null,output_asset_id:null,output_sha256:null,cost:null,credits:null,error_code:null,error_detail:null,retry_of:(x.generation_attempts||[]).at(-1)?.attempt_id||null});x.generation_attempt_count=x.generation_attempts.length;event(st,x,'generation_started','Intento de generación '+x.generation_attempt_count+' iniciado con manual-external',this.clock())}if(!x.generation_phase)x.generation_phase=x.scene_request?.output?.medium==='video'?'HERO_IMAGE':'FINAL_MEDIA';x.external_generation_package=externalGenerationPackage(x);x.status='WAITING_EXTERNAL_GENERATION';x.stage='PROVIDER_PRODUCTION';x.blockers=[];event(st,x,'external_generation_started','Paquete de generación externa listo; sube el resultado para continuar en este mismo trabajo',this.clock());return null});return}
       if(node==='PROVIDER_PRODUCTION'){const brandState=await this.repository.read();const mascotAsset=await authorizedFirmesCaballito(brandState,j);if(j.mascot)invariant(mascotAsset,'MASCOT_RENDER_UNAVAILABLE','Character compositing requires an authorized supported mascot asset; this request was not silently converted to ordinary footage',409);const brandAssets=mascotAsset?[{asset_id:mascotAsset.id,sha256:mascotAsset.sha256,synthetic:false}]:[];invariant(digest(brandAssets)===digest(j.treatment?.authorized_brand_assets||[]),'BRAND_ASSET_CHANGED','The authorized brand asset differs from the hash-bound creative treatment; production was stopped',409);const assets=await this.sourceAssets(j);invariant(this.testMode||assets.length>0,'SOURCE_BYTES_REQUIRED','Upload an authorized source video',409);if(!this.testMode&&j.source_asset_snapshot)invariant(digest(assets.map(({path,...a})=>a))===digest(j.source_asset_snapshot),'SOURCE_CHANGED','Source media changed after ingest',409);const preferred=j.preferred_provider||'AUTO';const adapterId=this.testMode?'deterministic-test':preferred==='AUTO'?(j.strategy==='AUTO'||j.strategy==='REAL_FOOTAGE'?'ffmpeg':null):preferred;invariant(adapterId,'PROVIDER_UNAVAILABLE','Connect a provider for this production strategy',409);const declared=this.providers.list().find(p=>p.id===adapterId);invariant(declared?.available,'PROVIDER_UNAVAILABLE','Preferred provider is not connected',409);invariant(!declared.credit_bearing,'SPEND_APPROVAL_REQUIRED','Paid provider execution requires a separately reviewed integration',409);const adapter=this.providers.get(adapterId);invariant(this.testMode||adapter.capabilities().strategies.includes(j.strategy==='AUTO'?'REAL_FOOTAGE':j.strategy),'PROVIDER_CAPABILITY','Provider cannot execute this strategy',409);const input={job:j,assets,directory:join(directory,'artifacts'),test:this.testMode,...(mascotAsset?{mascotAsset}: {})};const capabilities=await adapter.capabilities();const estimate=await adapter.estimate(input);invariant(capabilities.paid===false&&capabilities.automatic_social_publish!==true&&estimate?.credits===0&&(estimate.cost===undefined||estimate.cost===0)&&Object.keys(estimate).every(key=>['credits','cost','currency','note'].includes(key)),'SPEND_APPROVAL_REQUIRED','Provider cost or publication authority is unverified; execution was not started',409);const prepared=await adapter.prepare(input);const generated=await adapter.generate(prepared);const polled=await adapter.poll(generated);invariant(polled.status==='completed','PROVIDER_PENDING','Provider has not completed production',409);const collected=await adapter.collect(polled);invariant(Buffer.isBuffer(collected.bytes)&&collected.bytes.length>0&&collected.bytes.length<=MAX_BYTES,'INVALID_ARTIFACT','Provider did not return a bounded media artifact',422);invariant(this.testMode||/^[a-f0-9]{40}$/.test(this.releaseSha||''),'RELEASE_IDENTITY_REQUIRED','Configure the exact deployed release identity before production',503);const hash=digest(collected.bytes);const providerExecution=captureProviderExecution({provider:adapterId,provenance:await adapter.provenance(input),estimate,assets,brandAssets,artifactSha:hash,test:this.testMode});const artifactId='artifact_'+hash;const path=join(directory,'artifacts',artifactId+'.mp4');await writeFile(path,collected.bytes,{mode:0o600});await inspectVideo(path);await this.repository.transact(st=>{const x=st.jobs[id];assertCurrent(st,x);x.artifacts=x.artifacts.filter(a=>a.id!==artifactId);x.artifacts.push({id:artifactId,sha256:hash,mime_type:'video/mp4',filename:artifactId+'.mp4',size_bytes:collected.bytes.length,synthetic:providerExecution.provenance.synthetic,test:this.testMode,provider:adapterId,created_at:new Date(this.clock()).toISOString()});x.artifact_url='/api/v1/jobs/'+id+'/artifacts/'+artifactId;x.artifact_sha256=hash;x.production_provider=adapterId;x.provider_execution=providerExecution;x.production_note=collected.production_note;return null});await this.complete(j,node,{artifact_sha256:hash,provider_execution:providerExecution,test:this.testMode});continue}
@@ -61,15 +81,25 @@ export class ExecutionService {
       const j=(await this.repository.read()).jobs[id]
       requireActor(actor,j.tenant_id)
       const action=input?.action
-      invariant(['USE_REAL_FOOTAGE','REMOVE_MASCOT','FIT_SOURCE_DURATION','WITHDRAW_MANUAL_CHANGE'].includes(action),'INVALID_REPAIR_ACTION','Choose a supported production repair',400)
+      invariant(['USE_REAL_FOOTAGE','REMOVE_MASCOT','FIT_SOURCE_DURATION','WITHDRAW_MANUAL_CHANGE','APPLY_SUPPORTED_CHANGE'].includes(action),'INVALID_REPAIR_ACTION','Choose a supported production repair',400)
       const blockerCodes=new Set((j.blockers||[]).map(b=>typeof b==='string'?b:b?.code).filter(Boolean))
       invariant(j.status==='BLOCKED','JOB_NOT_BLOCKED','This production is not currently blocked',409)
       const providerDecision=[...blockerCodes].some(code=>['MASCOT_RENDER_UNAVAILABLE','ADAPTER_REQUIRED','PROVIDER_UNAVAILABLE','PROVIDER_CREDENTIAL_MISSING'].includes(code))
       const durationDecision=blockerCodes.has('SOURCE_TOO_SHORT')
       const manualDecision=blockerCodes.has('MANUAL_REPAIR_REQUIRED')&&j.repair_requires_manual===true
+      const supportedBlockedRepair=action==='APPLY_SUPPORTED_CHANGE'?requestedMascotRepair(j.repair_instructions,j):null
+      let supportedBlockedAsset=null
+      if(action==='APPLY_SUPPORTED_CHANGE'){
+        invariant(manualDecision&&supportedBlockedRepair,'REPAIR_NOT_APPLICABLE','This blocked creative request is not one of the narrow supported same-job repairs',409)
+        if(supportedBlockedRepair==='ADD_FIRMES_MASCOT'){
+          await this.repository.transact(st=>{seedTenantBrandModels(st,j.tenant_id);return null})
+          supportedBlockedAsset=await authorizedFirmesCaballito(await this.repository.read(),{...j,mascot:true})
+          invariant(supportedBlockedAsset,'MASCOT_RENDER_UNAVAILABLE','The requested FIRMES Caballito is not available as an authorized local brand asset',409)
+        }
+      }
       if(action==='FIT_SOURCE_DURATION')invariant(durationDecision,'REPAIR_NOT_APPLICABLE','This production is not blocked by source duration',409)
       else if(action==='WITHDRAW_MANUAL_CHANGE')invariant(manualDecision,'REPAIR_NOT_APPLICABLE','This production is not waiting on an unsupported manual creative edit',409)
-      else invariant(providerDecision,'REPAIR_NOT_APPLICABLE','This blocker needs a different resolution path',409)
+      else if(action!=='APPLY_SUPPORTED_CHANGE')invariant(providerDecision,'REPAIR_NOT_APPLICABLE','This blocker needs a different resolution path',409)
       if(action==='REMOVE_MASCOT')invariant(j.mascot===true,'REPAIR_NOT_APPLICABLE','This production does not currently use a mascot',409)
       let fittedDuration=null
       if(action==='FIT_SOURCE_DURATION'){
@@ -85,7 +115,9 @@ export class ExecutionService {
           ?'User explicitly removed the mascot from this blocked production'
           :action==='FIT_SOURCE_DURATION'
             ?'User explicitly fit the output duration to the authorized source footage ('+fittedDuration+' seconds)'
-            :'User explicitly withdrew the unsupported manual creative edit and chose to continue from the previously reviewed treatment'
+            :action==='APPLY_SUPPORTED_CHANGE'
+              ?'User explicitly applied the previously blocked supported change on the same job: '+supportedBlockedRepair
+              :'User explicitly withdrew the unsupported manual creative edit and chose to continue from the previously reviewed treatment'
       const repaired=action==='WITHDRAW_MANUAL_CHANGE'
         ?[]
         :await this.service().failAndRepair({...this.paths(j),node:'DIRECTOR_TREATMENT',actor:actor.id,gate:'director_treatment',reason})
@@ -94,14 +126,19 @@ export class ExecutionService {
         assertCurrent(st,x)
         x.pending_review=null
         if(action!=='WITHDRAW_MANUAL_CHANGE')x.repair_revision=(x.repair_revision||0)+1
-        x.repair_instructions=action==='WITHDRAW_MANUAL_CHANGE'?null:reason
+        x.repair_instructions=action==='WITHDRAW_MANUAL_CHANGE'?null:action==='APPLY_SUPPORTED_CHANGE'?j.repair_instructions:reason
         x.repair_requires_manual=false
-        x.repair_controls=action==='FIT_SOURCE_DURATION'?{blocker_action:action,duration_seconds:fittedDuration}:{blocker_action:action}
+        x.repair_controls=action==='FIT_SOURCE_DURATION'
+          ?{blocker_action:action,duration_seconds:fittedDuration}
+          :action==='APPLY_SUPPORTED_CHANGE'
+            ?{blocker_action:supportedBlockedRepair,authorized_by:actor.id,authorized_review_id:'blocked_'+digest({job_id:id,reason:j.repair_instructions,repair_revision:j.repair_revision||0}),auto_approve_creative_gate:true}
+            :{blocker_action:action}
         if(action==='USE_REAL_FOOTAGE'){
           x.mascot=false
           x.strategy='REAL_FOOTAGE'
           x.preferred_provider='AUTO'
-        }else if(action==='REMOVE_MASCOT')x.mascot=false
+        }else if(action==='REMOVE_MASCOT'||supportedBlockedRepair==='REMOVE_MASCOT')x.mascot=false
+        else if(supportedBlockedRepair==='ADD_FIRMES_MASCOT'){x.mascot=true;x.strategy='REAL_FOOTAGE';x.preferred_provider='AUTO'}
         x.review_state='CHANGES_REQUESTED'
         x.candidate_sha=null
         x.artifact_sha256=null
@@ -116,7 +153,7 @@ export class ExecutionService {
         x.status='QUEUED'
         x.blockers=[]
         x.repairs??=[]
-        x.repairs.push({target:x.stage,reason,actor:actor.id,action,previous_candidate_sha:j.candidate_sha||null,graph_events:repaired.length||repaired.events?.length||null,...(fittedDuration?{duration_seconds:fittedDuration}:{})})
+        x.repairs.push({target:x.stage,reason,actor:actor.id,action:supportedBlockedRepair||action,previous_candidate_sha:j.candidate_sha||null,graph_events:repaired.length||repaired.events?.length||null,...(fittedDuration?{duration_seconds:fittedDuration}:{}),...(supportedBlockedAsset?{brand_asset_sha256:supportedBlockedAsset.sha256}:{})})
         event(st,x,'blocker_repaired',reason,this.clock())
         return null
       })
@@ -125,7 +162,55 @@ export class ExecutionService {
     })
   }
 
-  async requestChanges(actor,id,input){const job=await this.job(actor,id,true);return this.lock(job,async()=>{const j=(await this.repository.read()).jobs[id];invariant(HASH.test(input?.candidate_sha||'')&&input.candidate_sha===j.candidate_sha&&input.review_stage===j.stage&&j.review_state==='AWAITING_REVIEW','STALE_CANDIDATE','Review the current production candidate',409);const reason=boundedText(input.reason,'Repair request',2000);const durationMatch=reason.match(/^(?:duration|duracion|duración)\s*:\s*(\d+(?:\.\d+)?)\s*(?:s|seconds|segundos)?$/i);const duration=durationMatch?Number(durationMatch[1]):null;const bounds=j.target?.duration_seconds;const supported=duration!==null&&Array.isArray(bounds)&&duration>=bounds[0]&&duration<=bounds[1];const externalScene=j.creation_mode==='GUIDED_SCENE'&&j.preferred_provider==='manual-external';const manual=!this.testMode&&!supported&&!externalScene;const target=externalScene?'PROVIDER_PRODUCTION':supported||['CONCEPT_REVIEW','CREATIVE_GATE'].includes(j.stage)?'DIRECTOR_TREATMENT':'PROVIDER_PRODUCTION';const intent=await this.saveIntent(actor,j,'requestChanges',{...input,reason});const taggedReason=reason+' [review:'+intent.id+']';const history=(await readFile(join(this.graphRoot,this.paths(j).eventsPath),'utf8')).trim().split('\n').filter(Boolean).map(JSON.parse);const priorFailure=history.find(e=>e.event_type==='failure.recorded'&&e.payload?.reason===taggedReason);const repaired=priorFailure?[]:await this.service().failAndRepair({...this.paths(j),node:target,actor:actor.id,gate:target.toLowerCase(),reason:taggedReason});await this.repository.transact(s=>{const x=s.jobs[id];x.pending_review=null;x.repair_revision=(x.repair_revision||0)+1;x.repair_instructions=reason;if(externalScene&&j.stage==='CRITIC'){x.critic_findings??=[];x.critic_findings.push({artifact_sha256:j.artifact_sha256,candidate_sha:j.candidate_sha,finding:reason,reviewer:actor.id,created_at:new Date(this.clock()).toISOString()});event(s,x,'critic_failed',reason,this.clock());event(s,x,'regeneration_requested','Critic solicitó una nueva generación sobre el mismo trabajo',this.clock())}x.repair_requires_manual=manual;if(supported)x.repair_controls={duration_seconds:duration};if(externalScene){x.generation_phase=x.scene_request?.output?.medium==='video'?(j.generation_phase==='HERO_IMAGE_REVIEW'?'HERO_IMAGE':'VIDEO_FROM_APPROVED_HERO'):'FINAL_MEDIA';x.job_revision=(x.job_revision||1)+1}x.review_state='CHANGES_REQUESTED';x.candidate_sha=null;x.artifact_sha256=null;x.artifact_url=null;x.provider_execution=null;x.production_provider=null;x.production_note=null;x.review_candidate=null;x.critic_actor=null;x.stage=target;x.status=manual?'BLOCKED':'QUEUED';x.blockers=manual?[{code:'MANUAL_REPAIR_REQUIRED',message:'This creative edit requires a reviewed manual production adapter; it was not applied automatically'}]:[];x.repairs??=[];x.repairs.push({target,reason,actor:actor.id,previous_candidate_sha:j.candidate_sha,graph_events:repaired.length||repaired.events?.length||null});event(s,x,'repair_requested','Changes requested; upstream work is preserved',this.clock());return null});if(!manual)this.onJobsQueued([id]);return (await this.repository.read()).jobs[id]})}
+  async requestChanges(actor,id,input){
+    const job=await this.job(actor,id,true)
+    return this.lock(job,async()=>{
+      let j=(await this.repository.read()).jobs[id]
+      invariant(HASH.test(input?.candidate_sha||'')&&input.candidate_sha===j.candidate_sha&&input.review_stage===j.stage&&j.review_state==='AWAITING_REVIEW','STALE_CANDIDATE','Review the current production candidate',409)
+      const reason=boundedText(input.reason,'Repair request',2000)
+      const durationMatch=reason.match(/^(?:duration|duracion|duración)\s*:\s*(\d+(?:\.\d+)?)\s*(?:s|seconds|segundos)?$/i)
+      const duration=durationMatch?Number(durationMatch[1]):null,bounds=j.target?.duration_seconds
+      const supportedDuration=duration!==null&&Array.isArray(bounds)&&duration>=bounds[0]&&duration<=bounds[1]
+      const externalScene=j.creation_mode==='GUIDED_SCENE'&&j.preferred_provider==='manual-external'
+      const mascotRepair=requestedMascotRepair(reason,j)
+      let mascotAsset=null
+      if(mascotRepair==='ADD_FIRMES_MASCOT'){
+        await this.repository.transact(st=>{seedTenantBrandModels(st,j.tenant_id);return null})
+        j=(await this.repository.read()).jobs[id]
+        mascotAsset=await authorizedFirmesCaballito(await this.repository.read(),{...j,mascot:true})
+      }
+      const supportedMascotRepair=mascotRepair==='REMOVE_MASCOT'||(mascotRepair==='ADD_FIRMES_MASCOT'&&Boolean(mascotAsset))
+      const manual=!this.testMode&&!supportedDuration&&!externalScene&&!supportedMascotRepair
+      const target=externalScene?'PROVIDER_PRODUCTION':supportedMascotRepair||supportedDuration||['CONCEPT_REVIEW','CREATIVE_GATE'].includes(j.stage)?'DIRECTOR_TREATMENT':'PROVIDER_PRODUCTION'
+      const intent=await this.saveIntent(actor,j,'requestChanges',{...input,reason})
+      const taggedReason=reason+' [review:'+intent.id+']'
+      const history=(await readFile(join(this.graphRoot,this.paths(j).eventsPath),'utf8')).trim().split('\n').filter(Boolean).map(JSON.parse)
+      const priorFailure=history.find(e=>e.event_type==='failure.recorded'&&e.payload?.reason===taggedReason)
+      const repaired=priorFailure?[]:await this.service().failAndRepair({...this.paths(j),node:target,actor:actor.id,gate:target.toLowerCase(),reason:taggedReason})
+      await this.repository.transact(s=>{
+        const x=s.jobs[id]
+        x.pending_review=null;x.repair_revision=(x.repair_revision||0)+1;x.repair_instructions=reason
+        if(externalScene&&j.stage==='CRITIC'){x.critic_findings??=[];x.critic_findings.push({artifact_sha256:j.artifact_sha256,candidate_sha:j.candidate_sha,finding:reason,reviewer:actor.id,created_at:new Date(this.clock()).toISOString()});event(s,x,'critic_failed',reason,this.clock());event(s,x,'regeneration_requested','Critic solicitó una nueva generación sobre el mismo trabajo',this.clock())}
+        x.repair_requires_manual=manual
+        if(supportedDuration)x.repair_controls={duration_seconds:duration}
+        else if(supportedMascotRepair){
+          x.repair_controls={blocker_action:mascotRepair,authorized_by:actor.id,authorized_review_id:intent.id,auto_approve_creative_gate:true}
+          x.mascot=mascotRepair==='ADD_FIRMES_MASCOT'
+          if(mascotRepair==='ADD_FIRMES_MASCOT'){x.strategy='REAL_FOOTAGE';x.preferred_provider='AUTO'}
+        }
+        if(externalScene){x.generation_phase=x.scene_request?.output?.medium==='video'?(j.generation_phase==='HERO_IMAGE_REVIEW'?'HERO_IMAGE':'VIDEO_FROM_APPROVED_HERO'):'FINAL_MEDIA';x.job_revision=(x.job_revision||1)+1}
+        x.review_state='CHANGES_REQUESTED';x.candidate_sha=null;x.artifact_sha256=null;x.artifact_url=null;x.provider_execution=null;x.production_provider=null;x.production_note=null;x.review_candidate=null;x.critic_actor=null
+        if(supportedMascotRepair||supportedDuration)x.treatment=null
+        x.stage=target;x.status=manual?'BLOCKED':'QUEUED';x.blockers=manual?[{code:'MANUAL_REPAIR_REQUIRED',message:'This creative edit requires a reviewed manual production adapter; it was not applied automatically'}]:[]
+        x.repairs??=[];x.repairs.push({target,reason,actor:actor.id,action:supportedMascotRepair?mascotRepair:supportedDuration?'SET_DURATION':externalScene?'REGENERATE_EXTERNAL':'MANUAL_REQUIRED',previous_candidate_sha:j.candidate_sha,graph_events:repaired.length||repaired.events?.length||null,...(mascotAsset?{brand_asset_sha256:mascotAsset.sha256}:{})})
+        event(s,x,supportedMascotRepair?'supported_repair_requested':'repair_requested',supportedMascotRepair?'Cambio compatible detectado; se aplicará en este mismo trabajo y volverá a revisión crítica.':'Changes requested; upstream work is preserved',this.clock())
+        return null
+      })
+      if(!manual)this.onJobsQueued([id])
+      return (await this.repository.read()).jobs[id]
+    })
+  }
+
   async reject(actor,id,input){const job=await this.job(actor,id,true);return this.lock(job,async()=>{const j=(await this.repository.read()).jobs[id];invariant(HASH.test(input?.candidate_sha||'')&&input.candidate_sha===j.candidate_sha&&input.review_stage===j.stage&&j.review_state==='AWAITING_REVIEW','STALE_CANDIDATE','Review the current production candidate',409);const reason=boundedText(input.reason,'Rejection reason',2000);const intent=await this.saveIntent(actor,j,'reject',{...input,reason});const state=await this.service().status(this.paths(j));const node=state.nodes.find(n=>n.id===j.stage);if(node.status!=='blocked')await this.service().transition({...this.paths(j),node:j.stage,actor:actor.id,to:'blocked',reason:reason+' [review:'+intent.id+']'});return this.repository.transact(s=>{const x=s.jobs[id];x.pending_review=null;x.status='REJECTED';x.review_state='REJECTED';x.blockers=[{code:'HUMAN_REJECTED',message:reason}];event(s,x,'rejected','Production rejected by reviewer',this.clock());return x})})}
   async artifact(actor,id,artifactId){const job=await this.jobForRead(actor,id);safeId(artifactId);const artifact=job.artifacts.find(a=>a.id===artifactId);invariant(artifact,'NOT_FOUND','Artifact not found',404);const path=join(this.graphRoot,job.tenant_id,id,'artifacts',artifact.filename);invariant(await realpath(path)===path,'UNSAFE_STORAGE','Artifact unavailable',503);const bytes=await readFile(path);invariant(digest(bytes)===artifact.sha256,'ARTIFACT_CHANGED','Artifact integrity check failed',409);return {...artifact,bytes}}
   async jobForRead(actor,id){safeId(id);const j=(await this.repository.read()).jobs[id];invariant(j&&actor?.memberships?.some(m=>m.tenant_id===j.tenant_id),'NOT_FOUND','Production not found',404);return j}

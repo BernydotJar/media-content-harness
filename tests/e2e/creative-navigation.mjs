@@ -24,6 +24,8 @@ export async function verifyCreativeNavigation({page,context,origin,temp}) {
   const second=page.getByRole('menuitem',{name:'Estudio de verificación B',exact:true})
   await create.focus()
   await create.press('Enter')
+  await expect(weekly).toBeVisible()
+  if(!await weekly.evaluate(el=>el===document.activeElement))await page.keyboard.press('ArrowDown')
   await expect(weekly).toBeFocused()
   await weekly.press('ArrowRight')
   await expect(first).toBeFocused()

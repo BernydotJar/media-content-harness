@@ -32,8 +32,22 @@ export async function authorizedFirmesCaballito(state,job){
   invariant(sha256===asset.sha256&&sha256===FIRMES_CABALLITO.sha256,'BRAND_ASSET_CHANGED','The authorized FIRMES caballito asset changed; production was stopped',409)
   return {id:asset.asset_id,asset_id:asset.asset_id,path,sha256,synthetic:false,mime_type:asset.mime_type,character_id:character.character_id}
  }
- const character=job.creative_context?.character
  const tenant=state.tenants?.[job.tenant_id]
+ const profile=state.tenant_brand_profiles?.[job.tenant_id]
+ const defaultCharacterId=profile?.default_mascot_character_id
+ if(defaultCharacterId&&isFirmesTenantRecord(tenant)){
+  const defaultCharacter=state.brand_characters?.[job.tenant_id]?.[defaultCharacterId]
+  const defaultAsset=defaultCharacter&&state.brand_assets?.[job.tenant_id]?.[defaultCharacter.reference_asset_id]
+  if(defaultCharacter&&defaultAsset&&defaultCharacter.tenant_id===job.tenant_id&&defaultAsset.tenant_id===job.tenant_id&&defaultAsset.rights_state==='AUTHORIZED'){
+   invariant(defaultAsset.storage_ref===FIRMES_CABALLITO.relative_path,'BRAND_ASSET_CHANGED','The authorized FIRMES caballito storage reference changed; production was stopped',409)
+   const path=join(process.cwd(),'config','brand-assets','firmes-caballito.png')
+   const bytes=await readFile(path)
+   const sha256=createHash('sha256').update(bytes).digest('hex')
+   invariant(sha256===defaultAsset.sha256&&sha256===FIRMES_CABALLITO.sha256,'BRAND_ASSET_CHANGED','The authorized FIRMES caballito asset changed; production was stopped',409)
+   return {id:defaultAsset.asset_id,asset_id:defaultAsset.asset_id,path,sha256,synthetic:false,mime_type:defaultAsset.mime_type,character_id:defaultCharacter.character_id}
+  }
+ }
+ const character=job.creative_context?.character
  if(!character||character.rights_confirmed!==true||character.name!=='Caballito de Firmes'||!isFirmesTenantRecord(tenant))return null
  const path=join(process.cwd(),'config','brand-assets','firmes-caballito.png')
  const bytes=await readFile(path)

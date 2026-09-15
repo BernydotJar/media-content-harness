@@ -1,0 +1,4 @@
+requested_download_asset_1=/Users/eduardosacahui/Downloads/20260701_092050_Instagram_LSC.mp4 MISSING_IN_CLOUD_SANDBOX
+requested_download_asset_2=/Users/eduardosacahui/Downloads/image 2.jpg MISSING_IN_CLOUD_SANDBOX
+acceptance_fallback_source=work/firmes-reference/video/firmes-izabal-2727838567635466-source.mp4
+reason=Cloud Sandbox mounts /shared/development and the repository, not the user's Downloads directory. No access was fabricated.

@@ -1,0 +1,36 @@
+{
+  "source": "work/firmes-reference/video/firmes-izabal-2727838567635466-source.mp4",
+  "source_sha256": "f2709ad400617c15f552e0c4afc859bc0da684984d81a59fe65673e878599f05",
+  "source_bytes": 1463665,
+  "mascot_asset_id": "brand_asset_firmes_caballito_v1",
+  "mascot_sha256": "b17c55ffb0eec46bfa719128ee68a9f18475c45afb90d6d73ce9d82567938397",
+  "output": "/shared/development/AI_Output/MediaFactory/caballito-repair-demo.mp4",
+  "output_sha256": "3d25fb6e67074e38c21510ea93cd6f855dc1677e34dbfe24bef6aacb179e8d26",
+  "output_bytes": 1883556,
+  "media": {
+    "width": 1080,
+    "height": 1920,
+    "duration_seconds": 8,
+    "has_audio": true
+  },
+  "production_note": "Authorized FIRMES caballito reference composited locally over authorized real footage; no model-generated character and no automatic publication.",
+  "provenance": {
+    "adapter": "ffmpeg",
+    "synthetic": false,
+    "used_sources": [
+      {
+        "source_id": "firmes-izabal-2727838567635466-source",
+        "sha256": "f2709ad400617c15f552e0c4afc859bc0da684984d81a59fe65673e878599f05"
+      }
+    ],
+    "brand_assets": [
+      {
+        "asset_id": "brand_asset_firmes_caballito_v1",
+        "sha256": "b17c55ffb0eec46bfa719128ee68a9f18475c45afb90d6d73ce9d82567938397",
+        "synthetic": false
+      }
+    ],
+    "paid": false,
+    "external_review": false
+  }
+}
