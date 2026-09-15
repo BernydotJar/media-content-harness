@@ -1,0 +1,1 @@
+{"result":"FAIL","message":"Expected values to be strictly deep-equal:\n+ actual - expected\n\n+ [\n+   {\n+     asset_id: 'firmes-caballito-manual-p42',\n+     sha256: 'b17c55ffb0eec46bfa719128ee68a9f18475c45afb90d6d73ce9d82567938397',\n+     synthetic: false\n+   }\n+ ]\n- []\n","evidence_directory":"/tmp/media-factory-firmes-completion-D0hxSe"}
