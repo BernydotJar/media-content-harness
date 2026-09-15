@@ -1,0 +1,78 @@
+{
+  "candidate_sha": "bbd20406d1531f95331f14b43fb71c5e21d60e0e",
+  "configured_health_release_sha": "bbd20406d1531f95331f14b43fb71c5e21d60e0e",
+  "working_tree_dirty": false,
+  "build_id": "zi71IXdw2g5Vq0GMNmBnH",
+  "runtime_package": {
+    "format": "media-factory-runtime.v1",
+    "files": 1481,
+    "manifest_sha256": "11f31b4d2ca02ede2005a9190953f188605f3271011515c9c4e00cb9101d4678",
+    "build_id": "zi71IXdw2g5Vq0GMNmBnH",
+    "forbidden_entries": 0,
+    "external_symlinks": 0
+  },
+  "production_source_sha256": "47b2b364057a8bef330377f194032e438e46c129c990f20c2d1fba303a6d0e3f",
+  "test_only": true,
+  "temporary_storage": true,
+  "elapsed_ms": 16653,
+  "result": {
+    "status": "PASS",
+    "checks": [
+      "exact health identity",
+      "packaged authenticated service readiness and pinned Graph",
+      "anonymous API denied",
+      "public discovery endpoints exclude private resources and preview indexing",
+      "unknown route returns semantic custom 404 without authentication or reflected identifiers",
+      "public login metadata, trusted canonical and generated 1200x630 social image",
+      "FIRMES Caballito favicon and app icons are publicly discoverable and byte-exact",
+      "original hero loads actual bundled image bytes with descriptive alternative text",
+      "hero motion pauses on demand, reduced motion and simulated hidden-document visibility",
+      "mobile hero and accessible sign-in remain ordered with no horizontal overflow",
+      "login and honest empty dashboard",
+      "private dashboard has generic page title and no indexing or canonical identity",
+      "quick create without tenants offers only workspace onboarding",
+      "workspace onboarding and authority-separated sources",
+      "reference proof upload and Content DNA",
+      "explicit tenant mascot source binding",
+      "Guided draft through shared contracts without approval side effects",
+      "exact four-video natural-language request strategies",
+      "asynchronous real pinned Graph reaches creative human gate",
+      "SSE progression and visibly marked deterministic provider fixture",
+      "hash-bound release and authenticated downloadable artifact",
+      "authenticated video byte ranges and browser preview seeking",
+      "released version visibly shows approved hashes, reviewer and actual provider provenance",
+      "release library",
+      "release library details and actual browser download match approved master hash",
+      "mobile release details and hash provenance fit the 390px viewport",
+      "tenant switching keeps plans separate",
+      "responsive mobile navigation and no horizontal overflow",
+      "quick create keyboard submenu and Escape restore focus",
+      "quick create keyboard selection navigates to the existing tenant Free Mode",
+      "safe diagonal pointer path preserves the intended submenu across sibling rows",
+      "touch opens a submenu and navigates without hover or horizontal overflow",
+      "real request loading retains accessible status and pauses decorative orb for reduced motion and simulated hidden visibility",
+      "no uncaught browser errors"
+    ],
+    "job_id": "mf_82b92268dd9ff200e8e9819dbb17d7d5",
+    "release_candidate_sha": "cfd99b40c1839a926e9b2a67c9b948ad828333aa290dc632710a8d56dce0c6f2",
+    "artifact_sha256": "0fe5ea45fda5a9cadb8ce1e623c0db288ca849b1d53415539fd8aa4d682c9af1",
+    "download_sha256": "0fe5ea45fda5a9cadb8ce1e623c0db288ca849b1d53415539fd8aa4d682c9af1",
+    "release_id": "release_839be8ad4b488aae30a2c053",
+    "provider": "deterministic-test",
+    "media_responses": [
+      {
+        "status": 206,
+        "range": "bytes=0-",
+        "content_range": "bytes 0-2300/2301"
+      }
+    ],
+    "seeking": {
+      "duration": 1,
+      "target": 0.5,
+      "current_time": 0.5,
+      "ready_state": 4,
+      "error": null
+    }
+  },
+  "evidence_directory": "/tmp/media-factory-browser-e2e-lUyJ0s"
+}

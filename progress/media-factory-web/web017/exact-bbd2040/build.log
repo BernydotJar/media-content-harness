@@ -1,0 +1,103 @@
+$ node scripts/build-web.mjs
+▲ Next.js 16.3.5 (Turbopack)
+✓ Running next.config.mjs took 20ms
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 3.6s
+  Running TypeScript ...
+  Finished TypeScript in 1492ms ...
+  Collecting page data using 11 workers ...
+  Generating static pages using 11 workers (0/6) ...
+  Generating static pages using 11 workers (1/6) 
+  Generating static pages using 11 workers (2/6) 
+  Generating static pages using 11 workers (4/6) 
+✓ Generating static pages using 11 workers (6/6) in 395ms
+Turbopack build encountered 2 warnings:
+./server/services.mjs:27:63
+Warning: Dynamic filesystem access causes tracing of the whole project
+  [90m25 |[0m ...
+  [90m26 |[0m ... = {}) {
+[33m[1m>[0m [90m27 |[0m ... || [36mnew[0m [33mAtomicRepository[0m(resolve(options.dataRoot || [32m'./data'[0m))
+  [90m   |[0m                             [33m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m28 |[0m ...ory,identityFile:options.identityFile,operatorUsername:options.operatorUsername,operato...
+  [90m29 |[0m ...| [36mnew[0m [33mProviderRegistry[0m({adapters:options.adapters,testMode:options.testMode === [36mtrue[0m &&...
+  [90m30 |[0m ...
+
+Static analysis determined that this filesystem access causes the whole project to be traced and included in the output.
+This is usually unintentional and leads to all source files (including the public folder) to be deployed as part of the server code.
+This can slow down deployments or lead to failures when size limits are exceeded.
+To resolve this, you can
+- make sure the path is statically scoped to some subfolder, for example path.join(process.cwd(), 'data', bar), or
+- only use them in development, or
+- opt out by adding an ignore comment to the highlighted call: path.resolve(/*turbopackIgnore: true*/ ...), or
+- remove them.
+
+Import traces:
+  #1 [Instrumentation]:
+    ./server/services.mjs
+    ./server/singleton.mjs
+    ./instrumentation.ts
+
+  #2 [App Route]:
+    ./server/services.mjs
+    ./server/singleton.mjs
+    ./server/http.mjs
+    ./app/api/v1/[...path]/route.ts
+
+  #3 [App Route]:
+    ./server/services.mjs
+    ./server/singleton.mjs
+    ./server/http.mjs
+    ./app/api/v1/[...path]/route.ts
+
+
+./server/singleton.mjs:8:17
+Warning: Dynamic filesystem access causes tracing of the whole project
+  [90m 6 |[0m [36mexport[0m [36mfunction[0m getService(){
+  [90m 7 |[0m  [36mif[0m(globalThis[key])[36mreturn[0m globalThis[key]
+[33m[1m>[0m [90m 8 |[0m  [36mconst[0m dataRoot=resolve(process.env.[33mMEDIA_FACTORY_DATA_ROOT[0m||[32m'./data'[0m)
+  [90m   |[0m                 [33m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m 9 |[0m  [36mconst[0m repository=[36mnew[0m [33mAtomicRepository[0m(dataRoot)
+  [90m10 |[0m  [36mconst[0m testMode=process.env.[33mMEDIA_FACTORY_TEST_MODE[0m===[32m'1'[0m
+  [90m11 |[0m  [36mconst[0m deploymentClass=process.env.[33mMEDIA_FACTORY_DEPLOYMENT_CLASS[0m||[32m'production'[0m
+
+Static analysis determined that this filesystem access causes the whole project to be traced and included in the output.
+This is usually unintentional and leads to all source files (including the public folder) to be deployed as part of the server code.
+This can slow down deployments or lead to failures when size limits are exceeded.
+To resolve this, you can
+- make sure the path is statically scoped to some subfolder, for example path.join(process.cwd(), 'data', bar), or
+- only use them in development, or
+- opt out by adding an ignore comment to the highlighted call: path.resolve(/*turbopackIgnore: true*/ ...), or
+- remove them.
+
+Import traces:
+  Instrumentation:
+    ./server/singleton.mjs
+    ./instrumentation.ts
+
+  App Route:
+    ./server/singleton.mjs
+    ./server/http.mjs
+    ./app/api/v1/[...path]/route.ts
+
+
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /_not-found
+├ ƒ /[[...segments]]
+├ ƒ /api/preview/[...path]
+├ ƒ /api/v1/[...path]
+├ ○ /apple-icon.png
+├ ƒ /health
+├ ○ /icon.png
+├ ƒ /llm.txt
+├ ƒ /llms.txt
+├ ○ /opengraph-image
+├ ƒ /robots.txt
+└ ƒ /sitemap.xml
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
