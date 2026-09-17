@@ -18,6 +18,9 @@ The public product also has no first-class FIRMES favicon/app icon.
 8. If the user-named `/Users/.../Downloads` assets are not mounted in Cloud Sandbox, record that fact instead of fabricating access; continue with an authorized repository source for acceptance.
 9. Add a FIRMES favicon using the exact authorized white Caballito on a rich red/burgundy background. Provide standard Next.js icon discovery (`app/icon.png`, `app/favicon.ico`, and Apple icon) and test it.
 10. Run focused tests, full regression/typecheck/build, production-mode browser acceptance, Critic, Independent Verifier, then release through the existing signed host control plane in WEB018.
+11. The end-user production screen must be non-technical by default: compress the 13-node internal graph into four understandable steps (Prepare, Create, Review, Deliver), keep job IDs/hashes/providers/evidence collapsed under optional technical details, and make the next human action visually dominant.
+12. A supported mascot repair must read like a direct product action (for example, “Agregar Caballito”), not an infrastructure warning. Secondary/destructive options belong under a quieter “Otras opciones” affordance.
+13. FIRMES-facing brand copy should say what the user can do, not expose implementation/versioning language.
 
 ## Non-goals
 
