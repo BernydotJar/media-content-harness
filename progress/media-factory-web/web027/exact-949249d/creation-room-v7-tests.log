@@ -1,0 +1,40 @@
+TAP version 13
+# Subtest: running production lands in a truthful celebratory creation room
+ok 1 - running production lands in a truthful celebratory creation room
+  ---
+  duration_ms: 3.84625
+  type: 'test'
+  ...
+# Subtest: desktop top utility row cannot overlap creative content
+ok 2 - desktop top utility row cannot overlap creative content
+  ---
+  duration_ms: 1.616584
+  type: 'test'
+  ...
+# Subtest: source upload uses a glowing file card while preserving the native file input contract
+ok 3 - source upload uses a glowing file card while preserving the native file input contract
+  ---
+  duration_ms: 1.012958
+  type: 'test'
+  ...
+# Subtest: free creation uses the warm prompt bar and liquid-metal creation actions
+ok 4 - free creation uses the warm prompt bar and liquid-metal creation actions
+  ---
+  duration_ms: 2.505292
+  type: 'test'
+  ...
+# Subtest: review summary protects long resource chips from collisions
+ok 5 - review summary protects long resource chips from collisions
+  ---
+  duration_ms: 1.09325
+  type: 'test'
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 42.719458

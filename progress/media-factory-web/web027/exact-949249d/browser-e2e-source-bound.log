@@ -1,0 +1,80 @@
+{
+  "candidate_sha": null,
+  "configured_health_release_sha": "aec274dacf22d39fb41c27b16d6a09ac4d29c71e",
+  "working_tree_dirty": true,
+  "build_id": "iXExj2XIH41Uc9rTxy1XU",
+  "runtime_package": {
+    "format": "media-factory-runtime.v1",
+    "files": 1481,
+    "manifest_sha256": "add9516ba8a29ca00a4e7e5e37886c53343cc56ca33b6a23bc95343fe87c8ea6",
+    "build_id": "iXExj2XIH41Uc9rTxy1XU",
+    "forbidden_entries": 0,
+    "external_symlinks": 0
+  },
+  "production_source_sha256": "56cdf249e66c67e2e6efca4131db89b84e84d2371e103eac4f80cff917f63d37",
+  "test_only": true,
+  "temporary_storage": true,
+  "elapsed_ms": 25687,
+  "result": {
+    "status": "PASS",
+    "checks": [
+      "exact health identity",
+      "packaged authenticated service readiness and pinned Graph",
+      "anonymous API denied",
+      "public discovery endpoints exclude private resources and preview indexing",
+      "unknown route returns semantic custom 404 without authentication or reflected identifiers",
+      "public login metadata, trusted canonical and generated 1200x630 social image",
+      "FIRMES Caballito favicon and app icons are publicly discoverable and byte-exact",
+      "original hero loads actual bundled image bytes with descriptive alternative text",
+      "hero motion pauses on demand, reduced motion and simulated hidden-document visibility",
+      "mobile hero and accessible sign-in remain ordered with no horizontal overflow",
+      "login and honest empty dashboard",
+      "private dashboard has generic page title and no indexing or canonical identity",
+      "quick create without tenants offers only workspace onboarding",
+      "single-brand create menu goes directly to creation modes without a redundant brand submenu",
+      "workspace onboarding and authority-separated sources",
+      "reference proof upload and end-user creative style",
+      "explicit tenant mascot source binding",
+      "running production lands in a joyful truthful creation room with a visible video destination, verified-stage percentage and non-overlapping desktop utility row",
+      "Guided continue auto-saves before preview and still requires explicit approval",
+      "exact four-video natural-language request strategies",
+      "asynchronous real pinned Graph reaches creative human gate",
+      "SSE progression and visibly marked deterministic provider fixture",
+      "hash-bound release and authenticated downloadable artifact",
+      "authenticated video byte ranges and browser preview seeking",
+      "released version visibly shows approved hashes, reviewer and actual provider provenance",
+      "release library",
+      "release library details and actual browser download match approved master hash",
+      "mobile release details and hash provenance fit the 390px viewport",
+      "tenant switching keeps plans separate",
+      "responsive mobile navigation and no horizontal overflow",
+      "quick create keyboard submenu and Escape restore focus",
+      "quick create keyboard selection navigates to the existing tenant simple creation flow",
+      "safe diagonal pointer path preserves the intended submenu across sibling rows",
+      "touch opens a submenu and navigates without hover or horizontal overflow",
+      "real request loading retains accessible status and pauses decorative orb for reduced motion and simulated hidden visibility",
+      "no uncaught browser errors"
+    ],
+    "job_id": "mf_53cf6ded8f70013d7e56bb80665a1fca",
+    "release_candidate_sha": "4a9987e7f0cfa0c196dd18b884d0d3d286034fa77a47fc6f059851eb63c86688",
+    "artifact_sha256": "0fe5ea45fda5a9cadb8ce1e623c0db288ca849b1d53415539fd8aa4d682c9af1",
+    "download_sha256": "0fe5ea45fda5a9cadb8ce1e623c0db288ca849b1d53415539fd8aa4d682c9af1",
+    "release_id": "release_619e735de67ab6ee983ea0c1",
+    "provider": "deterministic-test",
+    "media_responses": [
+      {
+        "status": 206,
+        "range": "bytes=0-",
+        "content_range": "bytes 0-2300/2301"
+      }
+    ],
+    "seeking": {
+      "duration": 1,
+      "target": 0.5,
+      "current_time": 0.5,
+      "ready_state": 4,
+      "error": null
+    }
+  },
+  "evidence_directory": "/tmp/media-factory-browser-e2e-WWpKu4"
+}

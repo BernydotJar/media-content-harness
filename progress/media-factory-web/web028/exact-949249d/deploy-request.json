@@ -1,0 +1,7 @@
+{
+  "product_key": "media-factory",
+  "reconcile_request_id": "87a0ac14-5072-478a-836c-0a42a2b93bd8",
+  "desired_release_sha": "949249d9aa9604c3c3645b76600845e6f8178a83",
+  "reconciliation_state": "pending",
+  "hostname": "media-factory.textilesdemedellin.com"
+}

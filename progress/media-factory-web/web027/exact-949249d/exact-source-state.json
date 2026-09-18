@@ -1,0 +1,359 @@
+{
+  "commit": "949249d9aa9604c3c3645b76600845e6f8178a83",
+  "working_tree_dirty": true,
+  "source_sha256": "56cdf249e66c67e2e6efca4131db89b84e84d2371e103eac4f80cff917f63d37",
+  "manifest": [
+    {
+      "path": "app/[[...segments]]/page.tsx",
+      "sha256": "4eb472d3644574c8f94406de774c8df356ca5b7aa21390ff64008b55a83c6066"
+    },
+    {
+      "path": "app/api/preview/[...path]/route.ts",
+      "sha256": "f1f3527348e37047793fab5437e1d833abcf393a5d4b84c38403d0ac45b14e13"
+    },
+    {
+      "path": "app/api/v1/[...path]/route.ts",
+      "sha256": "8fbf520b7c55866732b6f280b308c89ab56d58956d219a027e7d9e17211559b8"
+    },
+    {
+      "path": "app/apple-icon.png",
+      "sha256": "4dc18cb22df791c17db1881e8e89e9ddb493e0c36db1f510975be16c80e55f76"
+    },
+    {
+      "path": "app/error.tsx",
+      "sha256": "e8fbb8fc95fd2ff56d765ca6308159926d4b747bdf6c36cb83a455cfa1573e05"
+    },
+    {
+      "path": "app/favicon.ico",
+      "sha256": "61529902e260f70ffbcf78447932c5baeb880619859bec2776dfdf41b74be859"
+    },
+    {
+      "path": "app/globals.css",
+      "sha256": "5aebdca665b6245992a0cbb8e2595bdd980422a42f6ff7ed342cdd2344b60046"
+    },
+    {
+      "path": "app/health/route.ts",
+      "sha256": "63d5001c0ffede2a944acc90da8ed8d758405c1afceaf0979b840ce195c0540d"
+    },
+    {
+      "path": "app/icon.png",
+      "sha256": "6720c20cb501f452886352b7e6b88e3dd548148ec86c5673db9f5ffb24c69f48"
+    },
+    {
+      "path": "app/layout.tsx",
+      "sha256": "122ba1b68a7921fec83ed204173bcb91dc8d9a2e1d66eac62521cf4ff4dba286"
+    },
+    {
+      "path": "app/llm.txt/route.ts",
+      "sha256": "dd22ba5b06e6036bad3c8f22e3a881da3234f23c2e48766db55ed054faa155e5"
+    },
+    {
+      "path": "app/llms.txt/route.ts",
+      "sha256": "a7259ad2338a4359640f8eada73e38f7dbe0b463085f083da86858fefdc107fc"
+    },
+    {
+      "path": "app/not-found.tsx",
+      "sha256": "3981a4b0c06d07dc988be1fff6edf711301bb6787a83f209a3895c63c57cfb44"
+    },
+    {
+      "path": "app/opengraph-image/route.ts",
+      "sha256": "995a398726919d96314f2d909e29ef10441c22cbb27836239f87bb63797b8023"
+    },
+    {
+      "path": "app/robots.ts",
+      "sha256": "648ae9058cb6985466915a95b8cb6a004ebd7dc5f4197a1b13aff00822a7b2ae"
+    },
+    {
+      "path": "app/sitemap.ts",
+      "sha256": "57b3e3dc6a69e58a92a07692c44dc396131fc3ca958a69e12c6656a1d44e6f1e"
+    },
+    {
+      "path": "assets/media-factory-hero.webp",
+      "sha256": "3c478e2f764c37a605092db2fc528431be23dda219c7a6d21841f220e732b406"
+    },
+    {
+      "path": "assets/media-factory-og.png",
+      "sha256": "080c7262f16a947da959362480261851c050b3b5f1c79f5305bf9f0778a9d57d"
+    },
+    {
+      "path": "assets/media-factory-social.jpg",
+      "sha256": "4aeece7f3b290fc3b67504b328119a57291d056d33892931b7b6fad83662148d"
+    },
+    {
+      "path": "components/CreationGuide.tsx",
+      "sha256": "be9713736aed3705edcac58404a2e6ef4bbe446aef8a6225c295f668b70f42ce"
+    },
+    {
+      "path": "components/CreativeActivity.module.css",
+      "sha256": "431bbaefe0d7e94f743f0e904cc3cda6158c21d2f097ddd72f216564f1ff491f"
+    },
+    {
+      "path": "components/CreativeActivity.tsx",
+      "sha256": "8ab31bc37fd0d20d5d0116e630b400a0c547940d8824b0faab480195e659afeb"
+    },
+    {
+      "path": "components/CreativeProfiles.tsx",
+      "sha256": "9cabb1bb5cdcb2703b0e40d5ab23a6ac45daec3666bb9d901e039fab76e646fc"
+    },
+    {
+      "path": "components/ExternalGenerationPanel.tsx",
+      "sha256": "6c14cffc98cfde77a4845e8d9e4e5a63b246157cc8ee3cf3ddf5f7b07e931c4e"
+    },
+    {
+      "path": "components/FirmesBrand.tsx",
+      "sha256": "eca13784358be1bc809e2540f7367046c1b8ec5980b363f18288a16686c7a8d5"
+    },
+    {
+      "path": "components/Integrations.tsx",
+      "sha256": "a175019bcb4abede62be485244c0be5e888a0bc0e44435e0855aac6254a15348"
+    },
+    {
+      "path": "components/QuickCreate.module.css",
+      "sha256": "550ba8f953e1c6e622abc8f201a8c76c495c9b7ce3e6230b214490775eaf322d"
+    },
+    {
+      "path": "components/QuickCreate.tsx",
+      "sha256": "9aa40e7fc6a152a26b2b157a84a8fb0dfcefed9db6850a884bf728f1023ec9ff"
+    },
+    {
+      "path": "components/SceneBuilder.module.css",
+      "sha256": "e992e84f58fe45cd4a37372c5206d510232510abea57e6ce3452b63900593b4a"
+    },
+    {
+      "path": "components/SceneBuilder.tsx",
+      "sha256": "731ba422caa0a0f802805ead7608af01a1c223c2241b9d2b373f8509451e20dc"
+    },
+    {
+      "path": "components/StudioEntry.module.css",
+      "sha256": "5c35a0d2ebe8910134687d29f6844b95775acb53680c3aae7d0ae4b697b73086"
+    },
+    {
+      "path": "components/StudioEntry.tsx",
+      "sha256": "4c93801f45dc2266acc07925dd499348a6abcec5211f283b7882da8f55c0cbbe"
+    },
+    {
+      "path": "components/jobs.tsx",
+      "sha256": "03792fd45c23cb698576c62b13016ffc51ac2691886f74e307498530ba05296a"
+    },
+    {
+      "path": "components/library.tsx",
+      "sha256": "74ac0cd7a2ea4cc349f653071c51dc31c05d48898664a61ae7eed92ebb9a8297"
+    },
+    {
+      "path": "components/planner.tsx",
+      "sha256": "af1a4bc5fe48407202c0b240de44571f1d7ff93d66f74c08d6b72a08286dd3f7"
+    },
+    {
+      "path": "components/studio.tsx",
+      "sha256": "0b6909f0b10ca49879557e9f55d6f1e9c59b55ce1938df2323f362deeb8e6304"
+    },
+    {
+      "path": "components/ui.tsx",
+      "sha256": "75348be9776a5074d39da8f213e98044574bf18d60919c0dbb6fef4e6d5f5461"
+    },
+    {
+      "path": "components/workspace.tsx",
+      "sha256": "dcd7fd105fd2e890d4c0d4f7df5e696d9c5a3b92711d4e78e63c74e5cbf38713"
+    },
+    {
+      "path": "config/brand-assets/firmes-caballito.png",
+      "sha256": "b17c55ffb0eec46bfa719128ee68a9f18475c45afb90d6d73ce9d82567938397"
+    },
+    {
+      "path": "config/brand-assets/firmes-caballito.provenance.json",
+      "sha256": "3441863102837d8d8f63d4899437662bedbbe1a522293d89902ac86a2d237433"
+    },
+    {
+      "path": "config/upstreams.json",
+      "sha256": "491cbe81fda0541539354b5da5021ab32023988b1c7d85cf20417c18af97b06f"
+    },
+    {
+      "path": "instrumentation.ts",
+      "sha256": "682e58e7c03249d18aee5616558a212dad11d4100a96792b313b2aa4266223fa"
+    },
+    {
+      "path": "next.config.mjs",
+      "sha256": "74a17a39182f237ba04e5f31e171ccd750a89991dc3f91dbab5d7d7ba3848e6e"
+    },
+    {
+      "path": "package.json",
+      "sha256": "51ebae26e451fc6bf4ddd426e14af5b4cb215ccce69aff3649aa277c2c9727f2"
+    },
+    {
+      "path": "plugins/avatar-system-mcp.mjs",
+      "sha256": "b0d8b9285e8aebf5ad97e87d2ad983ac672832c70c3c8debf43a0f502b198656"
+    },
+    {
+      "path": "plugins/media-browser-policy.mjs",
+      "sha256": "370f24e7df11581518314802a657948c70f17c6ced602056b69fd0925c983446"
+    },
+    {
+      "path": "plugins/media-foundation.mjs",
+      "sha256": "22c082054125367c7b149c9f063fe8636a7fadf6597e838e94977466bb253afb"
+    },
+    {
+      "path": "plugins/media-graph.mjs",
+      "sha256": "4e30c61a7d704ee565a68f63cfe4646d152077f26085d3f4be2bbabe3e46278c"
+    },
+    {
+      "path": "plugins/media-seedance-policy.mjs",
+      "sha256": "07b953234c86c09ee3f55957beb3ba595da76516d9d9e10984296e486ba0c036"
+    },
+    {
+      "path": "plugins/media-tenant-profile.mjs",
+      "sha256": "5bc6f3238afef834a902ddcb427d4b18c8c09cc59aee0b8def27f86c72b49c3a"
+    },
+    {
+      "path": "plugins/media-weekly-factory.mjs",
+      "sha256": "36ecb74f5587fffb65f424d845d659bf63e18f21bccdb6261113b5575410c218"
+    },
+    {
+      "path": "pnpm-lock.yaml",
+      "sha256": "cd3046725222c734208abe031078b404e2e97bcfeb314479ca9abded0ed84fb8"
+    },
+    {
+      "path": "pnpm-workspace.yaml",
+      "sha256": "1c527386e88fb3bee231b9b65884435526b62ebc02baf033fcd27a5b2883b51c"
+    },
+    {
+      "path": "schemas/content-dna.schema.json",
+      "sha256": "d24ce97373bc0ebb9734d8301d29148d92066d49b7565ffd67e6a6c4e3b89f18"
+    },
+    {
+      "path": "schemas/media-treatment.schema.json",
+      "sha256": "4040b343944c00666cbb3841dfd63f2116e9eebd35ce154c6f7fbf3c6992aaf7"
+    },
+    {
+      "path": "schemas/reference-observation.schema.json",
+      "sha256": "7fb9e856aae4a8ed245a560059fb0819acabf8a7ff96142d4ac4a81007295272"
+    },
+    {
+      "path": "schemas/synthetic-media-record.schema.json",
+      "sha256": "95ce85bc4c365880ebb295e565c159d163960091c9e327d9f41eafa69d967353"
+    },
+    {
+      "path": "schemas/tenant-media-profile.schema.json",
+      "sha256": "533ec88e339ddbcc1ba903d497cdda3102e1dfaeb4ff8ddf8ea1cd5ae2791a96"
+    },
+    {
+      "path": "schemas/weekly-production-plan.schema.json",
+      "sha256": "fea88fd310ecd5f8146bb91d741c4a218aad02a5aa639156434c4e07f09814d6"
+    },
+    {
+      "path": "scripts/build-web.mjs",
+      "sha256": "9c490ea7d60341880ec6822503be42ca66010234f7615183ed319adc53cb2f71"
+    },
+    {
+      "path": "scripts/prepare-runtime.mjs",
+      "sha256": "ed43e104be117b3ebbed7d11f79ad4a8dd79686c8c6ac5848fa6f92821a5cbc5"
+    },
+    {
+      "path": "scripts/web-source-state.mjs",
+      "sha256": "602a879af22534cf49ed3f390ce57346d1c28d9550e4a30d0cef5c6c210c61e4"
+    },
+    {
+      "path": "server/auth.mjs",
+      "sha256": "ffa218153b6e82db6fa772a8c464f823772a5bf71b98371967d986209c64e4a4"
+    },
+    {
+      "path": "server/avatar-system.mjs",
+      "sha256": "05015ae7570393290577c662868c3c25f49eb0900f37df81650317dbeb09f666"
+    },
+    {
+      "path": "server/brand-assets.mjs",
+      "sha256": "113a98abb58106cd7dfb5995a3a18458bb994e6aeb14084948ba55fa755ce7fe"
+    },
+    {
+      "path": "server/contracts.mjs",
+      "sha256": "ab71fbc299c729ba3ae75467b621697a69c2322ee68f2d09a1e70b4fd5f2e753"
+    },
+    {
+      "path": "server/creation-support.mjs",
+      "sha256": "00ec5ac038ee0c3c456ca6af0d4af64f2e388641aa93d08933fcc0c98ae83bed"
+    },
+    {
+      "path": "server/errors.mjs",
+      "sha256": "18a4984d211d7e9ef38986e860534e29c02c7b2cf7aa57456d66daa3c34dafd3"
+    },
+    {
+      "path": "server/execution.mjs",
+      "sha256": "f81c8b88f6c2cb5748b34ffe8f487a292b8a96c987232a1bc5dae9ac3bbc5f92"
+    },
+    {
+      "path": "server/external-generation-execution.mjs",
+      "sha256": "60d38ed6bbee85465faead37c25a9554b548bbe432f8e4e256525364898da2ab"
+    },
+    {
+      "path": "server/host-preview.mjs",
+      "sha256": "ce8ba648a51b578dc3a1dfd60c22a75ce03cf8a51219c662451e411f440b8a73"
+    },
+    {
+      "path": "server/http.mjs",
+      "sha256": "8a35c5b186f5c587f5809f922f20e969b6742f5623d07343564600429a2ef890"
+    },
+    {
+      "path": "server/integration-vault.mjs",
+      "sha256": "2032af1e93dfe3c120b37d039106daf8a5600ea9de24fbbc9ca42ebb46c9f46b"
+    },
+    {
+      "path": "server/intent.mjs",
+      "sha256": "87c25bbfc356f8870d4817c7827b7a5d3665a23d79b8b0375d0815c2c6a07387"
+    },
+    {
+      "path": "server/media-projection.mjs",
+      "sha256": "c4c2ce7976f4c294707ae8f9a8e4f3dc4503726507633f97bd91f34bb8739b5c"
+    },
+    {
+      "path": "server/providers.mjs",
+      "sha256": "eaa62fc92543ba37eb7ba10c96a364da1bb25da6cdc7ce37e99b9554f6b8a60c"
+    },
+    {
+      "path": "server/repository.mjs",
+      "sha256": "d3eb1b6ad9299f7e742e1589cb9c4037445bf13a9683d3495cd8704e1751c878"
+    },
+    {
+      "path": "server/scene-generation.mjs",
+      "sha256": "9496f25cbf5133acd6ad8df1d69cb447f1e66c41bc5f90142dddf5e8d4e8cfef"
+    },
+    {
+      "path": "server/scene-review-routing.mjs",
+      "sha256": "941ec5995a0c7e53ea2eeefd66ad895811366cd58b841af5cedee1f3d9b70749"
+    },
+    {
+      "path": "server/scene-support.mjs",
+      "sha256": "404e688ceec62c7a8c371ce8c86dd433d26adb54d831d3c6d13bd7dd9321b379"
+    },
+    {
+      "path": "server/services.mjs",
+      "sha256": "7d2b1dbd80720514533c3fee48bbeb23dbefe84071a6332550eacd41a6c649ed"
+    },
+    {
+      "path": "server/singleton.mjs",
+      "sha256": "933c61682032dfcbd2c0fcf567a4a56a80c2f4d79c11ec0187bfc5d03007cce3"
+    },
+    {
+      "path": "server/site-metadata.mjs",
+      "sha256": "cd6c0d53b2012411e706e6c9de32c165e1d944d76a086feb3d50b2db99653d66"
+    },
+    {
+      "path": "server/social-image.tsx",
+      "sha256": "f637658e6c761bc9b6b081369cc00dd0ce555ff3845c2756af9f75d10e845cde"
+    },
+    {
+      "path": "server/worker-adapters.mjs",
+      "sha256": "98a586080b78af5edbda04612070dcdbd17bb0917fb961bf82b3a87ce4699e64"
+    },
+    {
+      "path": "server/worker-lock.mjs",
+      "sha256": "5565b67f2fc80bc50dcbf318c0b873bbbeead1b8c8f2f2d46111b8778a29a20e"
+    },
+    {
+      "path": "server/worker-policy.mjs",
+      "sha256": "3b94312aa426d484550b4ca749b7cfcbafb21d85a3915f8ae40e0dcf4ab71f17"
+    },
+    {
+      "path": "tsconfig.json",
+      "sha256": "d07c7d477d8493c526e814cf448001d8fd2f7e8594fd044fcbb9bfdcba8fcde0"
+    }
+  ]
+}

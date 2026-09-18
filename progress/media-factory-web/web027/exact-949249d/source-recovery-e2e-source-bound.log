@@ -1,0 +1,33 @@
+{
+  "candidate_sha": null,
+  "working_tree_dirty": true,
+  "production_source_sha256": "56cdf249e66c67e2e6efca4131db89b84e84d2371e103eac4f80cff917f63d37",
+  "build_id": "iXExj2XIH41Uc9rTxy1XU",
+  "runtime_package": {
+    "format": "media-factory-runtime.v1",
+    "files": 1481,
+    "manifest_sha256": "add9516ba8a29ca00a4e7e5e37886c53343cc56ca33b6a23bc95343fe87c8ea6",
+    "build_id": "iXExj2XIH41Uc9rTxy1XU",
+    "forbidden_entries": 0,
+    "external_symlinks": 0
+  },
+  "test_mode": false,
+  "deployment_class": "controlled_single_operator_preview",
+  "source_fixture_sha256": "c1504301d3615a1a577a7fe0406ec6509de2bbe0adb05f6271211f46a0126000",
+  "elapsed_ms": 8594,
+  "result": {
+    "status": "PASS",
+    "job_id": "mf_e4063079efe6c3bb21cabee9ea388717",
+    "source_sha256": "c1504301d3615a1a577a7fe0406ec6509de2bbe0adb05f6271211f46a0126000",
+    "checks": [
+      "Production reaches a real SOURCE_BYTES_REQUIRED blocker with the exact missing authorized source id.",
+      "Job route resolves the FIRMES shell with burgundy as the primary accent.",
+      "Blocked job keeps FIRMES identity while presenting one simple recovery action and hiding technical detail by default.",
+      "CTA lands on the exact missing source card, preserving FIRMES V2 context.",
+      "Uploading the exact authorized bytes resumes the same Graph and freezes the source SHA into the job snapshot.",
+      "Resumed FIRMES job remains usable on a 390px mobile viewport with a four-step user journey and no horizontal overflow.",
+      "prefers-reduced-motion disables continuous FIRMES Gooey animation on branded workspace pages."
+    ]
+  },
+  "evidence_directory": "/tmp/media-factory-v2-source-Ue8KSR"
+}

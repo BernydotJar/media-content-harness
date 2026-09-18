@@ -1,0 +1,25 @@
+{
+  "exact_commit": "949249d9aa9604c3c3645b76600845e6f8178a83",
+  "exact_source_sha256": "56cdf249e66c67e2e6efca4131db89b84e84d2371e103eac4f80cff917f63d37",
+  "working_tree_clean": false,
+  "mutable_e2e_binding": [
+    {
+      "artifact": "browser-e2e-result.json",
+      "e2e_source_sha256": "56cdf249e66c67e2e6efca4131db89b84e84d2371e103eac4f80cff917f63d37",
+      "exact_source_sha256": "56cdf249e66c67e2e6efca4131db89b84e84d2371e103eac4f80cff917f63d37",
+      "match": true
+    },
+    {
+      "artifact": "firmes-e2e-result.json",
+      "e2e_source_sha256": "56cdf249e66c67e2e6efca4131db89b84e84d2371e103eac4f80cff917f63d37",
+      "exact_source_sha256": "56cdf249e66c67e2e6efca4131db89b84e84d2371e103eac4f80cff917f63d37",
+      "match": true
+    },
+    {
+      "artifact": "source-recovery-e2e-result.json",
+      "e2e_source_sha256": "56cdf249e66c67e2e6efca4131db89b84e84d2371e103eac4f80cff917f63d37",
+      "exact_source_sha256": "56cdf249e66c67e2e6efca4131db89b84e84d2371e103eac4f80cff917f63d37",
+      "match": true
+    }
+  ]
+}
