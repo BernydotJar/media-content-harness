@@ -1,29 +1,29 @@
 {
-  "candidate_sha": null,
-  "working_tree_dirty": true,
-  "production_source_sha256": "c8ae6138e0ee45dc48a87ded7fe1bbdbaea721196c48b4ae335c5d3d9fe8b248",
-  "build_id": "iGYGrj80zk85ZoXcVYsb-",
+  "candidate_sha": "bea463461e518ff2928c52cd968dbe69e892de85",
+  "working_tree_dirty": false,
+  "production_source_sha256": "116074586154e7214ea3e6f104ba3348c727ef7910e9a7110d14890f48a1c430",
+  "build_id": "FRQiFJobFHZyIhtDbZgym",
   "runtime_package": {
     "format": "media-factory-runtime.v1",
     "files": 1481,
-    "manifest_sha256": "c327be60661557c3cd2692f0648a7375cde8fcee598c41d8c9680b028548c965",
-    "build_id": "iGYGrj80zk85ZoXcVYsb-",
+    "manifest_sha256": "5f1bfff046e079bb206e77ab6c2f5539631d49857717249cfa70437449876c21",
+    "build_id": "FRQiFJobFHZyIhtDbZgym",
     "forbidden_entries": 0,
     "external_symlinks": 0
   },
   "test_mode": false,
   "deployment_class": "controlled_single_operator_preview",
-  "elapsed_ms": 21024,
+  "elapsed_ms": 21409,
   "result": {
     "status": "PASS",
-    "job_id": "mf_scene_ff8e1642e17df55e704a8a21508c",
-    "release_id": "release_5a88d552f844223e5dd82c2e",
+    "job_id": "mf_scene_71e76c47c9872b2991f1a7771a33",
+    "release_id": "release_0eca178a3acf8b12debbe44c",
     "artifact_sha256": "b05193935207058e1c1bf30ce37849245f886b36f0195e1b1aee6fba428a0b3d",
     "approved_hero_sha256": "28de0345ff8ffd02a368631bbd5052d01f475b514964c50b73aa766c410a4f63",
     "generation_attempt_count": 3,
     "scene_provenance": {
       "tenant_id": "firmes-scene",
-      "job_id": "mf_scene_ff8e1642e17df55e704a8a21508c",
+      "job_id": "mf_scene_71e76c47c9872b2991f1a7771a33",
       "job_revision": 6,
       "character_id": "brand_character_firmes_caballito_v1",
       "character_asset_id": "brand_asset_firmes_caballito_v1",
@@ -151,7 +151,7 @@
       "final_prompt_sha256": "d53233b9fb25c7696ccc2611f4473e04b248084400a67349fd8f705da488f81d",
       "operator_override_sha256": null,
       "tenant_brand_profile_version": 1,
-      "generation_attempt_id": "gen_9635761d-949d-4627-8986-24b6055b701d",
+      "generation_attempt_id": "gen_ce724dfa-3d93-437b-b8f0-cebc649cd05d",
       "generation_adapter_id": "manual-external",
       "provider_model": null,
       "generation_request_sha256": "22544b3dec8d8b9a40b6687ecb0e2e3fc296b084aa7b90b3219a61509e0f07a7",
@@ -179,20 +179,20 @@
         "prompt_sha256": "d53233b9fb25c7696ccc2611f4473e04b248084400a67349fd8f705da488f81d",
         "approved_candidate_sha": "56e7a15ee2d801f164e10892b1f84dc23b62dd2144af770b667d9338badb08b3",
         "approved_by": "scene-critic",
-        "approved_at": "2026-09-18T18:34:04.172Z"
+        "approved_at": "2026-09-18T18:16:55.413Z"
       },
       "result_sha256": "b05193935207058e1c1bf30ce37849245f886b36f0195e1b1aee6fba428a0b3d",
       "critic_decision": {
         "stage": "CRITIC",
         "candidate_sha": "e0a6ee91314022e9998406d3a7273b77dafac7db0a3ad47bf6045718a687b696",
         "actor": "scene-critic",
-        "created_at": "2026-09-18T18:34:07.981Z"
+        "created_at": "2026-09-18T18:16:59.587Z"
       },
       "verifier_decision": {
         "stage": "INDEPENDENT_VERIFIER",
         "candidate_sha": "e0a6ee91314022e9998406d3a7273b77dafac7db0a3ad47bf6045718a687b696",
         "actor": "scene-verifier",
-        "created_at": "2026-09-18T18:34:10.001Z"
+        "created_at": "2026-09-18T18:17:01.886Z"
       }
     },
     "checks": [
@@ -206,5 +206,6 @@
       "La hero aprobada por Critic queda fijada por SHA como entrada explícita del video.",
       "Critic, verifier y release conservan el hash del video final; la hero aprobada permanece como input trazable y no hay publicación automática."
     ]
-  }
+  },
+  "evidence_directory": "/tmp/media-factory-scene-e2e-Eig63b"
 }

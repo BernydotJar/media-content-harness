@@ -1,0 +1,29 @@
+{
+  "reviewed_sha": "bea463461e518ff2928c52cd968dbe69e892de85",
+  "verdict": "FAIL",
+  "material_findings": [
+    {
+      "id": "F1",
+      "severity": "medium",
+      "summary": "Custom role=radio buttons lack native radio keyboard semantics"
+    },
+    {
+      "id": "F2",
+      "severity": "release-blocking",
+      "summary": "Exact ease browser E2E retains stale pre-autosave assertion"
+    }
+  ],
+  "evidence_sha256": {
+    "critic-bea4634.md": "a7355b62e4316384cb267586e392d5d7c345c96f3333951b9e784803ae683a45",
+    "exact-bea4634/full-tests.log": "4ec652a359222785437c7c0c64a6b2bd759a93f016a43c95a45a6065c75aee7f",
+    "exact-bea4634/typecheck.log": "8366207267355d3e3d5bf3bf6e8c94c5f93f6078c34f08973fa2b38cdda6cc92",
+    "exact-bea4634/build.log": "4521d0e88d739617139a54905d51acc96dfd0052efc0582cff64169a52345954",
+    "exact-bea4634/contracts.log": "a108e14e1de481fe691e62cb9327a0c5417ccdbf6e1cc7e38ec7f3913fe63f78",
+    "exact-bea4634/audit.log": "15950a68a7ed99c59779717acefdceb3f69cfd31bde67d2c954f2a3cea4d7955",
+    "exact-bea4634/human-review-static.log": "9527d1ef861505f4d59e86a3b1d403d025e5ff241e01ced057d047909382eea8",
+    "exact-bea4634/browser-e2e.log": "42f8283fcb296465ffeac22e83689969561d310feab7b72284a643db860c8cdc",
+    "exact-bea4634/firmes-e2e.log": "94fb803a4fc82be6c3e5dada982852f88c92866051e6e7285f079feddb2880b8",
+    "exact-bea4634/scene-e2e.log": "f1eea7dfa4991ded4cb4e544d176ef9b0ad421bf15b5c3eada1c5c7f2b5de4f5",
+    "exact-bea4634/ease-e2e-fail.log": "7c4f7a0199ed2ee0c736a8ec2e9b607dea54ae2e3218d20b14400507731b15e4"
+  }
+}

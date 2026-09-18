@@ -30,7 +30,8 @@ const port = reservation.address().port
 await new Promise(resolve => reservation.close(resolve))
 const origin = `http://127.0.0.1:${port}`
 const sha = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim()
-const env = { ...process.env, NODE_ENV: 'production', MEDIA_FACTORY_DATA_ROOT: dataRoot, MEDIA_FACTORY_IDENTITY_FILE: identityFile, MEDIA_FACTORY_PUBLIC_ORIGIN: origin, MEDIA_FACTORY_RELEASE_SHA: sha, MEDIA_FACTORY_DEPLOYMENT_CLASS: 'test', MEDIA_FACTORY_TEST_MODE: '1', NEXT_TELEMETRY_DISABLED: '1' }
+const graphRuntimeRoot=process.env.GRAPH_HARNESS_RUNTIME_ROOT||'/home/agent/.cache/media-content-harness/graph-harness-sdlc'
+const env = { ...process.env, NODE_ENV: 'production', MEDIA_FACTORY_DATA_ROOT: dataRoot, MEDIA_FACTORY_IDENTITY_FILE: identityFile, MEDIA_FACTORY_PUBLIC_ORIGIN: origin, MEDIA_FACTORY_RELEASE_SHA: sha, MEDIA_FACTORY_DEPLOYMENT_CLASS: 'test', MEDIA_FACTORY_TEST_MODE: '1', GRAPH_HARNESS_RUNTIME_ROOT: graphRuntimeRoot, NEXT_TELEMETRY_DISABLED: '1' }
 // Host identity must not bleed into an isolated browser verification run.
 for (const key of ['MEDIA_FACTORY_OPERATOR_USERNAME', 'MEDIA_FACTORY_OPERATOR_PASSWORD_VERIFIER']) delete env[key]
 const runtimeDirectory=join(temp,'runtime')

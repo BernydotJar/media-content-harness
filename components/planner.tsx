@@ -76,14 +76,20 @@ function StoryEditor({ tenantId, stories, update, sources, devices, providers, p
     <div className="character-choice-block">
      <span className="field-label">Personaje de la historia</span>
      <div className="character-choice-grid" role="radiogroup" aria-label={'Personaje de historia '+(i+1)}>
-      <button type="button" role="radio" aria-checked={!s.mascot&&!s.character_id} className={'character-choice '+(!s.mascot&&!s.character_id?'selected':'')} onClick={()=>patch(s.id,{mascot:false,character_id:null})}>
+      <label className={'character-choice '+(!s.mascot&&!s.character_id?'selected':'')}>
+       <input type="radio" name={'story-character-'+s.id} checked={!s.mascot&&!s.character_id} onChange={()=>patch(s.id,{mascot:false,character_id:null})} aria-label={'Sin personaje en historia '+(i+1)}/>
        <span className="character-choice-visual empty-character"><Icon name="spark"/></span><span><strong>Sin personaje</strong><small>La historia funciona solo con el material.</small></span>
-      </button>
-      {(defaultMascotAssetId||principal)&&<button type="button" role="radio" aria-checked={defaultSelected} className={'character-choice mascot-choice '+(defaultSelected?'selected':'')} aria-label={'Usar '+defaultMascotName+' en historia '+(i+1)} onClick={()=>patch(s.id,{mascot:true,character_id:principal?.id||null})}>
+      </label>
+      {(defaultMascotAssetId||principal)&&<label className={'character-choice mascot-choice '+(defaultSelected?'selected':'')}>
+       <input type="radio" name={'story-character-'+s.id} checked={defaultSelected} onChange={()=>patch(s.id,{mascot:true,character_id:principal?.id||null})} aria-label={'Usar '+defaultMascotName+' en historia '+(i+1)}/>
        <span className="character-choice-visual">{mascotImage?<img src={mascotImage} alt={'Avatar autorizado de '+defaultMascotName}/>:<Icon name="spark"/>}</span><span><strong>{defaultMascotName}</strong><small>Mascota autorizada de la marca</small><em>Autorizado</em></span>
-      </button>}
+      </label>}
+      {additionalProfiles.length>0&&<label className={'character-choice '+(otherSelected?'selected':'')}>
+       <input type="radio" name={'story-character-'+s.id} checked={otherSelected} onChange={()=>patch(s.id,{character_id:additionalProfiles[0]?.id||null,mascot:Boolean(additionalProfiles[0])})} aria-label={'Usar otro personaje en historia '+(i+1)}/>
+       <span className="character-choice-visual"><Icon name="grid"/></span><span><strong>Otro personaje</strong><small>Elige otra ficha autorizada.</small></span>
+      </label>}
      </div>
-     {additionalProfiles.length>0&&<Field label="Otro personaje"><select value={otherSelected?s.character_id:''} onChange={e=>patch(s.id,{character_id:e.target.value||null,mascot:!!e.target.value})}><option value="">Elegir otro personaje</option>{additionalProfiles.map(p=><option key={p.id} value={p.id}>{p.name}</option>)}</select></Field>}
+     {otherSelected&&additionalProfiles.length>0&&<Field label="Otro personaje"><select value={s.character_id||''} onChange={e=>patch(s.id,{character_id:e.target.value||null,mascot:!!e.target.value})}>{additionalProfiles.map(p=><option key={p.id} value={p.id}>{p.name}</option>)}</select></Field>}
     </div>
     <Field label="Lugar de la historia"><select value={s.place_id||''} onChange={e=>patch(s.id,{place_id:e.target.value||null})}><option value="">Sin ficha de lugar</option>{items(profiles.data).filter(p=>p.kind==='place').map(p=><option key={p.id} value={p.id}>{p.name}</option>)}</select></Field>
    </div>
