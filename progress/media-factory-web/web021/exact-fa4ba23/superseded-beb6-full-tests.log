@@ -1,0 +1,1290 @@
+TAP version 13
+# Subtest: requires fail-closed read-only policy
+ok 1 - requires fail-closed read-only policy
+  ---
+  duration_ms: 0.6655
+  type: 'test'
+  ...
+# Subtest: authorizes only the explicit source scope
+ok 2 - authorizes only the explicit source scope
+  ---
+  duration_ms: 0.310041
+  type: 'test'
+  ...
+# Subtest: rejects browser mutation and credential-bearing locators
+ok 3 - rejects browser mutation and credential-bearing locators
+  ---
+  duration_ms: 1.313541
+  type: 'test'
+  ...
+# Subtest: sanitizes observations to bounded public evidence fields
+ok 4 - sanitizes observations to bounded public evidence fields
+  ---
+  duration_ms: 3.397541
+  type: 'test'
+  ...
+# Subtest: registers mediaBrowserPolicy through Cordis provide
+ok 5 - registers mediaBrowserPolicy through Cordis provide
+  ---
+  duration_ms: 0.172834
+  type: 'test'
+  ...
+# Subtest: configuration may narrow but never widen the read-only allowlist
+ok 6 - configuration may narrow but never widen the read-only allowlist
+  ---
+  duration_ms: 0.113333
+  type: 'test'
+  ...
+# Subtest: prefix authorization is path-bounded and sensitive locators are rejected
+ok 7 - prefix authorization is path-bounded and sensitive locators are rejected
+  ---
+  duration_ms: 0.504917
+  type: 'test'
+  ...
+# Subtest: fails closed without runtime, pin, or absolute executables
+ok 8 - fails closed without runtime, pin, or absolute executables
+  ---
+  duration_ms: 0.749708
+  type: 'test'
+  ...
+# Subtest: rejects lexical graph path escape before graph command execution
+ok 9 - rejects lexical graph path escape before graph command execution
+  ---
+  duration_ms: 0.293583
+  type: 'test'
+  ...
+# Subtest: rejects canonical symlink escape from projectRoot
+ok 10 - rejects canonical symlink escape from projectRoot
+  ---
+  duration_ms: 4.53475
+  type: 'test'
+  ...
+# Subtest: rejects an events symlink even when its current target is missing
+ok 11 - rejects an events symlink even when its current target is missing
+  ---
+  duration_ms: 0.94825
+  type: 'test'
+  ...
+# Subtest: registers ctx.mediaGraph using Cordis provide()
+ok 12 - registers ctx.mediaGraph using Cordis provide()
+  ---
+  duration_ms: 0.152625
+  type: 'test'
+  ...
+# Subtest: uses argv flag=value framing and optimistic concurrency without a shell
+ok 13 - uses argv flag=value framing and optimistic concurrency without a shell
+  ---
+  duration_ms: 1.937125
+  type: 'test'
+  ...
+# Subtest: omits --evidence when a non-passing gate has no evidence ids
+ok 14 - omits --evidence when a non-passing gate has no evidence ids
+  ---
+  duration_ms: 1.620083
+  type: 'test'
+  ...
+# Subtest: sanitizes git and python environments
+ok 15 - sanitizes git and python environments
+  ---
+  duration_ms: 2.501417
+  type: 'test'
+  ...
+# Subtest: rejects a drifted Graph Harness runtime revision
+ok 16 - rejects a drifted Graph Harness runtime revision
+  ---
+  duration_ms: 0.933125
+  type: 'test'
+  ...
+# Subtest: integration: real Graph Harness exposes BRIEF flow and SOURCE readiness
+ok 17 - integration: real Graph Harness exposes BRIEF flow and SOURCE readiness # SKIP
+  ---
+  duration_ms: 0.417667
+  type: 'test'
+  ...
+# Subtest: reference observation keeps provenance separate from source copy
+ok 18 - reference observation keeps provenance separate from source copy
+  ---
+  duration_ms: 3.402541
+  type: 'test'
+  ...
+# Subtest: content DNA contains abstractions but not reference bytes or locators
+ok 19 - content DNA contains abstractions but not reference bytes or locators
+  ---
+  duration_ms: 1.133459
+  type: 'test'
+  ...
+# Subtest: content DNA provenance references a structured observation from the same tenant
+ok 20 - content DNA provenance references a structured observation from the same tenant
+  ---
+  duration_ms: 1.10925
+  type: 'test'
+  ...
+# Subtest: schemas fail closed on undeclared fields
+ok 21 - schemas fail closed on undeclared fields
+  ---
+  duration_ms: 1.590917
+  type: 'test'
+  ...
+# Subtest: story devices use a controlled abstraction vocabulary
+ok 22 - story devices use a controlled abstraction vocabulary
+  ---
+  duration_ms: 0.641541
+  type: 'test'
+  ...
+# Subtest: accepts the canonical safe Seedance 2.5 policy
+ok 23 - accepts the canonical safe Seedance 2.5 policy
+  ---
+  duration_ms: 0.659708
+  type: 'test'
+  ...
+# Subtest: rejects credit spend without a human gate
+ok 24 - rejects credit spend without a human gate
+  ---
+  duration_ms: 0.179375
+  type: 'test'
+  ...
+# Subtest: rejects synthetic factual-event reconstruction
+ok 25 - rejects synthetic factual-event reconstruction
+  ---
+  duration_ms: 0.072
+  type: 'test'
+  ...
+# Subtest: rejects undeclared synthetic use classes
+ok 26 - rejects undeclared synthetic use classes
+  ---
+  duration_ms: 0.067
+  type: 'test'
+  ...
+# Subtest: accepts a reusable general-audience tenant profile
+ok 27 - accepts a reusable general-audience tenant profile
+  ---
+  duration_ms: 3.360666
+  type: 'test'
+  ...
+# Subtest: rejects raw credentials and browser session material at any depth
+ok 28 - rejects raw credentials and browser session material at any depth
+  ---
+  duration_ms: 0.552625
+  type: 'test'
+  ...
+# Subtest: browser context references are opaque and tenant-owned
+ok 29 - browser context references are opaque and tenant-owned
+  ---
+  duration_ms: 0.3855
+  type: 'test'
+  ...
+# Subtest: runtime namespaces and tenant IDs cannot collide
+ok 30 - runtime namespaces and tenant IDs cannot collide
+  ---
+  duration_ms: 0.653958
+  type: 'test'
+  ...
+# Subtest: public-affairs profiles remain general-audience and cannot enable voter microtargeting
+ok 31 - public-affairs profiles remain general-audience and cannot enable voter microtargeting
+  ---
+  duration_ms: 0.464666
+  type: 'test'
+  ...
+# Subtest: source authorization is explicit, unique, and secret-free
+ok 32 - source authorization is explicit, unique, and secret-free
+  ---
+  duration_ms: 0.532875
+  type: 'test'
+  ...
+# Subtest: production defaults require an ascending positive duration range
+ok 33 - production defaults require an ascending positive duration range
+  ---
+  duration_ms: 0.193583
+  type: 'test'
+  ...
+# Subtest: registers tenant service through Cordis provide
+ok 34 - registers tenant service through Cordis provide
+  ---
+  duration_ms: 0.145083
+  type: 'test'
+  ...
+# Subtest: authorization is semantic only inside a declared source record
+ok 35 - authorization is semantic only inside a declared source record
+  ---
+  duration_ms: 0.497875
+  type: 'test'
+  ...
+# Subtest: two distinct tenants can safely share the reusable engine
+ok 36 - two distinct tenants can safely share the reusable engine
+  ---
+  duration_ms: 1.405042
+  type: 'test'
+  ...
+# Subtest: builds a weekly video-production plan from tenant + DNA + approved stories
+ok 37 - builds a weekly video-production plan from tenant + DNA + approved stories
+  ---
+  duration_ms: 5.865458
+  type: 'test'
+  ...
+# Subtest: production jobs cannot treat a reference-only source as production media
+ok 38 - production jobs cannot treat a reference-only source as production media
+  ---
+  duration_ms: 1.768916
+  type: 'test'
+  ...
+# Subtest: rejects unknown sources and story devices outside Content DNA
+ok 39 - rejects unknown sources and story devices outside Content DNA
+  ---
+  duration_ms: 1.412916
+  type: 'test'
+  ...
+# Subtest: rejects unapproved stories and undeclared story fields
+ok 40 - rejects unapproved stories and undeclared story fields
+  ---
+  duration_ms: 1.28175
+  type: 'test'
+  ...
+# Subtest: rejects cross-tenant DNA and copying-policy drift
+ok 41 - rejects cross-tenant DNA and copying-policy drift
+  ---
+  duration_ms: 1.320916
+  type: 'test'
+  ...
+# Subtest: rejects invalid dates, duplicate job ids, and duplicate source ids
+ok 42 - rejects invalid dates, duplicate job ids, and duplicate source ids
+  ---
+  duration_ms: 1.643625
+  type: 'test'
+  ...
+# Subtest: source snapshot contains only production sources actually used by the weekly jobs
+ok 43 - source snapshot contains only production sources actually used by the weekly jobs
+  ---
+  duration_ms: 1.638542
+  type: 'test'
+  ...
+# Subtest: registers weekly factory through Cordis provide
+ok 44 - registers weekly factory through Cordis provide
+  ---
+  duration_ms: 0.130167
+  type: 'test'
+  ...
+# Subtest: weekly planner requires weekly cadence, Monday boundary, and unique DNA references
+ok 45 - weekly planner requires weekly cadence, Monday boundary, and unique DNA references
+  ---
+  duration_ms: 1.782541
+  type: 'test'
+  ...
+# Subtest: artifact download advertises byte ranges and preserves full-file integrity metadata
+ok 46 - artifact download advertises byte ranges and preserves full-file integrity metadata
+  ---
+  duration_ms: 111.247666
+  type: 'test'
+  ...
+# Subtest: single ranges return exact closed, open-ended and suffix bytes with clamped boundaries
+ok 47 - single ranges return exact closed, open-ended and suffix bytes with clamped boundaries
+  ---
+  duration_ms: 126.855791
+  type: 'test'
+  ...
+# Subtest: invalid and unsatisfiable single byte ranges return bounded 416 responses
+ok 48 - invalid and unsatisfiable single byte ranges return bounded 416 responses
+  ---
+  duration_ms: 209.638042
+  type: 'test'
+  ...
+# Subtest: If-Range requires the strong current ETag; unknown units and multipart fall back to full bytes
+ok 49 - If-Range requires the strong current ETag; unknown units and multipart fall back to full bytes
+  ---
+  duration_ms: 89.36175
+  type: 'test'
+  ...
+# Subtest: range requests enforce fresh session and tenant authorization before revealing metadata
+ok 50 - range requests enforce fresh session and tenant authorization before revealing metadata
+  ---
+  duration_ms: 80.143917
+  type: 'test'
+  ...
+# Subtest: range processing cannot bypass the artifact integrity gate
+ok 51 - range processing cannot bypass the artifact integrity gate
+  ---
+  duration_ms: 90.04725
+  type: 'test'
+  ...
+# Subtest: FIRMES V2 is tenant scoped, manual-derived and reduced-motion safe
+ok 52 - FIRMES V2 is tenant scoped, manual-derived and reduced-motion safe
+  ---
+  duration_ms: 4.830208
+  type: 'test'
+  ...
+# Subtest: FIRMES brand memory binds the exact private reference without shipping it
+ok 53 - FIRMES brand memory binds the exact private reference without shipping it
+  ---
+  duration_ms: 1.2975
+  type: 'test'
+  ...
+# Subtest: live legacy caballito tenant activates FIRMES globally and ships the authorized horse asset
+not ok 54 - live legacy caballito tenant activates FIRMES globally and ships the authorized horse asset
+  ---
+  duration_ms: 2.058791
+  type: 'test'
+  location: '/workspace/projects/media-content-harness/tests/web-brand-v2.test.mjs:21:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The input did not match the regular expression /tenantList\.length===1/. Input:
+    
+    "'use client';\n" +
+      '\n' +
+      "import Link from 'next/link';\n" +
+      "import { useRouter } from 'next/navigation';\n" +
+      "import { useEffect, useState, type ReactNode } from 'react';\n" +
+      "import { api, useLoad, items, Mark, Icon, Loading, Problem, Empty } from './ui';\n" +
+      "import { Dashboard, Workspaces, TenantSurface } from './workspace';\n" +
+      "import { JobDetail, JobLibrary } from './jobs';\n" +
+      "import StudioEntry from './StudioEntry';\n" +
+      "import { Integrations } from './Integrations';\n" +
+      "import { QuickCreate } from './QuickCreate';\n" +
+      "import { FirmesLockup, isFirmesTenant } from './FirmesBrand';\n" +
+      '\n' +
+      'export default function Studio({ segments }: { segments: string[] }) {\n' +
+      '  const router = useRouter();\n' +
+      "  const login = segments[0] === 'login';\n" +
+      "  const me = useLoad(login ? null : '/me');\n" +
+      "  const tenants = useLoad(!login && me.data ? '/tenants' : null);\n" +
+      "  const tenantId = segments[0] === 'workspace' ? segments[1] : null;\n" +
+      "  const current = segments[2] || '';\n" +
+      "  const routeJob = useLoad(!login && me.data && segments[0] === 'jobs' && segments[1] ? '/jobs/' + encodeURIComponent(segments[1]) : null);\n" +
+      '  const [mobileOpen, setMobileOpen] = useState(false);\n' +
+      '\n' +
+      '  useEffect(() => {\n' +
+      "    if (me.error && /401|AUTH|SESSION/.test(me.error.code)) router.replace('/login');\n" +
+      '  }, [me.error, router]);\n' +
+      '\n' +
+      "  useEffect(() => setMobileOpen(false), [segments.join('/')]);\n" +
+      '\n' +
+      '  if (login) return <StudioEntry />;\n' +
+      '  if (me.loading || (!me.data && !me.error)) return <main className="standalone"><Mark /><Loading /></main>;\n' +
+      '  if (me.error) return <main className="standalone"><Mark /><Problem error={me.error} retry={me.reload} /><Link href="/login">Volver a iniciar sesión</Link></main>;\n' +
+      '\n' +
+      '  const tenantList = items(tenants.data);\n' +
+      '  const shellTenantId = tenantId || routeJob.data?.tenant_id || (tenantList.length === 1 ? tenantList[0].tenant_id : null);\n' +
+      '  const tenant = tenantList.find(t => t.tenant_id === shellTenantId);\n' +
+      '  const firmesShell = isFirmesTenant(tenant);\n' +
+      "  const createHref = shellTenantId ? '/workspace/' + encodeURIComponent(shellTenantId) + '/free' : '/workspaces';\n" +
+      "  const creating = segments[0] === 'workspace' && ['free', 'weekly', 'scene'].includes(current);\n" +
+      '\n' +
+      '  const primary = [\n' +
+      "    { href: '/dashboard', label: 'Inicio', icon: 'home', active: !segments.length || segments[0] === 'dashboard' },\n" +
+      "    { href: createHref, label: 'Crear', icon: 'spark', active: creating },\n" +
+      "    { href: '/review', label: 'Revisar', icon: 'review', active: segments[0] === 'review' },\n" +
+      "    { href: '/releases', label: 'Entregas', icon: 'release', active: segments[0] === 'releases' }\n" +
+      '  ];\n' +
+      '\n' +
+      '  const setup = tenantId ? [\n' +
+      "    { key: 'sources', label: 'Material', icon: 'sources' },\n" +
+      "    { key: 'content-dna', label: 'Estilo', icon: 'dna' },\n" +
+      "    { key: 'creative-profiles', label: 'Personajes y lugares', icon: 'dna' }\n" +
+      '  ] : [];\n' +
+      '  const setupActive = setup.some(item => item.key === current);\n' +
+      "  const showBrands = tenantList.length > 1 || segments[0] === 'workspaces';\n" +
+      '\n' +
+      '  let content: ReactNode;\n' +
+      "  if (!segments.length || segments[0] === 'dashboard') content = <Dashboard tenants={tenants} user={me.data} tenant={tenant} />;\n" +
+      "  else if (segments[0] === 'workspaces') content = <Workspaces resource={tenants} />;\n" +
+      "  else if (segments[0] === 'workspace' && tenantId) content = <TenantSurface id={tenantId} view={current || 'weekly'} />;\n" +
+      "  else if (segments[0] === 'admin') content = <Integrations allowed={me.data.manage_integrations === true} />;\n" +
+      "  else if (segments[0] === 'jobs' && segments[1]) content = <JobDetail id={segments[1]} manageIntegrations={me.data.manage_integrations === true} />;\n" +
+      "  else if (segments[0] === 'review' || segments[0] === 'releases') content = <JobLibrary tenants={tenants} releases={segments[0] === 'releases'} />;\n" +
+      '  else content = <Empty title="Esta página no está en el estudio." action={<Link className="button primary" href="/dashboard">Ir al inicio</Link>}>Elige un espacio para continuar.</Empty>;\n' +
+      '\n' +
+      '  const quickTenants = tenantList.map(t => ({ tenant_id: t.tenant_id, organization: t.organization }));\n' +
+      '\n' +
+      "  return <div className={'studio ' + (firmesShell ? 'firmes-shell-v2' : '')}>\n" +
+      '    <a className="skip" href="#main">Saltar al contenido</a>\n' +
+      '\n' +
+      '    <div className="mobile-bar liquid-glass-nav">\n' +
+      '      <Link className="brand" href="/dashboard"><Mark small /><span>Media Factory</span></Link>\n' +
+      '      <div className="mobile-actions">\n' +
+      "        <QuickCreate tenants={quickTenants} loading={tenants.loading} brand={firmesShell ? 'firmes' : undefined} />\n" +
+      '        <button aria-expanded={mobileOpen} aria-controls="studio-nav" aria-label="Abrir navegación" onClick={() => setMobileOpen(v => !v)}>☰</button>\n' +
+      '      </div>\n' +
+      '    </div>\n' +
+      '\n' +
+      `    <aside id="studio-nav" className={'sidebar liquid-glass-nav ' + (mobileOpen ? 'open' : '')}>\n` +
+      '      <Link className="brand studio-brand" href="/dashboard">\n' +
+      '        <Mark small />\n' +
+      '        <span>Media Factory<small>Creative Studio</small></span>\n' +
+      '      </Link>\n' +
+      '\n' +
+      '      <nav className="primary-nav" aria-label="Principal">\n' +
+      "        {primary.map(item => <Link className={'nav-item ' + (item.active ? 'active' : '')} href={item.href} aria-current={item.active ? 'page' : undefined} key={item.label}>\n" +
+      '          <Icon name={item.icon} />\n' +
+      '          <span>{item.label}</span>\n' +
+      '        </Link>)}\n' +
+      '      </nav>\n' +
+      '\n' +
+      `      {showBrands && <Link className={'nav-item nav-secondary ' + (segments[0] === 'workspaces' ? 'active' : '')} href="/workspaces">\n` +
+      '        <Icon name="grid" />\n' +
+      '        <span>Marcas</span>\n' +
+      '      </Link>}\n' +
+      '\n' +
+      `      {shellTenantId && <Link className="workspace-label glass-brand-chip" href={'/workspace/' + encodeURIComponent(shellTenantId) + '/sources'}>\n` +
+      `        {firmesShell ? <FirmesLockup compact /> : <span className="tenant-avatar">{(tenant?.organization || shellTenantId || 'E').slice(0, 1).toUpperCase()}</span>}\n` +
+      '        <span>{tenant?.organization || shellTenantId}<small>Marca actual</small></span>\n' +
+      '        <span className="brand-chip-arrow" aria-hidden="true">↗</span>\n' +
+      '      </Link>}\n' +
+      '\n' +
+      '      {tenantId && <details className="nav-setup" open={setupActive}>\n' +
+      '        <summary><span><Icon name="grid" />Configurar marca</span><span className="summary-chevron" aria-hidden="true">⌄</span></summary>\n' +
+      '        <nav aria-label="Configurar marca">\n' +
+      "          {setup.map(item => <Link className={'nav-item ' + (item.key === current ? 'active' : '')} href={'/workspace/' + tenantId + '/' + item.key} aria-current={item.key === current ? 'page' : undefined} key={item.key}>\n" +
+      '            <Icon name={item.icon} />\n' +
+      '            <span>{item.label}</span>\n' +
+      '          </Link>)}\n' +
+      '        </nav>\n' +
+      '      </details>}\n' +
+      '\n' +
+      `      {me.data.manage_integrations === true && <Link className={'nav-item nav-admin ' + (segments[0] === 'admin' ? 'active' : '')} href="/admin/integrations">\n` +
+      '        <Icon name="grid" />\n' +
+      '        <span>APIs e integraciones</span>\n' +
+      '      </Link>}\n' +
+      '\n' +
+      '      <div className="sidebar-bottom">\n' +
+      '        <div className="account">\n' +
+      `          <span className="avatar">{(me.data.name || me.data.email || 'U').slice(0, 1).toUpperCase()}</span>\n` +
+      '          <span>{me.data.name || me.data.email}<small>Tu cuenta</small></span>\n' +
+      '          <button className="logout" aria-label="Cerrar sesión" title="Cerrar sesión" onClick={async () => {\n' +
+      '            try {\n' +
+      "              await api('/auth/logout', {});\n" +
+      "              router.replace('/login');\n" +
+      '            } catch {\n' +
+      '              me.reload();\n' +
+      '            }\n' +
+      '          }}>↗</button>\n' +
+      '        </div>\n' +
+      '      </div>\n' +
+      '    </aside>\n' +
+      '\n' +
+      '    <main id="main" className="main">\n' +
+      '      <div className="topline liquid-glass-topline">\n' +
+      '        <div className="topline-context">\n' +
+      '          <span>Media Factory</span>\n' +
+      '          {tenant && <><i aria-hidden="true" /><strong>{tenant.organization}</strong></>}\n' +
+      '        </div>\n' +
+      '        <div className="topline-actions">\n' +
+      '          <span className="approval-assurance"><span className="tiny-dot" />Tú apruebas</span>\n' +
+      "          <QuickCreate tenants={quickTenants} loading={tenants.loading} brand={firmesShell ? 'firmes' : undefined} />\n" +
+      '        </div>\n' +
+      '      </div>\n' +
+      '      {content}\n' +
+      '      <footer className="footer"><span>Media Factory</span><span>Ideas propias. Fuentes claras. Historias que conectan.</span></footer>\n' +
+      '    </main>\n' +
+      '  </div>;\n' +
+      '}\n'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  actual: |-
+    'use client';
+    
+    import Link from 'next/link';
+    import { useRouter } from 'next/navigation';
+    import { useEffect, useState, type ReactNode } from 'react';
+    import { api, useLoad, items, Mark, Icon, Loading, Problem, Empty } from './ui';
+    import { Dashboard, Workspaces, TenantSurface } from './workspace';
+    import { JobDetail, JobLibrary } from './jobs';
+    import StudioEntry from './StudioEntry';
+    import { Integrations } from './Integrations';
+    import { QuickCreate } from './QuickCreate';
+    import { FirmesLockup, isFirmesTenant } from './FirmesBrand';
+    
+    export default function Studio({ segments }: { segments: string[] }) {
+      const router = useRouter();
+      const login = segments[0] === 'login';
+      const me = useLoad(login ? null : '/me');
+      const tenants = useLoad(!login && me.data ? '/tenants' : null);
+      const tenantId = segments[0] === 'workspace' ? segments[1] : null;
+      const current = segments[2] || '';
+      const routeJob = useLoad(!login && me.data && segments[0] === 'jobs' && segments[1] ? '/jobs/' + encodeURIComponent(segments[1]) : null);
+      const [mobileOpen, setMobileOpen] = useState(false);
+    
+      useEffect(() => {
+        if (me.error && /401|AUTH|SESSION/.test(me.error.code)) router.replace('/login');
+      }, [me.error, router]);
+    
+      useEffect(() => setMobileOpen(false), [segments.join('/')]);
+    
+      if (login) return <StudioEntry />;
+      if (me.loading || (!me.data && !me.error)) return <main className="standalone"><Mark /><Loading /></main>;
+      if (me.error) return <main className="standalone"><Mark /><Problem error={me.error} retry={me.reload} /><Link href="/login">Volver a iniciar sesión</Link></main>;
+    
+      const tenantList = items(tenants.data);
+      const shellTenantId = tenantId || routeJob.data?.tenant_id || (tenantList.length === 1 ? tenantList[0].tenant_id : null);
+      const tenant = tenantList.find(t => t.tenant_id === shellTenantId);
+      const firmesShell = isFirmesTenant(tenant);
+      const createHref = shellTenantId ? '/workspace/' + encodeURIComponent(shellTenantId) + '/free' : '/workspaces';
+      const creating = segments[0] === 'workspace' && ['free', 'weekly', 'scene'].includes(current);
+    
+      const primary = [
+        { href: '/dashboard', label: 'Inicio', icon: 'home', active: !segments.length || segments[0] === 'dashboard' },
+        { href: createHref, label: 'Crear', icon: 'spark', active: creating },
+        { href: '/review', label: 'Revisar', icon: 'review', active: segments[0] === 'review' },
+        { href: '/releases', label: 'Entregas', icon: 'release', active: segments[0] === 'releases' }
+      ];
+    
+      const setup = tenantId ? [
+        { key: 'sources', label: 'Material', icon: 'sources' },
+        { key: 'content-dna', label: 'Estilo', icon: 'dna' },
+        { key: 'creative-profiles', label: 'Personajes y lugares', icon: 'dna' }
+      ] : [];
+      const setupActive = setup.some(item => item.key === current);
+      const showBrands = tenantList.length > 1 || segments[0] === 'workspaces';
+    
+      let content: ReactNode;
+      if (!segments.length || segments[0] === 'dashboard') content = <Dashboard tenants={tenants} user={me.data} tenant={tenant} />;
+      else if (segments[0] === 'workspaces') content = <Workspaces resource={tenants} />;
+      else if (segments[0] === 'workspace' && tenantId) content = <TenantSurface id={tenantId} view={current || 'weekly'} />;
+      else if (segments[0] === 'admin') content = <Integrations allowed={me.data.manage_integrations === true} />;
+      else if (segments[0] === 'jobs' && segments[1]) content = <JobDetail id={segments[1]} manageIntegrations={me.data.manage_integrations === true} />;
+      else if (segments[0] === 'review' || segments[0] === 'releases') content = <JobLibrary tenants={tenants} releases={segments[0] === 'releases'} />;
+      else content = <Empty title="Esta página no está en el estudio." action={<Link className="button primary" href="/dashboard">Ir al inicio</Link>}>Elige un espacio para continuar.</Empty>;
+    
+      const quickTenants = tenantList.map(t => ({ tenant_id: t.tenant_id, organization: t.organization }));
+    
+      return <div className={'studio ' + (firmesShell ? 'firmes-shell-v2' : '')}>
+        <a className="skip" href="#main">Saltar al contenido</a>
+    
+        <div className="mobile-bar liquid-glass-nav">
+          <Link className="brand" href="/dashboard"><Mark small /><span>Media Factory</span></Link>
+          <div className="mobile-actions">
+            <QuickCreate tenants={quickTenants} loading={tenants.loading} brand={firmesShell ? 'firmes' : undefined} />
+            <button aria-expanded={mobileOpen} aria-controls="studio-nav" aria-label="Abrir navegación" onClick={() => setMobileOpen(v => !v)}>☰</button>
+          </div>
+        </div>
+    
+        <aside id="studio-nav" className={'sidebar liquid-glass-nav ' + (mobileOpen ? 'open' : '')}>
+          <Link className="brand studio-brand" href="/dashboard">
+            <Mark small />
+            <span>Media Factory<small>Creative Studio</small></span>
+          </Link>
+    
+          <nav className="primary-nav" aria-label="Principal">
+            {primary.map(item => <Link className={'nav-item ' + (item.active ? 'active' : '')} href={item.href} aria-current={item.active ? 'page' : undefined} key={item.label}>
+              <Icon name={item.icon} />
+              <span>{item.label}</span>
+            </Link>)}
+          </nav>
+    
+          {showBrands && <Link className={'nav-item nav-secondary ' + (segments[0] === 'workspaces' ? 'active' : '')} href="/workspaces">
+            <Icon name="grid" />
+            <span>Marcas</span>
+          </Link>}
+    
+          {shellTenantId && <Link className="workspace-label glass-brand-chip" href={'/workspace/' + encodeURIComponent(shellTenantId) + '/sources'}>
+            {firmesShell ? <FirmesLockup compact /> : <span className="tenant-avatar">{(tenant?.organization || shellTenantId || 'E').slice(0, 1).toUpperCase()}</span>}
+            <span>{tenant?.organization || shellTenantId}<small>Marca actual</small></span>
+            <span className="brand-chip-arrow" aria-hidden="true">↗</span>
+          </Link>}
+    
+          {tenantId && <details className="nav-setup" open={setupActive}>
+            <summary><span><Icon name="grid" />Configurar marca</span><span className="summary-chevron" aria-hidden="true">⌄</span></summary>
+            <nav aria-label="Configurar marca">
+              {setup.map(item => <Link className={'nav-item ' + (item.key === current ? 'active' : '')} href={'/workspace/' + tenantId + '/' + item.key} aria-current={item.key === current ? 'page' : undefined} key={item.key}>
+                <Icon name={item.icon} />
+                <span>{item.label}</span>
+              </Link>)}
+            </nav>
+          </details>}
+    
+          {me.data.manage_integrations === true && <Link className={'nav-item nav-admin ' + (segments[0] === 'admin' ? 'active' : '')} href="/admin/integrations">
+            <Icon name="grid" />
+            <span>APIs e integraciones</span>
+          </Link>}
+    
+          <div className="sidebar-bottom">
+            <div className="account">
+              <span className="avatar">{(me.data.name || me.data.email || 'U').slice(0, 1).toUpperCase()}</span>
+              <span>{me.data.name || me.data.email}<small>Tu cuenta</small></span>
+              <button className="logout" aria-label="Cerrar sesión" title="Cerrar sesión" onClick={async () => {
+                try {
+                  await api('/auth/logout', {});
+                  router.replace('/login');
+                } catch {
+                  me.reload();
+                }
+              }}>↗</button>
+            </div>
+          </div>
+        </aside>
+    
+        <main id="main" className="main">
+          <div className="topline liquid-glass-topline">
+            <div className="topline-context">
+              <span>Media Factory</span>
+              {tenant && <><i aria-hidden="true" /><strong>{tenant.organization}</strong></>}
+            </div>
+            <div className="topline-actions">
+              <span className="approval-assurance"><span className="tiny-dot" />Tú apruebas</span>
+              <QuickCreate tenants={quickTenants} loading={tenants.loading} brand={firmesShell ? 'firmes' : undefined} />
+            </div>
+          </div>
+          {content}
+          <footer className="footer"><span>Media Factory</span><span>Ideas propias. Fuentes claras. Historias que conectan.</span></footer>
+        </main>
+      </div>;
+    }
+    
+  operator: 'match'
+  stack: |-
+    TestContext.<anonymous> (file:///workspace/projects/media-content-harness/tests/web-brand-v2.test.mjs:23:80)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: mascot and place snapshots reach actual human treatment review, then block unsupported composition before generation
+ok 55 - mascot and place snapshots reach actual human treatment review, then block unsupported composition before generation
+  ---
+  duration_ms: 3127.451085
+  type: 'test'
+  ...
+# Subtest: system API administration requires explicit live authority, not workspace owner or creator
+ok 56 - system API administration requires explicit live authority, not workspace owner or creator
+  ---
+  duration_ms: 147.833626
+  type: 'test'
+  ...
+# Subtest: host operator fallback exposes global administration without granting it to arbitrary configured identities
+ok 57 - host operator fallback exposes global administration without granting it to arbitrary configured identities
+  ---
+  duration_ms: 171.8475
+  type: 'test'
+  ...
+# Subtest: credentials persist encrypted, rotate/remove, and never activate adapters or enter product state
+ok 58 - credentials persist encrypted, rotate/remove, and never activate adapters or enter product state
+  ---
+  duration_ms: 107.462916
+  type: 'test'
+  ...
+# Subtest: vault corruption and missing/wrong/symlink keys fail closed without overwriting stored credentials
+ok 59 - vault corruption and missing/wrong/symlink keys fail closed without overwriting stored credentials
+  ---
+  duration_ms: 84.085458
+  type: 'test'
+  ...
+# Subtest: concurrent first vault writes preserve all providers and ciphertext is bound to its provider
+ok 60 - concurrent first vault writes preserve all providers and ciphertext is bound to its provider
+  ---
+  duration_ms: 89.29875
+  type: 'test'
+  ...
+# Subtest: admin HTTP keeps CSRF, anonymous/outsider denial and rejects unknown endpoints/oversized secret fields
+ok 61 - admin HTTP keeps CSRF, anonymous/outsider denial and rejects unknown endpoints/oversized secret fields
+  ---
+  duration_ms: 97.10925
+  type: 'test'
+  ...
+# Subtest: fictional character/place profiles enforce scope and authorization and freeze in plan/job snapshots
+ok 62 - fictional character/place profiles enforce scope and authorization and freeze in plan/job snapshots
+  ---
+  duration_ms: 100.577875
+  type: 'test'
+  ...
+# Subtest: journey distinguishes a registered link, available media, draft, queued work and review without fake progress
+ok 63 - journey distinguishes a registered link, available media, draft, queued work and review without fake progress
+  ---
+  duration_ms: 84.576833
+  type: 'test'
+  ...
+# Subtest: new admin and profile pages are private metadata routes
+ok 64 - new admin and profile pages are private metadata routes
+  ---
+  duration_ms: 0.219792
+  type: 'test'
+  ...
+# Subtest: fixer: queued admin writes recheck revoked authority before committing
+ok 65 - fixer: queued admin writes recheck revoked authority before committing
+  ---
+  duration_ms: 81.181292
+  type: 'test'
+  ...
+# Subtest: fixer: explicit budget clear differs from omission
+ok 66 - fixer: explicit budget clear differs from omission
+  ---
+  duration_ms: 84.945459
+  type: 'test'
+  ...
+# Subtest: fixer: malformed GCM envelopes reject truncated tags IVs and noncanonical encoding
+ok 67 - fixer: malformed GCM envelopes reject truncated tags IVs and noncanonical encoding
+  ---
+  duration_ms: 93.730666
+  type: 'test'
+  ...
+# Subtest: fixer: Free Mode resolves principal fictional profile and plan links recover exact drafts
+ok 68 - fixer: Free Mode resolves principal fictional profile and plan links recover exact drafts
+  ---
+  duration_ms: 101.856417
+  type: 'test'
+  ...
+# Subtest: fixer: oversized UTF8 key rejected before storage and permitted maximum remains readable
+ok 69 - fixer: oversized UTF8 key rejected before storage and permitted maximum remains readable
+  ---
+  duration_ms: 88.798291
+  type: 'test'
+  ...
+# Subtest: actual pinned Graph runs to hash-bound treatment and release; fixture evidence stays test-labeled
+ok 70 - actual pinned Graph runs to hash-bound treatment and release; fixture evidence stays test-labeled
+  ---
+  duration_ms: 6951.416712
+  type: 'test'
+  ...
+# Subtest: cross-tenant actions and artifacts fail before data access; viewers cannot approve
+ok 71 - cross-tenant actions and artifacts fail before data access; viewers cannot approve
+  ---
+  duration_ms: 2426.631168
+  type: 'test'
+  ...
+# Subtest: localized repair invalidates candidate and descendants while preserving ingested upstream
+ok 72 - localized repair invalidates candidate and descendants while preserving ingested upstream
+  ---
+  duration_ms: 3812.097668
+  type: 'test'
+  ...
+# Subtest: source authorization and DNA changes invalidate human approval
+ok 73 - source authorization and DNA changes invalidate human approval
+  ---
+  duration_ms: 2798.200793
+  type: 'test'
+  ...
+# Subtest: restart recovery and double start preserve one Graph history
+ok 74 - restart recovery and double start preserve one Graph history
+  ---
+  duration_ms: 2583.857792
+  type: 'test'
+  ...
+# Subtest: production missing source bytes is blocked in actual Graph, no fixture adapter exposed
+ok 75 - production missing source bytes is blocked in actual Graph, no fixture adapter exposed
+  ---
+  duration_ms: 1230.123293
+  type: 'test'
+  ...
+# Subtest: blocked production resumes the same Graph after its missing authorized video is uploaded
+ok 76 - blocked production resumes the same Graph after its missing authorized video is uploaded
+  ---
+  duration_ms: 2717.96071
+  type: 'test'
+  ...
+# Subtest: media inspection rejects playlists and local or network indirection before ffprobe
+ok 77 - media inspection rejects playlists and local or network indirection before ffprobe
+  ---
+  duration_ms: 11.775833
+  type: 'test'
+  ...
+# Subtest: provider failure remains a blocker and cannot create release evidence
+ok 78 - provider failure remains a blocker and cannot create release evidence
+  ---
+  duration_ms: 3729.785044
+  type: 'test'
+  ...
+# Subtest: real footage adapter preserves all selected sources, target dimensions, and ambient audio
+ok 79 - real footage adapter preserves all selected sources, target dimensions, and ambient audio
+  ---
+  duration_ms: 591.449542
+  type: 'test'
+  ...
+# Subtest: production uploaded media binds creative candidate, separate real reviewers, and final release
+ok 80 - production uploaded media binds creative candidate, separate real reviewers, and final release
+  ---
+  duration_ms: 8656.043338
+  type: 'test'
+  ...
+# Subtest: same fixture bytes after localized media repair receive a fresh candidate scope
+ok 81 - same fixture bytes after localized media repair receive a fresh candidate scope
+  ---
+  duration_ms: 9066.831796
+  type: 'test'
+  ...
+# Subtest: approval intent survives a crash after Graph approval and resumes without a second decision
+ok 82 - approval intent survives a crash after Graph approval and resumes without a second decision
+  ---
+  duration_ms: 5654.719752
+  type: 'test'
+  ...
+# Subtest: production arbitrary creative repair remains manual and never silently rerenders
+ok 83 - production arbitrary creative repair remains manual and never silently rerenders
+  ---
+  duration_ms: 2189.041002
+  type: 'test'
+  ...
+# Subtest: manual creative blocker can be explicitly withdrawn on the same production without claiming the edit was applied
+ok 84 - manual creative blocker can be explicitly withdrawn on the same production without claiming the edit was applied
+  ---
+  duration_ms: 5915.651169
+  type: 'test'
+  ...
+# Subtest: stable artifact candidate is shared by verifier and release, with stage replay rejected
+ok 85 - stable artifact candidate is shared by verifier and release, with stage replay rejected
+  ---
+  duration_ms: 6288.859503
+  type: 'test'
+  ...
+# Subtest: mascot request reaches human creative review, then fails closed before unsupported composition
+ok 86 - mascot request reaches human creative review, then fails closed before unsupported composition
+  ---
+  duration_ms: 41305.800019
+  type: 'test'
+  ...
+# Subtest: actual adapter paid capability or nonzero estimate is blocked before generate
+ok 87 - actual adapter paid capability or nonzero estimate is blocked before generate
+  ---
+  duration_ms: 3376.986417
+  type: 'test'
+  ...
+# Subtest: repair intent survives a crash after Graph invalidation without duplicating repair plans
+ok 88 - repair intent survives a crash after Graph invalidation without duplicating repair plans
+  ---
+  duration_ms: 3305.273918
+  type: 'test'
+  ...
+# Subtest: kernel job lease excludes concurrent workers and ignores obsolete dead reclaim files
+ok 89 - kernel job lease excludes concurrent workers and ignores obsolete dead reclaim files
+  ---
+  duration_ms: 34.683208
+  type: 'test'
+  ...
+# Subtest: rejection intent survives a crash after blocking Graph and becomes terminal on recovery
+ok 90 - rejection intent survives a crash after blocking Graph and becomes terminal on recovery
+  ---
+  duration_ms: 2470.347584
+  type: 'test'
+  ...
+# Subtest: changed provider provenance invalidates review before Graph approval or release
+ok 91 - changed provider provenance invalidates review before Graph approval or release
+  ---
+  duration_ms: 21826.020928
+  type: 'test'
+  ...
+# Subtest: provenance drift during approval cannot enter the immutable release snapshot
+ok 92 - provenance drift during approval cannot enter the immutable release snapshot
+  ---
+  duration_ms: 93179.774291
+  type: 'test'
+  ...
+# Subtest: requested repair clears current output provenance and keeps historical artifact bytes
+ok 93 - requested repair clears current output provenance and keeps historical artifact bytes
+  ---
+  duration_ms: 5811.792045
+  type: 'test'
+  ...
+# Subtest: blocked mascot production can be explicitly repaired to real footage on the same Graph and requires fresh review
+ok 94 - blocked mascot production can be explicitly repaired to real footage on the same Graph and requires fresh review
+  ---
+  duration_ms: 4153.38996
+  type: 'test'
+  ...
+# Subtest: blocked production repair is role-bound and rejects unsupported mutations
+ok 95 - blocked production repair is role-bound and rejects unsupported mutations
+  ---
+  duration_ms: 3085.209043
+  type: 'test'
+  ...
+# Subtest: source-too-short blocker has an explicit same-job duration-fit repair and fresh creative review
+ok 96 - source-too-short blocker has an explicit same-job duration-fit repair and fresh creative review
+  ---
+  duration_ms: 4655.750794
+  type: 'test'
+  ...
+# Subtest: authorized FIRMES caballito is composited by the local zero-credit adapter with immutable brand provenance
+ok 97 - authorized FIRMES caballito is composited by the local zero-credit adapter with immutable brand provenance
+  ---
+  duration_ms: 5416.855919
+  type: 'test'
+  ...
+# Subtest: critic request to add the FIRMES caballito is executed on the same job instead of entering the manual blocker
+ok 98 - critic request to add the FIRMES caballito is executed on the same job instead of entering the manual blocker
+  ---
+  duration_ms: 8714.974713
+  type: 'test'
+  ...
+# Subtest: legacy manual blocker for the exact Caballito request can be upgraded and applied on the same job
+ok 99 - legacy manual blocker for the exact Caballito request can be upgraded and applied on the same job
+  ---
+  duration_ms: 8591.164504
+  type: 'test'
+  ...
+# Subtest: negated mascot add language is not silently treated as an executable add request
+ok 100 - negated mascot add language is not silently treated as an executable add request
+  ---
+  duration_ms: 4670.836877
+  type: 'test'
+  ...
+# Subtest: creative approval rejects treatment drift after the exact caballito asset was hash-bound
+ok 101 - creative approval rejects treatment drift after the exact caballito asset was hash-bound
+  ---
+  duration_ms: 2283.894459
+  type: 'test'
+  ...
+# Subtest: FIRMES favicon family is app-discoverable and derived without mutating the authorized Caballito asset
+ok 102 - FIRMES favicon family is app-discoverable and derived without mutating the authorized Caballito asset
+  ---
+  duration_ms: 5.99075
+  type: 'test'
+  ...
+# Subtest: existing host login, forward auth, exact workspace probe, logout and revocation share product session
+ok 103 - existing host login, forward auth, exact workspace probe, logout and revocation share product session
+  ---
+  duration_ms: 79.223916
+  type: 'test'
+  ...
+# Subtest: single-brand quick create bypasses redundant brand submenu
+ok 104 - single-brand quick create bypasses redundant brand submenu
+  ---
+  duration_ms: 3.081292
+  type: 'test'
+  ...
+# Subtest: desktop navigation exposes four primary actions and collapses brand setup
+ok 105 - desktop navigation exposes four primary actions and collapses brand setup
+  ---
+  duration_ms: 0.894833
+  type: 'test'
+  ...
+# Subtest: liquid-glass menus use layered blur, rim, highlight and reduced-motion safety
+ok 106 - liquid-glass menus use layered blur, rim, highlight and reduced-motion safety
+  ---
+  duration_ms: 1.602208
+  type: 'test'
+  ...
+# Subtest: provider provenance records consumed bytes and excludes private adapter metadata
+ok 107 - provider provenance records consumed bytes and excludes private adapter metadata
+  ---
+  duration_ms: 1.020917
+  type: 'test'
+  ...
+# Subtest: provider cannot claim other sources, omit selected bytes, or relabel an adapter
+ok 108 - provider cannot claim other sources, omit selected bytes, or relabel an adapter
+  ---
+  duration_ms: 0.377625
+  type: 'test'
+  ...
+# Subtest: brand-asset provenance is one-to-one bound to the authorized runtime input
+ok 109 - brand-asset provenance is one-to-one bound to the authorized runtime input
+  ---
+  duration_ms: 0.316625
+  type: 'test'
+  ...
+# Subtest: test origin remains explicit and cannot be represented as consumed customer footage
+ok 110 - test origin remains explicit and cannot be represented as consumed customer footage
+  ---
+  duration_ms: 0.112042
+  type: 'test'
+  ...
+# Subtest: job and tenant-authorized release expose immutable reviewed provenance, not mutable job state
+ok 111 - job and tenant-authorized release expose immutable reviewed provenance, not mutable job state
+  ---
+  duration_ms: 8.959958
+  type: 'test'
+  ...
+# Subtest: operator provisioning uses interoperable private verifiers and preserves an existing identity
+ok 112 - operator provisioning uses interoperable private verifiers and preserves an existing identity
+  ---
+  duration_ms: 120.60825
+  type: 'test'
+  ...
+# Subtest: configured FFmpeg registry agrees with executable strategies and rejects hybrid preference
+ok 113 - configured FFmpeg registry agrees with executable strategies and rejects hybrid preference
+  ---
+  duration_ms: 1.288792
+  type: 'test'
+  ...
+# Subtest: runtime allowlist omits traces and source evidence, protects existing destinations, rejects escaping dependencies
+ok 114 - runtime allowlist omits traces and source evidence, protects existing destinations, rejects escaping dependencies
+  ---
+  duration_ms: 58.332959
+  type: 'test'
+  ...
+# Subtest: FIRMES resolves immutable default mascot across asset, character and tenant profile layers
+ok 115 - FIRMES resolves immutable default mascot across asset, character and tenant profile layers
+  ---
+  duration_ms: 6.748833
+  type: 'test'
+  ...
+# Subtest: structured compiler is deterministic, separates reference roles and keeps operator override provenance
+ok 116 - structured compiler is deterministic, separates reference roles and keeps operator override provenance
+  ---
+  duration_ms: 2.251166
+  type: 'test'
+  ...
+# Subtest: reference role and authorization drift invalidate a compiled scene even when bytes are unchanged
+ok 117 - reference role and authorization drift invalidate a compiled scene even when bytes are unchanged
+  ---
+  duration_ms: 0.487667
+  type: 'test'
+  ...
+# Subtest: default is optional, cross-tenant character IDs and wrong reference roles fail closed
+ok 118 - default is optional, cross-tenant character IDs and wrong reference roles fail closed
+  ---
+  duration_ms: 0.612959
+  type: 'test'
+  ...
+# Subtest: generic tenant does not require a FIRMES character and receives neutral preset labels
+ok 119 - generic tenant does not require a FIRMES character and receives neutral preset labels
+  ---
+  duration_ms: 0.18325
+  type: 'test'
+  ...
+# Subtest: provider registry exposes manual external as operational and unconfigured generators truthfully
+ok 120 - provider registry exposes manual external as operational and unconfigured generators truthfully
+  ---
+  duration_ms: 0.11675
+  type: 'test'
+  ...
+# Subtest: external package changes from hero-image creation to exact approved hero animation
+ok 121 - external package changes from hero-image creation to exact approved hero animation
+  ---
+  duration_ms: 0.497792
+  type: 'test'
+  ...
+# Subtest: scene-reference identity is role-bound and non-editors cannot upload references
+ok 122 - scene-reference identity is role-bound and non-editors cannot upload references
+  ---
+  duration_ms: 234.016584
+  type: 'test'
+  ...
+# Subtest: manual external generation resumes the same job, critic repair regenerates, verifier and release bind the exact accepted SHA
+ok 123 - manual external generation resumes the same job, critic repair regenerates, verifier and release bind the exact accepted SHA
+  ---
+  duration_ms: 9344.14738
+  type: 'test'
+  ...
+# Subtest: video scene is image-first and the approved hero SHA becomes an explicit animation input in the same job
+ok 124 - video scene is image-first and the approved hero SHA becomes an explicit animation input in the same job
+  ---
+  duration_ms: 6691.757919
+  type: 'test'
+  ...
+# Subtest: authentication preserves password bytes, revokes changed identity and starts without tenants
+ok 125 - authentication preserves password bytes, revokes changed identity and starts without tenants
+  ---
+  duration_ms: 129.743875
+  type: 'test'
+  ...
+# Subtest: tenant membership enforced for reads/writes and onboarding has no fake source
+ok 126 - tenant membership enforced for reads/writes and onboarding has no fake source
+  ---
+  duration_ms: 106.184083
+  type: 'test'
+  ...
+# Subtest: strict source/reference separation, provenance and secret validation
+ok 127 - strict source/reference separation, provenance and secret validation
+  ---
+  duration_ms: 100.898959
+  type: 'test'
+  ...
+# Subtest: private, browser and signed source locators are rejected
+ok 128 - private, browser and signed source locators are rejected
+  ---
+  duration_ms: 0.527333
+  type: 'test'
+  ...
+# Subtest: plans reject injected approval and produce same id under concurrent requests
+ok 129 - plans reject injected approval and produce same id under concurrent requests
+  ---
+  duration_ms: 156.736
+  type: 'test'
+  ...
+# Subtest: source/DNA changes invalidate plans and idempotency includes strategy
+ok 130 - source/DNA changes invalidate plans and idempotency includes strategy
+  ---
+  duration_ms: 96.945125
+  type: 'test'
+  ...
+# Subtest: Free Mode exact mixed Spanish example becomes four unapproved concepts, no-AI remains real
+ok 131 - Free Mode exact mixed Spanish example becomes four unapproved concepts, no-AI remains real
+  ---
+  duration_ms: 103.463792
+  type: 'test'
+  ...
+# Subtest: targeted political or sensitive persuasion cannot enter plans/intent
+ok 132 - targeted political or sensitive persuasion cannot enter plans/intent
+  ---
+  duration_ms: 105.279125
+  type: 'test'
+  ...
+# Subtest: HTTP cookies, CSRF, malformed body, path traversal and safe errors
+ok 133 - HTTP cookies, CSRF, malformed body, path traversal and safe errors
+  ---
+  duration_ms: 158.758417
+  type: 'test'
+  ...
+# Subtest: repository serializes separate instances and rejects symlink state
+ok 134 - repository serializes separate instances and rejects symlink state
+  ---
+  duration_ms: 33.508625
+  type: 'test'
+  ...
+# Subtest: SSE rejects unauthorized reads and pushes durable state updates
+ok 135 - SSE rejects unauthorized reads and pushes durable state updates
+  ---
+  duration_ms: 108.290792
+  type: 'test'
+  ...
+# Subtest: HTTP rejects declared and streamed oversized JSON before parsing
+ok 136 - HTTP rejects declared and streamed oversized JSON before parsing
+  ---
+  duration_ms: 83.120958
+  type: 'test'
+  ...
+# Subtest: viewer cannot approve concepts and configured identity roles override persisted memberships
+ok 137 - viewer cannot approve concepts and configured identity roles override persisted memberships
+  ---
+  duration_ms: 89.562208
+  type: 'test'
+  ...
+# Subtest: reference DNA requires evidence bytes actually stored for the selected reference
+ok 138 - reference DNA requires evidence bytes actually stored for the selected reference
+  ---
+  duration_ms: 91.021042
+  type: 'test'
+  ...
+# Subtest: malformed durable state fails closed with controlled storage error
+ok 139 - malformed durable state fails closed with controlled storage error
+  ---
+  duration_ms: 1.332459
+  type: 'test'
+  ...
+# Subtest: ProductError identity remains stable across independently evaluated server bundles
+ok 140 - ProductError identity remains stable across independently evaluated server bundles
+  ---
+  duration_ms: 0.831917
+  type: 'test'
+  ...
+# Subtest: stored reference evidence tampering invalidates DNA analysis
+ok 141 - stored reference evidence tampering invalidates DNA analysis
+  ---
+  duration_ms: 104.513833
+  type: 'test'
+  ...
+# Subtest: mascot setup binds a selected production source and rejects a reference
+ok 142 - mascot setup binds a selected production source and rejects a reference
+  ---
+  duration_ms: 89.198708
+  type: 'test'
+  ...
+# Subtest: Free Mode respects indirect AI negations and explicit alternative distributions
+ok 143 - Free Mode respects indirect AI negations and explicit alternative distributions
+  ---
+  duration_ms: 93.207292
+  type: 'test'
+  ...
+# Subtest: login concurrency limit reserves capacity before awaiting identity loading
+ok 144 - login concurrency limit reserves capacity before awaiting identity loading
+  ---
+  duration_ms: 119.623458
+  type: 'test'
+  ...
+# Subtest: legacy planner contract rejection returns a controlled HTTP 400
+ok 145 - legacy planner contract rejection returns a controlled HTTP 400
+  ---
+  duration_ms: 89.682083
+  type: 'test'
+  ...
+# Subtest: only explicitly published HTTPS production login enters the index and sitemap
+ok 146 - only explicitly published HTTPS production login enters the index and sitemap
+  ---
+  duration_ms: 1.068708
+  type: 'test'
+  ...
+# Subtest: private routes never put tenant or job identities into metadata, canonicals, or sitemap
+ok 147 - private routes never put tenant or job identities into metadata, canonicals, or sitemap
+  ---
+  duration_ms: 0.869791
+  type: 'test'
+  ...
+# Subtest: canonical metadata uses only validated operator origin and ignores URL injection
+ok 148 - canonical metadata uses only validated operator origin and ignores URL injection
+  ---
+  duration_ms: 0.237458
+  type: 'test'
+  ...
+# Subtest: catchall rejects unknown or overlong route shapes without reflecting submitted names
+ok 149 - catchall rejects unknown or overlong route shapes without reflecting submitted names
+  ---
+  duration_ms: 0.179917
+  type: 'test'
+  ...
+# Subtest: llms discovery lists public product facts without private resources or invented integrations
+ok 150 - llms discovery lists public product facts without private resources or invented integrations
+  ---
+  duration_ms: 0.118292
+  type: 'test'
+  ...
+# Subtest: job review route resolves safely and production indexing rejects infrastructure origins
+ok 151 - job review route resolves safely and production indexing rejects infrastructure origins
+  ---
+  duration_ms: 0.30825
+  type: 'test'
+  ...
+# Subtest: published OG and Twitter image use only the controlled imported application asset
+ok 152 - published OG and Twitter image use only the controlled imported application asset
+  ---
+  duration_ms: 0.361792
+  type: 'test'
+  ...
+# Subtest: browser exception call logs redact fixture passwords before reporting
+ok 153 - browser exception call logs redact fixture passwords before reporting
+  ---
+  duration_ms: 0.317125
+  type: 'test'
+  ...
+# Subtest: V4 guided flow auto-persists before preview and keeps approval explicit
+ok 154 - V4 guided flow auto-persists before preview and keeps approval explicit
+  ---
+  duration_ms: 3.04725
+  type: 'test'
+  ...
+# Subtest: V4 makes authorized media the primary review and dashboard surface
+ok 155 - V4 makes authorized media the primary review and dashboard surface
+  ---
+  duration_ms: 2.224167
+  type: 'test'
+  ...
+# Subtest: V4 liquid glass and 3D motion remain reduced-motion safe
+not ok 156 - V4 liquid glass and 3D motion remain reduced-motion safe
+  ---
+  duration_ms: 2.279792
+  type: 'test'
+  location: '/workspace/projects/media-content-harness/tests/web-visual-v4.test.mjs:30:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The input did not match the regular expression /\.deck-card/. Input:
+    
+    '@media(prefers-reduced-motion:reduce){\n' +
+      '  .sidebar.liquid-glass-nav .nav-item,\n' +
+      '  .sidebar.liquid-glass-nav .nav-item:hover,\n' +
+      '  .sidebar .nav-setup .summary-chevron{\n' +
+      '    transition:none!important;\n' +
+      '    transform:none!important;\n' +
+      '  }\n' +
+      '}\n'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  actual: |-
+    @media(prefers-reduced-motion:reduce){
+      .sidebar.liquid-glass-nav .nav-item,
+      .sidebar.liquid-glass-nav .nav-item:hover,
+      .sidebar .nav-setup .summary-chevron{
+        transition:none!important;
+        transform:none!important;
+      }
+    }
+    
+  operator: 'match'
+  stack: |-
+    TestContext.<anonymous> (file:///workspace/projects/media-content-harness/tests/web-visual-v4.test.mjs:38:9)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+1..156
+# tests 156
+# suites 0
+# pass 153
+# fail 2
+# cancelled 0
+# skipped 1
+# todo 0
+# duration_ms 303129.489554

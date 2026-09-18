@@ -1,0 +1,64 @@
+TAP version 13
+# Subtest: FIRMES V2 is tenant scoped, manual-derived and reduced-motion safe
+ok 1 - FIRMES V2 is tenant scoped, manual-derived and reduced-motion safe
+  ---
+  duration_ms: 5.226
+  type: 'test'
+  ...
+# Subtest: FIRMES brand memory binds the exact private reference without shipping it
+ok 2 - FIRMES brand memory binds the exact private reference without shipping it
+  ---
+  duration_ms: 1.022792
+  type: 'test'
+  ...
+# Subtest: live legacy caballito tenant activates FIRMES globally and ships the authorized horse asset
+ok 3 - live legacy caballito tenant activates FIRMES globally and ships the authorized horse asset
+  ---
+  duration_ms: 1.460833
+  type: 'test'
+  ...
+# Subtest: single-brand quick create bypasses redundant brand submenu
+ok 4 - single-brand quick create bypasses redundant brand submenu
+  ---
+  duration_ms: 3.05725
+  type: 'test'
+  ...
+# Subtest: desktop navigation exposes four primary actions and collapses brand setup
+ok 5 - desktop navigation exposes four primary actions and collapses brand setup
+  ---
+  duration_ms: 0.93675
+  type: 'test'
+  ...
+# Subtest: liquid-glass menus use layered blur, rim, highlight and reduced-motion safety
+ok 6 - liquid-glass menus use layered blur, rim, highlight and reduced-motion safety
+  ---
+  duration_ms: 1.896083
+  type: 'test'
+  ...
+# Subtest: V4 guided flow auto-persists before preview and keeps approval explicit
+ok 7 - V4 guided flow auto-persists before preview and keeps approval explicit
+  ---
+  duration_ms: 3.243417
+  type: 'test'
+  ...
+# Subtest: V4 makes authorized media the primary review and dashboard surface
+ok 8 - V4 makes authorized media the primary review and dashboard surface
+  ---
+  duration_ms: 1.512959
+  type: 'test'
+  ...
+# Subtest: V4 liquid glass and 3D motion remain reduced-motion safe
+ok 9 - V4 liquid glass and 3D motion remain reduced-motion safe
+  ---
+  duration_ms: 1.474083
+  type: 'test'
+  ...
+1..9
+# tests 9
+# suites 0
+# pass 9
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 40.284166
