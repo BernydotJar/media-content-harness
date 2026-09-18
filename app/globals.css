@@ -1738,3 +1738,217 @@
 .character-choice{position:relative;cursor:pointer}
 .character-choice>input[type=radio]{position:absolute;inline-size:1px;block-size:1px;opacity:0;pointer-events:none;margin:0;padding:0}
 .character-choice:has(input[type=radio]:focus-visible){outline:3px solid var(--accent);outline-offset:3px}
+
+/* ============================================================
+   Creative Studio V7 — Creation Room
+   Directional references: glossy 3D gradient cards, liquid-metal
+   controls, glowing upload folders and warm glass prompt bars.
+   Original implementation; no reference artwork copied.
+   ============================================================ */
+
+/* The desktop utility row participates in document flow. It must never
+   float over creative content while the user scrolls. */
+.liquid-glass-topline{
+  position:relative!important;
+  top:auto!important;
+  z-index:4!important;
+  height:46px;
+  margin:16px 0 26px;
+}
+.topline-context,.approval-assurance{
+  backdrop-filter:blur(16px) saturate(145%);
+  -webkit-backdrop-filter:blur(16px) saturate(145%);
+}
+
+/* A truthful, celebratory destination immediately after production starts. */
+.creation-room-v7{
+  position:relative;
+  isolation:isolate;
+  display:grid;
+  grid-template-columns:minmax(0,1.05fr) minmax(280px,.72fr);
+  gap:clamp(24px,4vw,54px);
+  align-items:center;
+  margin:6px 0 28px;
+  padding:clamp(26px,4vw,48px);
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:30px;
+  background:
+    radial-gradient(560px 320px at 8% -8%,rgba(167,63,67,.20),transparent 68%),
+    radial-gradient(420px 260px at 96% 84%,rgba(219,177,103,.12),transparent 70%),
+    linear-gradient(145deg,rgba(36,26,29,.95),rgba(16,15,16,.97));
+  box-shadow:0 28px 90px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.07);
+}
+.creation-room-v7:before{
+  content:'';
+  position:absolute;
+  width:230px;height:230px;
+  left:-90px;bottom:-120px;
+  border-radius:44% 56% 62% 38%;
+  background:linear-gradient(145deg,rgba(142,44,45,.35),rgba(227,184,109,.10));
+  filter:blur(18px);
+  opacity:.55;
+  pointer-events:none;
+}
+.creation-room-copy{position:relative;z-index:2;max-width:680px}
+.creation-room-kicker{display:flex;align-items:center;gap:9px;margin-bottom:14px;color:#d9bd88;font-size:9px;font-weight:700;letter-spacing:.16em}
+.creation-live-orb{width:9px;height:9px;border-radius:50%;background:#c6d8bd;box-shadow:0 0 0 5px rgba(160,196,151,.08),0 0 24px rgba(160,196,151,.28);animation:creationPulse 2.2s ease-in-out infinite}
+.creation-room-v7 h2{max-width:620px;margin:0 0 12px;font-size:clamp(32px,4.5vw,58px);line-height:.98;letter-spacing:-.045em}
+.creation-room-copy>p:not(.creation-progress-note){max-width:580px;margin:0;color:rgba(244,235,231,.68);font-size:13px;line-height:1.65}
+.creation-progress-card{
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:8px 22px;
+  align-items:center;
+  margin-top:26px;
+  padding:15px 16px;
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:18px;
+  background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.018));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 18px 38px rgba(0,0,0,.12);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+}
+.creation-progress-number{display:flex;flex-direction:column;min-width:82px}
+.creation-progress-number strong{font-size:30px;line-height:1;color:#fff;font-weight:650;letter-spacing:-.04em}
+.creation-progress-number span{margin-top:4px;color:rgba(244,235,231,.42);font-size:8px;text-transform:uppercase;letter-spacing:.08em}
+.creation-progress-copy{display:flex;flex-direction:column;min-width:0}
+.creation-progress-copy>span{color:#b89b6b;font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.11em}
+.creation-progress-copy strong{margin-top:2px;font-size:13px;font-weight:620}
+.creation-progress-copy small{margin-top:3px;color:rgba(244,235,231,.46);font-size:9px}
+.creation-progress-card progress{grid-column:1/-1;width:100%;height:7px;appearance:none;border:0;border-radius:999px;overflow:hidden;background:rgba(255,255,255,.055)}
+.creation-progress-card progress::-webkit-progress-bar{background:rgba(255,255,255,.055);border-radius:999px}
+.creation-progress-card progress::-webkit-progress-value{border-radius:999px;background:linear-gradient(90deg,#8e2c2d,#cb6867 46%,#d6b36f)}
+.creation-progress-card progress::-moz-progress-bar{border-radius:999px;background:linear-gradient(90deg,#8e2c2d,#cb6867 46%,#d6b36f)}
+.creation-progress-note{margin:10px 2px 0!important;color:rgba(244,235,231,.35)!important;font-size:9px!important;line-height:1.5!important}
+.creation-room-actions{display:flex;align-items:center;gap:16px;margin-top:20px}
+.creation-room-actions>span{display:flex;align-items:center;gap:7px;color:rgba(244,235,231,.44);font-size:9px}
+
+/* This is deliberately a destination, not a skeleton: the user can see
+   exactly where the future video will live. */
+.creation-video-home{position:relative;z-index:2;display:flex;justify-content:center;perspective:1100px}
+.creation-video-card{
+  position:relative;
+  width:min(310px,100%);
+  aspect-ratio:9/16;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.16);
+  border-radius:28px;
+  transform:rotateY(-7deg) rotateX(2deg);
+  transform-style:preserve-3d;
+  background:
+    radial-gradient(160px 250px at 20% 20%,rgba(255,193,116,.72),transparent 64%),
+    radial-gradient(240px 220px at 92% 34%,rgba(114,84,187,.50),transparent 66%),
+    radial-gradient(260px 240px at 52% 100%,rgba(149,39,49,.70),transparent 64%),
+    linear-gradient(160deg,#251719,#16131e 48%,#0d0d10);
+  box-shadow:34px 38px 90px rgba(0,0,0,.46),-10px 0 44px rgba(145,49,55,.14),inset 0 1px 0 rgba(255,255,255,.16);
+}
+.creation-video-card:before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(112deg,rgba(255,255,255,.16),transparent 22% 72%,rgba(255,255,255,.04));
+  mix-blend-mode:screen;
+}
+.creation-video-card>i,.creation-video-card>b,.creation-video-card>em{position:absolute;display:block;border-radius:38% 62% 54% 46%;filter:blur(1px);opacity:.78;transform:translateZ(22px)}
+.creation-video-card>i{width:190px;height:260px;left:-66px;top:95px;background:linear-gradient(145deg,rgba(255,197,120,.58),rgba(157,45,52,.04));transform:rotate(22deg) translateZ(24px)}
+.creation-video-card>b{width:170px;height:220px;right:-78px;top:150px;background:linear-gradient(160deg,rgba(112,89,196,.58),rgba(47,27,79,.08));transform:rotate(-28deg) translateZ(34px)}
+.creation-video-card>em{width:230px;height:175px;left:18px;bottom:-82px;background:linear-gradient(160deg,rgba(176,48,60,.66),rgba(223,178,103,.22));transform:rotate(8deg) translateZ(28px)}
+.creation-card-glow{position:absolute;width:110px;height:110px;left:50%;top:42%;translate:-50% -50%;border-radius:50%;background:radial-gradient(circle,rgba(255,242,210,.90) 0,rgba(227,180,111,.25) 30%,transparent 67%);filter:blur(2px);box-shadow:0 0 70px rgba(235,190,116,.22);animation:creationGlow 3s ease-in-out infinite}
+.creation-video-copy{position:absolute;left:20px;right:20px;bottom:20px;z-index:3;padding:14px;border:1px solid rgba(255,255,255,.12);border-radius:17px;background:rgba(13,12,14,.44);backdrop-filter:blur(17px) saturate(145%);-webkit-backdrop-filter:blur(17px) saturate(145%);box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
+.creation-video-copy span{display:block;color:rgba(241,211,160,.70);font-size:7px;font-weight:700;letter-spacing:.13em}
+.creation-video-copy strong{display:block;margin:4px 0 2px;font-size:12px}
+.creation-video-copy small{color:rgba(244,235,231,.48);font-size:8px}
+
+/* Compact review cards borrow depth from the visual work while staying
+   scannable. Long chips wrap instead of colliding with neighboring cards. */
+.candidate-summary-card{
+  position:relative;
+  overflow:hidden;
+  min-height:104px;
+  padding:15px;
+  border-color:rgba(255,255,255,.09);
+  background:
+    radial-gradient(130px 72px at 4% -12%,rgba(167,72,74,.12),transparent 68%),
+    linear-gradient(145deg,rgba(255,255,255,.042),rgba(255,255,255,.012));
+  box-shadow:0 15px 38px rgba(0,0,0,.12),inset 0 1px 0 rgba(255,255,255,.055);
+}
+.candidate-summary-card:after{content:'';position:absolute;inset:auto -42px -58px auto;width:110px;height:110px;border-radius:50%;background:radial-gradient(circle,rgba(189,155,96,.09),transparent 66%);pointer-events:none}
+.candidate-summary-card .summary-icon{background:linear-gradient(145deg,rgba(142,44,45,.22),rgba(189,155,96,.08));box-shadow:inset 0 1px 0 rgba(255,255,255,.07)}
+.candidate-summary-card .summary-chips{align-items:flex-start;max-width:100%}
+.candidate-summary-card .summary-chips .tag{max-width:100%;white-space:normal;line-height:1.25;overflow-wrap:anywhere}
+
+/* Warm glass prompt surface inspired by the AI prompt-bar interaction, not
+   by its artwork. */
+.ai-prompt-bar-v7{
+  position:relative;
+  overflow:hidden;
+  padding:20px!important;
+  border:1px solid rgba(255,255,255,.10)!important;
+  border-radius:24px!important;
+  background:
+    radial-gradient(240px 130px at 6% -12%,rgba(234,169,105,.16),transparent 68%),
+    radial-gradient(220px 120px at 96% 110%,rgba(142,44,45,.13),transparent 70%),
+    linear-gradient(145deg,rgba(37,29,30,.86),rgba(18,17,18,.92))!important;
+  box-shadow:0 24px 74px rgba(0,0,0,.20),inset 0 1px 0 rgba(255,255,255,.07);
+}
+.ai-prompt-bar-head{display:flex;align-items:center;gap:12px;margin-bottom:13px}
+.ai-prompt-bar-head>div{display:flex;flex-direction:column;gap:2px}.ai-prompt-bar-head .eyebrow{margin:0;font-size:7px}.ai-prompt-bar-head strong{font-size:11px;font-weight:580;color:rgba(247,238,234,.72)}
+.ai-prompt-orb{position:relative;width:38px;height:38px;flex:0 0 38px;border-radius:50%;background:radial-gradient(circle at 32% 28%,#ffe8b8 0,#df9d6d 24%,#8e2c2d 56%,#493e77 78%,#121218 100%);box-shadow:0 7px 28px rgba(163,72,70,.27),inset 0 1px 5px rgba(255,255,255,.5);overflow:hidden}
+.ai-prompt-orb i,.ai-prompt-orb b{position:absolute;display:block;border-radius:50%;filter:blur(3px)}
+.ai-prompt-orb i{width:18px;height:28px;left:7px;top:3px;background:rgba(255,244,210,.55);transform:rotate(24deg)}
+.ai-prompt-orb b{width:22px;height:15px;right:-2px;bottom:2px;background:rgba(114,91,184,.6)}
+.ai-prompt-bar-v7 .field{margin-bottom:12px}.ai-prompt-bar-v7 .intent-input{min-height:118px;border-color:rgba(255,255,255,.08);border-radius:16px;background:rgba(5,5,6,.24);font-size:16px;line-height:1.5}.ai-prompt-bar-v7 .intent-input:focus{border-color:rgba(218,174,103,.42);box-shadow:0 0 0 3px rgba(218,174,103,.055)}
+
+/* Liquid-metal treatment is reserved for the two actions that actually
+   transform intent into work. */
+.liquid-metal-cta{
+  position:relative;
+  overflow:hidden;
+  isolation:isolate;
+  color:#2a1819!important;
+  border:1px solid rgba(255,236,198,.42)!important;
+  background:linear-gradient(110deg,#c89167 0%,#f3e3bd 18%,#9f4d50 39%,#e8c377 60%,#fff2c9 79%,#9a474b 100%)!important;
+  background-size:180% 180%!important;
+  box-shadow:0 10px 34px rgba(126,44,48,.22),inset 0 1px 0 rgba(255,255,255,.65),inset 0 -1px 0 rgba(96,45,45,.22)!important;
+  text-shadow:0 1px rgba(255,255,255,.22);
+}
+.liquid-metal-cta:after{content:'';position:absolute;z-index:-1;inset:-1px;background:linear-gradient(118deg,transparent 22%,rgba(255,255,255,.48) 43%,transparent 58%);translate:-130% 0;transition:translate .55s ease}
+.liquid-metal-cta:hover:after{translate:130% 0}
+.liquid-metal-cta:disabled{filter:grayscale(.35);opacity:.52}
+
+/* Glowing-folder upload card. The native input remains accessible through
+   the label while the visual affordance becomes clear and pleasant. */
+.file-upload-card-v7{
+  display:grid;
+  grid-template-columns:54px minmax(0,1fr) auto;
+  gap:12px;
+  align-items:center;
+  margin-top:17px;
+  padding:13px 14px;
+  cursor:pointer;
+  border:1px solid rgba(255,255,255,.09);
+  border-radius:17px;
+  background:
+    radial-gradient(130px 76px at 12% -15%,rgba(189,155,96,.13),transparent 70%),
+    linear-gradient(145deg,rgba(255,255,255,.035),rgba(255,255,255,.012));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.055),0 13px 34px rgba(0,0,0,.11);
+  transition:border-color .18s ease,transform .18s ease,background .18s ease;
+}
+.file-upload-card-v7:hover{transform:translateY(-1px);border-color:rgba(218,174,103,.30);background:linear-gradient(145deg,rgba(255,255,255,.052),rgba(255,255,255,.018))}
+.file-upload-folder{position:relative;width:54px;height:50px;display:flex;align-items:center;justify-content:center;border-radius:13px;background:linear-gradient(145deg,rgba(142,44,45,.28),rgba(189,155,96,.08));border:1px solid rgba(255,255,255,.08);box-shadow:0 10px 24px rgba(102,28,34,.12),inset 0 1px 0 rgba(255,255,255,.08);color:#d3a965}
+.file-upload-folder svg{width:22px;height:22px;position:relative;z-index:2}.file-upload-folder i{position:absolute;width:30px;height:18px;border-radius:50%;background:rgba(224,177,101,.20);filter:blur(7px)}
+.file-upload-copy{display:flex;flex-direction:column;min-width:0}.file-upload-copy strong{font-size:11px;font-weight:620}.file-upload-copy small{margin-top:4px;color:var(--muted);font-size:8px;line-height:1.4}
+.file-upload-action{padding:7px 9px;border:1px solid rgba(255,255,255,.09);border-radius:999px;background:rgba(255,255,255,.025);color:rgba(248,238,232,.60);font-size:8px;white-space:nowrap}
+.file-upload-card-v7.is-uploading{pointer-events:none;opacity:.72}.file-upload-card-v7.is-uploading .file-upload-folder{animation:creationPulse 1.6s ease-in-out infinite}
+
+@keyframes creationPulse{50%{opacity:.55;transform:scale(.88)}}
+@keyframes creationGlow{50%{opacity:.62;transform:scale(1.08)}}
+
+@media(max-width:900px){
+  .creation-room-v7{grid-template-columns:1fr;padding:28px}.creation-video-card{width:min(280px,78vw);transform:none}.creation-video-home{order:-1}.creation-room-copy{text-align:center;margin:auto}.creation-room-copy>p:not(.creation-progress-note){margin-left:auto;margin-right:auto}.creation-room-actions{justify-content:center}.creation-progress-card{text-align:left}
+}
+@media(max-width:600px){
+  .creation-room-v7{padding:20px;border-radius:22px}.creation-room-v7 h2{font-size:34px}.creation-video-card{width:min(238px,76vw);border-radius:22px}.creation-progress-card{grid-template-columns:1fr}.creation-progress-card progress{grid-column:1}.creation-progress-number{flex-direction:row;align-items:baseline;gap:7px}.creation-progress-number span{margin:0}.creation-room-actions{flex-direction:column}.file-upload-card-v7{grid-template-columns:46px minmax(0,1fr)}.file-upload-folder{width:46px;height:46px}.file-upload-action{grid-column:1/-1;text-align:center}.ai-prompt-bar-v7{padding:16px!important}.candidate-summary-card{min-height:88px}
+}
+@media(prefers-reduced-motion:reduce){
+  .creation-live-orb,.creation-card-glow,.file-upload-card-v7.is-uploading .file-upload-folder{animation:none!important}.liquid-metal-cta:after{display:none}.file-upload-card-v7{transition:none!important}.creation-video-card{transform:none}
+}

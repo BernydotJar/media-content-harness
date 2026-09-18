@@ -978,6 +978,84 @@
         "assets/**",
         "config/**"
       ]
+    },
+    {
+      "id": "WEB027-CREATION-ROOM-V7",
+      "title": "Joyful creation room, truthful workflow progress and Inspora-inspired creative surfaces",
+      "kind": "product-completion",
+      "status": "spec_ready",
+      "depends_on": [
+        "WEB026-HUMAN-CENTERED-REVIEW-RELEASE"
+      ],
+      "capability": "media-factory-web",
+      "gates": {
+        "review": [
+          "implementation_quality"
+        ]
+      },
+      "allowed_paths": [
+        "server/**",
+        "app/**",
+        "components/**",
+        "plugins/**",
+        "scripts/**",
+        "tests/**",
+        "docs/**",
+        "specs/**",
+        "progress/**",
+        "graph/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "*.json",
+        "*.mjs",
+        "*.yml",
+        "Dockerfile",
+        ".gitignore",
+        ".dockerignore",
+        "README.md",
+        "deploy/**",
+        "assets/**",
+        "config/**"
+      ]
+    },
+    {
+      "id": "WEB028-CREATION-ROOM-V7-RELEASE",
+      "title": "Independent verification, signed deployment and public confirmation of Creation Room V7",
+      "kind": "product-completion",
+      "status": "spec_ready",
+      "depends_on": [
+        "WEB027-CREATION-ROOM-V7"
+      ],
+      "capability": "media-factory-web",
+      "gates": {
+        "review": [
+          "implementation_quality"
+        ]
+      },
+      "allowed_paths": [
+        "server/**",
+        "app/**",
+        "components/**",
+        "plugins/**",
+        "scripts/**",
+        "tests/**",
+        "docs/**",
+        "specs/**",
+        "progress/**",
+        "graph/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "*.json",
+        "*.mjs",
+        "*.yml",
+        "Dockerfile",
+        ".gitignore",
+        ".dockerignore",
+        "README.md",
+        "deploy/**",
+        "assets/**",
+        "config/**"
+      ]
     }
   ]
 }

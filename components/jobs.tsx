@@ -27,6 +27,29 @@ const simpleJourney=[
  {label:'Entregar',stages:['RELEASE']},
 ] as const;
 function simpleJourneyIndex(stage:string,status:string){if(status==='RELEASED')return 3;const index=simpleJourney.findIndex(group=>(group.stages as readonly string[]).includes(stage));return index<0?0:index}
+function CreationRoom({job,live,completedStages,totalStages}:{job:Item;live:boolean;completedStages:number;totalStages:number}) {
+ const verifiedPercent=totalStages>0?Math.max(0,Math.min(99,Math.round((completedStages/totalStages)*100))):0, currentStage=stageNames[job.stage]||'Preparando';
+ return <section className="creation-room-v7" aria-label="Tu video se está creando">
+  <div className="creation-room-copy">
+   <div className="creation-room-kicker"><span className="creation-live-orb" aria-hidden="true"/><span>CREACIÓN EN MARCHA</span></div>
+   <h2>¡Listo! Tu video ya se está creando.</h2>
+   <p>Esta pantalla se actualiza sola. Aquí verás el video apenas esté listo para revisar.</p>
+   <div className="creation-progress-card">
+    <div className="creation-progress-number"><strong>{verifiedPercent}%</strong><span>del flujo verificado</span></div>
+    <div className="creation-progress-copy"><span>Ahora</span><strong>{currentStage}</strong><small>{completedStages} de {totalStages} etapas completadas</small></div>
+    <progress value={verifiedPercent} max={100} aria-label={'Avance verificado '+verifiedPercent+'%'}>{verifiedPercent}%</progress>
+   </div>
+   <p className="creation-progress-note">El porcentaje mide etapas verificadas del flujo. No inventamos un porcentaje de render que el proveedor no haya informado.</p>
+   <div className="creation-room-actions"><Link className="button secondary" href="/review">Ver mis producciones</Link><span><span className={'tiny-dot '+(live?'':'inactive')}/>{live?'Actualización en vivo':'Actualización automática'}</span></div>
+  </div>
+  <div className="creation-video-home" aria-label="Lugar donde aparecerá el video">
+   <div className="creation-video-card">
+    <i/><b/><em/><span className="creation-card-glow" aria-hidden="true"/>
+    <div className="creation-video-copy"><span>AQUÍ APARECERÁ TU VIDEO</span><strong>{currentStage}</strong><small>{live?'Te avisamos en esta misma pantalla':'Seguimos comprobando el avance'}</small></div>
+   </div>
+  </div>
+ </section>
+}
 
 export function JobDetail({ id, manageIntegrations=false }: { id: string; manageIntegrations?: boolean }) {
  const connected = useRef(false), changeInput=useRef<HTMLTextAreaElement>(null);
@@ -50,7 +73,7 @@ export function JobDetail({ id, manageIntegrations=false }: { id: string; manage
  const humanBlocker=blockerCodes.has('HUMAN_APPROVAL_REQUIRED');
  const editHref=j.tenant_id?(j.creation_mode==='GUIDED_SCENE'?'/workspace/'+encodeURIComponent(j.tenant_id)+'/scene':'/workspace/'+encodeURIComponent(j.tenant_id)+'/weekly?plan='+encodeURIComponent(j.plan_id||'')+'&story='+encodeURIComponent(j.story_id||'')+'&return='+encodeURIComponent('/jobs/'+j.id)):null;
  const integrationHref='/admin/integrations?focus=video-generation&return='+encodeURIComponent('/jobs/'+j.id);
- const simpleStep=simpleJourneyIndex(j.stage,j.status), completedStages=j.graph?.nodes?.filter((n:Item)=>n.status==='done').length||0, totalStages=j.graph?.nodes?.length||13;
+ const simpleStep=simpleJourneyIndex(j.stage,j.status), completedStages=j.graph?.nodes?.filter((n:Item)=>n.status==='done').length||0, totalStages=j.graph?.nodes?.length||13, creatingNow=!reviewable&&!released&&!(j.blockers?.length)&&['RUNNING','QUEUED'].includes(j.status);
  const statusTitle=released?'Tu video está listo':reviewable?'Tu video está listo para revisar':j.status==='BLOCKED'?'Necesitamos una decisión tuya':j.status==='WAITING_EXTERNAL_GENERATION'?'Falta recibir el resultado de creación':j.status==='RUNNING'||j.status==='QUEUED'?'Estamos preparando tu video':'Tu producción está en proceso';
  const statusCopy=released?'Puedes descargar la entrega o consultar sus detalles cuando quieras.':reviewable?'Mira la versión y decide si la aprobamos o si quieres un cambio.':j.status==='BLOCKED'?'Elige una de las opciones de arriba. No perderás el trabajo ya realizado.':j.status==='WAITING_EXTERNAL_GENERATION'?'En cuanto llegue el resultado, esta misma producción continuará automáticamente.':'Se actualiza automáticamente. Puedes salir de esta pantalla y volver después.';
  const changeSuggestions=['Agregar Caballito','Cambiar inicio','Usar otro clip','Más corto','Más emocional'];
@@ -81,7 +104,7 @@ export function JobDetail({ id, manageIntegrations=false }: { id: string; manage
   {isFirmesTenant(jobTenant.data)&&<div className="minimal-brand-mark" aria-label="FIRMES"><FirmesCaballito compact/><span><strong>FIRMES</strong><small>Studio</small></span></div>}
   <Header eyebrow="TU VIDEO" title={j.title || 'Producción'} description={j.objective || 'Revisa tu contenido y decide qué sigue.'} action={<Status value={j.status} />} />
   {j.test && <div className="notice warning">Prueba de integración. Este artefacto verifica el flujo y no es contenido de producción.</div>}
-  <ol className="simple-progress" aria-label="Avance de la producción">{simpleJourney.map((group,index)=><li key={group.label} className={index===simpleStep?'current':index<simpleStep?'complete':''}><span>{index<simpleStep?'✓':index+1}</span><strong>{group.label}</strong></li>)}</ol>
+  {creatingNow?<CreationRoom job={j} live={live} completedStages={completedStages} totalStages={totalStages}/>:<><ol className="simple-progress" aria-label="Avance de la producción">{simpleJourney.map((group,index)=><li key={group.label} className={index===simpleStep?'current':index<simpleStep?'complete':''}><span>{index<simpleStep?'✓':index+1}</span><strong>{group.label}</strong></li>)}</ol>
   {j.status==='WAITING_EXTERNAL_GENERATION'&&<ExternalGenerationPanel job={j} onChanged={job.reload}/>}
   {blocker}
   {message && <div className="notice success" role="status">{message}</div>}
@@ -89,7 +112,7 @@ export function JobDetail({ id, manageIntegrations=false }: { id: string; manage
   <div className="job-detail-grid minimal-job-grid">
    <section className="panel preview-panel">{artifacts.length ? artifacts.map((a, i) => <div className="artifact" key={a.id || i}>{a.download_url && /video/.test(a.mime_type || '') ? <video controls preload="metadata" src={a.download_url} aria-label={a.name || 'Vista previa de la producción'} /> : a.download_url && /image/.test(a.mime_type || '') ? <img src={a.download_url} alt={a.name || 'Artefacto de producción'} /> : <div className="artifact-placeholder"><Icon name="review" /><h3>{a.name || a.kind || 'Artefacto de producción'}</h3><p>La vista previa aparecerá aquí.</p></div>}{a.download_url && <a className="button secondary" href={a.download_url} target="_blank" rel="noopener noreferrer">Abrir en grande ↗</a>}</div>) : j.review_candidate ? <CreativeCandidateSummary candidate={j.review_candidate} tenantId={j.tenant_id}/> : <Empty icon="play" title="Tu video aparecerá aquí.">Estamos preparando el contenido de esta producción.</Empty>}</section>
    <aside className="panel job-context simple-context"><p className="eyebrow">IDEA</p><h3>{j.title}</h3><p>{j.objective || 'Tu objetivo de contenido aparecerá aquí.'}</p>{j.production_note&&<p className="production-note">{j.production_note}</p>}{j.tenant_id&&<Link href={'/workspace/'+j.tenant_id+'/weekly'}>Volver al plan →</Link>}<details><summary>Detalles de producción</summary><dl><dt>Estrategia</dt><dd>{strategies.find(s => s.value === j.strategy)?.title || 'Automática'}</dd>{j.production_provider&&<><dt>Herramienta usada</dt><dd>{j.production_provider}</dd></>}<dt>Etapa interna</dt><dd>{stageNames[j.stage] || j.stage}</dd><dt>Creación</dt><dd><DateLabel value={j.created_at} /></dd></dl></details></aside>
-  </div>
+  </div></>}
   {reviewable && <section className="panel approval-panel simple-approval progressive-review"><div><p className="eyebrow">REVISIÓN HUMANA / {stageNames[j.stage] || j.stage}</p><h2>{isRelease ? '¿Qué quieres hacer con esta entrega?' : '¿Qué quieres hacer con esta versión?'}</h2><p>{isRelease ? 'Puedes aprobarla para dejarla lista o pedir un último ajuste. No se publicará automáticamente.' : 'Primero decide. Si quieres un cambio, te pediremos el detalle después.'}</p>{j.stage==='CRITIC'&&j.critic_rubric&&<details className="review-guidance"><summary>Ver guía de revisión</summary><CriticRubricPanel rubric={j.critic_rubric} onFinding={openChanges}/></details>}{reviewMode==='decision'?<div className="review-decision-grid" role="group" aria-label="Decisión sobre esta versión"><button className="review-decision approve-decision" aria-label={isRelease?'Aprobar entrega':'Aprobar esta versión'} onClick={()=>action('approve')} disabled={busy||!j.candidate_sha}><span className="review-decision-icon"><Icon name="review"/></span><span><strong>{isRelease?'Aprobar entrega':'Aprobar versión'}</strong><small>{isRelease?'Quedará lista para descargar.':'Seguimos con esta versión exacta.'}</small></span><span aria-hidden="true">→</span></button><button className="review-decision change-decision" onClick={()=>openChanges()} disabled={busy} aria-expanded="false"><span className="review-decision-icon"><Icon name="spark"/></span><span><strong>Quiero hacer cambios</strong><small>Te preguntaremos qué ajustar.</small></span><span aria-hidden="true">→</span></button></div>:<div className="review-change-composer"><div className="review-composer-head"><div><span className="eyebrow">AJUSTAR ESTA VERSIÓN</span><h3>¿Qué quieres cambiar?</h3></div><button className="text-button" onClick={()=>{setReviewMode('decision');setReason('')}} disabled={busy}>Volver</button></div><div className="review-suggestion-chips" aria-label="Cambios frecuentes">{changeSuggestions.map(suggestion=><button type="button" key={suggestion} onClick={()=>{setReason(suggestion);requestAnimationFrame(()=>changeInput.current?.focus())}}>{suggestion}</button>)}</div><Field label="Cuéntanos el ajuste"><textarea ref={changeInput} aria-label="Comentarios para la revisión" value={reason} onChange={e=>setReason(e.target.value)} rows={3} maxLength={2000} placeholder="Ejemplo: agrega al Caballito desde el inicio o usa otro video…" /></Field><div className="actions"><button className="primary" onClick={()=>action('request-changes')} disabled={busy||!reason.trim()}>Solicitar cambios</button><button className="secondary" onClick={()=>{setReviewMode('decision');setReason('')}} disabled={busy}>Cancelar</button></div><details className="review-more"><summary>Más opciones</summary><button className="text-button" onClick={()=>action('reject')} disabled={busy||!reason.trim()}>Rechazar esta versión</button></details></div>}</div></section>}
   {released && <><div className="notice success">Entrega lista. La publicación en redes sociales se realiza por separado.</div>{release.loading ? <Loading text="Consultando la entrega…" /> : release.error ? <Problem error={release.error} retry={release.reload} /> : release.data && <section className="panel release-snapshot"><h2>Tu entrega</h2><ReleaseDetails release={release.data} /></section>}</>}
   <Problem error={error} />
