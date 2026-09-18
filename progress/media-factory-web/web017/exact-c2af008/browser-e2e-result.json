@@ -1,0 +1,77 @@
+{
+  "candidate_sha": "c2af008c854bcb7493b4aa0a73cd31dd05b93c28",
+  "configured_health_release_sha": "c2af008c854bcb7493b4aa0a73cd31dd05b93c28",
+  "working_tree_dirty": false,
+  "build_id": "7cW7nNclQzmJbplj0orPT",
+  "runtime_package": {
+    "format": "media-factory-runtime.v1",
+    "files": 1481,
+    "manifest_sha256": "6bdeac9cf1ada07bb262a0cb22e388c51d99cfd57b0033e12a8d7841d9f6f41f",
+    "build_id": "7cW7nNclQzmJbplj0orPT",
+    "forbidden_entries": 0,
+    "external_symlinks": 0
+  },
+  "production_source_sha256": "7d344bfa9748b1bbc8ab516742627bafd39a60c03f70b6b05cab0d4c4e0c5bfb",
+  "test_only": true,
+  "temporary_storage": true,
+  "elapsed_ms": 19863,
+  "result": {
+    "status": "PASS",
+    "checks": [
+      "exact health identity",
+      "packaged authenticated service readiness and pinned Graph",
+      "anonymous API denied",
+      "public discovery endpoints exclude private resources and preview indexing",
+      "unknown route returns semantic custom 404 without authentication or reflected identifiers",
+      "public login metadata, trusted canonical and generated 1200x630 social image",
+      "FIRMES Caballito favicon and app icons are publicly discoverable and byte-exact",
+      "original hero loads actual bundled image bytes with descriptive alternative text",
+      "hero motion pauses on demand, reduced motion and simulated hidden-document visibility",
+      "mobile hero and accessible sign-in remain ordered with no horizontal overflow",
+      "login and honest empty dashboard",
+      "private dashboard has generic page title and no indexing or canonical identity",
+      "quick create without tenants offers only workspace onboarding",
+      "workspace onboarding and authority-separated sources",
+      "reference proof upload and end-user creative style",
+      "explicit tenant mascot source binding",
+      "Guided continue auto-saves the draft before explicit approval without approval side effects",
+      "exact four-video natural-language request strategies",
+      "asynchronous real pinned Graph reaches creative human gate",
+      "SSE progression and visibly marked deterministic provider fixture",
+      "hash-bound release and authenticated downloadable artifact",
+      "authenticated video byte ranges and browser preview seeking",
+      "released version visibly shows approved hashes, reviewer and actual provider provenance",
+      "release library",
+      "release library details and actual browser download match approved master hash",
+      "mobile release details and hash provenance fit the 390px viewport",
+      "tenant switching keeps plans separate",
+      "responsive mobile navigation and no horizontal overflow",
+      "quick create keyboard submenu and Escape restore focus",
+      "quick create keyboard selection navigates to the existing tenant simple creation flow",
+      "safe diagonal pointer path preserves the intended submenu across sibling rows",
+      "touch opens a submenu and navigates without hover or horizontal overflow",
+      "real request loading retains accessible status and pauses decorative orb for reduced motion and simulated hidden visibility",
+      "no uncaught browser errors"
+    ],
+    "job_id": "mf_3a4adc84063ef28f8db757e479d43e6f",
+    "release_candidate_sha": "46c2a8cab080e9a1b568ef2a6026dce320e94d193e576ba0f05999633e136625",
+    "artifact_sha256": "0fe5ea45fda5a9cadb8ce1e623c0db288ca849b1d53415539fd8aa4d682c9af1",
+    "download_sha256": "0fe5ea45fda5a9cadb8ce1e623c0db288ca849b1d53415539fd8aa4d682c9af1",
+    "release_id": "release_54fce6fda7f4950154236560",
+    "provider": "deterministic-test",
+    "media_responses": [
+      {
+        "status": 206,
+        "range": "bytes=0-",
+        "content_range": "bytes 0-2300/2301"
+      }
+    ],
+    "seeking": {
+      "duration": 1,
+      "target": 0.5,
+      "current_time": 0.5,
+      "ready_state": 4,
+      "error": null
+    }
+  }
+}

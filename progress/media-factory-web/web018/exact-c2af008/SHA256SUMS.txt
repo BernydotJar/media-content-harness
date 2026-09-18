@@ -1,0 +1,11 @@
+246083ab2a2049225b0c0d9fcb520e788576480913e3eae6cd2c9068136ba6b3  progress/media-factory-web/web018/exact-c2af008/host-reconcile.json
+440a646f4942bb4a0900742627bbcd83d61fcbddd6f914e036c050e5e00a9f2c  progress/media-factory-web/web018/exact-c2af008/product-status.json
+721439c478c2397d9fd1467a84a6d019a5232f8f0d87bd18f1fa05bb9b510f56  progress/media-factory-web/web018/exact-c2af008/RELEASE.md
+85a0daa669233dedd0b28eba2a388fd5f51b34bad35cf540277c099507458c37  progress/media-factory-web/web018/exact-c2af008/deploy-request.json
+ae22dab7e4f8c869cc3254147b417cd11fb3b5315888661392bbb3aca5d38b9e  progress/media-factory-web/web018/exact-c2af008/public-probe.txt
+b2db51edb3feb87821160f6e08a92da5b6f5fcadc9167294d74dc00d8ffc707f  progress/media-factory-web/web018/exact-c2af008/INDEPENDENT_VERIFIER.md
+bfe35de49aeea9dc6efc03e835521590f7aee81bb85abf849624ed556409149a  progress/media-factory-web/web018/exact-c2af008/finalizer-output.json
+e2bca4ba6536b80b81f0f34eff1f587f86673c2b50c10c1d902a7564670c418d  progress/media-factory-web/web018/exact-c2af008/CRITIC.md
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  progress/media-factory-web/web018/exact-c2af008/SHA256SUMS.txt
+e7b10021e6fab1fcd0822282c81ecfac26778362e920021afd4db0370d3dc80a  progress/media-factory-web/web018/exact-c2af008/signer-risk.json
+fed02a1662a4ba207edb20d3df54e22518aa651a018f42cf49e50ad386f825d6  progress/media-factory-web/web018/exact-c2af008/signer-rubric-r2.json
