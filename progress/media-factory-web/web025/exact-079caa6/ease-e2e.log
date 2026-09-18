@@ -1,0 +1,31 @@
+{
+  "candidate_sha": "079caa6f209700d4cfafeda8c27c5a9b5522603a",
+  "configured_health_release_sha": "079caa6f209700d4cfafeda8c27c5a9b5522603a",
+  "working_tree_dirty": false,
+  "build_id": "iSuIyNkigO7xO-SaSsXAV",
+  "runtime_package": {
+    "format": "media-factory-runtime.v1",
+    "files": 1481,
+    "manifest_sha256": "f658659647b5335b589d56e2fe7e3c0d7617d18f66d6638f47c341f467d1ae17",
+    "build_id": "iSuIyNkigO7xO-SaSsXAV",
+    "forbidden_entries": 0,
+    "external_symlinks": 0
+  },
+  "production_source_sha256": "c8ae6138e0ee45dc48a87ded7fe1bbdbaea721196c48b4ae335c5d3d9fe8b248",
+  "test_only": true,
+  "temporary_storage": true,
+  "elapsed_ms": 11942,
+  "result": {
+    "status": "PASS",
+    "checks": [
+      "Admin saves a synthetic credential with redacted readback and truthful unimplemented adapter status",
+      "Zero selected sources prevents progression and points at material before a server error",
+      "Guided plan auto-saves the draft while keeping production gated behind explicit approval",
+      "Authorized fictional character and place profiles save as reusable referenced records",
+      "Character/place snapshots follow the actual launched Graph job and the compact review summary keeps the authorized character visible.",
+      "Unsupported mascot composition is explicitly blocked without a fake video or progress",
+      "Mobile guidance remains usable without horizontal overflow"
+    ]
+  },
+  "evidence_directory": "/tmp/media-factory-ease-e2e-kaLdml"
+}

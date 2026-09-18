@@ -1,0 +1,392 @@
+reviewed_sha=079caa6f209700d4cfafeda8c27c5a9b5522603a
+working_tree=DIRTY
+TAP version 13
+# Subtest: FIRMES seeds a reusable avatar catalog without fabricating missing turnaround views
+ok 1 - FIRMES seeds a reusable avatar catalog without fabricating missing turnaround views
+  ---
+  duration_ms: 3.460917
+  type: 'test'
+  ...
+# Subtest: beach avatar compiles sunglasses, flip-flops, walking and mandatory FIRMES marker
+ok 2 - beach avatar compiles sunglasses, flip-flops, walking and mandatory FIRMES marker
+  ---
+  duration_ms: 4.63925
+  type: 'test'
+  ...
+# Subtest: space avatar preserves FIRMES identity while allowing a requested space helmet
+ok 3 - space avatar preserves FIRMES identity while allowing a requested space helmet
+  ---
+  duration_ms: 2.543583
+  type: 'test'
+  ...
+# Subtest: incompatible add-ons and cross-tenant avatar references fail closed
+ok 4 - incompatible add-ons and cross-tenant avatar references fail closed
+  ---
+  duration_ms: 0.701542
+  type: 'test'
+  ...
+# Subtest: avatar authority drift invalidates a previously compiled job
+ok 5 - avatar authority drift invalidates a previously compiled job
+  ---
+  duration_ms: 0.945625
+  type: 'test'
+  ...
+# Subtest: avatar critic and external package bind identity, marker, add-ons, motion and exact contract hash
+ok 6 - avatar critic and external package bind identity, marker, add-ons, motion and exact contract hash
+  ---
+  duration_ms: 1.489
+  type: 'test'
+  ...
+# Subtest: MCP-ready avatar tools are deterministic and share the product authority
+ok 7 - MCP-ready avatar tools are deterministic and share the product authority
+  ---
+  duration_ms: 1.420458
+  type: 'test'
+  ...
+# Subtest: avatar authority rejects contradictory hard constraints and makes lower-priority overrides explicit
+ok 8 - avatar authority rejects contradictory hard constraints and makes lower-priority overrides explicit
+  ---
+  duration_ms: 0.912792
+  type: 'test'
+  ...
+# Subtest: intentional space/construction gear is not accidentally prohibited by the identity-source cleanup rule
+ok 9 - intentional space/construction gear is not accidentally prohibited by the identity-source cleanup rule
+  ---
+  duration_ms: 2.174125
+  type: 'test'
+  ...
+# Subtest: MCP critic plan fails closed after avatar catalog authority drifts
+ok 10 - MCP critic plan fails closed after avatar catalog authority drifts
+  ---
+  duration_ms: 1.463958
+  type: 'test'
+  ...
+# Subtest: avatar outfit or add-on cannot silently contradict target-environment exclusions
+ok 11 - avatar outfit or add-on cannot silently contradict target-environment exclusions
+  ---
+  duration_ms: 0.845334
+  type: 'test'
+  ...
+# Subtest: system API administration requires explicit live authority, not workspace owner or creator
+ok 12 - system API administration requires explicit live authority, not workspace owner or creator
+  ---
+  duration_ms: 215.436709
+  type: 'test'
+  ...
+# Subtest: host operator fallback exposes global administration without granting it to arbitrary configured identities
+ok 13 - host operator fallback exposes global administration without granting it to arbitrary configured identities
+  ---
+  duration_ms: 148.238375
+  type: 'test'
+  ...
+# Subtest: credentials persist encrypted, rotate/remove, and never activate adapters or enter product state
+ok 14 - credentials persist encrypted, rotate/remove, and never activate adapters or enter product state
+  ---
+  duration_ms: 104.690708
+  type: 'test'
+  ...
+# Subtest: vault corruption and missing/wrong/symlink keys fail closed without overwriting stored credentials
+ok 15 - vault corruption and missing/wrong/symlink keys fail closed without overwriting stored credentials
+  ---
+  duration_ms: 86.99625
+  type: 'test'
+  ...
+# Subtest: concurrent first vault writes preserve all providers and ciphertext is bound to its provider
+ok 16 - concurrent first vault writes preserve all providers and ciphertext is bound to its provider
+  ---
+  duration_ms: 84.834917
+  type: 'test'
+  ...
+# Subtest: admin HTTP keeps CSRF, anonymous/outsider denial and rejects unknown endpoints/oversized secret fields
+ok 17 - admin HTTP keeps CSRF, anonymous/outsider denial and rejects unknown endpoints/oversized secret fields
+  ---
+  duration_ms: 91.741333
+  type: 'test'
+  ...
+# Subtest: fictional character/place profiles enforce scope and authorization and freeze in plan/job snapshots
+ok 18 - fictional character/place profiles enforce scope and authorization and freeze in plan/job snapshots
+  ---
+  duration_ms: 122.298292
+  type: 'test'
+  ...
+# Subtest: journey distinguishes a registered link, available media, draft, queued work and review without fake progress
+ok 19 - journey distinguishes a registered link, available media, draft, queued work and review without fake progress
+  ---
+  duration_ms: 89.1515
+  type: 'test'
+  ...
+# Subtest: new admin and profile pages are private metadata routes
+ok 20 - new admin and profile pages are private metadata routes
+  ---
+  duration_ms: 0.248792
+  type: 'test'
+  ...
+# Subtest: fixer: queued admin writes recheck revoked authority before committing
+ok 21 - fixer: queued admin writes recheck revoked authority before committing
+  ---
+  duration_ms: 97.802125
+  type: 'test'
+  ...
+# Subtest: fixer: explicit budget clear differs from omission
+ok 22 - fixer: explicit budget clear differs from omission
+  ---
+  duration_ms: 82.933167
+  type: 'test'
+  ...
+# Subtest: fixer: malformed GCM envelopes reject truncated tags IVs and noncanonical encoding
+ok 23 - fixer: malformed GCM envelopes reject truncated tags IVs and noncanonical encoding
+  ---
+  duration_ms: 87.579791
+  type: 'test'
+  ...
+# Subtest: fixer: Free Mode resolves principal fictional profile and plan links recover exact drafts
+ok 24 - fixer: Free Mode resolves principal fictional profile and plan links recover exact drafts
+  ---
+  duration_ms: 93.353459
+  type: 'test'
+  ...
+# Subtest: fixer: oversized UTF8 key rejected before storage and permitted maximum remains readable
+ok 25 - fixer: oversized UTF8 key rejected before storage and permitted maximum remains readable
+  ---
+  duration_ms: 84.443
+  type: 'test'
+  ...
+# Subtest: story editor presents the default brand avatar as one atomic visual character decision
+ok 26 - story editor presents the default brand avatar as one atomic visual character decision
+  ---
+  duration_ms: 5.705
+  type: 'test'
+  ...
+# Subtest: creative review uses compact human summary and leaves raw candidate data behind a disclosure
+ok 27 - creative review uses compact human summary and leaves raw candidate data behind a disclosure
+  ---
+  duration_ms: 1.827125
+  type: 'test'
+  ...
+# Subtest: human review asks for a decision before exposing the change composer
+ok 28 - human review asks for a decision before exposing the change composer
+  ---
+  duration_ms: 2.405417
+  type: 'test'
+  ...
+# Subtest: V6 responsive styles support avatar cards, compact summary and progressive review
+ok 29 - V6 responsive styles support avatar cards, compact summary and progressive review
+  ---
+  duration_ms: 1.501083
+  type: 'test'
+  ...
+# Subtest: authentication preserves password bytes, revokes changed identity and starts without tenants
+ok 30 - authentication preserves password bytes, revokes changed identity and starts without tenants
+  ---
+  duration_ms: 173.432833
+  type: 'test'
+  ...
+# Subtest: tenant membership enforced for reads/writes and onboarding has no fake source
+ok 31 - tenant membership enforced for reads/writes and onboarding has no fake source
+  ---
+  duration_ms: 118.393125
+  type: 'test'
+  ...
+# Subtest: strict source/reference separation, provenance and secret validation
+ok 32 - strict source/reference separation, provenance and secret validation
+  ---
+  duration_ms: 92.732209
+  type: 'test'
+  ...
+# Subtest: private, browser and signed source locators are rejected
+ok 33 - private, browser and signed source locators are rejected
+  ---
+  duration_ms: 0.482334
+  type: 'test'
+  ...
+# Subtest: plans reject injected approval and produce same id under concurrent requests
+ok 34 - plans reject injected approval and produce same id under concurrent requests
+  ---
+  duration_ms: 131.779125
+  type: 'test'
+  ...
+# Subtest: source/DNA changes invalidate plans and idempotency includes strategy
+ok 35 - source/DNA changes invalidate plans and idempotency includes strategy
+  ---
+  duration_ms: 97.254583
+  type: 'test'
+  ...
+# Subtest: Free Mode exact mixed Spanish example becomes four unapproved concepts, no-AI remains real
+ok 36 - Free Mode exact mixed Spanish example becomes four unapproved concepts, no-AI remains real
+  ---
+  duration_ms: 107.571958
+  type: 'test'
+  ...
+# Subtest: targeted political or sensitive persuasion cannot enter plans/intent
+ok 37 - targeted political or sensitive persuasion cannot enter plans/intent
+  ---
+  duration_ms: 92.622583
+  type: 'test'
+  ...
+# Subtest: HTTP cookies, CSRF, malformed body, path traversal and safe errors
+ok 38 - HTTP cookies, CSRF, malformed body, path traversal and safe errors
+  ---
+  duration_ms: 136.067292
+  type: 'test'
+  ...
+# Subtest: repository serializes separate instances and rejects symlink state
+ok 39 - repository serializes separate instances and rejects symlink state
+  ---
+  duration_ms: 30.791208
+  type: 'test'
+  ...
+# Subtest: SSE rejects unauthorized reads and pushes durable state updates
+ok 40 - SSE rejects unauthorized reads and pushes durable state updates
+  ---
+  duration_ms: 95.868208
+  type: 'test'
+  ...
+# Subtest: HTTP rejects declared and streamed oversized JSON before parsing
+ok 41 - HTTP rejects declared and streamed oversized JSON before parsing
+  ---
+  duration_ms: 76.994333
+  type: 'test'
+  ...
+# Subtest: viewer cannot approve concepts and configured identity roles override persisted memberships
+ok 42 - viewer cannot approve concepts and configured identity roles override persisted memberships
+  ---
+  duration_ms: 87.581917
+  type: 'test'
+  ...
+# Subtest: reference DNA requires evidence bytes actually stored for the selected reference
+ok 43 - reference DNA requires evidence bytes actually stored for the selected reference
+  ---
+  duration_ms: 86.810625
+  type: 'test'
+  ...
+# Subtest: malformed durable state fails closed with controlled storage error
+ok 44 - malformed durable state fails closed with controlled storage error
+  ---
+  duration_ms: 0.910042
+  type: 'test'
+  ...
+# Subtest: ProductError identity remains stable across independently evaluated server bundles
+ok 45 - ProductError identity remains stable across independently evaluated server bundles
+  ---
+  duration_ms: 0.357291
+  type: 'test'
+  ...
+# Subtest: stored reference evidence tampering invalidates DNA analysis
+ok 46 - stored reference evidence tampering invalidates DNA analysis
+  ---
+  duration_ms: 85.078333
+  type: 'test'
+  ...
+# Subtest: mascot setup binds a selected production source and rejects a reference
+ok 47 - mascot setup binds a selected production source and rejects a reference
+  ---
+  duration_ms: 85.641916
+  type: 'test'
+  ...
+# Subtest: Free Mode respects indirect AI negations and explicit alternative distributions
+ok 48 - Free Mode respects indirect AI negations and explicit alternative distributions
+  ---
+  duration_ms: 88.938667
+  type: 'test'
+  ...
+# Subtest: login concurrency limit reserves capacity before awaiting identity loading
+ok 49 - login concurrency limit reserves capacity before awaiting identity loading
+  ---
+  duration_ms: 117.3495
+  type: 'test'
+  ...
+# Subtest: legacy planner contract rejection returns a controlled HTTP 400
+ok 50 - legacy planner contract rejection returns a controlled HTTP 400
+  ---
+  duration_ms: 81.710666
+  type: 'test'
+  ...
+# Subtest: FIRMES avatar catalog and MCP-ready tool definitions stay membership-bound over HTTP
+ok 51 - FIRMES avatar catalog and MCP-ready tool definitions stay membership-bound over HTTP
+  ---
+  duration_ms: 79.754042
+  type: 'test'
+  ...
+1..51
+# tests 51
+# suites 0
+# pass 51
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2134.320001
+Recreating /workspace/projects/media-content-harness/node_modules
+✓ Lockfile passes supply-chain policies (verified 23h ago)
+Lockfile is up to date, resolution step is skipped
+Already up to date
+
+dependencies:
++ @radix-ui/react-dropdown-menu 2.1.24
++ ajv 8.20.0
++ ajv-formats 3.0.1
++ next 16.3.5
++ react 19.3.0
++ react-dom 19.3.0
++ thinking-orbs 0.3.1
+
+devDependencies:
++ @playwright/test 1.58.2
++ @types/node 22.19.1
++ @types/react 19.2.7
++ @types/react-dom 19.2.3
++ typescript 5.9.3
+
+Done in 417ms using pnpm v11.7.0
+$ tsc --noEmit
+$ node scripts/build-web.mjs
+▲ Next.js 16.3.5 (Turbopack)
+✓ Running next.config.mjs took 19ms
+⚠ No build cache found. Please configure build caching for faster rebuilds. Read more: https://nextjs.org/docs/messages/no-cache
+Attention: Next.js now collects completely anonymous telemetry regarding usage.
+This information is used to shape Next.js' roadmap and prioritize features.
+You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+https://nextjs.org/telemetry
+
+
+  Creating an optimized production build ...
+[1m[31mFATAL[39m[0m: An unexpected Turbopack error occurred:
+Symlink [project]/node_modules is invalid, it points out of the filesystem root
+
+Debug info:
+- Execution of get_all_written_entrypoints_with_issues_operation failed
+- Execution of EntrypointsOperation::new failed
+- Execution of all_entrypoints_write_to_disk_operation failed
+- Execution of output_assets_operation failed
+- Execution of Project::get_all_endpoint_groups_with_app_route_filter failed
+- Execution of Project::entrypoints_with_app_route_filter failed
+- Execution of AppProject::routes_with_filter failed
+- Execution of directory_tree_to_entrypoints_internal failed
+- Execution of try_get_next_package failed
+- Execution of resolve failed
+- Execution of resolve_internal failed
+- Execution of find_package failed
+- Symlink [project]/node_modules is invalid, it points out of the filesystem root
+
+> Build error occurred
+Error [TurbopackInternalError]: Symlink [project]/node_modules is invalid, it points out of the filesystem root
+
+Debug info:
+- Execution of get_all_written_entrypoints_with_issues_operation failed
+- Execution of EntrypointsOperation::new failed
+- Execution of all_entrypoints_write_to_disk_operation failed
+- Execution of output_assets_operation failed
+- Execution of Project::get_all_endpoint_groups_with_app_route_filter failed
+- Execution of Project::entrypoints_with_app_route_filter failed
+- Execution of AppProject::routes_with_filter failed
+- Execution of directory_tree_to_entrypoints_internal failed
+- Execution of try_get_next_package failed
+- Execution of resolve failed
+- Execution of resolve_internal failed
+- Execution of find_package failed
+- Symlink [project]/node_modules is invalid, it points out of the filesystem root
+    at ignore-listed frames {
+  type: 'TurbopackInternalError',
+  location: undefined
+}
+[ELIFECYCLE] Command failed with exit code 1.
