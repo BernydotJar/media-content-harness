@@ -748,6 +748,82 @@
         "assets/**",
         "config/**"
       ]
+    },
+    {
+      "id": "WEB021-LIQUID-GLASS-NAV",
+      "title": "Liquid-glass navigation and simplified single-brand menus",
+      "kind": "product-completion",
+      "status": "spec_ready",
+      "depends_on": [
+        "WEB020-INSPORA-V4-RELEASE"
+      ],
+      "capability": "media-factory-web",
+      "gates": {
+        "review": [
+          "implementation_quality"
+        ]
+      },
+      "allowed_paths": [
+        "server/**",
+        "app/**",
+        "components/**",
+        "scripts/**",
+        "tests/**",
+        "docs/**",
+        "specs/**",
+        "progress/**",
+        "graph/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "*.json",
+        "*.mjs",
+        "*.yml",
+        "Dockerfile",
+        ".gitignore",
+        ".dockerignore",
+        "README.md",
+        "deploy/**",
+        "assets/**",
+        "config/**"
+      ]
+    },
+    {
+      "id": "WEB022-LIQUID-GLASS-NAV-RELEASE",
+      "title": "Independent verification, signed deployment and public confirmation of liquid-glass navigation",
+      "kind": "product-completion",
+      "status": "spec_ready",
+      "depends_on": [
+        "WEB021-LIQUID-GLASS-NAV"
+      ],
+      "capability": "media-factory-web",
+      "gates": {
+        "review": [
+          "implementation_quality"
+        ]
+      },
+      "allowed_paths": [
+        "server/**",
+        "app/**",
+        "components/**",
+        "scripts/**",
+        "tests/**",
+        "docs/**",
+        "specs/**",
+        "progress/**",
+        "graph/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "*.json",
+        "*.mjs",
+        "*.yml",
+        "Dockerfile",
+        ".gitignore",
+        ".dockerignore",
+        "README.md",
+        "deploy/**",
+        "assets/**",
+        "config/**"
+      ]
     }
   ]
 }

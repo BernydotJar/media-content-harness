@@ -1323,3 +1323,358 @@
   }
   .deck-card-real video{animation:none!important}
 }
+
+/* ============================================================
+   Creative Studio V5 — Liquid Glass navigation
+   Directional reference: Inspora “Liquid glass nav bar”.
+   Original implementation; no reference assets copied.
+   ============================================================ */
+
+/* The outer top row no longer behaves like a second hero/banner. */
+.liquid-glass-topline{
+  height:52px;
+  top:12px;
+  margin:12px 0 34px;
+  padding:0;
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+}
+.liquid-glass-topline:before{display:none}
+.topline-context{
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  min-height:38px;
+  padding:0 13px;
+  border:1px solid rgba(255,255,255,.09);
+  border-radius:999px;
+  color:rgba(248,239,236,.54);
+  background:
+    radial-gradient(70px 34px at 14% -18%,rgba(255,255,255,.12),transparent 72%),
+    linear-gradient(145deg,rgba(255,255,255,.052),rgba(255,255,255,.018));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 12px 34px rgba(0,0,0,.14);
+  backdrop-filter:blur(22px) saturate(155%);
+  -webkit-backdrop-filter:blur(22px) saturate(155%);
+  font-size:9px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.topline-context i{
+  width:3px;height:3px;border-radius:50%;
+  background:rgba(223,188,132,.62);
+}
+.topline-context strong{
+  color:rgba(248,239,236,.78);
+  font-weight:600;
+  letter-spacing:.03em;
+  text-transform:none;
+}
+.topline-actions{gap:9px}
+.approval-assurance{
+  display:inline-flex!important;
+  align-items:center;
+  min-height:38px;
+  padding:0 13px;
+  border:1px solid rgba(255,255,255,.075);
+  border-radius:999px;
+  background:rgba(255,255,255,.025);
+  color:rgba(248,239,236,.56)!important;
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  font-size:9px;
+}
+.approval-assurance .tiny-dot{margin-right:7px}
+
+/* Sidebar becomes one quiet floating pane, not a stack of section headers. */
+.sidebar.liquid-glass-nav{
+  width:196px;
+  inset:18px auto 18px 18px;
+  padding:16px 10px 12px;
+  border-radius:31px;
+  background:
+    radial-gradient(180px 120px at 18% -4%,rgba(255,255,255,.12),transparent 70%),
+    radial-gradient(150px 170px at 110% 68%,rgba(142,44,45,.08),transparent 74%),
+    linear-gradient(165deg,rgba(43,32,35,.62),rgba(13,11,12,.58) 58%,rgba(8,8,9,.69))!important;
+  border:1px solid rgba(255,255,255,.13)!important;
+  box-shadow:
+    0 34px 96px rgba(0,0,0,.46),
+    inset 0 1px 0 rgba(255,255,255,.12),
+    inset 1px 0 0 rgba(255,255,255,.035),
+    inset 0 -1px 0 rgba(255,255,255,.025);
+  backdrop-filter:blur(38px) saturate(180%) brightness(1.04);
+  -webkit-backdrop-filter:blur(38px) saturate(180%) brightness(1.04);
+}
+.sidebar.liquid-glass-nav:before{
+  content:'';
+  position:absolute;
+  inset:1px;
+  border-radius:30px;
+  pointer-events:none;
+  background:
+    linear-gradient(122deg,rgba(255,255,255,.075),transparent 25% 72%,rgba(255,255,255,.018)),
+    radial-gradient(130px 44px at 30% -4%,rgba(255,255,255,.08),transparent 72%);
+  mix-blend-mode:screen;
+}
+.sidebar.liquid-glass-nav:after{
+  width:66px;
+  height:66px;
+  right:-28px;
+  top:44%;
+  background:rgba(142,44,45,.08);
+  filter:blur(14px);
+}
+
+.sidebar .studio-brand{
+  position:relative;
+  z-index:2;
+  margin:2px 8px 18px!important;
+  padding:0 4px 14px;
+  border-bottom:1px solid rgba(255,255,255,.055);
+  font-size:14px;
+  letter-spacing:-.025em;
+}
+.sidebar .studio-brand .mark.small{transform:scale(.8)}
+.sidebar .studio-brand small{
+  margin-top:3px;
+  color:rgba(247,237,233,.37);
+  font-size:7px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+}
+
+.primary-nav{
+  display:grid;
+  gap:3px;
+  position:relative;
+  z-index:2;
+}
+.sidebar.liquid-glass-nav .nav-item{
+  min-height:43px;
+  margin:0;
+  padding:9px 10px;
+  gap:9px;
+  border-radius:15px;
+  border:1px solid transparent;
+  color:rgba(247,238,234,.58);
+  background:transparent;
+  font-size:11px;
+  transition:transform .18s ease,color .18s ease,background .18s ease,border-color .18s ease,box-shadow .18s ease;
+}
+.sidebar.liquid-glass-nav .nav-item svg{
+  width:15px;
+  height:15px;
+  padding:4px;
+  box-sizing:content-box;
+  border:0;
+  border-radius:9px;
+  color:rgba(247,238,234,.48);
+  background:rgba(255,255,255,.025);
+}
+.sidebar.liquid-glass-nav .nav-item:hover{
+  transform:translateX(2px);
+  color:rgba(255,255,255,.92);
+  background:rgba(255,255,255,.035);
+}
+.sidebar.liquid-glass-nav .nav-item.active{
+  color:#fff;
+  border-color:rgba(255,255,255,.13);
+  background:
+    radial-gradient(92px 54px at 12% -8%,rgba(255,255,255,.17),transparent 72%),
+    linear-gradient(135deg,rgba(143,43,48,.67),rgba(74,25,29,.45));
+  box-shadow:
+    0 13px 30px rgba(73,13,19,.19),
+    inset 0 1px 0 rgba(255,255,255,.13),
+    inset 0 -1px 0 rgba(255,255,255,.025);
+}
+.sidebar.liquid-glass-nav .nav-item.active svg{
+  color:#ebc88e;
+  background:rgba(255,255,255,.06);
+}
+.sidebar.liquid-glass-nav .nav-item.active:after{
+  width:36px;height:36px;right:-13px;top:-12px;
+  background:radial-gradient(circle,rgba(255,255,255,.15),transparent 70%);
+}
+
+.nav-secondary,
+.nav-admin{
+  position:relative;
+  z-index:2;
+  margin-top:7px!important;
+  color:rgba(247,238,234,.42)!important;
+}
+.nav-secondary{border-top:1px solid rgba(255,255,255,.045)!important;padding-top:11px!important;border-radius:0 0 15px 15px!important}
+.nav-admin{margin-top:8px!important;font-size:9px!important}
+
+/* Current brand is one identity capsule rather than another navigation section. */
+.sidebar.liquid-glass-nav .workspace-label.glass-brand-chip{
+  position:relative;
+  z-index:2;
+  min-height:51px;
+  margin:17px 1px 8px;
+  padding:7px 9px;
+  gap:8px;
+  border:1px solid rgba(255,255,255,.085);
+  border-radius:17px;
+  background:
+    radial-gradient(84px 42px at 12% -8%,rgba(255,255,255,.09),transparent 72%),
+    linear-gradient(145deg,rgba(255,255,255,.035),rgba(255,255,255,.012));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.055);
+  color:rgba(247,238,234,.68);
+  transition:border-color .18s ease,background .18s ease;
+}
+.sidebar.liquid-glass-nav .workspace-label.glass-brand-chip:hover{
+  border-color:rgba(255,255,255,.15);
+  background:
+    radial-gradient(84px 42px at 12% -8%,rgba(255,255,255,.12),transparent 72%),
+    rgba(255,255,255,.035);
+}
+.glass-brand-chip>.firmes-lockup{min-width:0;max-width:44px;overflow:hidden}
+.glass-brand-chip .firmes-word{display:none}
+.glass-brand-chip .firmes-mark{transform:scale(.72);transform-origin:left center}
+.glass-brand-chip>span:nth-last-child(2){
+  min-width:0;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  font-size:10px;
+}
+.glass-brand-chip small{
+  margin-top:1px!important;
+  color:rgba(247,238,234,.34)!important;
+  font-size:8px!important;
+}
+.brand-chip-arrow{
+  margin-left:auto;
+  flex:0 0 auto;
+  color:rgba(223,188,132,.55);
+  font-size:10px;
+}
+
+/* Brand utilities collapse into one small disclosure. */
+.sidebar .nav-setup{
+  position:relative;
+  z-index:2;
+  margin:5px 1px 0;
+  padding:0;
+  border:0;
+}
+.sidebar .nav-setup>summary{
+  min-height:39px;
+  padding:8px 9px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  border:1px solid transparent;
+  border-radius:13px;
+  color:rgba(247,238,234,.43);
+  list-style:none;
+  font-size:9px;
+  letter-spacing:.015em;
+}
+.sidebar .nav-setup>summary::-webkit-details-marker{display:none}
+.sidebar .nav-setup>summary>span:first-child{display:flex;align-items:center;gap:8px}
+.sidebar .nav-setup>summary svg{width:14px;height:14px}
+.sidebar .nav-setup>summary:hover,
+.sidebar .nav-setup[open]>summary{
+  color:rgba(247,238,234,.72);
+  border-color:rgba(255,255,255,.07);
+  background:rgba(255,255,255,.025);
+}
+.sidebar .nav-setup .summary-chevron{transition:transform .18s ease}
+.sidebar .nav-setup[open] .summary-chevron{transform:rotate(180deg)}
+.sidebar .nav-setup>nav{
+  display:grid;
+  gap:2px;
+  margin-top:4px;
+  padding:3px 0 0 7px;
+  border-left:1px solid rgba(255,255,255,.055);
+}
+.sidebar .nav-setup .nav-item{
+  min-height:36px;
+  padding:7px 8px;
+  border-radius:11px;
+  font-size:9px;
+}
+.sidebar .nav-setup .nav-item svg{width:13px;height:13px;padding:3px}
+
+.sidebar.liquid-glass-nav .sidebar-bottom{
+  position:relative;
+  z-index:2;
+  margin-top:auto;
+  padding-top:12px;
+}
+.sidebar.liquid-glass-nav .account{
+  margin:0 1px;
+  padding:10px 6px 2px;
+  gap:7px;
+  border-top:1px solid rgba(255,255,255,.055);
+  color:rgba(247,238,234,.54);
+  font-size:9px;
+}
+.sidebar.liquid-glass-nav .account .avatar{
+  width:26px;height:26px;border-radius:10px;
+  background:rgba(255,255,255,.045);
+  border-color:rgba(255,255,255,.07);
+  color:rgba(247,238,234,.72);
+  font-family:Arial,Helvetica,sans-serif;
+  font-size:10px;
+}
+.sidebar.liquid-glass-nav .account small{font-size:8px;color:rgba(247,238,234,.28)}
+.sidebar.liquid-glass-nav .logout{min-width:30px;min-height:30px;padding:3px}
+
+.main{margin-left:226px}
+
+/* Mobile: the same material becomes one compact floating nav strip. */
+@media(max-width:800px){
+  .mobile-bar.liquid-glass-nav{
+    display:flex;
+    left:10px;
+    right:10px;
+    top:10px;
+    width:auto;
+    max-width:none;
+    min-height:58px;
+    padding:7px 8px 7px 10px;
+    border-radius:21px;
+    border:1px solid rgba(255,255,255,.13);
+    background:
+      radial-gradient(130px 48px at 14% -12%,rgba(255,255,255,.14),transparent 74%),
+      linear-gradient(150deg,rgba(42,31,34,.72),rgba(16,13,14,.66))!important;
+    box-shadow:0 22px 60px rgba(0,0,0,.38),inset 0 1px 0 rgba(255,255,255,.10);
+    backdrop-filter:blur(30px) saturate(175%);
+    -webkit-backdrop-filter:blur(30px) saturate(175%);
+  }
+  .mobile-bar.liquid-glass-nav .brand{font-size:11px;gap:5px}
+  .mobile-bar.liquid-glass-nav .brand .mark.small{transform:scale(.72)}
+  .mobile-actions>button[aria-label="Abrir navegación"]{
+    min-width:42px;
+    min-height:42px;
+    border-radius:14px;
+    border:1px solid rgba(255,255,255,.09);
+    background:rgba(255,255,255,.035);
+  }
+  .sidebar.liquid-glass-nav{
+    inset:78px 10px 10px 10px;
+    width:auto;
+    padding:15px 11px 10px;
+    border-radius:25px;
+  }
+  .sidebar.liquid-glass-nav>.studio-brand{display:none}
+  .sidebar.liquid-glass-nav .nav-item{font-size:12px;min-height:45px}
+  .sidebar .nav-setup .nav-item{font-size:11px;min-height:40px}
+  .main{margin-left:0;padding-left:18px;padding-right:18px;padding-top:12px}
+  .liquid-glass-topline{display:none}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .sidebar.liquid-glass-nav .nav-item,
+  .sidebar.liquid-glass-nav .nav-item:hover,
+  .sidebar .nav-setup .summary-chevron{
+    transition:none!important;
+    transform:none!important;
+  }
+}
