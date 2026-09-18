@@ -1,0 +1,12 @@
+release=fa4ba23f5a764e5079569b470455183ba77695d8
+/login status=200 type=text/html; charset=utf-8 ssl_verify=0
+/robots.txt status=200 type=text/plain ssl_verify=0
+/sitemap.xml status=200 type=application/xml ssl_verify=0
+/llms.txt status=200 type=text/plain; charset=utf-8 ssl_verify=0
+/llm.txt status=200 type=text/plain; charset=utf-8 ssl_verify=0
+/favicon.ico status=200 type=image/x-icon ssl_verify=0
+/api/v1/me anonymous=401
+/health anonymous=401
+candidate_favicon=61529902e260f70ffbcf78447932c5baeb880619859bec2776dfdf41b74be859
+public_favicon=61529902e260f70ffbcf78447932c5baeb880619859bec2776dfdf41b74be859
+favicon_exact=PASS
