@@ -1056,6 +1056,80 @@
         "assets/**",
         "config/**"
       ]
+    },
+    {
+      "id": "WEB029-NEW-USER-TENANT-ONBOARDING",
+      "title": "First-run guidance and human-centered tenant/brand onboarding",
+      "kind": "product-completion",
+      "status": "spec_ready",
+      "depends_on": [
+        "WEB028-CREATION-ROOM-V7-RELEASE"
+      ],
+      "capability": "media-factory-web",
+      "gates": {
+        "review": [
+          "implementation_quality"
+        ]
+      },
+      "allowed_paths": [
+        "app/**",
+        "components/**",
+        "server/**",
+        "tests/**",
+        "scripts/**",
+        "docs/**",
+        "progress/**",
+        "graph/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "*.mjs",
+        "*.json",
+        "*.yml",
+        "Dockerfile",
+        ".gitignore",
+        ".dockerignore",
+        "README.md",
+        "deploy/**",
+        "assets/**",
+        "config/**"
+      ]
+    },
+    {
+      "id": "WEB030-NEW-USER-TENANT-ONBOARDING-RELEASE",
+      "title": "Independent verification signed deployment and public confirmation of onboarding V8",
+      "kind": "product-completion",
+      "status": "spec_ready",
+      "depends_on": [
+        "WEB029-NEW-USER-TENANT-ONBOARDING"
+      ],
+      "capability": "media-factory-web",
+      "gates": {
+        "review": [
+          "implementation_quality"
+        ]
+      },
+      "allowed_paths": [
+        "app/**",
+        "components/**",
+        "server/**",
+        "tests/**",
+        "scripts/**",
+        "docs/**",
+        "progress/**",
+        "graph/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "*.mjs",
+        "*.json",
+        "*.yml",
+        "Dockerfile",
+        ".gitignore",
+        ".dockerignore",
+        "README.md",
+        "deploy/**",
+        "assets/**",
+        "config/**"
+      ]
     }
   ]
 }

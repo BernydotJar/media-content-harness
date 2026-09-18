@@ -10,12 +10,14 @@ import StudioEntry from './StudioEntry';
 import { Integrations } from './Integrations';
 import { QuickCreate } from './QuickCreate';
 import { FirmesLockup, isFirmesTenant } from './FirmesBrand';
+import { Onboarding } from './Onboarding';
 
 export default function Studio({ segments }: { segments: string[] }) {
   const router = useRouter();
   const login = segments[0] === 'login';
   const me = useLoad(login ? null : '/me');
   const tenants = useLoad(!login && me.data ? '/tenants' : null);
+  const onboarding = useLoad(!login && me.data ? '/me/onboarding' : null);
   const tenantId = segments[0] === 'workspace' ? segments[1] : null;
   const current = segments[2] || '';
   const routeJob = useLoad(!login && me.data && segments[0] === 'jobs' && segments[1] ? '/jobs/' + encodeURIComponent(segments[1]) : null);
@@ -46,16 +48,18 @@ export default function Studio({ segments }: { segments: string[] }) {
   ];
 
   const setup = tenantId ? [
+    { key: 'start', label: 'Resumen', icon: 'home' },
     { key: 'sources', label: 'Material', icon: 'sources' },
     { key: 'content-dna', label: 'Estilo', icon: 'dna' },
     { key: 'creative-profiles', label: 'Personajes y lugares', icon: 'dna' }
   ] : [];
   const setupActive = setup.some(item => item.key === current);
-  const showBrands = tenantList.length > 1 || segments[0] === 'workspaces';
+  const showBrands = tenantList.length > 1 || segments[0] === 'workspaces' || me.data.can_create_tenants === true;
 
   let content: ReactNode;
-  if (!segments.length || segments[0] === 'dashboard') content = <Dashboard tenants={tenants} user={me.data} tenant={tenant} />;
-  else if (segments[0] === 'workspaces') content = <Workspaces resource={tenants} />;
+  if (!segments.length || segments[0] === 'dashboard') content = <Dashboard tenants={tenants} user={me.data} tenant={tenant} onboarding={onboarding} />;
+  else if (segments[0] === 'onboarding') content = <Onboarding user={me.data} tenants={tenants} state={onboarding} />;
+  else if (segments[0] === 'workspaces') content = <Workspaces resource={tenants} user={me.data} />;
   else if (segments[0] === 'workspace' && tenantId) content = <TenantSurface id={tenantId} view={current || 'weekly'} />;
   else if (segments[0] === 'admin') content = <Integrations allowed={me.data.manage_integrations === true} />;
   else if (segments[0] === 'jobs' && segments[1]) content = <JobDetail id={segments[1]} manageIntegrations={me.data.manage_integrations === true} />;
@@ -93,7 +97,7 @@ export default function Studio({ segments }: { segments: string[] }) {
         <span>Marcas</span>
       </Link>}
 
-      {shellTenantId && <Link className="workspace-label glass-brand-chip" href={'/workspace/' + encodeURIComponent(shellTenantId) + '/sources'}>
+      {shellTenantId && <Link className="workspace-label glass-brand-chip" href={'/workspace/' + encodeURIComponent(shellTenantId) + '/start'}>
         {firmesShell ? <FirmesLockup compact /> : <span className="tenant-avatar">{(tenant?.organization || shellTenantId || 'E').slice(0, 1).toUpperCase()}</span>}
         <span>{tenant?.organization || shellTenantId}<small>Marca actual</small></span>
         <span className="brand-chip-arrow" aria-hidden="true">↗</span>
@@ -115,6 +119,7 @@ export default function Studio({ segments }: { segments: string[] }) {
       </Link>}
 
       <div className="sidebar-bottom">
+        <Link className={'nav-item nav-help '+(segments[0]==='onboarding'?'active':'')} href="/onboarding"><Icon name="spark"/><span>Guía rápida</span></Link>
         <div className="account">
           <span className="avatar">{(me.data.name || me.data.email || 'U').slice(0, 1).toUpperCase()}</span>
           <span>{me.data.name || me.data.email}<small>Tu cuenta</small></span>
