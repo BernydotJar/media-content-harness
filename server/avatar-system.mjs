@@ -70,7 +70,7 @@ function firmesCatalog(){
       outfit_id:'avatar_outfit_firmes_construction_v1',name:'Construcción',category:'construction',version:1,
       description:'Equipo de visita a obra con identidad FIRMES visible.',
       items:['burgundy FIRMES polo','high-visibility safety vest','beige work pants','work boots'],
-      marker_locations:['chest','sleeve','helmet decal'],required_markers:[MARKER],tags:['construction','worksite','safety']
+      marker_locations:['chest','sleeve','helmet decal'],required_markers:[MARKER],tags:['construction','worksite','safety'],reintroduces:['safety vest','safety vests','reflective vest','reflective vests','reflective clothing']
     },
     {
       outfit_id:'avatar_outfit_firmes_beach_v1',name:'Playa',category:'beach',version:1,
@@ -95,14 +95,14 @@ function firmesCatalog(){
   const accessories=[
     {accessory_id:'avatar_accessory_sunglasses_v1',name:'Lentes de sol',slot:'eyes',description:'Sunglasses fitted to the approved muzzle/head proportions.',tags:['beach','casual','summer']},
     {accessory_id:'avatar_accessory_flip_flops_v1',name:'Chanclas',slot:'feet',description:'Beach flip-flops adapted to the mascot feet.',tags:['beach','summer'],compatible_outfit_ids:['avatar_outfit_firmes_beach_v1']},
-    {accessory_id:'avatar_accessory_hard_hat_v1',name:'Casco de seguridad',slot:'head',description:'Safety hard hat with optional FIRMES decal.',tags:['construction','safety'],compatible_outfit_ids:['avatar_outfit_firmes_construction_v1']},
+    {accessory_id:'avatar_accessory_hard_hat_v1',name:'Casco de seguridad',slot:'head',description:'Safety hard hat with optional FIRMES decal.',tags:['construction','safety'],compatible_outfit_ids:['avatar_outfit_firmes_construction_v1'],reintroduces:['hard hat','hard hats','helmet','helmets']},
     {accessory_id:'avatar_accessory_clipboard_v1',name:'Portapapeles',slot:'hands',description:'FIRMES clipboard held naturally.',tags:['construction','presentation','work']},
     {accessory_id:'avatar_accessory_microphone_v1',name:'Micrófono',slot:'hands',description:'Handheld microphone for presenting or reporting.',tags:['presentation','event']},
     {accessory_id:'avatar_accessory_backpack_v1',name:'Mochila',slot:'back',description:'Compact backpack proportioned to the mascot.',tags:['travel','community']},
     {accessory_id:'avatar_accessory_cap_v1',name:'Gorra',slot:'head',description:'Casual cap with burgundy FIRMES accent.',tags:['casual','community']},
     {accessory_id:'avatar_accessory_firmes_badge_v1',name:'Badge FIRMES',slot:'torso',description:'Visible FIRMES chest badge.',tags:['brand'],brand_marker:MARKER},
     {accessory_id:'avatar_accessory_firmes_sleeve_patch_v1',name:'Parche FIRMES',slot:'torso',description:'Visible FIRMES sleeve patch.',tags:['brand'],brand_marker:MARKER},
-    {accessory_id:'avatar_accessory_space_helmet_v1',name:'Casco espacial',slot:'head',description:'Astronaut helmet with a visible FIRMES mission decal.',tags:['space'],compatible_outfit_ids:['avatar_outfit_firmes_space_v1'],brand_marker:MARKER}
+    {accessory_id:'avatar_accessory_space_helmet_v1',name:'Casco espacial',slot:'head',description:'Astronaut helmet with a visible FIRMES mission decal.',tags:['space'],compatible_outfit_ids:['avatar_outfit_firmes_space_v1'],brand_marker:MARKER,reintroduces:['helmet','helmets']}
   ]
 
   const motions=[
@@ -273,7 +273,8 @@ export function normalizeAvatarSelection(input,catalog,characterId){
     outfit_name:outfit.name,
     outfit_items:copy(outfit.items),
     accessory_ids:accessories.map(a=>a.accessory_id),
-    accessories:accessories.map(a=>({accessory_id:a.accessory_id,name:a.name,slot:a.slot,description:a.description,brand_marker:a.brand_marker||null})),
+    accessories:accessories.map(a=>({accessory_id:a.accessory_id,name:a.name,slot:a.slot,description:a.description,brand_marker:a.brand_marker||null,reintroduces:copy(a.reintroduces||[])})),
+    authorized_reintroductions:[...new Set([...(outfit.reintroduces||[]),...accessories.flatMap(a=>a.reintroduces||[])])],
     motion_preset_id:motionId,
     motion:{name:motion.name,verb:motion.verb,duration_range_seconds:copy(motion.duration_range_seconds),intensity:motion.intensity},
     scene_pack_id:scenePack?.scene_pack_id||null,
@@ -281,6 +282,33 @@ export function normalizeAvatarSelection(input,catalog,characterId){
     brand_marker_policy:{mode:'ALWAYS_VISIBLE',required_markers:requiredMarkers,preferred_locations:copy(pack.brand_marker_policy.preferred_locations),minimum_visible_markers:1}
   }
   return {...contract,contract_sha256:avatarHash(contract)}
+}
+
+
+export function assertAvatarEnvironmentCompatibility(environment,contract){
+  if(!contract)return true
+  const forbidden=(environment?.forbidden_elements||[]).map(v=>String(v).trim().toLowerCase())
+  const requested=contract.authorized_reintroductions||[]
+  for(const term of requested){
+    const normalized=String(term).toLowerCase()
+    const conflict=forbidden.find(value=>value===normalized||value.includes(normalized)||normalized.includes(value))
+    invariant(!conflict,'AVATAR_ENVIRONMENT_CONFLICT','El look o accesorio seleccionado entra en conflicto con una exclusión del entorno: '+conflict+'. Ajusta el entorno o cambia el avatar.',409)
+  }
+  return true
+}
+
+export function assertAvatarHardConstraints(constraints,contract){
+  if(!contract)return true
+  const protectedPhrases=['firmes','red mane','melena roja','white horse','caballo blanco','white fur','pelaje blanco']
+  for(const constraint of constraints||[]){
+    const value=String(constraint?.value||'').trim().toLowerCase()
+    if(!value)continue
+    const explicitRemoval=/(remove|without|omit|delete|hide|no\s+|sin\s+|quitar|eliminar|ocultar)/.test(value)
+    const protectedMatch=protectedPhrases.find(term=>value.includes(term))
+    const exclusion=constraint?.kind==='must_exclude'&&protectedMatch
+    invariant(!exclusion&&!(explicitRemoval&&protectedMatch),'AVATAR_AUTHORITY_CONFLICT','Una restricción no puede eliminar la identidad ni el distintivo FIRMES obligatorios del avatar.',409)
+  }
+  return true
 }
 
 export function avatarPromptSections(contract){
@@ -369,6 +397,7 @@ export function executeAvatarMcpTool(name,input,{state,tenantId,brand}){
     const contract=input.avatar_contract
     invariant(contract&&contract.contract_sha256&&HASH.test(contract.contract_sha256),'INVALID_AVATAR_CONTRACT','El contrato de avatar no es válido.')
     invariant(avatarHash(Object.fromEntries(Object.entries(contract).filter(([k])=>k!=='contract_sha256')))===contract.contract_sha256,'AVATAR_CONTRACT_CHANGED','El contrato de avatar cambió.',409)
+    assertAvatarContractCurrent(state,tenantId,contract)
     return avatarCriticPlan(contract)
   }
   invariant(false,'MCP_TOOL_NOT_FOUND','La herramienta de avatar no existe.',404)

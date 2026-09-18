@@ -50,7 +50,7 @@ test('structured compiler is deterministic, separates reference roles and keeps 
  assert.equal(overridden.operator_override,'Keep the selfie arm natural.')
  assert.match(overridden.final_prompt,/OPERATOR OVERRIDE \(LOWER PRIORITY\)/)
  assert.ok(overridden.final_prompt.indexOf('REFERENCE AND CONSTRAINT AUTHORITY')>overridden.final_prompt.indexOf('Keep the selfie arm natural.'))
- assert.match(overridden.final_prompt,/must not weaken, negate, or reassign/)
+ assert.match(overridden.final_prompt,/must not weaken, negate, remove, or reassign/)
 })
 
 test('reference role and authorization drift invalidate a compiled scene even when bytes are unchanged',()=>{

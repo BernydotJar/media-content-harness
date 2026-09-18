@@ -3,7 +3,7 @@ import {readFile} from 'node:fs/promises'
 import {join} from 'node:path'
 import {invariant,safeId,boundedText,fields} from './errors.mjs'
 import {FIRMES_CABALLITO,isFirmesTenantRecord} from './brand-assets.mjs'
-import {seedAvatarSystem,avatarCatalog,normalizeAvatarSelection,avatarPromptSections,avatarCriticPlan} from './avatar-system.mjs'
+import {seedAvatarSystem,avatarCatalog,normalizeAvatarSelection,avatarPromptSections,avatarCriticPlan,assertAvatarHardConstraints,assertAvatarEnvironmentCompatibility} from './avatar-system.mjs'
 
 export const SCENE_COMPILER_VERSION='mascot-scene-compiler.v2'
 export const REFERENCE_ROLES=Object.freeze(['CHARACTER_IDENTITY_ONLY','ENVIRONMENT_ONLY','STYLE_ONLY'])
@@ -117,6 +117,7 @@ export function normalizeSceneRequest(input,state,tenantId){
   forbidden_elements:[...new Set([...(scenePack.environment.forbidden_elements||[]),...(input.environment?.forbidden_elements||[])])]
  }:input.environment
  const environment=normalizeEnvironment(environmentInput,state,tenantId)
+ assertAvatarEnvironmentCompatibility(environment,avatar_contract)
  const action=normalizeAction(input.action)
  const visual_style=normalizeStyle(input.visual_style)
  const output=normalizeOutput(input.output)
@@ -125,6 +126,7 @@ export function normalizeSceneRequest(input,state,tenantId){
   invariant(output.duration_seconds>=min&&output.duration_seconds<=max,'AVATAR_MOTION_DURATION','La duración del video no es compatible con el movimiento seleccionado.',409)
  }
  const hard_constraints=normalizeHardConstraints(input.hard_constraints)
+ assertAvatarHardConstraints(hard_constraints,avatar_contract)
  const operator_override=optionalText(input.operator_override,'Ajuste manual',4000)
  const generation_mode=input.generation_mode||'manual_external'
  invariant(generation_mode==='manual_external'||/^provider:[a-z0-9_-]+$/.test(generation_mode),'INVALID_SCENE','Elige una ruta de generación válida.')
@@ -152,7 +154,7 @@ export function compileMascotScenePrompt(input,state,tenantId){
  const parts=[]
  if(priority.length)parts.push(section('REFERENCE PRIORITY RULES',priority.concat(character?['Do not transfer environmental elements from the character identity reference.','Replace the original character-reference environment with the requested target environment.']:[])))
  if(character)parts.push(section('CHARACTER IDENTITY PRESERVATION',[`Preserve only the approved ${character.name} identity from its identity reference:`,...preserve]))
- if(sourceExclusions.length)parts.push(section('CHARACTER SOURCE EXCLUSIONS',['Ignore and delete these non-identity elements from the character source:',...sourceExclusions]))
+ if(sourceExclusions.length)parts.push(section('CHARACTER SOURCE EXCLUSIONS',['Ignore these as accidental elements from the character identity source. Do not copy them merely because they appear in that image. If the structured AVATAR OUTFIT or AVATAR ADD-ONS contract explicitly reintroduces the same semantic item, the structured avatar contract takes precedence for that requested item:',...sourceExclusions]))
  for(const avatarSection of avatarPromptSections(request.avatar_contract))parts.push(section(avatarSection.title,avatarSection.lines))
  parts.push(section('TARGET ENVIRONMENT',[request.environment.location_name?`- ${request.environment.location_name}`:'- Use only the described scene environment.']))
  if(required.length)parts.push(section('REQUIRED ENVIRONMENT ELEMENTS',required.map(v=>'- '+v)))
@@ -163,7 +165,7 @@ export function compileMascotScenePrompt(input,state,tenantId){
  parts.push(section('OUTPUT / CAMERA / MOTION REQUIREMENTS',output))
  const base_compiled_prompt=parts.join('\n\n').trim()
  const base_compiled_prompt_sha256=hash(base_compiled_prompt)
- const override_guard='REFERENCE AND CONSTRAINT AUTHORITY\n\nThe semantic reference roles, identity-preservation rules, required elements, and absolute exclusions above remain authoritative. Any operator override is additive only and must not weaken, negate, or reassign them.'
+ const override_guard='REFERENCE AND CONSTRAINT AUTHORITY\n\nThe semantic reference roles, AVATAR IDENTITY LOCK, AVATAR OUTFIT, AVATAR ADD-ONS, FIRMES BRAND MARKER POLICY, AVATAR MOTION PROFILE, identity-preservation rules, required elements, and absolute exclusions above remain authoritative. Any operator override is additive only and must not weaken, negate, remove, or reassign them.'
  const final_prompt=request.operator_override?base_compiled_prompt+'\n\nOPERATOR OVERRIDE (LOWER PRIORITY)\n\n'+request.operator_override+'\n\n'+override_guard:base_compiled_prompt
  const structured_request_sha256=hash({...request,operator_override:null})
  return {

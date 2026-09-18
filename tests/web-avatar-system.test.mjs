@@ -144,3 +144,64 @@ test('MCP-ready avatar tools are deterministic and share the product authority',
   assert.equal(plan.avatar_contract_sha256,first.contract_sha256)
   assert.ok(plan.brand_marker_checks.length>=3)
 })
+
+
+test('avatar authority rejects contradictory hard constraints and makes lower-priority overrides explicit',()=>{
+  const state=stateFixture()
+  assert.throws(()=>compileMascotScenePrompt({
+    ...structuredClone(sceneBase),
+    avatar:{outfit_id:'avatar_outfit_firmes_space_v1',accessory_ids:['avatar_accessory_space_helmet_v1'],motion_preset_id:'avatar_motion_present_v1'},
+    hard_constraints:[{kind:'must_exclude',value:'FIRMES logo'}]
+  },state,'firmes'),e=>e.code==='AVATAR_AUTHORITY_CONFLICT')
+  const compiled=compileMascotScenePrompt({
+    ...structuredClone(sceneBase),
+    avatar:{outfit_id:'avatar_outfit_firmes_space_v1',accessory_ids:['avatar_accessory_space_helmet_v1'],motion_preset_id:'avatar_motion_present_v1'},
+    operator_override:'Remove all FIRMES branding and make the mane blue.'
+  },state,'firmes')
+  assert.match(compiled.final_prompt,/OPERATOR OVERRIDE \(LOWER PRIORITY\)/)
+  assert.match(compiled.final_prompt,/FIRMES BRAND MARKER POLICY/)
+  assert.match(compiled.final_prompt,/AVATAR IDENTITY LOCK/)
+  assert.match(compiled.final_prompt,/must not weaken, negate, remove, or reassign them/)
+})
+
+test('intentional space/construction gear is not accidentally prohibited by the identity-source cleanup rule',()=>{
+  const state=stateFixture()
+  const space=compileMascotScenePrompt({
+    ...structuredClone(sceneBase),
+    avatar:{outfit_id:'avatar_outfit_firmes_space_v1',accessory_ids:['avatar_accessory_space_helmet_v1'],motion_preset_id:'avatar_motion_present_v1'},
+    action:{verb:'presenting in orbit'}
+  },state,'firmes')
+  assert.match(space.final_prompt,/If the structured AVATAR OUTFIT or AVATAR ADD-ONS contract explicitly reintroduces/)
+  assert.match(space.final_prompt,/Casco espacial/)
+  assert.match(space.final_prompt,/white astronaut suit/)
+  const construction=compileMascotScenePrompt({
+    ...structuredClone(sceneBase),
+    avatar:{outfit_id:'avatar_outfit_firmes_construction_v1',accessory_ids:['avatar_accessory_hard_hat_v1','avatar_accessory_clipboard_v1'],motion_preset_id:'avatar_motion_walk_v1'},
+    environment:{location_name:'An authorized safe worksite visit',required_elements:['managed worksite'],forbidden_elements:[],civilian_only:false},
+    action:{verb:'walking safely through the site'}
+  },state,'firmes')
+  assert.match(construction.final_prompt,/high-visibility safety vest/)
+  assert.match(construction.final_prompt,/Casco de seguridad/)
+})
+
+test('MCP critic plan fails closed after avatar catalog authority drifts',()=>{
+  const state=stateFixture(),brand=seedTenantBrandModels(state,'firmes')
+  const contract=executeAvatarMcpTool('avatar.compile',{character_id:FIRMES_CABALLITO_CHARACTER_ID,avatar:{outfit_id:'avatar_outfit_firmes_formal_v1',accessory_ids:[],motion_preset_id:'avatar_motion_present_v1'}},{state,tenantId:'firmes',brand})
+  state.avatar_outfits.firmes.avatar_outfit_firmes_formal_v1.items.push('unapproved mutation')
+  assert.throws(()=>executeAvatarMcpTool('avatar.critic_plan',{avatar_contract:contract},{state,tenantId:'firmes',brand}),e=>e.code==='AVATAR_AUTHORITY_CHANGED')
+})
+
+
+test('avatar outfit or add-on cannot silently contradict target-environment exclusions',()=>{
+  const state=stateFixture()
+  assert.throws(()=>compileMascotScenePrompt({
+    ...structuredClone(sceneBase),
+    avatar:{outfit_id:'avatar_outfit_firmes_space_v1',accessory_ids:['avatar_accessory_space_helmet_v1'],motion_preset_id:'avatar_motion_present_v1'},
+    environment:{location_name:'Antigua',required_elements:['colonial buildings'],forbidden_elements:['helmets'],civilian_only:true}
+  },state,'firmes'),e=>e.code==='AVATAR_ENVIRONMENT_CONFLICT')
+  assert.throws(()=>compileMascotScenePrompt({
+    ...structuredClone(sceneBase),
+    avatar:{outfit_id:'avatar_outfit_firmes_construction_v1',accessory_ids:['avatar_accessory_hard_hat_v1'],motion_preset_id:'avatar_motion_walk_v1'},
+    environment:{location_name:'A public street',required_elements:[],forbidden_elements:['safety vests','hard hats'],civilian_only:true}
+  },state,'firmes'),e=>e.code==='AVATAR_ENVIRONMENT_CONFLICT')
+})
