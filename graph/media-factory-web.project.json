@@ -902,6 +902,82 @@
         "assets/**",
         "config/**"
       ]
+    },
+    {
+      "id": "WEB025-HUMAN-CENTERED-REVIEW-UX",
+      "title": "Visible default avatar, scannable creative summary and progressive review decisions",
+      "kind": "product-completion",
+      "status": "spec_ready",
+      "depends_on": [
+        "WEB024-MASCOT-AVATAR-RELEASE"
+      ],
+      "capability": "media-factory-web",
+      "gates": {
+        "review": [
+          "implementation_quality"
+        ]
+      },
+      "allowed_paths": [
+        "server/**",
+        "app/**",
+        "components/**",
+        "scripts/**",
+        "tests/**",
+        "docs/**",
+        "specs/**",
+        "progress/**",
+        "graph/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "*.json",
+        "*.mjs",
+        "*.yml",
+        "Dockerfile",
+        ".gitignore",
+        ".dockerignore",
+        "README.md",
+        "deploy/**",
+        "assets/**",
+        "config/**"
+      ]
+    },
+    {
+      "id": "WEB026-HUMAN-CENTERED-REVIEW-RELEASE",
+      "title": "Independent verification, signed deployment and public confirmation of human-centered review UX",
+      "kind": "product-completion",
+      "status": "spec_ready",
+      "depends_on": [
+        "WEB025-HUMAN-CENTERED-REVIEW-UX"
+      ],
+      "capability": "media-factory-web",
+      "gates": {
+        "review": [
+          "implementation_quality"
+        ]
+      },
+      "allowed_paths": [
+        "server/**",
+        "app/**",
+        "components/**",
+        "scripts/**",
+        "tests/**",
+        "docs/**",
+        "specs/**",
+        "progress/**",
+        "graph/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "*.json",
+        "*.mjs",
+        "*.yml",
+        "Dockerfile",
+        ".gitignore",
+        ".dockerignore",
+        "README.md",
+        "deploy/**",
+        "assets/**",
+        "config/**"
+      ]
     }
   ]
 }
