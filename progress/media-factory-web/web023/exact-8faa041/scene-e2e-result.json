@@ -1,0 +1,210 @@
+{
+  "candidate_sha": "8faa041ad66d23fce6aa141c9104847bdb72fd4b",
+  "working_tree_dirty": false,
+  "production_source_sha256": "a71e75a1ad5ba08f37d4cd35f6525a5c7b5fe25d1d11f610a31af7b836c67098",
+  "build_id": "ronW8Qotw4gB6PNONeouF",
+  "runtime_package": {
+    "format": "media-factory-runtime.v1",
+    "files": 1481,
+    "manifest_sha256": "a256b47b5793c6f8a4ca5c285b23ebfee0a19685b3215c751cc85f18c66c5e61",
+    "build_id": "ronW8Qotw4gB6PNONeouF",
+    "forbidden_entries": 0,
+    "external_symlinks": 0
+  },
+  "test_mode": false,
+  "deployment_class": "controlled_single_operator_preview",
+  "elapsed_ms": 23878,
+  "result": {
+    "status": "PASS",
+    "job_id": "mf_scene_9da1dbf263ea4927e3bc31a6ac6d",
+    "release_id": "release_ba77962b6f98a8d040414b15",
+    "artifact_sha256": "b05193935207058e1c1bf30ce37849245f886b36f0195e1b1aee6fba428a0b3d",
+    "approved_hero_sha256": "28de0345ff8ffd02a368631bbd5052d01f475b514964c50b73aa766c410a4f63",
+    "generation_attempt_count": 3,
+    "scene_provenance": {
+      "tenant_id": "firmes-scene",
+      "job_id": "mf_scene_9da1dbf263ea4927e3bc31a6ac6d",
+      "job_revision": 6,
+      "character_id": "brand_character_firmes_caballito_v1",
+      "character_asset_id": "brand_asset_firmes_caballito_v1",
+      "character_asset_sha256": "b17c55ffb0eec46bfa719128ee68a9f18475c45afb90d6d73ce9d82567938397",
+      "avatar_contract_sha256": "de0c0d8a6a0bee8bcdd9b821254239067201a9b2e0a14302eee77ac9f686de64",
+      "avatar_contract": {
+        "system_version": "mascot-avatar-system.v1",
+        "avatar_authority_sha256": "964eda31b32f3e099f50fb834a35eee5456bb6d1240e6d14342b8646596acf78",
+        "character_id": "brand_character_firmes_caballito_v1",
+        "identity_pack_id": "avatar_identity_firmes_caballito_v1",
+        "identity_pack_version": 1,
+        "identity_pack_completeness": {
+          "status": "PARTIAL",
+          "available_views": [
+            "primary"
+          ],
+          "missing_views": [
+            "front",
+            "left_profile",
+            "right_profile",
+            "three_quarter",
+            "back"
+          ]
+        },
+        "identity_invariants": [
+          "exact approved Caballito FIRMES identity",
+          "white horse head and fur",
+          "red mane",
+          "recognizable face, eyes and muzzle",
+          "approved mascot body proportions",
+          "friendly, confident and approachable expression",
+          "recognizable FIRMES brand identity"
+        ],
+        "forbidden_drift": [
+          "different animal species",
+          "different mane color",
+          "different facial anatomy",
+          "unapproved body proportions",
+          "brand-free costume when FIRMES marker is required",
+          "identity changes caused by the environment reference"
+        ],
+        "outfit_id": "avatar_outfit_firmes_base_v1",
+        "outfit_name": "FIRMES clásico",
+        "outfit_items": [
+          "burgundy FIRMES polo",
+          "beige casual pants",
+          "casual shoes"
+        ],
+        "accessory_ids": [],
+        "accessories": [],
+        "authorized_reintroductions": [],
+        "motion_preset_id": "avatar_motion_walk_v1",
+        "motion": {
+          "name": "Caminar",
+          "verb": "walking naturally with consistent mascot gait and stable identity",
+          "duration_range_seconds": [
+            3,
+            12
+          ],
+          "intensity": "medium"
+        },
+        "scene_pack_id": "avatar_scene_antigua_v1",
+        "scene_pack": {
+          "scene_pack_id": "avatar_scene_antigua_v1",
+          "name": "Antigua",
+          "category": "heritage",
+          "environment": {
+            "location_name": "Calle del Arco, Antigua Guatemala, Guatemala",
+            "required_elements": [
+              "Santa Catalina Arch",
+              "colonial buildings",
+              "cobblestone street",
+              "civilian pedestrians and tourists"
+            ],
+            "forbidden_elements": [
+              "industrial port",
+              "shipping containers",
+              "warehouse",
+              "cranes",
+              "forklifts"
+            ],
+            "civilian_only": true
+          },
+          "suggested_outfit_id": "avatar_outfit_firmes_base_v1",
+          "suggested_accessory_ids": [],
+          "suggested_motion_preset_id": "avatar_motion_walk_v1"
+        },
+        "brand_marker_policy": {
+          "mode": "ALWAYS_VISIBLE",
+          "required_markers": [
+            "firmes_mark_visible"
+          ],
+          "preferred_locations": [
+            "chest",
+            "sleeve",
+            "waist accessory",
+            "helmet decal",
+            "suit patch"
+          ],
+          "minimum_visible_markers": 1
+        },
+        "contract_sha256": "de0c0d8a6a0bee8bcdd9b821254239067201a9b2e0a14302eee77ac9f686de64"
+      },
+      "reference_roles": [
+        {
+          "reference_id": "REFERENCE_A",
+          "asset_id": "brand_asset_firmes_caballito_v1",
+          "role": "CHARACTER_IDENTITY_ONLY",
+          "sha256": "b17c55ffb0eec46bfa719128ee68a9f18475c45afb90d6d73ce9d82567938397",
+          "authorization": "AUTHORIZED",
+          "tenant_id": "firmes-scene"
+        },
+        {
+          "reference_id": "REFERENCE_B",
+          "asset_id": "scene_ref_3dbcb27e2beb919d30bb1a68bc5dbc76",
+          "role": "ENVIRONMENT_ONLY",
+          "sha256": "2d7c3924ce855d76b83e1e37ddb59921b6b2b94c45add6bf5a7457c3c45d5504",
+          "authorization": "OPERATOR_AUTHORIZED",
+          "tenant_id": "firmes-scene"
+        }
+      ],
+      "structured_request_sha256": "22544b3dec8d8b9a40b6687ecb0e2e3fc296b084aa7b90b3219a61509e0f07a7",
+      "prompt_compiler_version": "mascot-scene-compiler.v2",
+      "base_compiled_prompt_sha256": "d53233b9fb25c7696ccc2611f4473e04b248084400a67349fd8f705da488f81d",
+      "final_prompt_sha256": "d53233b9fb25c7696ccc2611f4473e04b248084400a67349fd8f705da488f81d",
+      "operator_override_sha256": null,
+      "tenant_brand_profile_version": 1,
+      "generation_attempt_id": "gen_bcba2a30-06ba-436e-b33c-6cc80ce360f7",
+      "generation_adapter_id": "manual-external",
+      "provider_model": null,
+      "generation_request_sha256": "22544b3dec8d8b9a40b6687ecb0e2e3fc296b084aa7b90b3219a61509e0f07a7",
+      "generation_prompt_sha256": "d53233b9fb25c7696ccc2611f4473e04b248084400a67349fd8f705da488f81d",
+      "generation_input_assets": [
+        {
+          "asset_id": "brand_asset_firmes_caballito_v1",
+          "role": "CHARACTER_IDENTITY_ONLY",
+          "sha256": "b17c55ffb0eec46bfa719128ee68a9f18475c45afb90d6d73ce9d82567938397"
+        },
+        {
+          "asset_id": "scene_ref_3dbcb27e2beb919d30bb1a68bc5dbc76",
+          "role": "ENVIRONMENT_ONLY",
+          "sha256": "2d7c3924ce855d76b83e1e37ddb59921b6b2b94c45add6bf5a7457c3c45d5504"
+        },
+        {
+          "asset_id": "artifact_28de0345ff8ffd02a368631bbd5052d01f475b514964c50b73aa766c410a4f63",
+          "role": "APPROVED_HERO_IMAGE",
+          "sha256": "28de0345ff8ffd02a368631bbd5052d01f475b514964c50b73aa766c410a4f63"
+        }
+      ],
+      "approved_hero": {
+        "artifact_id": "artifact_28de0345ff8ffd02a368631bbd5052d01f475b514964c50b73aa766c410a4f63",
+        "sha256": "28de0345ff8ffd02a368631bbd5052d01f475b514964c50b73aa766c410a4f63",
+        "prompt_sha256": "d53233b9fb25c7696ccc2611f4473e04b248084400a67349fd8f705da488f81d",
+        "approved_candidate_sha": "56e7a15ee2d801f164e10892b1f84dc23b62dd2144af770b667d9338badb08b3",
+        "approved_by": "scene-critic",
+        "approved_at": "2026-09-18T16:31:46.153Z"
+      },
+      "result_sha256": "b05193935207058e1c1bf30ce37849245f886b36f0195e1b1aee6fba428a0b3d",
+      "critic_decision": {
+        "stage": "CRITIC",
+        "candidate_sha": "e0a6ee91314022e9998406d3a7273b77dafac7db0a3ad47bf6045718a687b696",
+        "actor": "scene-critic",
+        "created_at": "2026-09-18T16:31:50.412Z"
+      },
+      "verifier_decision": {
+        "stage": "INDEPENDENT_VERIFIER",
+        "candidate_sha": "e0a6ee91314022e9998406d3a7273b77dafac7db0a3ad47bf6045718a687b696",
+        "actor": "scene-verifier",
+        "created_at": "2026-09-18T16:31:53.062Z"
+      }
+    },
+    "checks": [
+      "Avatar reutilizable compila playa + lentes + chanclas + caminar sin perder identidad ni distintivo FIRMES.",
+      "El mismo avatar compila traje espacial + casco espacial manteniendo identidad y marca.",
+      "Escena guiada abre con Caballito FIRMES preseleccionado, referencia de entorno aislada y video image-first.",
+      "El compilador determinista materializa identidad, Antigua, acción selfie y exclusiones con roles explícitos.",
+      "Generación externa es un estado operativo del mismo job; video exige primero una hero image y conserva las dos referencias por rol.",
+      "El resultado vuelve al mismo job y Critic recibe la rúbrica estructurada de la escena.",
+      "Un fallo de Critic regenera sobre el mismo job sin bucle blocker→review.",
+      "La hero aprobada por Critic queda fijada por SHA como entrada explícita del video.",
+      "Critic, verifier y release conservan el hash del video final; la hero aprobada permanece como input trazable y no hay publicación automática."
+    ]
+  }
+}

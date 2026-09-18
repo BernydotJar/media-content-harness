@@ -1,0 +1,317 @@
+reviewed_sha=8faa041ad66d23fce6aa141c9104847bdb72fd4b
+fresh_archive=PASS
+tracked_examples=PASS
+changed_scope:
+components/SceneBuilder.module.css
+components/SceneBuilder.tsx
+docs/MASCOT_AVATAR_SYSTEM_V1.md
+docs/MEDIA_FACTORY_WEB.md
+graph/media-factory-web.events.jsonl
+graph/media-factory-web.project.json
+plugins/avatar-system-mcp.mjs
+progress/media-factory-web/web023-SPEC.md
+progress/media-factory-web/web023/redteam-17e6574157a48bcb0a3bcfc4a056368934876afd/RED_TEAM.md
+server/avatar-system.mjs
+server/http.mjs
+server/scene-generation.mjs
+server/scene-support.mjs
+server/services.mjs
+server/worker-policy.mjs
+tests/e2e/scene-generation.mjs
+tests/web-avatar-system.test.mjs
+tests/web-scene-generation.test.mjs
+tests/web-services.test.mjs
+TAP version 13
+# Subtest: FIRMES seeds a reusable avatar catalog without fabricating missing turnaround views
+ok 1 - FIRMES seeds a reusable avatar catalog without fabricating missing turnaround views
+  ---
+  duration_ms: 12.448042
+  type: 'test'
+  ...
+# Subtest: beach avatar compiles sunglasses, flip-flops, walking and mandatory FIRMES marker
+ok 2 - beach avatar compiles sunglasses, flip-flops, walking and mandatory FIRMES marker
+  ---
+  duration_ms: 83.232583
+  type: 'test'
+  ...
+# Subtest: space avatar preserves FIRMES identity while allowing a requested space helmet
+ok 3 - space avatar preserves FIRMES identity while allowing a requested space helmet
+  ---
+  duration_ms: 5.47325
+  type: 'test'
+  ...
+# Subtest: incompatible add-ons and cross-tenant avatar references fail closed
+ok 4 - incompatible add-ons and cross-tenant avatar references fail closed
+  ---
+  duration_ms: 0.652708
+  type: 'test'
+  ...
+# Subtest: avatar authority drift invalidates a previously compiled job
+ok 5 - avatar authority drift invalidates a previously compiled job
+  ---
+  duration_ms: 1.862042
+  type: 'test'
+  ...
+# Subtest: avatar critic and external package bind identity, marker, add-ons, motion and exact contract hash
+ok 6 - avatar critic and external package bind identity, marker, add-ons, motion and exact contract hash
+  ---
+  duration_ms: 5.364166
+  type: 'test'
+  ...
+# Subtest: MCP-ready avatar tools are deterministic and share the product authority
+ok 7 - MCP-ready avatar tools are deterministic and share the product authority
+  ---
+  duration_ms: 2.944334
+  type: 'test'
+  ...
+# Subtest: avatar authority rejects contradictory hard constraints and makes lower-priority overrides explicit
+ok 8 - avatar authority rejects contradictory hard constraints and makes lower-priority overrides explicit
+  ---
+  duration_ms: 68.530459
+  type: 'test'
+  ...
+# Subtest: intentional space/construction gear is not accidentally prohibited by the identity-source cleanup rule
+ok 9 - intentional space/construction gear is not accidentally prohibited by the identity-source cleanup rule
+  ---
+  duration_ms: 1.770334
+  type: 'test'
+  ...
+# Subtest: MCP critic plan fails closed after avatar catalog authority drifts
+ok 10 - MCP critic plan fails closed after avatar catalog authority drifts
+  ---
+  duration_ms: 4.122917
+  type: 'test'
+  ...
+# Subtest: avatar outfit or add-on cannot silently contradict target-environment exclusions
+ok 11 - avatar outfit or add-on cannot silently contradict target-environment exclusions
+  ---
+  duration_ms: 0.780459
+  type: 'test'
+  ...
+# Subtest: FIRMES resolves immutable default mascot across asset, character and tenant profile layers
+ok 12 - FIRMES resolves immutable default mascot across asset, character and tenant profile layers
+  ---
+  duration_ms: 15.842208
+  type: 'test'
+  ...
+# Subtest: structured compiler is deterministic, separates reference roles and keeps operator override provenance
+ok 13 - structured compiler is deterministic, separates reference roles and keeps operator override provenance
+  ---
+  duration_ms: 7.110625
+  type: 'test'
+  ...
+# Subtest: reference role and authorization drift invalidate a compiled scene even when bytes are unchanged
+ok 14 - reference role and authorization drift invalidate a compiled scene even when bytes are unchanged
+  ---
+  duration_ms: 2.00975
+  type: 'test'
+  ...
+# Subtest: default is optional, cross-tenant character IDs and wrong reference roles fail closed
+ok 15 - default is optional, cross-tenant character IDs and wrong reference roles fail closed
+  ---
+  duration_ms: 1.719542
+  type: 'test'
+  ...
+# Subtest: generic tenant does not require a FIRMES character and receives neutral preset labels
+ok 16 - generic tenant does not require a FIRMES character and receives neutral preset labels
+  ---
+  duration_ms: 0.276
+  type: 'test'
+  ...
+# Subtest: provider registry exposes manual external as operational and unconfigured generators truthfully
+ok 17 - provider registry exposes manual external as operational and unconfigured generators truthfully
+  ---
+  duration_ms: 0.134666
+  type: 'test'
+  ...
+# Subtest: external package changes from hero-image creation to exact approved hero animation
+ok 18 - external package changes from hero-image creation to exact approved hero animation
+  ---
+  duration_ms: 0.88675
+  type: 'test'
+  ...
+# Subtest: scene-reference identity is role-bound and non-editors cannot upload references
+ok 19 - scene-reference identity is role-bound and non-editors cannot upload references
+  ---
+  duration_ms: 410.027667
+  type: 'test'
+  ...
+# Subtest: manual external generation resumes the same job, critic repair regenerates, verifier and release bind the exact accepted SHA
+ok 20 - manual external generation resumes the same job, critic repair regenerates, verifier and release bind the exact accepted SHA
+  ---
+  duration_ms: 9828.178754
+  type: 'test'
+  ...
+# Subtest: video scene is image-first and the approved hero SHA becomes an explicit animation input in the same job
+ok 21 - video scene is image-first and the approved hero SHA becomes an explicit animation input in the same job
+  ---
+  duration_ms: 6919.68192
+  type: 'test'
+  ...
+# Subtest: authentication preserves password bytes, revokes changed identity and starts without tenants
+ok 22 - authentication preserves password bytes, revokes changed identity and starts without tenants
+  ---
+  duration_ms: 170.010125
+  type: 'test'
+  ...
+# Subtest: tenant membership enforced for reads/writes and onboarding has no fake source
+ok 23 - tenant membership enforced for reads/writes and onboarding has no fake source
+  ---
+  duration_ms: 145.988042
+  type: 'test'
+  ...
+# Subtest: strict source/reference separation, provenance and secret validation
+ok 24 - strict source/reference separation, provenance and secret validation
+  ---
+  duration_ms: 116.842833
+  type: 'test'
+  ...
+# Subtest: private, browser and signed source locators are rejected
+ok 25 - private, browser and signed source locators are rejected
+  ---
+  duration_ms: 0.591417
+  type: 'test'
+  ...
+# Subtest: plans reject injected approval and produce same id under concurrent requests
+ok 26 - plans reject injected approval and produce same id under concurrent requests
+  ---
+  duration_ms: 128.518417
+  type: 'test'
+  ...
+# Subtest: source/DNA changes invalidate plans and idempotency includes strategy
+ok 27 - source/DNA changes invalidate plans and idempotency includes strategy
+  ---
+  duration_ms: 115.330708
+  type: 'test'
+  ...
+# Subtest: Free Mode exact mixed Spanish example becomes four unapproved concepts, no-AI remains real
+ok 28 - Free Mode exact mixed Spanish example becomes four unapproved concepts, no-AI remains real
+  ---
+  duration_ms: 90.443792
+  type: 'test'
+  ...
+# Subtest: targeted political or sensitive persuasion cannot enter plans/intent
+ok 29 - targeted political or sensitive persuasion cannot enter plans/intent
+  ---
+  duration_ms: 89.999
+  type: 'test'
+  ...
+# Subtest: HTTP cookies, CSRF, malformed body, path traversal and safe errors
+ok 30 - HTTP cookies, CSRF, malformed body, path traversal and safe errors
+  ---
+  duration_ms: 119.976125
+  type: 'test'
+  ...
+# Subtest: repository serializes separate instances and rejects symlink state
+ok 31 - repository serializes separate instances and rejects symlink state
+  ---
+  duration_ms: 32.026917
+  type: 'test'
+  ...
+# Subtest: SSE rejects unauthorized reads and pushes durable state updates
+ok 32 - SSE rejects unauthorized reads and pushes durable state updates
+  ---
+  duration_ms: 101.703626
+  type: 'test'
+  ...
+# Subtest: HTTP rejects declared and streamed oversized JSON before parsing
+ok 33 - HTTP rejects declared and streamed oversized JSON before parsing
+  ---
+  duration_ms: 88.238
+  type: 'test'
+  ...
+# Subtest: viewer cannot approve concepts and configured identity roles override persisted memberships
+ok 34 - viewer cannot approve concepts and configured identity roles override persisted memberships
+  ---
+  duration_ms: 90.973958
+  type: 'test'
+  ...
+# Subtest: reference DNA requires evidence bytes actually stored for the selected reference
+ok 35 - reference DNA requires evidence bytes actually stored for the selected reference
+  ---
+  duration_ms: 87.147125
+  type: 'test'
+  ...
+# Subtest: malformed durable state fails closed with controlled storage error
+ok 36 - malformed durable state fails closed with controlled storage error
+  ---
+  duration_ms: 0.989459
+  type: 'test'
+  ...
+# Subtest: ProductError identity remains stable across independently evaluated server bundles
+ok 37 - ProductError identity remains stable across independently evaluated server bundles
+  ---
+  duration_ms: 0.49025
+  type: 'test'
+  ...
+# Subtest: stored reference evidence tampering invalidates DNA analysis
+ok 38 - stored reference evidence tampering invalidates DNA analysis
+  ---
+  duration_ms: 88.658083
+  type: 'test'
+  ...
+# Subtest: mascot setup binds a selected production source and rejects a reference
+ok 39 - mascot setup binds a selected production source and rejects a reference
+  ---
+  duration_ms: 99.749916
+  type: 'test'
+  ...
+# Subtest: Free Mode respects indirect AI negations and explicit alternative distributions
+ok 40 - Free Mode respects indirect AI negations and explicit alternative distributions
+  ---
+  duration_ms: 95.371666
+  type: 'test'
+  ...
+# Subtest: login concurrency limit reserves capacity before awaiting identity loading
+ok 41 - login concurrency limit reserves capacity before awaiting identity loading
+  ---
+  duration_ms: 118.618916
+  type: 'test'
+  ...
+# Subtest: legacy planner contract rejection returns a controlled HTTP 400
+ok 42 - legacy planner contract rejection returns a controlled HTTP 400
+  ---
+  duration_ms: 88.867667
+  type: 'test'
+  ...
+# Subtest: FIRMES avatar catalog and MCP-ready tool definitions stay membership-bound over HTTP
+ok 43 - FIRMES avatar catalog and MCP-ready tool definitions stay membership-bound over HTTP
+  ---
+  duration_ms: 90.373583
+  type: 'test'
+  ...
+1..43
+# tests 43
+# suites 0
+# pass 43
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 27416.097471
+Recreating /workspace/projects/media-content-harness/node_modules
+✓ Lockfile passes supply-chain policies (verified 21h ago)
+Lockfile is up to date, resolution step is skipped
+Already up to date
+
+dependencies:
++ @radix-ui/react-dropdown-menu 2.1.24
++ ajv 8.20.0
++ ajv-formats 3.0.1
++ next 16.3.5
++ react 19.3.0
++ react-dom 19.3.0
++ thinking-orbs 0.3.1
+
+devDependencies:
++ @playwright/test 1.58.2
++ @types/node 22.19.1
++ @types/react 19.2.7
++ @types/react-dom 19.2.3
++ typescript 5.9.3
+
+Done in 537ms using pnpm v11.7.0
+$ tsc --noEmit
+{"valid":true,"files":13}
+No known vulnerabilities found
+verifier_verdict=PASS
