@@ -5,7 +5,7 @@ import styles from './QuickCreate.module.css';
 
 type Workspace = { tenant_id: string; organization: string };
 export function QuickCreate({ tenants, loading = false, brand }: { tenants: Workspace[]; loading?: boolean; brand?: 'firmes' }) {
-  const modes = [{ path: 'scene', label: 'Escena guiada', description: 'Crea con personaje, entorno y acción' }, { path: 'weekly', label: 'Producción semanal', description: 'Planifica una semana de historias' }, { path: 'free', label: 'Modo libre', description: 'Empieza con tus propias palabras' }];
+  const modes = [{ path: 'free', label: 'Crear con mis palabras', description: 'Describe tu idea y te guiamos' }, { path: 'weekly', label: 'Planear una semana', description: 'Organiza varias historias juntas' }, { path: 'scene', label: 'Crear una escena', description: 'Define personaje, lugar y acción' }];
   return <DropdownMenu.Root>
     <DropdownMenu.Trigger className={styles.trigger + (brand==='firmes' ? ' '+styles.firmes : '')} disabled={loading} aria-busy={loading || undefined}>
       <span aria-hidden="true" className={styles.plus}>+</span>Crear<Chevron down />
@@ -26,7 +26,7 @@ export function QuickCreate({ tenants, loading = false, brand }: { tenants: Work
             </DropdownMenu.SubContent>
           </DropdownMenu.Portal>
         </DropdownMenu.Sub>) : <DropdownMenu.Item asChild className={styles.item}>
-          <Link href="/workspaces"><span><strong>Crear un espacio de trabajo</strong><small>Tu organización y su material</small></span></Link>
+          <Link href="/workspaces"><span><strong>Agregar una marca</strong><small>Reúne su material y su estilo</small></span></Link>
         </DropdownMenu.Item>}
       </DropdownMenu.Content>
     </DropdownMenu.Portal>

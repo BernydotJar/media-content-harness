@@ -3,14 +3,14 @@ import {webSourceState} from './web-source-state.mjs'
 import {redactTestOutput} from './redact-test-output.mjs'
 import {mkdtemp,mkdir,writeFile,readFile,copyFile} from 'node:fs/promises'
 import {tmpdir} from 'node:os'
-import {join} from 'node:path'
+import {join,resolve} from 'node:path'
 import {randomBytes,scryptSync,createHash} from 'node:crypto'
 import {spawn,execFileSync} from 'node:child_process'
 import {createServer} from 'node:net'
 import {once} from 'node:events'
 
 const requireClean=process.argv.includes('--require-clean')
-const sourceFile=process.env.MEDIA_FIRMES_SOURCE_FILE||'/workspace/work/firmes-reference/video/firmes-izabal-2727838567635466-video.mp4'
+const sourceFile=process.env.MEDIA_FIRMES_SOURCE_FILE||resolve('work/firmes-reference/video/firmes-izabal-2727838567635466-video.mp4')
 const sourceBytes=await readFile(sourceFile),sourceSha=createHash('sha256').update(sourceBytes).digest('hex')
 if(sourceSha!=='c1504301d3615a1a577a7fe0406ec6509de2bbe0adb05f6271211f46a0126000')throw new Error('Authorized FIRMES source fixture SHA mismatch')
 const sourceState=await webSourceState(),buildState=JSON.parse(await readFile('.next/media-factory-build.json','utf8'))
