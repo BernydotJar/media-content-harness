@@ -3,8 +3,9 @@ import {readFile} from 'node:fs/promises'
 import {join} from 'node:path'
 import {invariant,safeId,boundedText,fields} from './errors.mjs'
 import {FIRMES_CABALLITO,isFirmesTenantRecord} from './brand-assets.mjs'
+import {seedAvatarSystem,avatarCatalog,normalizeAvatarSelection,avatarPromptSections,avatarCriticPlan} from './avatar-system.mjs'
 
-export const SCENE_COMPILER_VERSION='mascot-scene-compiler.v1'
+export const SCENE_COMPILER_VERSION='mascot-scene-compiler.v2'
 export const REFERENCE_ROLES=Object.freeze(['CHARACTER_IDENTITY_ONLY','ENVIRONMENT_ONLY','STYLE_ONLY'])
 export const FIRMES_CABALLITO_ASSET_ID='brand_asset_firmes_caballito_v1'
 export const FIRMES_CABALLITO_CHARACTER_ID='brand_character_firmes_caballito_v1'
@@ -49,10 +50,12 @@ export function seedTenantBrandModels(state,tenantId){
    previous.default_mascot_character_id=FIRMES_CABALLITO_CHARACTER_ID;previous.default_mascot_asset_id=FIRMES_CABALLITO_ASSET_ID;previous.version=(previous.version||0)+1;previous.updated_at=now()
   }
  }
- return {
+ const brand={
   profile:state.tenant_brand_profiles[tenantId]||{tenant_id:tenantId,identity_key:tenant.brand?.identity_key||null,brand_name:tenant.brand?.display_name||tenant.organization,colors:{primary:null,secondary:null,accent:null},logo_asset_id:null,default_mascot_asset_id:null,default_mascot_character_id:null,require_default_mascot_for_campaign_content:false,version:1},
   assets:state.brand_assets[tenantId],characters:state.brand_characters[tenantId]
  }
+ seedAvatarSystem(state,tenantId,brand)
+ return brand
 }
 
 export async function readAuthorizedBrandAsset(state,tenantId,assetId,root=process.cwd()){
@@ -102,18 +105,30 @@ function normalizeOutput(output){const value=output&&typeof output==='object'?ou
 function normalizeHardConstraints(value){invariant(value===undefined||Array.isArray(value),'INVALID_SCENE','Las restricciones deben ser una lista.');return (value||[]).map((item,index)=>{invariant(item&&typeof item==='object'&&!Array.isArray(item),'INVALID_SCENE','Restricción inválida.');fields(item,['kind','value']);invariant(['must_include','must_exclude'].includes(item.kind),'INVALID_SCENE','Tipo de restricción inválido.');return {kind:item.kind,value:boundedText(item.value,'Restricción '+(index+1),220)}})}
 
 export function normalizeSceneRequest(input,state,tenantId){
- fields(input,['subject','environment','action','visual_style','hard_constraints','output','operator_override','generation_mode','preset_id'])
+ fields(input,['subject','avatar','environment','action','visual_style','hard_constraints','output','operator_override','generation_mode','preset_id'])
  const brand=seedTenantBrandModels(state,tenantId)
  const subject=normalizeSubject(input.subject,brand)
- const environment=normalizeEnvironment(input.environment,state,tenantId)
+ const avatar_contract=normalizeAvatarSelection(input.avatar,avatarCatalog(state,tenantId,brand),subject.character_id)
+ const scenePack=avatar_contract?.scene_pack||null
+ const environmentInput=scenePack?{
+  ...scenePack.environment,
+  ...(input.environment||{}),
+  required_elements:[...new Set([...(scenePack.environment.required_elements||[]),...(input.environment?.required_elements||[])])],
+  forbidden_elements:[...new Set([...(scenePack.environment.forbidden_elements||[]),...(input.environment?.forbidden_elements||[])])]
+ }:input.environment
+ const environment=normalizeEnvironment(environmentInput,state,tenantId)
  const action=normalizeAction(input.action)
  const visual_style=normalizeStyle(input.visual_style)
  const output=normalizeOutput(input.output)
+ if(avatar_contract&&output.medium==='video'){
+  const [min,max]=avatar_contract.motion.duration_range_seconds
+  invariant(output.duration_seconds>=min&&output.duration_seconds<=max,'AVATAR_MOTION_DURATION','La duración del video no es compatible con el movimiento seleccionado.',409)
+ }
  const hard_constraints=normalizeHardConstraints(input.hard_constraints)
  const operator_override=optionalText(input.operator_override,'Ajuste manual',4000)
  const generation_mode=input.generation_mode||'manual_external'
  invariant(generation_mode==='manual_external'||/^provider:[a-z0-9_-]+$/.test(generation_mode),'INVALID_SCENE','Elige una ruta de generación válida.')
- return {tenant_id:tenantId,subject,environment,action,visual_style,hard_constraints,output,operator_override,generation_mode,preset_id:input.preset_id||null}
+ return {tenant_id:tenantId,subject,avatar_contract,environment,action,visual_style,hard_constraints,output,operator_override,generation_mode,preset_id:input.preset_id||null}
 }
 
 function section(title,lines){const clean=lines.filter(Boolean);return clean.length?title+'\n\n'+clean.join('\n'):' '}
@@ -128,7 +143,7 @@ export function compileMascotScenePrompt(input,state,tenantId){
  const preserve=character?request.subject.preserve.map(v=>'- '+v):[]
  const sourceExclusions=character?request.subject.exclude_from_identity_source.map(v=>'- '+v):[]
  const required=[...request.environment.required_elements,...request.hard_constraints.filter(c=>c.kind==='must_include').map(c=>c.value)]
- const excluded=[...request.environment.forbidden_elements,...request.subject.exclude_from_identity_source,...request.subject.wardrobe.forbidden,...request.hard_constraints.filter(c=>c.kind==='must_exclude').map(c=>c.value)]
+ const excluded=[...request.environment.forbidden_elements,...request.subject.wardrobe.forbidden,...request.hard_constraints.filter(c=>c.kind==='must_exclude').map(c=>c.value)]
  if(request.environment.civilian_only)excluded.push('industrial workers','construction workers','safety uniforms')
  const style=[request.visual_style.realism,...request.visual_style.look,...request.visual_style.lighting].filter(Boolean)
  const wardrobe=character?[request.subject.wardrobe.top&&'- '+request.subject.wardrobe.top,request.subject.wardrobe.bottom&&'- '+request.subject.wardrobe.bottom,request.subject.wardrobe.shoes&&'- '+request.subject.wardrobe.shoes].filter(Boolean):[]
@@ -138,6 +153,7 @@ export function compileMascotScenePrompt(input,state,tenantId){
  if(priority.length)parts.push(section('REFERENCE PRIORITY RULES',priority.concat(character?['Do not transfer environmental elements from the character identity reference.','Replace the original character-reference environment with the requested target environment.']:[])))
  if(character)parts.push(section('CHARACTER IDENTITY PRESERVATION',[`Preserve only the approved ${character.name} identity from its identity reference:`,...preserve]))
  if(sourceExclusions.length)parts.push(section('CHARACTER SOURCE EXCLUSIONS',['Ignore and delete these non-identity elements from the character source:',...sourceExclusions]))
+ for(const avatarSection of avatarPromptSections(request.avatar_contract))parts.push(section(avatarSection.title,avatarSection.lines))
  parts.push(section('TARGET ENVIRONMENT',[request.environment.location_name?`- ${request.environment.location_name}`:'- Use only the described scene environment.']))
  if(required.length)parts.push(section('REQUIRED ENVIRONMENT ELEMENTS',required.map(v=>'- '+v)))
  if(wardrobe.length)parts.push(section('WARDROBE',wardrobe))
@@ -154,6 +170,7 @@ export function compileMascotScenePrompt(input,state,tenantId){
   compiler_version:SCENE_COMPILER_VERSION,structured_request_sha256,structured_request:{...request,operator_override:undefined},
   base_compiled_prompt,base_compiled_prompt_sha256,operator_override:request.operator_override,final_prompt,final_prompt_sha256:hash(final_prompt),compiled_prompt:final_prompt,compiled_prompt_sha256:hash(final_prompt),
   resolved_character_id:character?.character_id||null,resolved_character_asset_id:request.subject.identity_reference_asset_id||null,resolved_character_asset_sha256:request.subject.identity_reference_asset_id?brand.assets[request.subject.identity_reference_asset_id].sha256:null,
+  avatar_contract:request.avatar_contract,avatar_contract_sha256:request.avatar_contract?.contract_sha256||null,
   reference_roles:refs,hard_constraints:request.hard_constraints,tenant_brand_profile_version:brand.profile.version,timestamp:now()
  }
 }
@@ -175,10 +192,21 @@ export function scenePresets(state,tenantId){
 
 export function criticRubricForScene(job){
  const request=job.scene_request,character=job.prompt_compilation?.resolved_character_id
- const identity=character?['Caballito identity preserved','White horse characteristics preserved','Red mane preserved','Face, eyes and muzzle remain consistent','FIRMES burgundy identity preserved']:[]
- const negative=[...new Set([...(request?.environment?.forbidden_elements||[]),...(request?.subject?.exclude_from_identity_source||[]),...(request?.subject?.wardrobe?.forbidden||[]),...(request?.hard_constraints||[]).filter(c=>c.kind==='must_exclude').map(c=>c.value)])]
+ const avatarPlan=avatarCriticPlan(job.prompt_compilation?.avatar_contract||request?.avatar_contract||null)
+ const identity=avatarPlan?.identity_checks||(character?['Caballito identity preserved','White horse characteristics preserved','Red mane preserved','Face, eyes and muzzle remain consistent','FIRMES burgundy identity preserved']:[])
+ const negative=[...new Set([...(request?.environment?.forbidden_elements||[]),...(request?.subject?.wardrobe?.forbidden||[]),...(request?.hard_constraints||[]).filter(c=>c.kind==='must_exclude').map(c=>c.value)])]
  return {
-  schema_version:'scene-critic-rubric.v1',identity_checks:identity,wardrobe_checks:character?['Requested clothing is present','No forbidden industrial clothing is present']:[],environment_checks:['Target environment is present',...(request?.environment?.required_elements||[]).map(v=>'Required element present: '+v),'Environment reference role is respected',...(character?['Character-reference environment did not leak into the result']:[])],negative_checks:negative.map(v=>'Must be absent: '+v),composition_checks:['Requested action is visible','Character placement is coherent','Scene is believable','Lighting and shadows are coherent','Requested style is respected'],technical_checks:request?.output?.medium==='video'?['Artifact decodes','Duration matches request','Dimensions/aspect ratio match request','Frame continuity is acceptable','Audio expectations are satisfied','Exact artifact hash is bound to review']:['Artifact decodes','Dimensions/aspect ratio match request','Exact artifact hash is bound to review']
+  schema_version:'scene-critic-rubric.v2',avatar_contract_sha256:avatarPlan?.avatar_contract_sha256||null,
+  identity_checks:identity,
+  brand_marker_checks:avatarPlan?.brand_marker_checks||[],
+  wardrobe_checks:avatarPlan?.outfit_checks||(character?['Requested clothing is present']:[]),
+  accessory_checks:avatarPlan?.accessory_checks||[],
+  motion_checks:avatarPlan?.motion_checks||[],
+  forbidden_drift_checks:avatarPlan?.forbidden_drift_checks||[],
+  environment_checks:['Target environment is present',...(request?.environment?.required_elements||[]).map(v=>'Required element present: '+v),'Environment reference role is respected',...(avatarPlan?.scene_checks||[]),...(character?['Character-reference environment did not leak into the result']:[])],
+  negative_checks:negative.map(v=>'Must be absent: '+v),
+  composition_checks:['Requested action is visible','Character placement is coherent','Scene is believable','Lighting and shadows are coherent','Requested style is respected'],
+  technical_checks:[...(request?.output?.medium==='video'?['Artifact decodes','Duration matches request','Dimensions/aspect ratio match request','Frame continuity is acceptable','Audio expectations are satisfied','Exact artifact hash is bound to review']:['Artifact decodes','Dimensions/aspect ratio match request','Exact artifact hash is bound to review']),...(avatarPlan?.exact_review_checks||[])]
  }
 }
 
@@ -189,12 +217,15 @@ export function externalGenerationPackage(job){
  if(phase==='VIDEO_FROM_APPROVED_HERO'&&job.hero_image?.artifact_id)refs.push({reference_id:'APPROVED_HERO',asset_id:job.hero_image.artifact_id,role:'APPROVED_HERO_IMAGE',sha256:job.hero_image.sha256,authorization:'APPROVED_INTERMEDIATE',download_url:'/api/v1/jobs/'+encodeURIComponent(job.id)+'/artifacts/'+encodeURIComponent(job.hero_image.artifact_id)})
  const expectedOutput=phase==='HERO_IMAGE'?{medium:'image',aspect_ratio:job.scene_request.output.aspect_ratio,purpose:'approved hero image before animation'}:job.scene_request.output
  return {
-  package_version:'external-generation-package.v1',job_id:job.id,job_revision:job.job_revision||1,adapter_id:'manual-external',status:job.status,generation_phase:phase,
+  package_version:'external-generation-package.v2',job_id:job.id,job_revision:job.job_revision||1,adapter_id:'manual-external',status:job.status,generation_phase:phase,
   prompt:job.prompt_compilation.final_prompt,prompt_sha256:job.prompt_compilation.final_prompt_sha256,base_prompt_sha256:job.prompt_compilation.base_compiled_prompt_sha256,
   references:refs,reference_role_explanation:{CHARACTER_IDENTITY_ONLY:'Usa esta imagen solo para conservar la identidad del personaje; no copies su entorno, vestuario prohibido ni utilería accidental.',ENVIRONMENT_ONLY:'Usa esta imagen solo para el lugar y su composición ambiental; no la uses para cambiar la identidad del personaje.',STYLE_ONLY:'Usa esta referencia únicamente para lenguaje visual.',APPROVED_HERO_IMAGE:'Anima exactamente esta imagen ya aprobada. No regeneres al personaje ni cambies la composición desde cero.'},
+  avatar_contract:job.prompt_compilation.avatar_contract||null,
+  avatar_contract_sha256:job.prompt_compilation.avatar_contract_sha256||null,
+  avatar_critic_plan:avatarCriticPlan(job.prompt_compilation.avatar_contract||null),
   constraints:{hard:job.prompt_compilation.hard_constraints,character_preserve:job.scene_request.subject.preserve,character_source_exclusions:job.scene_request.subject.exclude_from_identity_source,environment_required:job.scene_request.environment.required_elements,environment_forbidden:job.scene_request.environment.forbidden_elements},
   expected_output:expectedOutput,
-  checklist:['Respeta el rol de cada referencia','No copies el entorno de la referencia del personaje','Cumple todos los elementos obligatorios','No introduzcas ningún elemento prohibido',...(phase==='VIDEO_FROM_APPROVED_HERO'?['Usa la imagen hero aprobada como entrada exacta del video; no regeneres la identidad']:[]),'Entrega exactamente el medio y formato solicitados'],
+  checklist:['Respeta el rol de cada referencia','No copies el entorno de la referencia del personaje','Cumple todos los elementos obligatorios','No introduzcas ningún elemento prohibido',...(job.prompt_compilation.avatar_contract?['Conserva identidad, outfit, add-ons, movimiento y al menos un distintivo FIRMES visible según el avatar contract']:[]),...(phase==='VIDEO_FROM_APPROVED_HERO'?['Usa la imagen hero aprobada como entrada exacta del video; no regeneres la identidad']:[]),'Entrega exactamente el medio y formato solicitados'],
   generated_at:now()
  }
 }
@@ -227,6 +258,8 @@ export function sceneReleaseProvenance(job){
   character_id:job.prompt_compilation.resolved_character_id||null,
   character_asset_id:job.prompt_compilation.resolved_character_asset_id||null,
   character_asset_sha256:job.prompt_compilation.resolved_character_asset_sha256||null,
+  avatar_contract_sha256:job.prompt_compilation.avatar_contract_sha256||null,
+  avatar_contract:job.prompt_compilation.avatar_contract?structuredClone(job.prompt_compilation.avatar_contract):null,
   reference_roles:structuredClone(job.prompt_compilation.reference_roles||[]),
   structured_request_sha256:job.prompt_compilation.structured_request_sha256,
   prompt_compiler_version:job.prompt_compilation.compiler_version,

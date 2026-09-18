@@ -63,6 +63,8 @@ export async function handleApi(request,service){
    if(path.length===2&&method==='GET')return response(await service.getTenant(session,id))
    if(path[2]==='brand-profile'&&path.length===3&&method==='GET')return response(await service.brandProfile(session,id))
    if(path[2]==='brand-characters'&&path.length===3&&method==='GET')return response(await service.brandCharacters(session,id))
+   if(path[2]==='avatar-catalog'&&path.length===3&&method==='GET')return response(await service.avatarCatalog(session,id))
+   if(path[2]==='avatar-mcp-tools'&&path.length===3&&method==='GET')return response(await service.avatarMcpTools(session,id))
    if(path[2]==='brand-assets'&&path.length===4&&method==='GET'){const asset=await service.brandAsset(session,id,path[3]);return artifactResponse(request,{...asset,filename:asset.asset_id+'.png'})}
    if(path[2]==='scene-presets'&&path.length===3&&method==='GET')return response(await service.scenePresets(session,id))
    if(path[2]==='scenes'&&path.length===3&&method==='POST')return response(await service.createScene(session,id,await jsonBody(request)),202)

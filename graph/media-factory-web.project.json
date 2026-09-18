@@ -824,6 +824,84 @@
         "assets/**",
         "config/**"
       ]
+    },
+    {
+      "id": "WEB023-MASCOT-AVATAR-SYSTEM",
+      "title": "Reusable brand mascot avatar identity, outfit, add-on, motion, compiler and critic system",
+      "kind": "product-completion",
+      "status": "spec_ready",
+      "depends_on": [
+        "WEB022-LIQUID-GLASS-NAV-RELEASE"
+      ],
+      "capability": "media-factory-web",
+      "gates": {
+        "review": [
+          "implementation_quality"
+        ]
+      },
+      "allowed_paths": [
+        "server/**",
+        "app/**",
+        "components/**",
+        "plugins/**",
+        "scripts/**",
+        "tests/**",
+        "docs/**",
+        "specs/**",
+        "progress/**",
+        "graph/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "*.json",
+        "*.mjs",
+        "*.yml",
+        "Dockerfile",
+        ".gitignore",
+        ".dockerignore",
+        "README.md",
+        "deploy/**",
+        "assets/**",
+        "config/**"
+      ]
+    },
+    {
+      "id": "WEB024-MASCOT-AVATAR-RELEASE",
+      "title": "Independent verification, signed deployment and public confirmation of Mascot Avatar System v1",
+      "kind": "product-completion",
+      "status": "spec_ready",
+      "depends_on": [
+        "WEB023-MASCOT-AVATAR-SYSTEM"
+      ],
+      "capability": "media-factory-web",
+      "gates": {
+        "review": [
+          "implementation_quality"
+        ]
+      },
+      "allowed_paths": [
+        "server/**",
+        "app/**",
+        "components/**",
+        "plugins/**",
+        "scripts/**",
+        "tests/**",
+        "docs/**",
+        "specs/**",
+        "progress/**",
+        "graph/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "*.json",
+        "*.mjs",
+        "*.yml",
+        "Dockerfile",
+        ".gitignore",
+        ".dockerignore",
+        "README.md",
+        "deploy/**",
+        "assets/**",
+        "config/**"
+      ]
     }
   ]
 }

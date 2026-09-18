@@ -1,5 +1,6 @@
 import { createHash } from 'node:crypto'
 import { invariant } from './errors.mjs'
+import { assertAvatarContractCurrent } from './avatar-system.mjs'
 export const GRAPH_REVISION = '477bdcc3d390c30eb49d823e5c7fd105fee2cc4d'
 export const STAGES = ['BRIEF','SOURCE','INGEST','DIRECTOR_TREATMENT','CONCEPT_REVIEW','CREATIVE_GATE','PROVIDER_PRODUCTION','TECHNICAL_QA','CRITIC','FIXER','INDEPENDENT_VERIFIER','COMPLIANCE','RELEASE']
 export const HUMAN_STAGES = ['CONCEPT_REVIEW','CREATIVE_GATE','CRITIC','INDEPENDENT_VERIFIER','RELEASE']
@@ -12,6 +13,7 @@ export function assertCurrent(state, job) {
  if(job.creation_mode==='GUIDED_SCENE'){
   const profile=state.tenant_brand_profiles?.[job.tenant_id]
   invariant(profile&&profile.version===job.tenant_brand_profile_version,'BRAND_PROFILE_CHANGED','Brand configuration changed after this scene was created; recompile the scene before continuing',409)
+  if(job.prompt_compilation?.avatar_contract)assertAvatarContractCurrent(state,job.tenant_id,job.prompt_compilation.avatar_contract)
   for(const ref of job.prompt_compilation?.reference_roles||[]){
    const asset=ref.role==='CHARACTER_IDENTITY_ONLY'?state.brand_assets?.[job.tenant_id]?.[ref.asset_id]:state.scene_reference_assets?.[job.tenant_id]?.[ref.asset_id]
    const semanticRoleCurrent=ref.role==='CHARACTER_IDENTITY_ONLY'?asset?.kind==='CHARACTER_REFERENCE'&&asset?.rights_state==='AUTHORIZED'&&ref.authorization==='AUTHORIZED':asset?.role===ref.role&&asset?.authorization===ref.authorization&&['ENVIRONMENT_ONLY','STYLE_ONLY'].includes(ref.role)

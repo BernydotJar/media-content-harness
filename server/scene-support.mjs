@@ -4,6 +4,7 @@ import {join} from 'node:path'
 import {invariant,safeId} from './errors.mjs'
 import {assertAudienceSafe,rejectSecretMaterial,contentHash} from './contracts.mjs'
 import {seedTenantBrandModels,readAuthorizedBrandAsset,compileMascotScenePrompt,scenePresets,externalGenerationPackage,inspectImage} from './scene-generation.mjs'
+import {avatarCatalog,avatarMcpCatalogDefinition} from './avatar-system.mjs'
 
 const EDIT=['owner','admin','editor']
 const now=()=>new Date().toISOString()
@@ -15,6 +16,8 @@ export function sceneSupport({repository,providers,auth,context,getExecution,pub
  return {
   async brandProfile(token,id){await context(token,id);return repository.transact(state=>copy(seedTenantBrandModels(state,id).profile))},
   async brandCharacters(token,id){await context(token,id);return repository.transact(state=>Object.values(seedTenantBrandModels(state,id).characters).map(copy))},
+  async avatarCatalog(token,id){await context(token,id);return repository.transact(state=>{const brand=seedTenantBrandModels(state,id);return copy(avatarCatalog(state,id,brand))})},
+  async avatarMcpTools(token,id){await context(token,id);await activeState(id);return avatarMcpCatalogDefinition()},
   async brandAsset(token,id,assetId){await context(token,id);safeId(assetId,'Brand asset ID');const state=await repository.transact(s=>{seedTenantBrandModels(s,id);return s});return readAuthorizedBrandAsset(state,id,assetId)},
   async scenePresets(token,id){await context(token,id);return repository.transact(state=>scenePresets(state,id))},
   async uploadSceneReference(token,id,role,{bytes,mime_type}){
@@ -38,7 +41,7 @@ export function sceneSupport({repository,providers,auth,context,getExecution,pub
     if(requestedProvider!=='manual-external')invariant(provider.available===true,'PROVIDER_UNAVAILABLE','Este generador no está configurado. Usa generación externa o elige otro generador.',409)
     const jobId='mf_scene_'+contentHash({tenant_id:id,request_sha:compilation.structured_request_sha256,prompt_sha:compilation.final_prompt_sha256,nonce:randomUUID()}).slice(0,28)
     const brand=seedTenantBrandModels(state,id),character=compilation.resolved_character_id?brand.characters[compilation.resolved_character_id]:null
-    const job={id:jobId,story_id:'scene_'+jobId.slice(-12),tenant_id:id,title:character?character.name+' · '+(request.environment.location_name||request.action.verb):'Escena · '+(request.environment.location_name||request.action.verb),objective:request.action.verb,source_ids:[],story_devices:[],strategy:'GENERATIVE',preferred_provider:requestedProvider,generation_mode:request.generation_mode,creation_mode:'GUIDED_SCENE',mascot:request.subject.mode!=='none',creative_context:{character:character?copy(character):null,place:request.environment.location_name?{name:request.environment.location_name}:null},scene_request:request,prompt_compilation:compilation,target:{aspect_ratio:request.output.aspect_ratio,medium:request.output.medium,...(request.output.duration_seconds?{duration_seconds:[request.output.duration_seconds,request.output.duration_seconds]}:{})},status:'BRIEF',stage:'BRIEF',graph:{nodes:[]},artifacts:[],generation_attempts:[],evidence:[],approvals:[],blockers:[],source_authorization_snapshot:[],source_asset_snapshot:[],content_dna_revision:null,tenant_brand_profile_version:brand.profile.version,job_revision:1,started:true,created_at:now(),created_by:user.id}
+    const job={id:jobId,story_id:'scene_'+jobId.slice(-12),tenant_id:id,title:character?character.name+' · '+(request.environment.location_name||request.action.verb):'Escena · '+(request.environment.location_name||request.action.verb),objective:request.action.verb,source_ids:[],story_devices:[],strategy:'GENERATIVE',preferred_provider:requestedProvider,generation_mode:request.generation_mode,creation_mode:'GUIDED_SCENE',mascot:request.subject.mode!=='none',avatar_contract:compilation.avatar_contract||null,creative_context:{character:character?copy(character):null,place:request.environment.location_name?{name:request.environment.location_name}:null},scene_request:request,prompt_compilation:compilation,target:{aspect_ratio:request.output.aspect_ratio,medium:request.output.medium,...(request.output.duration_seconds?{duration_seconds:[request.output.duration_seconds,request.output.duration_seconds]}:{})},status:'BRIEF',stage:'BRIEF',graph:{nodes:[]},artifacts:[],generation_attempts:[],evidence:[],approvals:[],blockers:[],source_authorization_snapshot:[],source_asset_snapshot:[],content_dna_revision:null,tenant_brand_profile_version:brand.profile.version,job_revision:1,started:true,created_at:now(),created_by:user.id}
     state.jobs[jobId]=job;append(state,id,'SCENE_JOB_CREATED',{job_id:jobId,actor_id:user.id,prompt_sha256:compilation.final_prompt_sha256});return job
    })
    const execution=getExecution();invariant(execution?.onJobsQueued,'EXECUTION_UNAVAILABLE','La ejecución de producción no está disponible.',503);execution.onJobsQueued([job.id]);return publicJob(job)

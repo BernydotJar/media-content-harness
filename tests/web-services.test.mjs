@@ -33,3 +33,21 @@ test('mascot setup binds a selected production source and rejects a reference',a
 test('Free Mode respects indirect AI negations and explicit alternative distributions',async t=>{const f=await setup(t);const {id}=await ready(f);for(const text of ['Hazme dos videos sin usar IA.','Hazme dos videos, no utilices IA.','Create two videos without using AI.']){const draft=await f.service.freeDraft(f.token,id,{week_of:'2026-09-14',text});assert.ok(draft.stories.every(s=>s.strategy==='REAL_FOOTAGE'),text)}for(const [text,expected] of [['Hazme cuatro videos: dos con IA y dos con material real.',['GENERATIVE','GENERATIVE','REAL_FOOTAGE','REAL_FOOTAGE']],['Hazme cuatro videos. Uno real y tres usando IA.',['REAL_FOOTAGE','GENERATIVE','GENERATIVE','GENERATIVE']]]){const draft=await f.service.freeDraft(f.token,id,{week_of:'2026-09-14',text});assert.equal(draft.ready_to_save,true,text);assert.deepEqual(draft.stories.map(s=>s.strategy),expected,text)}const unclear=await f.service.freeDraft(f.token,id,{week_of:'2026-09-14',text:'Hazme cuatro videos: dos con IA y uno real.'});assert.equal(unclear.ready_to_save,false)})
 test('login concurrency limit reserves capacity before awaiting identity loading',async t=>{const f=await setup(t);const original=f.service.auth.identities.bind(f.service.auth);let max=0;f.service.auth.identities=async()=>{max=Math.max(max,f.service.auth.activeLogins);await new Promise(r=>setTimeout(r,15));return original()};const results=await Promise.allSettled(Array.from({length:12},(_,i)=>f.service.auth.login({email:'unknown'+i+'@example.org',password:'wrong password'})));assert.equal(max,4);assert.equal(results.filter(r=>r.status==='rejected'&&r.reason.code==='RATE_LIMITED').length,8);assert.equal(f.service.auth.activeLogins,0)})
 test('legacy planner contract rejection returns a controlled HTTP 400',async t=>{const f=await setup(t);const {id}=await ready(f);const invalid={...story,story_devices:[]};const result=await handleApi(req('tenants/'+id+'/weekly-plans',f.token,{week_of:'2026-09-14',stories:[invalid]}),f.service);assert.equal(result.status,400);const body=await result.json();assert.equal(body.error.code,'INVALID_PLAN');assert.match(body.error.message,/Content DNA device/)})
+
+
+test('FIRMES avatar catalog and MCP-ready tool definitions stay membership-bound over HTTP',async t=>{
+ const f=await setup(t)
+ const profile={schema_version:'tenant-media-profile.v1',tenant_id:'firmes-avatar-api',organization:'FIRMES Avatar API',territory:'Guatemala',runtime_namespace:'firmes-avatar-api',browser_context_ref:'firmes-avatar-api-browser',content_context:'community',audience_policy:{mode:'general-audience',sensitive_trait_targeting:false,voter_microtargeting:false},brand:{display_name:'FIRMES',identity_key:'firmes',visual_language:'FIRMES burgundy'},sources:[{id:'authorized-source',locator:'https://example.org/firmes-avatar',authorization:'explicit',match:'exact',purpose:'source'}],production_defaults:{aspect_ratio:'9:16',cadence:'weekly',duration_seconds:[5,15]}}
+ await f.service.createTenant(f.token,{profile})
+ const catalogResponse=await handleApi(req('tenants/firmes-avatar-api/avatar-catalog',f.token),f.service)
+ assert.equal(catalogResponse.status,200)
+ const catalog=(await catalogResponse.json()).data
+ assert.equal(catalog.enabled,true)
+ assert.equal(catalog.outfits.length,5)
+ assert.equal(catalog.accessories.length,10)
+ assert.equal(catalog.motion_profile.mode,'GENERATIVE_MOTION')
+ const toolsResponse=await handleApi(req('tenants/firmes-avatar-api/avatar-mcp-tools',f.token),f.service)
+ assert.equal(toolsResponse.status,200)
+ assert.deepEqual((await toolsResponse.json()).data.tools.map(v=>v.name),['avatar.catalog','avatar.compile','avatar.critic_plan'])
+ assert.equal((await handleApi(req('tenants/firmes-avatar-api/avatar-catalog',f.outside),f.service)).status,403)
+})

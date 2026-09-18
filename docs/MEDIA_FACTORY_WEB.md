@@ -87,6 +87,16 @@ Cuando no existe un API adapter ejecutable, **Generación externa** (`manual-ext
 
 Para video con mascota, el flujo es **image-first**: primero se importa una imagen hero, Critic la revisa, y solo su SHA aprobado puede convertirse en `APPROVED_HERO_IMAGE` para la fase image-to-video. El video final vuelve a Critic, pasa por un Independent Verifier separado y solo después puede liberarse. La liberación conserva el input hero aprobado, los roles/hashes de referencia, el intento de generación y el SHA exacto del video final. Liberar no publica automáticamente en redes sociales.
 
+### Mascot Avatar System v1
+
+El Caballito FIRMES también dispone de un **avatar reutilizable** encima del mismo `BrandCharacter`. El catálogo tenant-scoped expone un `AvatarIdentityPack`, cinco looks iniciales (clásico, construcción, playa, formal y espacial), diez add-ons, ocho presets de movimiento generativo y cinco scene packs. La interfaz de **Crear una escena** presenta estas opciones como `Look`, `Accesorios`, `Movimiento` y `Escenas rápidas`; la persona no necesita editar prompts.
+
+El `AvatarIdentityPack` es deliberadamente honesto: actualmente cuenta con la referencia maestra autorizada y marca el turnaround frontal/perfiles/espalda como **pendiente**, en vez de inventar vistas que no existen. V1 usa `GENERATIVE_MOTION`; no afirma tener todavía un rig esquelético 2.5D/3D. Un rig futuro puede adjuntarse al mismo contrato sin cambiar el identificador del personaje.
+
+Cada selección compila un `avatar_contract` determinista y content-addressed. Ese contrato liga identity pack, outfit, add-ons, motion preset, scene pack y una política `ALWAYS_VISIBLE` que exige al menos un distintivo FIRMES. La compilación agrega secciones `AVATAR IDENTITY LOCK`, `AVATAR OUTFIT`, `AVATAR ADD-ONS`, `FIRMES BRAND MARKER POLICY` y `AVATAR MOTION PROFILE`. Accesorios incompatibles, IDs de otro tenant, mutaciones posteriores del catálogo o duraciones incompatibles fallan cerrado.
+
+El Critic recibe además un `avatar-critic-plan.v1` con checks de identidad, drift prohibido, distintivo, outfit, add-ons, movimiento, escena y hash exacto. El paquete de generación externa y la provenance de release conservan `avatar_contract_sha256`. Para integración agéntica existe un contrato MCP-ready, transport-neutral, en `plugins/avatar-system-mcp.mjs` con `avatar.catalog`, `avatar.compile` y `avatar.critic_plan`; reutiliza la misma autoridad de producto y no se presenta como un proveedor externo ya conectado.
+
 ## Administración de APIs
 
 El operador del despliegue compartido tiene **APIs e integraciones** en el menú. Con un archivo explícito de identidades, solo usuarios con `system_admin: true` acceden; ser dueño de un espacio no basta. El provisionador permite `--system-admin` para asignar ese permiso explícitamente.
