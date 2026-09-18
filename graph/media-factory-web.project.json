@@ -672,6 +672,82 @@
         "assets/**",
         "config/**"
       ]
+    },
+    {
+      "id": "WEB019-INSPORA-V4",
+      "title": "Immersive real-media cards, liquid-glass navigation and zero-friction guided autosave",
+      "kind": "product-completion",
+      "status": "spec_ready",
+      "depends_on": [
+        "WEB018-REPAIR-LOOP-RELEASE"
+      ],
+      "capability": "media-factory-web",
+      "gates": {
+        "review": [
+          "implementation_quality"
+        ]
+      },
+      "allowed_paths": [
+        "server/**",
+        "app/**",
+        "components/**",
+        "scripts/**",
+        "tests/**",
+        "docs/**",
+        "specs/**",
+        "progress/**",
+        "graph/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "*.json",
+        "*.mjs",
+        "*.yml",
+        "Dockerfile",
+        ".gitignore",
+        ".dockerignore",
+        "README.md",
+        "deploy/**",
+        "assets/**",
+        "config/**"
+      ]
+    },
+    {
+      "id": "WEB020-INSPORA-V4-RELEASE",
+      "title": "Independent verification, signed deployment and public confirmation of immersive V4",
+      "kind": "product-completion",
+      "status": "spec_ready",
+      "depends_on": [
+        "WEB019-INSPORA-V4"
+      ],
+      "capability": "media-factory-web",
+      "gates": {
+        "review": [
+          "implementation_quality"
+        ]
+      },
+      "allowed_paths": [
+        "server/**",
+        "app/**",
+        "components/**",
+        "scripts/**",
+        "tests/**",
+        "docs/**",
+        "specs/**",
+        "progress/**",
+        "graph/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "*.json",
+        "*.mjs",
+        "*.yml",
+        "Dockerfile",
+        ".gitignore",
+        ".dockerignore",
+        "README.md",
+        "deploy/**",
+        "assets/**",
+        "config/**"
+      ]
     }
   ]
 }
