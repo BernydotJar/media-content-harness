@@ -5,7 +5,8 @@ export type Item = Record<string, any>;
 export type ApiError = { code: string; message: string; request_id?: string };
 export type Resource = { data: any; loading: boolean; error: ApiError | null; reload: () => void };
 export async function api(path: string, body?: unknown) {
- const response = await fetch(path === '/auth/login' ? '/api/preview/login' : '/api/v1' + path, { method: body === undefined ? 'GET' : 'POST', credentials: 'same-origin', headers: body === undefined ? {} : { 'Content-Type': 'application/json' }, body: body === undefined ? undefined : JSON.stringify(body), cache: 'no-store' });
+ const previewAuth=path==='/auth/login'||path==='/auth/register';const target=previewAuth?'/api/preview/login':'/api/v1'+path;const payload=path==='/auth/register'&&body&&typeof body==='object'?{action:'register',...(body as Record<string,unknown>)}:body;
+ const response = await fetch(target, { method: payload === undefined ? 'GET' : 'POST', credentials: 'same-origin', headers: payload === undefined ? {} : { 'Content-Type': 'application/json' }, body: payload === undefined ? undefined : JSON.stringify(payload), cache: 'no-store' });
  let value: Item; try { value = await response.json(); } catch { throw { code: String(response.status), message: 'El servicio no respondió correctamente. Intenta de nuevo.' }; }
  if (!response.ok) throw value.error || { code: String(response.status), message: 'No pudimos completar la solicitud.' }; return value.data;
 }
