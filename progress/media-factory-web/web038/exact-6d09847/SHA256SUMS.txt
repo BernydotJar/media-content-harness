@@ -1,0 +1,9 @@
+1079fe64948e9b2643740f77eef8a917de86b10588fbf31843562a051d7ecd73  progress/media-factory-web/web038/exact-6d09847/INDEPENDENT_VERIFIER.md
+70d066a45083f165577fa0f4fae2c49f8acfae47fa533eab21b8ce04380d10df  progress/media-factory-web/web038/exact-6d09847/PUBLIC_PROBE.md
+e450d59688f4c6a537e57a1776d0b91aae561fbef6d5914b740eb11491f5fc86  progress/media-factory-web/web038/exact-6d09847/RELEASE.md
+be11616edea58cefaa9ee9318444f4a487d28b64a35704a641b4ca67770751ad  progress/media-factory-web/web038/exact-6d09847/deploy-request.json
+fa7d16da992158ffd50c3a2ab2a3946801b6cc946a72f53e1a8fd34872766317  progress/media-factory-web/web038/exact-6d09847/finalizer-output.json
+8af38328e1297b3102fdc2242d1ea1b3524b1327af9b404ba0031414c3a8874c  progress/media-factory-web/web038/exact-6d09847/granite-risk-raw.json
+2cfbb25453f3b4d3572a735ac0165f192d0bbbee8d15b2451dcad9d39f7fc151  progress/media-factory-web/web038/exact-6d09847/granite-rubric-raw.json
+2a801de338deab016c4899c487738e3f153281e12ef369b6df12231df5264ae9  progress/media-factory-web/web038/exact-6d09847/host-reconcile.json
+faa4c56f4265671c322278503a574799ff0b2fe5391740c15e896a9a0e02af40  progress/media-factory-web/web038/exact-6d09847/product-status.json

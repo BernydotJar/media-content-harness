@@ -1,0 +1,13 @@
+03dfa2209c1536676a03d59e1d92640e98a326917952ff8286f436217d4554e6  progress/media-factory-web/web037/exact-6d09847/CRITIC.md
+05a729fb19eb62ae0461da471cce81ebfd6f989a3ff8ffc491dc8ec1a942f36e  progress/media-factory-web/web037/exact-6d09847/IMPLEMENTATION.md
+acb91ec65124a0f40346d10b9cb337ec8f4920781b8adfe362bb2b08408985af  progress/media-factory-web/web037/exact-6d09847/INDEPENDENT_VERIFIER.md
+15950a68a7ed99c59779717acefdceb3f69cfd31bde67d2c954f2a3cea4d7955  progress/media-factory-web/web037/exact-6d09847/detached-audit.log
+3c4cdb0b3b062f89f45c253b1a37feac4b230282aa2643ac4e85b8546681a7fc  progress/media-factory-web/web037/exact-6d09847/detached-browser-general.log
+121a2bc41f3ee1906a6f06cf007468736b44629a3be3993216cd8cae78309c65  progress/media-factory-web/web037/exact-6d09847/detached-browser-v11.log
+7fb0b0924d55879343f96d76392156370a2e933fdf31496945ad604b93183492  progress/media-factory-web/web037/exact-6d09847/detached-build.log
+a108e14e1de481fe691e62cb9327a0c5417ccdbf6e1cc7e38ec7f3913fe63f78  progress/media-factory-web/web037/exact-6d09847/detached-contracts.log
+67170f4350f3f8e6602a80061a4c933d3033fceaa111512ce6f8f66641f95f97  progress/media-factory-web/web037/exact-6d09847/detached-focused.log
+8366207267355d3e3d5bf3bf6e8c94c5f93f6078c34f08973fa2b38cdda6cc92  progress/media-factory-web/web037/exact-6d09847/detached-typecheck.log
+6340ef84c6229419601fbc32dc8668926d774e2940aa550787053c168bb5414c  progress/media-factory-web/web037/exact-6d09847/full-tests.log
+8af38328e1297b3102fdc2242d1ea1b3524b1327af9b404ba0031414c3a8874c  progress/media-factory-web/web037/exact-6d09847/granite-risk-raw.json
+2cfbb25453f3b4d3572a735ac0165f192d0bbbee8d15b2451dcad9d39f7fc151  progress/media-factory-web/web037/exact-6d09847/granite-rubric-raw.json
