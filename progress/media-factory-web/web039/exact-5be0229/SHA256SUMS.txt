@@ -1,0 +1,17 @@
+cc16b0f806d6b60dd5d0600f1adfba24b41c4ed53af8b9089ed3259ac9c45e65  progress/media-factory-web/web039/exact-5be0229/CRITIC.md
+020ff100cdd8500b49ffebb4431b2c3c1e58b1f12f01381fe60ec5568e8fe0e0  progress/media-factory-web/web039/exact-5be0229/IMPLEMENTATION.md
+560ad296e5b989aefee53b80d4379060a91210da56374f68a65c31fe386374cb  progress/media-factory-web/web039/exact-5be0229/INDEPENDENT_VERIFIER.md
+4ef8708bb904e30c465fddfbbbbd9ac7ebb930e056e36f6b29c9985cf5604514  progress/media-factory-web/web039/exact-5be0229/browser-e2e.log
+4cbe12834193a109a1c7e5706185a1e4a3f34e86003b01885494c7aac5bdd29d  progress/media-factory-web/web039/exact-5be0229/detached-audio-contract.log
+4b766cf949052fccad19706972ebd76c2774fab825a33cc1fdc84c19de1d44ca  progress/media-factory-web/web039/exact-5be0229/detached-audio-execution.log
+15950a68a7ed99c59779717acefdceb3f69cfd31bde67d2c954f2a3cea4d7955  progress/media-factory-web/web039/exact-5be0229/detached-audit.log
+dc95b16700e37960ed8e94c103f18515432b7c0764f7420403f656788174dac2  progress/media-factory-web/web039/exact-5be0229/detached-browser.log
+c22ccbb7abfd580bcbed2de2b5f8484314e5baaad90d6fb257a0cdd37bbd21ef  progress/media-factory-web/web039/exact-5be0229/detached-build.log
+a108e14e1de481fe691e62cb9327a0c5417ccdbf6e1cc7e38ec7f3913fe63f78  progress/media-factory-web/web039/exact-5be0229/detached-contracts.log
+a87a47017a1ec2960807516e331ec259c5d42577b9f845959b5990cbe1c508d9  progress/media-factory-web/web039/exact-5be0229/detached-golden.json
+8366207267355d3e3d5bf3bf6e8c94c5f93f6078c34f08973fa2b38cdda6cc92  progress/media-factory-web/web039/exact-5be0229/detached-typecheck.log
+101008d31a4dd32c4bc838f9aa187fd0b78a36da2e9bff047c0d468ee48f0515  progress/media-factory-web/web039/exact-5be0229/focused-tests.log
+9bab13973b85137aecf75bcfd7eac78f2c6b4d8a7423a73d4c82c6f1800096c9  progress/media-factory-web/web039/exact-5be0229/full-tests.log
+a87a47017a1ec2960807516e331ec259c5d42577b9f845959b5990cbe1c508d9  progress/media-factory-web/web039/exact-5be0229/golden-reference.json
+a3e6ee391731236fb7b5e85fbbc5b014bd92438d5c2a0bd4ebcd56f4c8de8bb1  progress/media-factory-web/web039/exact-5be0229/granite-risk-raw.json
+8e5cd6cf28d9e4c6f27cfdfa2eee409a85ad9e6fe5c02e56c02dbc33fdff00e9  progress/media-factory-web/web039/exact-5be0229/granite-rubric-raw.json

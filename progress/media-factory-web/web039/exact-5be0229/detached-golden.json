@@ -1,0 +1,36 @@
+{
+  "status": "PASS",
+  "path": "/shared-auth/development/firmes_hero_song_only_intro00_polished_final_exact.mp4",
+  "qa": {
+    "duration_seconds": 19.75,
+    "video_duration_seconds": 19.75,
+    "audio_duration_seconds": 19.75,
+    "sample_rate": 48000,
+    "channels": 2,
+    "integrated_lufs": -13.5,
+    "lra_lu": 1.7,
+    "true_peak_dbtp": -1.9,
+    "decode_ok": true
+  },
+  "video_stream_sha256": "adfd2ccbeb01b2f059a0871b7830d9f88af053b3e548f403618cc327f24e3bac",
+  "expected": {
+    "duration_seconds": 19.75,
+    "sample_rate": 48000,
+    "channels": 2,
+    "integrated_lufs": -13.5,
+    "lra_lu": 1.7,
+    "true_peak_dbtp": -1.9,
+    "video_stream_sha256": "adfd2ccbeb01b2f059a0871b7830d9f88af053b3e548f403618cc327f24e3bac"
+  },
+  "checks": {
+    "duration": true,
+    "av_sync": true,
+    "sample_rate": true,
+    "channels": true,
+    "integrated_loudness": true,
+    "loudness_range": true,
+    "true_peak": true,
+    "decode": true,
+    "picture_hash": true
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "product_key": "media-factory",
+  "request_id": "01c3f0a7-0365-434e-bf02-954b5947f4ec",
+  "release_sha": "5be0229f08dc280036c7379116ba3ced61eee744",
+  "started_at": "2026-09-19T21:37:33.881450+00:00",
+  "layers": {
+    "L1_RELEASE": "PASS",
+    "L2_RUNTIME": "PASS",
+    "L2_EDGE_NETWORK": "PASS",
+    "L3_LOCAL_HEALTH": "PASS",
+    "L3_RECOVERY": "PASS",
+    "L4_CADDY": "PASS",
+    "L6_TUNNEL": "PASS",
+    "L7_DNS_L8_TLS_L9_PUBLIC": "PASS",
+    "L9_SECURITY": "PASS",
+    "L9_AUTHORIZATION": "PASS"
+  },
+  "dns_observation": {
+    "resolver": "cloudflare-doh",
+    "global_ipv4": [
+      "104.21.78.51",
+      "172.67.216.241"
+    ]
+  },
+  "public_probe": {
+    "transport": "dns_pinned_https_no_redirect",
+    "http_status": 200,
+    "anonymous_http_status": 401,
+    "form_session_workspace": {
+      "transport": "HTTP",
+      "login_http_status": 200,
+      "workspace_http_status": 200,
+      "workspace_body": "PASS",
+      "logout_http_status": 303,
+      "revoked_http_status": 401
+    }
+  },
+  "completed_at": "2026-09-19T21:38:04.188310+00:00",
+  "result": "DEPLOYED"
+}

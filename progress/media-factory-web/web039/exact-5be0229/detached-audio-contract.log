@@ -1,0 +1,34 @@
+TAP version 13
+# Subtest: AudioFinishingContract is versioned, normalized and idempotent while semantic lyric markers fail closed
+ok 1 - AudioFinishingContract is versioned, normalized and idempotent while semantic lyric markers fail closed
+  ---
+  duration_ms: 1.031792
+  type: 'test'
+  ...
+# Subtest: V12 HTTP surface keeps audio upload binary and finishing contract JSON on the authenticated job route
+ok 2 - V12 HTTP surface keeps audio upload binary and finishing contract JSON on the authenticated job route
+  ---
+  duration_ms: 8.70825
+  type: 'test'
+  ...
+# Subtest: review UI exposes Music, Voice, Final and Master abstractions and explicitly requires approved outro IN/OUT
+ok 3 - review UI exposes Music, Voice, Final and Master abstractions and explicitly requires approved outro IN/OUT
+  ---
+  duration_ms: 3.11925
+  type: 'test'
+  ...
+# Subtest: golden reference manifest documents exact measurable studio characteristics without committing the binary
+ok 4 - golden reference manifest documents exact measurable studio characteristics without committing the binary
+  ---
+  duration_ms: 0.883791
+  type: 'test'
+  ...
+1..4
+# tests 4
+# suites 0
+# pass 4
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 106.427542

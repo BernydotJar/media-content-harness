@@ -1,0 +1,562 @@
+TAP version 13
+# Subtest: AudioFinishingContract is versioned, normalized and idempotent while semantic lyric markers fail closed
+ok 1 - AudioFinishingContract is versioned, normalized and idempotent while semantic lyric markers fail closed
+  ---
+  duration_ms: 1.469792
+  type: 'test'
+  ...
+# Subtest: V12 HTTP surface keeps audio upload binary and finishing contract JSON on the authenticated job route
+ok 2 - V12 HTTP surface keeps audio upload binary and finishing contract JSON on the authenticated job route
+  ---
+  duration_ms: 10.316041
+  type: 'test'
+  ...
+# Subtest: review UI exposes Music, Voice, Final and Master abstractions and explicitly requires approved outro IN/OUT
+ok 3 - review UI exposes Music, Voice, Final and Master abstractions and explicitly requires approved outro IN/OUT
+  ---
+  duration_ms: 3.534375
+  type: 'test'
+  ...
+# Subtest: golden reference manifest documents exact measurable studio characteristics without committing the binary
+ok 4 - golden reference manifest documents exact measurable studio characteristics without committing the binary
+  ---
+  duration_ms: 1.226708
+  type: 'test'
+  ...
+# Subtest: repository reads pre-V10 state and adds departmental auth collections lazily
+ok 5 - repository reads pre-V10 state and adds departmental auth collections lazily
+  ---
+  duration_ms: 5.666416
+  type: 'test'
+  ...
+# Subtest: Google ID token verification fails closed on signature and every identity-binding claim
+ok 6 - Google ID token verification fails closed on signature and every identity-binding claim
+  ---
+  duration_ms: 32.877667
+  type: 'test'
+  ...
+# Subtest: owner can persist Google OAuth configuration in the private encrypted vault without another deploy
+ok 7 - owner can persist Google OAuth configuration in the private encrypted vault without another deploy
+  ---
+  duration_ms: 82.60225
+  type: 'test'
+  ...
+# Subtest: corrupted Google OAuth ciphertext fails closed and cannot be silently overwritten
+ok 8 - corrupted Google OAuth ciphertext fails closed and cannot be silently overwritten
+  ---
+  duration_ms: 90.912959
+  type: 'test'
+  ...
+# Subtest: Google OAuth configuration is system-admin only and can be removed without affecting local break-glass login
+ok 9 - Google OAuth configuration is system-admin only and can be removed without affecting local break-glass login
+  ---
+  duration_ms: 81.650375
+  type: 'test'
+  ...
+# Subtest: Google authorization start uses one-time state, PKCE and nonce and callback admits only an invited email
+ok 10 - Google authorization start uses one-time state, PKCE and nonce and callback admits only an invited email
+  ---
+  duration_ms: 104.962459
+  type: 'test'
+  ...
+# Subtest: Google HTTP start/callback keeps the OAuth state server-side and returns the regular secure product session
+ok 11 - Google HTTP start/callback keeps the OAuth state server-side and returns the regular secure product session
+  ---
+  duration_ms: 78.60175
+  type: 'test'
+  ...
+# Subtest: Google OAuth state is bound to the browser flow cookie to prevent login CSRF
+ok 12 - Google OAuth state is bound to the browser flow cookie to prevent login CSRF
+  ---
+  duration_ms: 100.749208
+  type: 'test'
+  ...
+# Subtest: first Google login without a pending invitation fails closed after identity verification
+ok 13 - first Google login without a pending invitation fails closed after identity verification
+  ---
+  duration_ms: 107.778167
+  type: 'test'
+  ...
+# Subtest: Google sign-in is unavailable without complete confidential-client configuration
+ok 14 - Google sign-in is unavailable without complete confidential-client configuration
+  ---
+  duration_ms: 1.481417
+  type: 'test'
+  ...
+# Subtest: owner and IT manage non-owner team access while coordinators stay tenant-scoped and non-admin
+ok 15 - owner and IT manage non-owner team access while coordinators stay tenant-scoped and non-admin
+  ---
+  duration_ms: 108.4925
+  type: 'test'
+  ...
+# Subtest: all four non-owner departmental roles are invitation-only and activate only after verified Google sign-in
+ok 16 - all four non-owner departmental roles are invitation-only and activate only after verified Google sign-in
+  ---
+  duration_ms: 121.363209
+  type: 'test'
+  ...
+# Subtest: a stored Google email never grants a new tenant until that email is freshly verified again
+ok 17 - a stored Google email never grants a new tenant until that email is freshly verified again
+  ---
+  duration_ms: 108.756458
+  type: 'test'
+  ...
+# Subtest: pending invitations cannot overwrite memberships and role changes or removals revoke stale invitations
+ok 18 - pending invitations cannot overwrite memberships and role changes or removals revoke stale invitations
+  ---
+  duration_ms: 97.720083
+  type: 'test'
+  ...
+# Subtest: team mutation authority is rechecked inside the transaction after an admin is revoked
+ok 19 - team mutation authority is rechecked inside the transaction after an admin is revoked
+  ---
+  duration_ms: 77.323042
+  type: 'test'
+  ...
+# Subtest: role input is an explicit allowlist and local administrative identities stay protected
+ok 20 - role input is an explicit allowlist and local administrative identities stay protected
+  ---
+  duration_ms: 65.589417
+  type: 'test'
+  ...
+# Subtest: Google signing-key rotation refreshes a cached JWKS after the bounded refresh interval
+ok 21 - Google signing-key rotation refreshes a cached JWKS after the bounded refresh interval
+  ---
+  duration_ms: 38.423
+  type: 'test'
+  ...
+# Subtest: departmental review roles are stage-specific and owner remains an authorized boundary actor
+ok 22 - departmental review roles are stage-specific and owner remains an authorized boundary actor
+  ---
+  duration_ms: 133.232583
+  type: 'test'
+  ...
+# Subtest: V10 interface keeps Google primary, local break-glass, simple team roles and stage-specific review copy
+ok 23 - V10 interface keeps Google primary, local break-glass, simple team roles and stage-specific review copy
+  ---
+  duration_ms: 1.943125
+  type: 'test'
+  ...
+# Subtest: actual pinned Graph runs to hash-bound treatment and release; fixture evidence stays test-labeled
+ok 24 - actual pinned Graph runs to hash-bound treatment and release; fixture evidence stays test-labeled
+  ---
+  duration_ms: 6031.59321
+  type: 'test'
+  ...
+# Subtest: cross-tenant actions and artifacts fail before data access; viewers cannot approve
+ok 25 - cross-tenant actions and artifacts fail before data access; viewers cannot approve
+  ---
+  duration_ms: 2076.35421
+  type: 'test'
+  ...
+# Subtest: localized repair invalidates candidate and descendants while preserving ingested upstream
+ok 26 - localized repair invalidates candidate and descendants while preserving ingested upstream
+  ---
+  duration_ms: 3116.404127
+  type: 'test'
+  ...
+# Subtest: source authorization and DNA changes invalidate human approval
+ok 27 - source authorization and DNA changes invalidate human approval
+  ---
+  duration_ms: 2369.872043
+  type: 'test'
+  ...
+# Subtest: restart recovery and double start preserve one Graph history
+ok 28 - restart recovery and double start preserve one Graph history
+  ---
+  duration_ms: 2182.062835
+  type: 'test'
+  ...
+# Subtest: production missing source bytes is blocked in actual Graph, no fixture adapter exposed
+ok 29 - production missing source bytes is blocked in actual Graph, no fixture adapter exposed
+  ---
+  duration_ms: 969.525834
+  type: 'test'
+  ...
+# Subtest: blocked production resumes the same Graph after its missing authorized video is uploaded
+ok 30 - blocked production resumes the same Graph after its missing authorized video is uploaded
+  ---
+  duration_ms: 2499.701376
+  type: 'test'
+  ...
+# Subtest: media inspection rejects playlists and local or network indirection before ffprobe
+ok 31 - media inspection rejects playlists and local or network indirection before ffprobe
+  ---
+  duration_ms: 6.290416
+  type: 'test'
+  ...
+# Subtest: provider failure remains a blocker and cannot create release evidence
+ok 32 - provider failure remains a blocker and cannot create release evidence
+  ---
+  duration_ms: 2869.896127
+  type: 'test'
+  ...
+# Subtest: real footage adapter preserves all selected sources, target dimensions, and ambient audio
+ok 33 - real footage adapter preserves all selected sources, target dimensions, and ambient audio
+  ---
+  duration_ms: 501.656083
+  type: 'test'
+  ...
+# Subtest: production uploaded media binds creative candidate, separate real reviewers, and final release
+ok 34 - production uploaded media binds creative candidate, separate real reviewers, and final release
+  ---
+  duration_ms: 7151.59792
+  type: 'test'
+  ...
+# Subtest: same fixture bytes after localized media repair receive a fresh candidate scope
+ok 35 - same fixture bytes after localized media repair receive a fresh candidate scope
+  ---
+  duration_ms: 8090.684461
+  type: 'test'
+  ...
+# Subtest: approval intent survives a crash after Graph approval and resumes without a second decision
+ok 36 - approval intent survives a crash after Graph approval and resumes without a second decision
+  ---
+  duration_ms: 5444.260128
+  type: 'test'
+  ...
+# Subtest: production arbitrary creative repair remains manual and never silently rerenders
+ok 37 - production arbitrary creative repair remains manual and never silently rerenders
+  ---
+  duration_ms: 2045.946043
+  type: 'test'
+  ...
+# Subtest: manual creative blocker can be explicitly withdrawn on the same production without claiming the edit was applied
+ok 38 - manual creative blocker can be explicitly withdrawn on the same production without claiming the edit was applied
+  ---
+  duration_ms: 5515.800086
+  type: 'test'
+  ...
+# Subtest: stable artifact candidate is shared by verifier and release, with stage replay rejected
+ok 39 - stable artifact candidate is shared by verifier and release, with stage replay rejected
+  ---
+  duration_ms: 5334.133544
+  type: 'test'
+  ...
+# Subtest: mascot request reaches human creative review, then fails closed before unsupported composition
+ok 40 - mascot request reaches human creative review, then fails closed before unsupported composition
+  ---
+  duration_ms: 2874.383626
+  type: 'test'
+  ...
+# Subtest: actual adapter paid capability or nonzero estimate is blocked before generate
+ok 41 - actual adapter paid capability or nonzero estimate is blocked before generate
+  ---
+  duration_ms: 2838.806833
+  type: 'test'
+  ...
+# Subtest: repair intent survives a crash after Graph invalidation without duplicating repair plans
+ok 42 - repair intent survives a crash after Graph invalidation without duplicating repair plans
+  ---
+  duration_ms: 3036.824044
+  type: 'test'
+  ...
+# Subtest: kernel job lease excludes concurrent workers and ignores obsolete dead reclaim files
+ok 43 - kernel job lease excludes concurrent workers and ignores obsolete dead reclaim files
+  ---
+  duration_ms: 19.51325
+  type: 'test'
+  ...
+# Subtest: rejection intent survives a crash after blocking Graph and becomes terminal on recovery
+ok 44 - rejection intent survives a crash after blocking Graph and becomes terminal on recovery
+  ---
+  duration_ms: 2132.652042
+  type: 'test'
+  ...
+# Subtest: changed provider provenance invalidates review before Graph approval or release
+ok 45 - changed provider provenance invalidates review before Graph approval or release
+  ---
+  duration_ms: 5221.661544
+  type: 'test'
+  ...
+# Subtest: provenance drift during approval cannot enter the immutable release snapshot
+ok 46 - provenance drift during approval cannot enter the immutable release snapshot
+  ---
+  duration_ms: 5886.477336
+  type: 'test'
+  ...
+# Subtest: requested repair clears current output provenance and keeps historical artifact bytes
+ok 47 - requested repair clears current output provenance and keeps historical artifact bytes
+  ---
+  duration_ms: 5333.282294
+  type: 'test'
+  ...
+# Subtest: blocked mascot production can be explicitly repaired to real footage on the same Graph and requires fresh review
+ok 48 - blocked mascot production can be explicitly repaired to real footage on the same Graph and requires fresh review
+  ---
+  duration_ms: 3938.307877
+  type: 'test'
+  ...
+# Subtest: blocked production repair is role-bound and rejects unsupported mutations
+ok 49 - blocked production repair is role-bound and rejects unsupported mutations
+  ---
+  duration_ms: 2827.12846
+  type: 'test'
+  ...
+# Subtest: source-too-short blocker has an explicit same-job duration-fit repair and fresh creative review
+ok 50 - source-too-short blocker has an explicit same-job duration-fit repair and fresh creative review
+  ---
+  duration_ms: 4119.979043
+  type: 'test'
+  ...
+# Subtest: authorized FIRMES caballito is composited by the local zero-credit adapter with immutable brand provenance
+ok 51 - authorized FIRMES caballito is composited by the local zero-credit adapter with immutable brand provenance
+  ---
+  duration_ms: 4591.416086
+  type: 'test'
+  ...
+# Subtest: critic request to add the FIRMES caballito is executed on the same job instead of entering the manual blocker
+ok 52 - critic request to add the FIRMES caballito is executed on the same job instead of entering the manual blocker
+  ---
+  duration_ms: 7632.616795
+  type: 'test'
+  ...
+# Subtest: legacy manual blocker for the exact Caballito request can be upgraded and applied on the same job
+ok 53 - legacy manual blocker for the exact Caballito request can be upgraded and applied on the same job
+  ---
+  duration_ms: 7451.771212
+  type: 'test'
+  ...
+# Subtest: negated mascot add language is not silently treated as an executable add request
+ok 54 - negated mascot add language is not silently treated as an executable add request
+  ---
+  duration_ms: 4013.563252
+  type: 'test'
+  ...
+# Subtest: creative approval rejects treatment drift after the exact caballito asset was hash-bound
+ok 55 - creative approval rejects treatment drift after the exact caballito asset was hash-bound
+  ---
+  duration_ms: 2073.427751
+  type: 'test'
+  ...
+# Subtest: audio finishing preserves picture lock, creates a fresh master, and returns the same job to Critic
+ok 56 - audio finishing preserves picture lock, creates a fresh master, and returns the same job to Critic
+  ---
+  duration_ms: 6330.658127
+  type: 'test'
+  ...
+# Subtest: a later visual repair invalidates the prior audio master but keeps the uploaded soundtrack available
+ok 57 - a later visual repair invalidates the prior audio master but keeps the uploaded soundtrack available
+  ---
+  duration_ms: 7361.055837
+  type: 'test'
+  ...
+# Subtest: audio finishing requires explicit outro timecodes and an uploaded soundtrack; reviewers cannot mutate the master
+ok 58 - audio finishing requires explicit outro timecodes and an uploaded soundtrack; reviewers cannot mutate the master
+  ---
+  duration_ms: 5266.402752
+  type: 'test'
+  ...
+# Subtest: existing host login, forward auth, exact workspace probe, logout and revocation share product session
+ok 59 - existing host login, forward auth, exact workspace probe, logout and revocation share product session
+  ---
+  duration_ms: 78.136625
+  type: 'test'
+  ...
+# Subtest: municipality catalog exposes the exact 16 Sacatepéquez municipalities in departmental order
+ok 60 - municipality catalog exposes the exact 16 Sacatepéquez municipalities in departmental order
+  ---
+  duration_ms: 80.446208
+  type: 'test'
+  ...
+# Subtest: first registration in a configured municipality materializes only that tenant and grants operator ownership
+ok 61 - first registration in a configured municipality materializes only that tenant and grants operator ownership
+  ---
+  duration_ms: 130.45275
+  type: 'test'
+  ...
+# Subtest: self-registration stores no plaintext DPI and remains pending without a membership
+ok 62 - self-registration stores no plaintext DPI and remains pending without a membership
+  ---
+  duration_ms: 144.433833
+  type: 'test'
+  ...
+# Subtest: pending registration is visible only to managers of the requested municipality and approval assigns an explicit role
+ok 63 - pending registration is visible only to managers of the requested municipality and approval assigns an explicit role
+  ---
+  duration_ms: 143.600291
+  type: 'test'
+  ...
+# Subtest: approved account can authenticate by DPI, and membership removal invalidates municipality-bound sessions
+ok 64 - approved account can authenticate by DPI, and membership removal invalidates municipality-bound sessions
+  ---
+  duration_ms: 132.284083
+  type: 'test'
+  ...
+# Subtest: rejected accounts stay denied and approval inputs use the same non-owner role allowlist
+ok 65 - rejected accounts stay denied and approval inputs use the same non-owner role allowlist
+  ---
+  duration_ms: 103.80175
+  type: 'test'
+  ...
+# Subtest: registration validates email, 13-digit DPI, password strength, municipality, and duplicate identity
+ok 66 - registration validates email, 13-digit DPI, password strength, municipality, and duplicate identity
+  ---
+  duration_ms: 176.824208
+  type: 'test'
+  ...
+# Subtest: HTTP registration and login accept the new contract while legacy configured operator login remains compatible
+ok 67 - HTTP registration and login accept the new contract while legacy configured operator login remains compatible
+  ---
+  duration_ms: 147.405
+  type: 'test'
+  ...
+# Subtest: V11 login and Team UI expose municipality registration, DPI privacy copy and admin approval controls
+ok 68 - V11 login and Team UI expose municipality registration, DPI privacy copy and admin approval controls
+  ---
+  duration_ms: 1.393167
+  type: 'test'
+  ...
+# Subtest: approved IT account can authorize another local request while private credential material stays server-side
+ok 69 - approved IT account can authorize another local request while private credential material stays server-side
+  ---
+  duration_ms: 155.125125
+  type: 'test'
+  ...
+# Subtest: pending registration queue is bounded per municipality without weakening duplicate privacy
+ok 70 - pending registration queue is bounded per municipality without weakening duplicate privacy
+  ---
+  duration_ms: 107.500125
+  type: 'test'
+  ...
+# Subtest: authentication preserves password bytes, revokes changed identity and starts without tenants
+ok 71 - authentication preserves password bytes, revokes changed identity and starts without tenants
+  ---
+  duration_ms: 125.270416
+  type: 'test'
+  ...
+# Subtest: tenant membership enforced for reads/writes and onboarding has no fake source
+ok 72 - tenant membership enforced for reads/writes and onboarding has no fake source
+  ---
+  duration_ms: 92.707291
+  type: 'test'
+  ...
+# Subtest: strict source/reference separation, provenance and secret validation
+ok 73 - strict source/reference separation, provenance and secret validation
+  ---
+  duration_ms: 90.01525
+  type: 'test'
+  ...
+# Subtest: private, browser and signed source locators are rejected
+ok 74 - private, browser and signed source locators are rejected
+  ---
+  duration_ms: 0.642958
+  type: 'test'
+  ...
+# Subtest: plans reject injected approval and produce same id under concurrent requests
+ok 75 - plans reject injected approval and produce same id under concurrent requests
+  ---
+  duration_ms: 121.907042
+  type: 'test'
+  ...
+# Subtest: source/DNA changes invalidate plans and idempotency includes strategy
+ok 76 - source/DNA changes invalidate plans and idempotency includes strategy
+  ---
+  duration_ms: 93.453334
+  type: 'test'
+  ...
+# Subtest: Free Mode exact mixed Spanish example becomes four unapproved concepts, no-AI remains real
+ok 77 - Free Mode exact mixed Spanish example becomes four unapproved concepts, no-AI remains real
+  ---
+  duration_ms: 84.400625
+  type: 'test'
+  ...
+# Subtest: targeted political or sensitive persuasion cannot enter plans/intent
+ok 78 - targeted political or sensitive persuasion cannot enter plans/intent
+  ---
+  duration_ms: 80.773625
+  type: 'test'
+  ...
+# Subtest: HTTP cookies, CSRF, malformed body, path traversal and safe errors
+ok 79 - HTTP cookies, CSRF, malformed body, path traversal and safe errors
+  ---
+  duration_ms: 109.290208
+  type: 'test'
+  ...
+# Subtest: repository serializes separate instances and rejects symlink state
+ok 80 - repository serializes separate instances and rejects symlink state
+  ---
+  duration_ms: 28.999625
+  type: 'test'
+  ...
+# Subtest: SSE rejects unauthorized reads and pushes durable state updates
+ok 81 - SSE rejects unauthorized reads and pushes durable state updates
+  ---
+  duration_ms: 92.964041
+  type: 'test'
+  ...
+# Subtest: HTTP rejects declared and streamed oversized JSON before parsing
+ok 82 - HTTP rejects declared and streamed oversized JSON before parsing
+  ---
+  duration_ms: 72.698708
+  type: 'test'
+  ...
+# Subtest: viewer cannot approve concepts and configured identity roles override persisted memberships
+ok 83 - viewer cannot approve concepts and configured identity roles override persisted memberships
+  ---
+  duration_ms: 86.401583
+  type: 'test'
+  ...
+# Subtest: reference DNA requires evidence bytes actually stored for the selected reference
+ok 84 - reference DNA requires evidence bytes actually stored for the selected reference
+  ---
+  duration_ms: 87.911334
+  type: 'test'
+  ...
+# Subtest: malformed durable state fails closed with controlled storage error
+ok 85 - malformed durable state fails closed with controlled storage error
+  ---
+  duration_ms: 1.017958
+  type: 'test'
+  ...
+# Subtest: ProductError identity remains stable across independently evaluated server bundles
+ok 86 - ProductError identity remains stable across independently evaluated server bundles
+  ---
+  duration_ms: 0.694042
+  type: 'test'
+  ...
+# Subtest: stored reference evidence tampering invalidates DNA analysis
+ok 87 - stored reference evidence tampering invalidates DNA analysis
+  ---
+  duration_ms: 79.592625
+  type: 'test'
+  ...
+# Subtest: mascot setup binds a selected production source and rejects a reference
+ok 88 - mascot setup binds a selected production source and rejects a reference
+  ---
+  duration_ms: 81.566875
+  type: 'test'
+  ...
+# Subtest: Free Mode respects indirect AI negations and explicit alternative distributions
+ok 89 - Free Mode respects indirect AI negations and explicit alternative distributions
+  ---
+  duration_ms: 83.5155
+  type: 'test'
+  ...
+# Subtest: login concurrency limit reserves capacity before awaiting identity loading
+ok 90 - login concurrency limit reserves capacity before awaiting identity loading
+  ---
+  duration_ms: 114.11475
+  type: 'test'
+  ...
+# Subtest: legacy planner contract rejection returns a controlled HTTP 400
+ok 91 - legacy planner contract rejection returns a controlled HTTP 400
+  ---
+  duration_ms: 81.652541
+  type: 'test'
+  ...
+# Subtest: FIRMES avatar catalog and MCP-ready tool definitions stay membership-bound over HTTP
+ok 92 - FIRMES avatar catalog and MCP-ready tool definitions stay membership-bound over HTTP
+  ---
+  duration_ms: 83.96075
+  type: 'test'
+  ...
+1..92
+# tests 92
+# suites 0
+# pass 92
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 144813.38369
