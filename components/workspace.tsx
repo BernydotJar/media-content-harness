@@ -10,6 +10,7 @@ import {CreativeProfiles} from './CreativeProfiles';
 import {SceneBuilder} from './SceneBuilder';
 import {FirmesCaballito,FirmesFrame,isFirmesTenant} from './FirmesBrand';
 import {BrandStart,NewUserCallout} from './Onboarding';
+import {Team} from './Team';
 export function Dashboard({ tenants, user, tenant, onboarding }: { tenants: Resource; user: Item; tenant?:Item|null; onboarding:Resource }) {
  const list = items(tenants.data), firmes=isFirmesTenant(tenant), heroTenant=list.find(t=>isFirmesTenant(t))||list[0];
  const heroFeed=useLoad(heroTenant?'/tenants/'+encodeURIComponent(heroTenant.tenant_id)+'/dashboard':null);
@@ -29,7 +30,7 @@ function CreativeDeck({firmes,jobs}:{firmes:boolean;jobs:Item[]}) {
  return <div className="creative-deck"><div className="deck-glow"/><DeckMedia slot="left" job={left} firmes={firmes}/><DeckMedia slot="center" job={center} firmes={firmes}/><DeckMedia slot="right" job={right} firmes={firmes}/></div>;
 }
 
-function WorkspaceCard({ tenant }: { tenant: Item }) { const roles:Record<string,string>={owner:'Propietario',admin:'Administrador',editor:'Editor',reviewer:'Revisor',viewer:'Consulta'}; return <Link className="workspace-card" href={'/workspace/' + tenant.tenant_id + '/start'}><div className="workspace-card-top"><span className="workspace-monogram">{tenant.organization.slice(0, 1).toUpperCase()}</span><span aria-hidden="true">↗</span></div><h3>{tenant.organization}</h3><p>{tenant.territory || 'Tu espacio creativo'}</p><div className="card-foot"><span>{tenant.sources?.length || 0} elementos de material</span><Tag>{roles[tenant.role] || 'Miembro'}</Tag></div></Link>; }
+function WorkspaceCard({ tenant }: { tenant: Item }) { const roles:Record<string,string>={owner:'Propietario',admin:'IT / Aprobación técnica',editor:'Editor',reviewer:'Coordinador municipal',viewer:'Consulta'}; return <Link className="workspace-card" href={'/workspace/' + tenant.tenant_id + '/start'}><div className="workspace-card-top"><span className="workspace-monogram">{tenant.organization.slice(0, 1).toUpperCase()}</span><span aria-hidden="true">↗</span></div><h3>{tenant.organization}</h3><p>{tenant.territory || 'Tu espacio creativo'}</p><div className="card-foot"><span>{tenant.sources?.length || 0} elementos de material</span><Tag>{roles[tenant.role] || 'Miembro'}</Tag></div></Link>; }
 export function Workspaces({ resource, user }: { resource: Resource; user:Item }) {
  const canCreate=user.can_create_tenants===true;
  const [open, setOpen] = useState(false), [busy, setBusy] = useState(false), [error, setError] = useState<ApiError | null>(null), router = useRouter();
@@ -48,6 +49,7 @@ export function TenantSurface({ id, view }: { id: string; view: string }) {
  else if (view === 'scene') content=<SceneBuilder tenant={tenant.data}/>;
  else if (view === 'weekly' || view === 'free') content=<><CreationGuide id={id}/><Planner tenant={tenant.data} free={view === 'free'} key={id + view} /></>;
  else if(view==='creative-profiles')content=<CreativeProfiles tenant={tenant.data}/>;
+ else if(view==='team')content=<Team tenant={tenant.data}/>;
  else content=<Empty title="Esta sección no existe.">Elige una sección del menú de tu espacio.</Empty>;
  return <FirmesFrame tenant={tenant.data}>{content}</FirmesFrame>;
 }

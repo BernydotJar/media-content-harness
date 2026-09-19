@@ -2,10 +2,13 @@ import { randomUUID } from 'node:crypto'
 import { ProductError, invariant, fields } from './errors.mjs'
 import { getService } from './singleton.mjs'
 const COOKIE='media_factory_session'
+const GOOGLE_FLOW_COOKIE='media_factory_google_flow'
 const encoder=new TextEncoder()
-function token(request){const cookie=request.headers.get('cookie')||'';const parts=cookie.split(';').map(v=>v.trim()).filter(v=>v.startsWith(COOKIE+'='));return parts.length===1?parts[0].slice(COOKIE.length+1):null}
+function cookieValue(request,name){const header=request.headers.get('cookie')||'';const parts=header.split(';').map(v=>v.trim()).filter(v=>v.startsWith(name+'='));return parts.length===1?parts[0].slice(name.length+1):null}
+function token(request){return cookieValue(request,COOKIE)}
 function response(data,status=200,headers={}){return Response.json({data},{status,headers:{'cache-control':'no-store','x-content-type-options':'nosniff',...headers}})}
 function cookie(value,secure,clear=false){return COOKIE+'='+value+'; Path=/; HttpOnly; SameSite=Strict; Max-Age='+(clear?'0':'43200')+(secure?'; Secure':'')}
+function googleFlowCookie(value,secure,clear=false){return GOOGLE_FLOW_COOKIE+'='+value+'; Path=/api/v1/auth/google/; HttpOnly; SameSite=Lax; Max-Age='+(clear?'0':'600')+(secure?'; Secure':'')}
 async function bodyBytes(request,max){const declared=request.headers.get('content-length');invariant(!declared||(/^\d+$/.test(declared)&&Number(declared)<=max),'BODY_TOO_LARGE','Request body is too large',413);const reader=request.body?.getReader();if(!reader)return Buffer.alloc(0);let length=0;const chunks=[];try{while(true){const {done,value}=await reader.read();if(done)break;length+=value.byteLength;invariant(length<=max,'BODY_TOO_LARGE','Request body is too large',413);chunks.push(value)}}catch(e){await reader.cancel().catch(()=>{});throw e}return Buffer.concat(chunks)}
 async function jsonBody(request){invariant(request.headers.get('content-type')?.split(';')[0]==='application/json','UNSUPPORTED_MEDIA_TYPE','Send JSON input',415);const bytes=await bodyBytes(request,256*1024);let value;try{value=JSON.parse(bytes.toString('utf8'))}catch{throw new ProductError('INVALID_JSON','Request body must contain valid JSON')};invariant(value&&typeof value==='object'&&!Array.isArray(value),'INVALID_INPUT','Expected a JSON object');return value}
 function csrf(request,publicOrigin){if(['GET','HEAD','OPTIONS'].includes(request.method))return;const origin=request.headers.get('origin');const expected=publicOrigin||new URL(request.url).origin;invariant(origin===expected&&request.headers.get('sec-fetch-site')!=='cross-site','CSRF_REJECTED','Request must come from this application',403)}
@@ -52,6 +55,9 @@ export async function handleApi(request,service){
  let route;try{route=decodeURIComponent(url.pathname)}catch{throw new ProductError('INVALID_PATH','Request path is invalid')};invariant(!route.includes('..')&&!route.includes('\\')&&!route.includes('\0'),'INVALID_PATH','Request path is invalid');const path=route.replace(/^\/api\/v1\/?/,'').split('/').filter(Boolean);const method=request.method
  if((route==='/health'||route==='/api/v1/health')&&method==='GET'){const health=await service.health();return response(health,health.status==='ready'?200:503)}
  invariant(route.startsWith('/api/v1/'),'NOT_FOUND','API route was not found',404)
+ if(path.join('/')==='auth/google/config'&&method==='GET')return response(service.googleAuthConfig())
+ if(path.join('/')==='auth/google/start'&&method==='GET'){const result=await service.googleStart(url.searchParams.get('next')||'/dashboard'),headers=new Headers({location:result.url,'cache-control':'no-store','x-request-id':requestId});headers.append('set-cookie',googleFlowCookie(result.flow_token,secure));return new Response(null,{status:302,headers})}
+ if(path.join('/')==='auth/google/callback'&&method==='GET'){const flow_token=cookieValue(request,GOOGLE_FLOW_COOKIE);try{const result=await service.googleCallback({state:url.searchParams.get('state'),code:url.searchParams.get('code'),error:url.searchParams.get('error'),flow_token}),headers=new Headers({location:result.next||'/dashboard','cache-control':'no-store','x-request-id':requestId});headers.append('set-cookie',cookie(result.token,secure));headers.append('set-cookie',googleFlowCookie('',secure,true));return new Response(null,{status:303,headers})}catch(error){if(error instanceof ProductError){const headers=new Headers({location:'/login?google_error='+encodeURIComponent(error.code),'cache-control':'no-store','x-request-id':requestId});headers.append('set-cookie',googleFlowCookie('',secure,true));return new Response(null,{status:303,headers})}throw error}}
  if(path.join('/')==='auth/login'&&method==='POST'){const input=await jsonBody(request);fields(input,['email','username','password']);const result=await service.auth.login(input);return response(result.user,200,{'set-cookie':cookie(result.token,secure),'x-request-id':requestId})}
  if(path.join('/')==='auth/logout'&&method==='POST'){fields(await jsonBody(request),[]);await service.auth.logout(session);return response({signed_out:true},200,{'set-cookie':cookie('',secure,true)})}
  if(path[0]==='me'&&path.length===1&&method==='GET')return response(await service.me(session))
@@ -62,6 +68,13 @@ export async function handleApi(request,service){
    if(path.length===1){if(method==='GET')return response(await service.listTenants(session));if(method==='POST')return response(await service.createTenant(session,await jsonBody(request)),201)}
    const id=path[1]
    if(path.length===2&&method==='GET')return response(await service.getTenant(session,id))
+   if(path[2]==='team'){
+     if(path.length===3&&method==='GET')return response(await service.team(session,id))
+     if(path[3]==='invitations'&&path.length===4&&method==='POST')return response(await service.inviteTeamMember(session,id,await jsonBody(request)),201)
+     if(path[3]==='invitations'&&path.length===5&&path[4]&&method==='POST'){const input=await jsonBody(request);fields(input,['action']);invariant(input.action==='revoke','INVALID_INPUT','Unsupported invitation action');return response(await service.revokeInvitation(session,id,path[4]))}
+     if(path.length===5&&path[4]==='role'&&method==='POST')return response(await service.updateTeamMember(session,id,path[3],await jsonBody(request)))
+     if(path.length===5&&path[4]==='remove'&&method==='POST'){fields(await jsonBody(request),[]);return response(await service.removeTeamMember(session,id,path[3]))}
+   }
    if(path[2]==='brand-profile'&&path.length===3&&method==='GET')return response(await service.brandProfile(session,id))
    if(path[2]==='brand-characters'&&path.length===3&&method==='GET')return response(await service.brandCharacters(session,id))
    if(path[2]==='avatar-catalog'&&path.length===3&&method==='GET')return response(await service.avatarCatalog(session,id))

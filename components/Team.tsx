@@ -1,0 +1,29 @@
+'use client';
+import {useState,type FormEvent} from 'react';
+import {api,useLoad,Header,Field,Tag,Loading,Problem,Empty,type ApiError,type Item} from './ui';
+
+const responsibilityForRole=(role:string)=>role==='reviewer'?'municipal_coordinator':role==='admin'?'it':'';
+const roleLabel=(role:string)=>role==='owner'?'Propietario':role==='reviewer'?'Coordinador municipal':role==='admin'?'IT / Aprobación técnica':role==='editor'?'Editor':'Consulta';
+
+export function Team({tenant}:{tenant:Item}){
+ const resource=useLoad('/tenants/'+encodeURIComponent(tenant.tenant_id)+'/team'),[busy,setBusy]=useState(false),[error,setError]=useState<ApiError|null>(null),[message,setMessage]=useState('');
+ async function invite(e:FormEvent<HTMLFormElement>){e.preventDefault();const form=e.currentTarget,f=new FormData(form);setBusy(true);setError(null);setMessage('');try{const value=await api('/tenants/'+encodeURIComponent(tenant.tenant_id)+'/team/invitations',{email:String(f.get('email')||''),responsibility:String(f.get('responsibility')||'')});setMessage(value.status==='ACTIVE'?'Acceso actualizado.':'Invitación lista. Esa persona podrá entrar con el mismo correo de Google.');form.reset();resource.reload()}catch(err){setError(err as ApiError)}finally{setBusy(false)}}
+ async function changeRole(userId:string,responsibility:string){setBusy(true);setError(null);try{await api('/tenants/'+encodeURIComponent(tenant.tenant_id)+'/team/'+encodeURIComponent(userId)+'/role',{responsibility});setMessage('Responsabilidad actualizada.');resource.reload()}catch(err){setError(err as ApiError)}finally{setBusy(false)}}
+ async function remove(userId:string){setBusy(true);setError(null);try{await api('/tenants/'+encodeURIComponent(tenant.tenant_id)+'/team/'+encodeURIComponent(userId)+'/remove',{});setMessage('Acceso retirado.');resource.reload()}catch(err){setError(err as ApiError)}finally{setBusy(false)}}
+ async function revoke(inviteId:string){setBusy(true);setError(null);try{await api('/tenants/'+encodeURIComponent(tenant.tenant_id)+'/team/invitations/'+encodeURIComponent(inviteId),{action:'revoke'});setMessage('Invitación retirada.');resource.reload()}catch(err){setError(err as ApiError)}finally{setBusy(false)}}
+ if(resource.loading)return <Loading/>;if(resource.error)return <Problem error={resource.error} retry={resource.reload}/>;const data=resource.data;if(!data)return null;
+ return <><Header eyebrow="PERSONAS Y APROBACIONES" title="Equipo" description="Tres responsabilidades claras. Tú mantienes el control de la marca y cada aprobación queda ligada a una persona."/>
+  <section className="approval-flow-simple" aria-label="Flujo de aprobaciones">
+   <div><span>1</span><div><small>CONTENIDO</small><strong>Coordinador municipal</strong><p>Revisa el enfoque creativo y pide cambios si hace falta.</p></div></div>
+   <i aria-hidden="true">→</i>
+   <div><span>2</span><div><small>TÉCNICO</small><strong>IT</strong><p>Verifica la versión independiente y el paso técnico.</p></div></div>
+   <i aria-hidden="true">→</i>
+   <div><span>3</span><div><small>FINAL</small><strong>Propietario / IT</strong><p>Aprueba la entrega exacta antes de liberarla.</p></div></div>
+  </section>
+  {data.can_manage&&<section className="panel team-invite-card"><div><p className="eyebrow">AGREGAR AL EQUIPO</p><h2>Invita por correo</h2><p>La persona entra con Google usando ese mismo correo. No tienes que crearle una contraseña.</p></div><form onSubmit={invite}><Field label="Correo"><input name="email" type="email" required maxLength={254} placeholder="persona@gmail.com" autoComplete="off"/></Field><Field label="Responsabilidad"><select name="responsibility" defaultValue="municipal_coordinator"><option value="municipal_coordinator">Coordinador municipal</option><option value="it">IT / Aprobación técnica</option></select></Field><button className="primary" disabled={busy}>{busy?'Guardando…':'Invitar persona'}</button></form></section>}
+  {message&&<div className="notice success" role="status">{message}</div>}<Problem error={error}/>
+  <div className="section-title"><h2>Personas con acceso</h2><span className="muted">{data.members.length} activas</span></div>
+  {data.members.length?<div className="team-list">{data.members.map((m:Item)=><article className="team-row" key={m.user_id}><span className="avatar">{String(m.name||m.email||'?').slice(0,1).toUpperCase()}</span><div className="team-person"><strong>{m.name||m.email}</strong><small>{m.email} · {m.auth_provider==='google'?'Google':'Acceso administrativo'}</small></div><Tag tone={m.role==='owner'?'success':''}>{roleLabel(m.role)}</Tag>{data.can_manage&&m.role!=='owner'&&!m.configured_membership&&<div className="team-actions"><select aria-label={'Responsabilidad de '+(m.name||m.email)} value={responsibilityForRole(m.role)} onChange={e=>changeRole(m.user_id,e.target.value)} disabled={busy}>{!responsibilityForRole(m.role)&&<option value="" disabled>{roleLabel(m.role)}</option>}<option value="municipal_coordinator">Coordinador municipal</option><option value="it">IT</option></select><button className="text-button" onClick={()=>remove(m.user_id)} disabled={busy}>Quitar</button></div>}</article>)}</div>:<Empty title="Todavía estás tú solo.">Invita a coordinación municipal o a IT cuando quieras separar las aprobaciones.</Empty>}
+  {data.invitations.length>0&&<><div className="section-title"><h2>Invitaciones pendientes</h2></div><div className="team-list pending">{data.invitations.map((i:Item)=><article className="team-row" key={i.id}><span className="avatar pending">@</span><div className="team-person"><strong>{i.email}</strong><small>Esperando su primer acceso con Google</small></div><Tag>{roleLabel(i.role)}</Tag>{data.can_manage&&<button className="text-button" onClick={()=>revoke(i.id)} disabled={busy}>Retirar</button>}</article>)}</div></>}
+ </>;
+}

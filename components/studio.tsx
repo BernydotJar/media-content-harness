@@ -51,7 +51,8 @@ export default function Studio({ segments }: { segments: string[] }) {
     { key: 'start', label: 'Resumen', icon: 'home' },
     { key: 'sources', label: 'Material', icon: 'sources' },
     { key: 'content-dna', label: 'Estilo', icon: 'dna' },
-    { key: 'creative-profiles', label: 'Personajes y lugares', icon: 'dna' }
+    { key: 'creative-profiles', label: 'Personajes y lugares', icon: 'dna' },
+    { key: 'team', label: 'Equipo', icon: 'review' }
   ] : [];
   const setupActive = setup.some(item => item.key === current);
   const showBrands = tenantList.length > 1 || segments[0] === 'workspaces' || me.data.can_create_tenants === true;

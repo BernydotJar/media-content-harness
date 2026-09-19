@@ -18,7 +18,7 @@ if(requireClean&&!immutable)throw new Error('Exact scene verification requires a
 const temp=await mkdtemp(join(tmpdir(),'media-factory-scene-e2e-')),dataRoot=join(temp,'data');await mkdir(dataRoot);const identityFile=join(temp,'identities.json')
 const passwordRecord=password=>{const salt=randomBytes(24).toString('hex');return {salt,hash:scryptSync(password,Buffer.from(salt,'hex'),64).toString('hex')}}
 const account=(id,role,admin=false)=>{const password=randomBytes(24).toString('hex');return {public:{id,email:id+'@example.invalid',password},record:{id,email:id+'@example.invalid',name:id.replaceAll('-',' '),password:passwordRecord(password),memberships:role?[{tenant_id:'firmes-scene',role}]:[],can_create_tenants:admin,system_admin:admin}}}
-const owner=account('scene-owner',null,true),critic=account('scene-critic','reviewer'),verifier=account('scene-verifier','reviewer'),accounts={owner:owner.public,critic:critic.public,verifier:verifier.public}
+const owner=account('scene-owner',null,true),critic=account('scene-critic','reviewer'),verifier=account('scene-verifier','admin'),accounts={owner:owner.public,critic:critic.public,verifier:verifier.public}
 await writeFile(identityFile,JSON.stringify({users:[owner.record,critic.record,verifier.record]}),{mode:0o600})
 const firstImage=join(temp,'first-result.png'),acceptedImage=join(temp,'accepted-result.png'),environmentImage=join(temp,'antigua-environment.png'),finalVideo=join(temp,'final-video.mp4')
 for(const [path,color] of [[firstImage,'red'],[acceptedImage,'green'],[environmentImage,'blue']])execFileSync('/usr/bin/ffmpeg',['-nostdin','-v','error','-y','-f','lavfi','-i','color=c='+color+':s=540x960:d=0.1','-frames:v','1',path])

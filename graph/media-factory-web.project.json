@@ -1208,6 +1208,82 @@
         "assets/**",
         "config/**"
       ]
+    },
+    {
+      "id": "WEB033-DEPARTMENTAL-ACCESS-V10",
+      "title": "Simple departmental access with Google sign-in, tenant team invitations and staged municipal/IT approval",
+      "kind": "product-completion",
+      "status": "spec_ready",
+      "depends_on": [
+        "WEB032-PROVIDER-EXECUTION-GATEWAY-V9-RELEASE"
+      ],
+      "capability": "media-factory-web",
+      "gates": {
+        "review": [
+          "implementation_quality"
+        ]
+      },
+      "allowed_paths": [
+        "app/**",
+        "components/**",
+        "server/**",
+        "tests/**",
+        "scripts/**",
+        "docs/**",
+        "specs/**",
+        "progress/**",
+        "graph/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "*.mjs",
+        "*.json",
+        "*.yml",
+        "Dockerfile",
+        ".gitignore",
+        ".dockerignore",
+        "README.md",
+        "deploy/**",
+        "assets/**",
+        "config/**"
+      ]
+    },
+    {
+      "id": "WEB034-DEPARTMENTAL-ACCESS-V10-RELEASE",
+      "title": "Independent verification signed deployment and public confirmation of departmental access V10",
+      "kind": "product-completion",
+      "status": "spec_ready",
+      "depends_on": [
+        "WEB033-DEPARTMENTAL-ACCESS-V10"
+      ],
+      "capability": "media-factory-web",
+      "gates": {
+        "review": [
+          "implementation_quality"
+        ]
+      },
+      "allowed_paths": [
+        "app/**",
+        "components/**",
+        "server/**",
+        "tests/**",
+        "scripts/**",
+        "docs/**",
+        "specs/**",
+        "progress/**",
+        "graph/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "*.mjs",
+        "*.json",
+        "*.yml",
+        "Dockerfile",
+        ".gitignore",
+        ".dockerignore",
+        "README.md",
+        "deploy/**",
+        "assets/**",
+        "config/**"
+      ]
     }
   ]
 }

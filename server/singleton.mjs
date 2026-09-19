@@ -10,7 +10,7 @@ export function getService(){
  const testMode=process.env.MEDIA_FACTORY_TEST_MODE==='1'
  const deploymentClass=process.env.MEDIA_FACTORY_DEPLOYMENT_CLASS||'production'
  const execution=new ExecutionService({repository,dataRoot,graphRuntimeRoot:process.env.GRAPH_HARNESS_RUNTIME_ROOT,releaseSha:process.env.MEDIA_FACTORY_RELEASE_SHA,testMode,deploymentClass})
- const service=createService({repository,dataRoot,identityFile:process.env.MEDIA_FACTORY_IDENTITY_FILE,operatorUsername:process.env.MEDIA_FACTORY_OPERATOR_USERNAME,operatorPasswordVerifier:process.env.MEDIA_FACTORY_OPERATOR_PASSWORD_VERIFIER,publicOrigin:process.env.MEDIA_FACTORY_PUBLIC_ORIGIN,releaseSha:process.env.MEDIA_FACTORY_RELEASE_SHA,testMode,deploymentClass,providers:execution.providers,execution})
+ const service=createService({repository,dataRoot,identityFile:process.env.MEDIA_FACTORY_IDENTITY_FILE,operatorUsername:process.env.MEDIA_FACTORY_OPERATOR_USERNAME,operatorPasswordVerifier:process.env.MEDIA_FACTORY_OPERATOR_PASSWORD_VERIFIER,googleClientId:process.env.MEDIA_FACTORY_GOOGLE_CLIENT_ID,googleClientSecret:process.env.MEDIA_FACTORY_GOOGLE_CLIENT_SECRET,publicOrigin:process.env.MEDIA_FACTORY_PUBLIC_ORIGIN,releaseSha:process.env.MEDIA_FACTORY_RELEASE_SHA,testMode,deploymentClass,providers:execution.providers,execution})
  globalThis[key]=service
  execution.recover().catch(()=>{})
  return service

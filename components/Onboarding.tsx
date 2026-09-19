@@ -7,9 +7,9 @@ import {api,useLoad,items,Header,Icon,Tag,Loading,Problem,type Item,type Resourc
 
 const roleLabels:Record<string,string>={
  owner:'Propietario',
- admin:'Administrador',
+ admin:'IT / Aprobación técnica',
  editor:'Editor',
- reviewer:'Revisor',
+ reviewer:'Coordinador municipal',
  viewer:'Consulta'
 };
 
