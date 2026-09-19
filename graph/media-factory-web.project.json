@@ -1440,6 +1440,86 @@
         "assets/**",
         "config/**"
       ]
+    },
+    {
+      "id": "WEB039-AUDIO-FINISHING-ENGINE-V12",
+      "title": "Deterministic picture-lock audio finishing engine with soundtrack mix, approved outro and measurable master QA",
+      "kind": "product-completion",
+      "status": "spec_ready",
+      "depends_on": [
+        "WEB038-SACATEPEQUEZ-MUNICIPAL-CATALOG-V11-1-RELEASE"
+      ],
+      "capability": "media-factory-web",
+      "gates": {
+        "review": [
+          "implementation_quality"
+        ]
+      },
+      "allowed_paths": [
+        "app/**",
+        "components/**",
+        "server/**",
+        "plugins/**",
+        "tests/**",
+        "scripts/**",
+        "docs/**",
+        "examples/**",
+        "specs/**",
+        "progress/**",
+        "graph/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "*.mjs",
+        "*.json",
+        "*.yml",
+        "Dockerfile",
+        ".gitignore",
+        ".dockerignore",
+        "README.md",
+        "deploy/**",
+        "assets/**",
+        "config/**"
+      ]
+    },
+    {
+      "id": "WEB040-AUDIO-FINISHING-ENGINE-V12-RELEASE",
+      "title": "Independent verification signed deployment and production confirmation of Audio Finishing Engine V12",
+      "kind": "product-completion",
+      "status": "spec_ready",
+      "depends_on": [
+        "WEB039-AUDIO-FINISHING-ENGINE-V12"
+      ],
+      "capability": "media-factory-web",
+      "gates": {
+        "review": [
+          "implementation_quality"
+        ]
+      },
+      "allowed_paths": [
+        "app/**",
+        "components/**",
+        "server/**",
+        "plugins/**",
+        "tests/**",
+        "scripts/**",
+        "docs/**",
+        "examples/**",
+        "specs/**",
+        "progress/**",
+        "graph/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "*.mjs",
+        "*.json",
+        "*.yml",
+        "Dockerfile",
+        ".gitignore",
+        ".dockerignore",
+        "README.md",
+        "deploy/**",
+        "assets/**",
+        "config/**"
+      ]
     }
   ]
 }

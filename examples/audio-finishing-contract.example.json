@@ -1,0 +1,10 @@
+{
+  "schema_version": "audio-finishing.v1",
+  "preserve_original_intro": {"enabled": true, "from_seconds": 0},
+  "soundtrack": {"asset_id": "audio_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "start_seconds": 0, "gain_db": -8},
+  "voice": {"preserve": true, "delay_ms": 0},
+  "mix": {"voice_priority": true, "duck_under_voice": true, "duck_threshold": 0.05, "duck_ratio": 8},
+  "outro": {"enabled": true, "source_in_seconds": 18.42, "source_out_seconds": 19.31, "approved_phrase": "Firmes Firmes", "tail_ms": 900, "echo": true, "reverb": true, "gain_db": 0},
+  "master": {"integrated_lufs": -14, "true_peak_max_dbtp": -1.5, "compressor": "gentle", "limiter": true},
+  "sync": {"lock_to_video_duration": true}
+}
