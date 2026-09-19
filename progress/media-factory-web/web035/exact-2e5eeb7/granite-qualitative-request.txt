@@ -1,0 +1,19 @@
+Independent release critic. Candidate SHA: 2e5eeb7607dd09697f0120c9791c330a4314e5a1.
+
+Exact code facts already independently extracted from the candidate:
+1. register(): validates email, normalizes DPI to exactly 13 digits, creates a 32-byte private pepper file mode 0600, stores HMAC-SHA256(dpi) + last4 only, salted scrypt password verifier, status PENDING_APPROVAL, and memberships[user]=[]. Plain DPI is not written to state/events/response.
+2. register(): if email or DPI is already known, returns the same public {status:REQUEST_RECEIVED, tenant_id} as a new request; it does not create a duplicate. Pending queues are bounded.
+3. approveRegistration()/rejectRegistration() execute inside repository.transact() and call manager(token,id,state), which resolves the actor against the same transaction snapshot and requires owner/admin. roleFor() only maps municipal_coordinator->reviewer, it->admin, editor->editor, viewer->viewer; owner is not assignable.
+4. login() for self-service verifies password, requires status ACTIVE, requires selected tenant_id, requires current membership for that tenant, then rechecks status+membership in the transaction before creating a local_self_service session.
+5. resolve() for local_self_service requires ACTIVE and verifies that selected_tenant_id membership still exists, so revocation invalidates the session.
+6. GET auth/municipalities exposes only tenant_id, municipality, organization. Team pending registration output exposes name,email,last4,status,time, not password/dpi_lookup/full DPI.
+7. Existing configured local admin and Google auth paths remain separate/backwards compatible.
+8. Exact clean verification: 227 tests / 226 pass / 0 fail / 1 pre-existing skip; V11 browser E2E PASS; general browser E2E PASS; typecheck/build/contracts/audit PASS.
+9. Product explicitly states it does format validation only and does NOT claim RENAP identity verification.
+
+Question: Is there a concrete HIGH or CRITICAL release blocker in these facts for the requested flow: self-register -> pending -> owner/admin approves municipality role -> login by email or DPI+password only for approved municipality?
+
+Output EXACTLY one line:
+PASS | NONE
+or
+FAIL | <specific concrete HIGH/CRITICAL blocker>

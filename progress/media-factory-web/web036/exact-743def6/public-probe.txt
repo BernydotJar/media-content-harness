@@ -1,0 +1,15 @@
+PUBLIC V11 EDGE REPAIR PROBE
+https://media-factory.textilesdemedellin.com
+
+GET /login => HTTP 200, TLS verify 0
+Rendered login contains "Selecciona tu municipio" and a real municipality option (La antigua guatemala); it does not contain the previous client-loading state "Cargando municipios".
+"Crear cuenta" is present.
+
+POST /api/preview/login with {"action":"register"} and intentionally incomplete registration input => HTTP 400, TLS verify 0, product error INVALID_INPUT ("Nombre is required and must fit its length limit"). This proves the existing public preview-auth POST reaches the registration handler through the edge without creating a production account.
+
+Anonymous direct endpoints remain fail-closed:
+GET /api/v1/auth/municipalities => 401
+GET /api/v1/auth/register => 401
+GET /api/v1/me => 401
+
+No synthetic production user was created by this probe.

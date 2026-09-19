@@ -1,0 +1,8 @@
+{
+  "account.status": "REJECTED",
+  "account.rejected_by": "actor.id",
+  "account.rejected_at": "new Date().toISOString",
+  "account.updated_at": "account.rejected_at"
+
+}
+

@@ -1,0 +1,29 @@
+[v11] runtime-ready http://127.0.0.1:36149
+[v11] register-start
+[v11] registered-pending
+[v11] pending-denied
+[v11] owner-login-ok
+[v11] admin-approved
+[v11] wrong-municipality-denied
+[v11] dpi-login-ok
+{
+  "status": "PASS",
+  "runtime_package": {
+    "format": "media-factory-runtime.v1",
+    "files": 1481,
+    "manifest_sha256": "f3822e09022c77d040e5ca93e21910bf698c2c31743c550543b75b361e78fe5a",
+    "build_id": "sdRp5gJuTHCkTK1vWJr-8",
+    "forbidden_entries": 0,
+    "external_symlinks": 0
+  },
+  "evidence_directory": "/tmp/media-v11-browser-6DDYOo",
+  "checks": [
+    "registration remains pending",
+    "pending login denied",
+    "owner approves inside requested municipality",
+    "full DPI absent from UI/API",
+    "wrong municipality denied",
+    "DPI login succeeds after approval",
+    "approved editor membership returned"
+  ]
+}
