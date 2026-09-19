@@ -71,9 +71,104 @@ test('owner and IT manage non-owner team access while coordinators stay tenant-s
  const f=await googleFixture(t);await f.service.createTenant(f.owner,{organization:'Otra marca',tenant_id:'otra-marca',content_context:'community',visual_language:'clean'});await f.service.inviteTeamMember(f.owner,'firmes-antigua',{email:'coordinator@gmail.com',responsibility:'municipal_coordinator'});let flow=await f.begin();const coordinator=await f.service.googleCallback({state:flow.state,code:'coord-code',flow_token:flow.flow_token});await assert.rejects(f.service.inviteTeamMember(coordinator.token,'firmes-antigua',{email:'x@gmail.com',responsibility:'it'}),e=>e.code==='FORBIDDEN');await assert.rejects(f.service.team(coordinator.token,'otra-marca'),e=>e.code==='FORBIDDEN');f.setIdentity({subject:'google-it-123456',email:'it@gmail.com',name:'IT Demo'});await f.service.inviteTeamMember(f.owner,'firmes-antigua',{email:'it@gmail.com',responsibility:'it'});flow=await f.begin();const it=await f.service.googleCallback({state:flow.state,code:'it-code',flow_token:flow.flow_token});const managedInvite=await f.service.inviteTeamMember(it.token,'firmes-antigua',{email:'managed-by-it@gmail.com',responsibility:'municipal_coordinator'});assert.equal(managedInvite.status,'PENDING');await assert.rejects(f.service.inviteTeamMember(it.token,'otra-marca',{email:'cross-tenant@gmail.com',responsibility:'municipal_coordinator'}),e=>e.code==='FORBIDDEN');await f.service.revokeInvitation(it.token,'firmes-antigua',managedInvite.id);let team=await f.service.team(f.owner,'firmes-antigua');const itMember=team.members.find(m=>m.email==='it@gmail.com');assert.equal(itMember.role,'admin');await f.service.updateTeamMember(f.owner,'firmes-antigua',itMember.user_id,{responsibility:'municipal_coordinator'});team=await f.service.team(f.owner,'firmes-antigua');assert.equal(team.members.find(m=>m.email==='it@gmail.com').role,'reviewer');await f.service.removeTeamMember(f.owner,'firmes-antigua',itMember.user_id);await assert.rejects(f.service.team(it.token,'firmes-antigua'),e=>e.code==='FORBIDDEN')
 })
 
+test('all four non-owner departmental roles are invitation-only and activate only after verified Google sign-in',async t=>{
+ const f=await googleFixture(t),cases=[
+  ['municipal_coordinator','reviewer','coord-four@gmail.com','role-subject-coord'],
+  ['it','admin','it-four@gmail.com','role-subject-it'],
+  ['editor','editor','editor-four@gmail.com','role-subject-editor'],
+  ['viewer','viewer','viewer-four@gmail.com','role-subject-viewer'],
+ ];
+ for(const [responsibility,role,email,subject] of cases){
+  f.setIdentity({subject,email,name:role});
+  const invitation=await f.service.inviteTeamMember(f.owner,'firmes-antigua',{email,responsibility});
+  assert.equal(invitation.status,'PENDING');assert.equal(invitation.role,role);
+  let team=await f.service.team(f.owner,'firmes-antigua');assert.equal(team.invitations.find(i=>i.email===email)?.role,role);
+  const flow=await f.begin(),signedIn=await f.service.googleCallback({state:flow.state,code:'role-'+role,flow_token:flow.flow_token});
+  assert.equal(signedIn.user.memberships.find(m=>m.tenant_id==='firmes-antigua')?.role,role);
+  team=await f.service.team(f.owner,'firmes-antigua');assert.equal(team.members.find(m=>m.email===email)?.role,role);assert.equal(team.invitations.some(i=>i.email===email),false);
+ }
+})
+
+test('a stored Google email never grants a new tenant until that email is freshly verified again',async t=>{
+ const f=await googleFixture(t);
+ f.setIdentity({subject:'stable-google-subject',email:'old-address@gmail.com',name:'Original'});
+ await f.service.inviteTeamMember(f.owner,'firmes-antigua',{email:'old-address@gmail.com',responsibility:'municipal_coordinator'});
+ let flow=await f.begin(),first=await f.service.googleCallback({state:flow.state,code:'first-login',flow_token:flow.flow_token});
+ await f.service.createTenant(f.owner,{organization:'Second Brand',tenant_id:'second-brand',content_context:'community',visual_language:'clean'});
+ f.setIdentity({subject:'stable-google-subject',email:'renamed-address@gmail.com',name:'Renamed'});
+ const pending=await f.service.inviteTeamMember(f.owner,'second-brand',{email:'old-address@gmail.com',responsibility:'editor'});
+ assert.equal(pending.status,'PENDING');
+ await assert.rejects(f.service.team(first.token,'second-brand'),e=>e.code==='FORBIDDEN');
+ flow=await f.begin();const renamed=await f.service.googleCallback({state:flow.state,code:'renamed-login',flow_token:flow.flow_token});
+ assert.equal(renamed.user.email,'renamed-address@gmail.com');
+ await assert.rejects(f.service.team(renamed.token,'second-brand'),e=>e.code==='FORBIDDEN');
+ let ownerView=await f.service.team(f.owner,'second-brand');assert.equal(ownerView.invitations.find(i=>i.email==='old-address@gmail.com')?.role,'editor');
+ f.setIdentity({subject:'new-holder-of-old-address',email:'old-address@gmail.com',name:'New Holder'});
+ flow=await f.begin();const admitted=await f.service.googleCallback({state:flow.state,code:'fresh-old-address',flow_token:flow.flow_token});
+ assert.equal(admitted.user.memberships.find(m=>m.tenant_id==='second-brand')?.role,'editor');
+ ownerView=await f.service.team(f.owner,'second-brand');assert.equal(ownerView.invitations.some(i=>i.email==='old-address@gmail.com'),false);
+})
+
+test('pending invitations cannot overwrite memberships and role changes or removals revoke stale invitations',async t=>{
+ const f=await googleFixture(t);
+ f.setIdentity({subject:'membership-preserve-subject',email:'preserve@gmail.com',name:'Preserve'});
+ await f.service.inviteTeamMember(f.owner,'firmes-antigua',{email:'preserve@gmail.com',responsibility:'municipal_coordinator'});
+ let flow=await f.begin(),member=await f.service.googleCallback({state:flow.state,code:'preserve-first',flow_token:flow.flow_token});
+ const userId=member.user.id;
+ let invitation=await f.service.inviteTeamMember(f.owner,'firmes-antigua',{email:'preserve@gmail.com',responsibility:'editor'});
+ assert.equal(invitation.status,'PENDING');
+ flow=await f.begin();member=await f.service.googleCallback({state:flow.state,code:'preserve-existing',flow_token:flow.flow_token});
+ assert.equal(member.user.memberships.find(m=>m.tenant_id==='firmes-antigua')?.role,'reviewer');
+ invitation=await f.service.inviteTeamMember(f.owner,'firmes-antigua',{email:'preserve@gmail.com',responsibility:'editor'});assert.equal(invitation.status,'PENDING');
+ await f.service.updateTeamMember(f.owner,'firmes-antigua',userId,{responsibility:'viewer'});
+ let team=await f.service.team(f.owner,'firmes-antigua');assert.equal(team.members.find(m=>m.user_id===userId)?.role,'viewer');assert.equal(team.invitations.some(i=>i.email==='preserve@gmail.com'),false);
+ invitation=await f.service.inviteTeamMember(f.owner,'firmes-antigua',{email:'preserve@gmail.com',responsibility:'editor'});assert.equal(invitation.status,'PENDING');
+ await f.service.removeTeamMember(f.owner,'firmes-antigua',userId);
+ team=await f.service.team(f.owner,'firmes-antigua');assert.equal(team.members.some(m=>m.user_id===userId),false);assert.equal(team.invitations.some(i=>i.email==='preserve@gmail.com'),false);
+ await assert.rejects(f.service.team(member.token,'firmes-antigua'),e=>e.code==='FORBIDDEN');
+})
+
+test('team mutation authority is rechecked inside the transaction after an admin is revoked',async t=>{
+ const f=await googleFixture(t);
+ f.setIdentity({subject:'race-admin-subject',email:'race-admin@gmail.com',name:'Race Admin'});
+ await f.service.inviteTeamMember(f.owner,'firmes-antigua',{email:'race-admin@gmail.com',responsibility:'it'});
+ let flow=await f.begin(),admin=await f.service.googleCallback({state:flow.state,code:'race-admin-login',flow_token:flow.flow_token});
+ const originalTransact=f.service.repository.transact.bind(f.service.repository);let injected=false;
+ f.service.repository.transact=async fn=>originalTransact(async state=>{
+  if(!injected){injected=true;state.memberships[admin.user.id]=(state.memberships[admin.user.id]||[]).filter(m=>m.tenant_id!=='firmes-antigua')}
+  return fn(state)
+ });
+ await assert.rejects(f.service.inviteTeamMember(admin.token,'firmes-antigua',{email:'must-not-be-invited@gmail.com',responsibility:'viewer'}),e=>e.code==='FORBIDDEN');
+ f.service.repository.transact=originalTransact;
+ const team=await f.service.team(f.owner,'firmes-antigua');assert.equal(team.invitations.some(i=>i.email==='must-not-be-invited@gmail.com'),false);
+})
+
 async function approvalFixture(t){
  const root=await mkdtemp(join(tmpdir(),'media-v10-roles-'));t.after(()=>rm(root,{recursive:true,force:true}));const salt=randomBytes(24).toString('hex'),password='roles-password',hash=scryptSync(password,Buffer.from(salt,'hex'),64).toString('hex'),tenant='roles-tenant',users=[['owner','owner@example.com','owner'],['coord','coord@example.com','reviewer'],['it','it@example.com','admin'],['editor','editor@example.com','editor']].map(([id,email,role])=>({id,email,name:id,password:{salt,hash},memberships:[{tenant_id:tenant,role}]})),identityFile=join(root,'identities.json');await writeFile(identityFile,JSON.stringify({users}));const execution={approve:async(_actor,id)=> (await service.repository.read()).jobs[id],requestChanges:async(_actor,id)=> (await service.repository.read()).jobs[id],reject:async(_actor,id)=> (await service.repository.read()).jobs[id]};const service=createService({dataRoot:join(root,'data'),identityFile,execution}),tokens={};for(const user of users)tokens[user.id]=(await service.auth.login({email:user.email,password})).token;await service.repository.transact(state=>{state.tenants[tenant]={schema_version:'tenant-media-profile.v1',tenant_id:tenant,organization:'Roles',territory:null,runtime_namespace:tenant,browser_context_ref:tenant+'-browser',content_context:'community',audience_policy:{mode:'general-audience',sensitive_trait_targeting:false,voter_microtargeting:false},brand:{display_name:'Roles',visual_language:'clean'},sources:[],production_defaults:{aspect_ratio:'9:16',cadence:'weekly',duration_seconds:[8,25]}};return null});return{service,tokens,tenant}
 }
+
+test('role input is an explicit allowlist and local administrative identities stay protected',async t=>{
+ const f=await googleFixture(t),before=await f.service.repository.read();
+ for(const responsibility of ['owner','__proto__','constructor','toString','hasOwnProperty',{},['it'],null]){
+  await assert.rejects(f.service.inviteTeamMember(f.owner,'firmes-antigua',{email:'attacker@gmail.com',responsibility}),e=>e.code==='INVALID_ROLE');
+ }
+ assert.deepEqual(await f.service.repository.read(),before);
+ await assert.rejects(f.service.inviteTeamMember(f.owner,'firmes-antigua',{email:'OWNER@example.com',responsibility:'it'}),e=>e.code==='CONFIGURED_MEMBERSHIP_IMMUTABLE');
+ await assert.rejects(f.service.removeTeamMember(f.owner,'firmes-antigua','owner'),e=>e.code==='CONFIGURED_MEMBERSHIP_IMMUTABLE');
+ assert.equal((await f.service.auth.resolve(f.owner)).manage_integrations,true);
+})
+
+test('Google signing-key rotation refreshes a cached JWKS after the bounded refresh interval',async()=>{
+ const one=generateKeyPairSync('rsa',{modulusLength:2048}),two=generateKeyPairSync('rsa',{modulusLength:2048});
+ const jwk1=one.publicKey.export({format:'jwk'}),jwk2=two.publicKey.export({format:'jwk'});Object.assign(jwk1,{kid:'rotation-one',alg:'RS256',use:'sig'});Object.assign(jwk2,{kid:'rotation-two',alg:'RS256',use:'sig'});
+ const clientId='123456789012-rotationabcdefghijklmnopqrstuvwxyz.apps.googleusercontent.com';let nowMs=Date.now(),keys=[jwk1],calls=0;
+ const fetchImpl=async()=>{calls++;return jsonResponse({keys},200,{'cache-control':'public,max-age=300'})};
+ const verifier=new GoogleIdentityVerifier({clientId,fetchImpl,clock:()=>nowMs});
+ const claims=()=>({iss:'https://accounts.google.com',aud:clientId,sub:'rotation-subject-123',email:'rotation@gmail.com',email_verified:true,iat:Math.floor(nowMs/1000)-2,exp:Math.floor(nowMs/1000)+3600,nonce:'rotation-nonce'});
+ assert.equal((await verifier.verify(jwt({privateKey:one.privateKey,kid:'rotation-one',claims:claims()}),{nonce:'rotation-nonce'})).subject,'rotation-subject-123');assert.equal(calls,1);
+ keys=[jwk2];await assert.rejects(verifier.verify(jwt({privateKey:two.privateKey,kid:'rotation-two',claims:claims()}),{nonce:'rotation-nonce'}),e=>e.code==='GOOGLE_ID_TOKEN_INVALID');assert.equal(calls,1);
+ nowMs+=61_000;assert.equal((await verifier.verify(jwt({privateKey:two.privateKey,kid:'rotation-two',claims:claims()}),{nonce:'rotation-nonce'})).subject,'rotation-subject-123');assert.equal(calls,2);
+})
 
 test('departmental review roles are stage-specific and owner remains an authorized boundary actor',async t=>{
  const f=await approvalFixture(t),candidate='a'.repeat(64);async function stage(name){await f.service.repository.transact(s=>{s.jobs.job={id:'job',tenant_id:f.tenant,status:'AWAITING_REVIEW',stage:name,review_state:'AWAITING_REVIEW',candidate_sha:candidate,created_by:'producer',graph:{nodes:[]},artifacts:[],evidence:[],approvals:[],blockers:[]};return null})}
@@ -82,4 +177,4 @@ test('departmental review roles are stage-specific and owner remains an authoriz
  await stage('RELEASE');await f.service.jobAction(f.tokens.it,'job','approve',{candidate_sha:candidate,review_stage:'RELEASE'});await assert.rejects(f.service.jobAction(f.tokens.coord,'job','approve',{candidate_sha:candidate,review_stage:'RELEASE'}),e=>e.code==='APPROVAL_ROLE_REQUIRED');await f.service.jobAction(f.tokens.owner,'job','approve',{candidate_sha:candidate,review_stage:'RELEASE'})
 })
 
-test('V10 interface keeps Google primary, local break-glass, simple team roles and stage-specific review copy',async()=>{const login=await readFile('components/StudioEntry.tsx','utf8'),team=await readFile('components/Team.tsx','utf8'),jobs=await readFile('components/jobs.tsx','utf8'),nav=await readFile('components/studio.tsx','utf8'),page=await readFile('app/[[...segments]]/page.tsx','utf8');assert.match(page,/getService\(\)\.googleAuthConfig\(\)/);assert.match(page,/googleAvailable=\(await getService\(\)\.googleAuthConfig\(\)\)\.available===true/);assert.doesNotMatch(login,/api\('\/auth\/google\/config'/);assert.match(login,/Continuar con Google/);assert.match(login,/acceso administrativo/);assert.match(login,/api\/v1\/auth\/google\/start/);assert.match(team,/Coordinador municipal/);assert.match(team,/IT \/ Aprobación técnica/);assert.match(team,/Invita por correo/);assert.match(nav,/label: 'Equipo'/);assert.match(jobs,/Aprobación de contenido · Coordinación municipal/);assert.match(jobs,/Verificación técnica · IT/);assert.match(jobs,/Aprobación final · Propietario \/ IT/)})
+test('V10 interface keeps Google primary, local break-glass, simple team roles and stage-specific review copy',async()=>{const login=await readFile('components/StudioEntry.tsx','utf8'),team=await readFile('components/Team.tsx','utf8'),jobs=await readFile('components/jobs.tsx','utf8'),nav=await readFile('components/studio.tsx','utf8'),page=await readFile('app/[[...segments]]/page.tsx','utf8');assert.match(page,/getService\(\)\.googleAuthConfig\(\)/);assert.match(page,/googleAvailable=\(await getService\(\)\.googleAuthConfig\(\)\)\.available===true/);assert.doesNotMatch(login,/api\('\/auth\/google\/config'/);assert.match(login,/Continuar con Google/);assert.match(login,/acceso administrativo/);assert.match(login,/api\/v1\/auth\/google\/start/);assert.match(team,/Coordinador municipal/);assert.match(team,/IT \/ Aprobación técnica/);assert.match(team,/value=\"editor\"/);assert.match(team,/value=\"viewer\"/);assert.match(team,/Invita por correo/);assert.match(team,/No se envió un correo/);assert.match(team,/Enlace para compartir/);assert.match(team,/Copiar enlace/);assert.match(nav,/label: 'Equipo'/);assert.match(jobs,/Aprobación de contenido · Coordinación municipal/);assert.match(jobs,/Verificación técnica · IT/);assert.match(jobs,/Aprobación final · Propietario \/ IT/)})
