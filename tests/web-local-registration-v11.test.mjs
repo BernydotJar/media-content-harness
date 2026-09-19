@@ -55,7 +55,7 @@ test('HTTP registration and login accept the new contract while legacy configure
 })
 
 test('V11 login and Team UI expose municipality registration, DPI privacy copy and admin approval controls',async()=>{
- const login=await readFile('components/StudioEntry.tsx','utf8'),team=await readFile('components/Team.tsx','utf8');assert.match(login,/Correo o DPI/);assert.match(login,/DPI guatemalteco/);assert.match(login,/Municipio/);assert.match(login,/Crear cuenta/);assert.doesNotMatch(login,/m\.organization&&m\.organization/);assert.match(login,/PENDING|pendiente/i);assert.match(login,/no consulta RENAP/i);assert.match(team,/Solicitudes pendientes/);assert.match(team,/Aprobar/);assert.match(team,/Rechazar/);assert.ok(team.includes('Correo/DPI + contraseña'))
+ const login=await readFile('components/StudioEntry.tsx','utf8'),team=await readFile('components/Team.tsx','utf8');assert.match(login,/Correo o DPI/);assert.match(login,/DPI guatemalteco/);assert.match(login,/Municipio/);assert.match(login,/Crear cuenta/);assert.doesNotMatch(login,/m\.organization&&m\.organization/);assert.match(login,/required=\{mode==='register'/);assert.match(login,/PENDING|pendiente/i);assert.match(login,/no consulta RENAP/i);assert.match(team,/Solicitudes pendientes/);assert.match(team,/Aprobar/);assert.match(team,/Rechazar/);assert.ok(team.includes('Correo/DPI + contraseña'))
 })
 
 test('approved IT account can authorize another local request while private credential material stays server-side',async t=>{
