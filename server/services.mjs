@@ -12,21 +12,63 @@ import { interpretDraft } from './intent.mjs'
 import { creationSupport, profileSnapshot } from './creation-support.mjs'
 import { publicProviderExecution, publicSourceAssets } from './media-projection.mjs'
 import {sceneSupport} from './scene-support.mjs'
+import {IntegrationVault} from './integration-vault.mjs'
 const EDIT = ['owner','admin','editor']; const REVIEW = ['owner','admin','reviewer']; const ALL = [...EDIT,'reviewer','viewer']
 const now = () => new Date().toISOString()
 const copy = value => structuredClone(value)
 function legacyPlan(input){try{return buildWeeklyProductionPlan(input)}catch(error){if(error?.name==='WeeklyFactoryError'||error?.name==='TenantMediaProfileError')throw new ProductError('INVALID_PLAN',error.message);throw error}}
 export function requireMembership(actor, tenantId, roles = ALL) { safeId(tenantId,'Workspace ID'); const member=actor.memberships.find(m=>m.tenant_id===tenantId); invariant(member && roles.includes(member.role),'FORBIDDEN','You do not have access to this workspace or action',403); return member }
+function publicGenerationAttempts(values) {
+  return (values || []).map(a => ({
+    attempt_id:a.attempt_id,
+    job_revision:a.job_revision,
+    adapter_id:a.adapter_id,
+    provider:a.provider ?? null,
+    provider_model:a.provider_model ?? null,
+    request_sha256:a.request_sha256,
+    prompt_sha256:a.prompt_sha256,
+    input_assets:(a.input_assets || []).map(v => ({
+      ...(v.asset_id ? {asset_id:v.asset_id} : {}),
+      ...(v.source_id ? {source_id:v.source_id} : {}),
+      ...(v.role ? {role:v.role} : {}),
+      sha256:v.sha256,
+    })),
+    estimate:a.estimate ? structuredClone(a.estimate) : null,
+    spend_approval_id:a.spend_approval_id ?? null,
+    provider_request_id:a.provider_request_id ?? null,
+    status:a.status,
+    provider_telemetry:(a.provider_telemetry || []).map(v => ({source:v.source,provider:v.provider,request_id:v.request_id,status:v.status,kind:v.kind,percent:v.percent ?? null,observed_at:v.observed_at})),
+    output_asset_id:a.output_asset_id ?? null,
+    output_sha256:a.output_sha256 ?? null,
+    cost:a.cost ?? null,
+    credits:a.credits ?? null,
+    error_code:a.error_code ?? null,
+    error_detail:a.error_detail ?? null,
+    retry_of:a.retry_of ?? null,
+    started_at:a.started_at,
+    completed_at:a.completed_at ?? null,
+  }))
+}
 export function publicJob(job) {
-  const keys=['id','tenant_id','plan_id','story_id','title','objective','source_ids','story_devices','strategy','preferred_provider','target','status','stage','created_at','updated_at','created_by','candidate_sha','release_id','review_status','elapsed_ms','blockers','critic_findings','critic_rubric','fixer_actions','verifier_result','test','review_state','review_candidate','treatment','artifact_sha256','production_provider','production_note','creative_context','repair_requires_manual','repair_instructions','repair_controls','creation_mode','generation_mode','scene_request','prompt_compilation','generation_attempts','generation_attempt_count','external_generation_package','generation_phase','hero_image','job_revision','avatar_contract']
-  const value=Object.fromEntries(keys.filter(k=>job[k]!==undefined).map(k=>[k,job[k]]));value.graph={nodes:(job.graph?.nodes||job.nodes||[]).map(n=>({id:n.id,title:n.title,status:n.status}))}
-  value.provider_execution=publicProviderExecution(job.provider_execution);value.source_assets=publicSourceAssets(job.source_asset_snapshot);value.artifacts=(job.artifacts||[]).map(a=>({id:a.id,name:a.name||a.filename,mime_type:a.mime_type,sha256:a.sha256,size_bytes:a.size_bytes,width:a.width,height:a.height,duration_seconds:a.duration_seconds,generation_attempt_id:a.generation_attempt_id,provider:a.provider,prompt_sha256:a.prompt_sha256,character_asset_sha256:a.character_asset_sha256,environment_reference_sha256:a.environment_reference_sha256,synthetic:a.synthetic,test:a.test,download_url:'/api/v1/jobs/'+job.id+'/artifacts/'+a.id}))
-  value.evidence=(job.evidence||[]).map(e=>({id:e.id,kind:e.kind||e.stage,result:e.result||'PASS',sha256:e.sha256,created_at:e.created_at||e.recorded_at,summary:e.summary,test:e.test}));value.approvals=(job.approvals||[]).map(a=>({actor_id:a.actor_id||a.actor,scope:a.scope||a.stage,candidate_sha:a.candidate_sha,created_at:a.created_at}));return value
+  const keys=['id','tenant_id','plan_id','story_id','title','objective','source_ids','story_devices','strategy','preferred_provider','target','status','stage','created_at','updated_at','created_by','candidate_sha','release_id','review_status','elapsed_ms','blockers','critic_findings','critic_rubric','fixer_actions','verifier_result','test','review_state','review_candidate','treatment','artifact_sha256','production_provider','production_note','creative_context','repair_requires_manual','repair_instructions','repair_controls','creation_mode','generation_mode','scene_request','prompt_compilation','generation_attempt_count','external_generation_package','generation_phase','hero_image','job_revision','avatar_contract']
+  const value=Object.fromEntries(keys.filter(k=>job[k]!==undefined).map(k=>[k,job[k]]))
+  value.graph={nodes:(job.graph?.nodes||job.nodes||[]).map(n=>({id:n.id,title:n.title,status:n.status}))}
+  value.generation_attempts=publicGenerationAttempts(job.generation_attempts)
+  value.provider_telemetry=(job.provider_telemetry||[]).map(v=>({source:v.source,provider:v.provider,request_id:v.request_id,status:v.status,kind:v.kind,percent:v.percent??null,observed_at:v.observed_at}))
+  value.provider_spend_request=job.provider_spend_request?{id:job.provider_spend_request.id,scope_sha:job.provider_spend_request.scope_sha,provider:job.provider_spend_request.provider,provider_model:job.provider_spend_request.provider_model,estimate:structuredClone(job.provider_spend_request.estimate),requested_at:job.provider_spend_request.requested_at}:null
+  value.provider_spend_approval=job.provider_spend_approval?{id:job.provider_spend_approval.id,scope_sha:job.provider_spend_approval.scope_sha,approved_by:job.provider_spend_approval.approved_by,created_at:job.provider_spend_approval.created_at}:null
+  value.provider_execution=publicProviderExecution(job.provider_execution)
+  value.source_assets=publicSourceAssets(job.source_asset_snapshot)
+  value.artifacts=(job.artifacts||[]).map(a=>({id:a.id,name:a.name||a.filename,mime_type:a.mime_type,sha256:a.sha256,size_bytes:a.size_bytes,width:a.width,height:a.height,duration_seconds:a.duration_seconds,generation_attempt_id:a.generation_attempt_id,provider:a.provider,prompt_sha256:a.prompt_sha256,character_asset_sha256:a.character_asset_sha256,environment_reference_sha256:a.environment_reference_sha256,synthetic:a.synthetic,test:a.test,download_url:'/api/v1/jobs/'+job.id+'/artifacts/'+a.id}))
+  value.evidence=(job.evidence||[]).map(e=>({id:e.id,kind:e.kind||e.stage,result:e.result||'PASS',sha256:e.sha256,created_at:e.created_at||e.recorded_at,summary:e.summary,test:e.test}))
+  value.approvals=(job.approvals||[]).map(a=>({actor_id:a.actor_id||a.actor,scope:a.scope||a.stage,candidate_sha:a.candidate_sha,created_at:a.created_at}))
+  return value
 }
 export function createService(options = {}) {
   const repository=options.repository || new AtomicRepository(resolve(options.dataRoot || './data'))
   const auth=new AuthService({repository,identityFile:options.identityFile,operatorUsername:options.operatorUsername,operatorPasswordVerifier:options.operatorPasswordVerifier,clock:options.clock})
   const providers=options.providers || new ProviderRegistry({adapters:options.adapters,testMode:options.testMode === true && options.deploymentClass==='test'})
+  const integrationVault=options.integrationVault || new IntegrationVault(repository.root)
   let execution=options.execution
   async function actor(token) {return auth.resolve(token)}
   async function context(token,tenantId,roles=ALL){const user=await actor(token);return {user,membership:requireMembership(user,tenantId,roles)}}
@@ -61,6 +103,7 @@ export function createService(options = {}) {
     async jobs(token,tenantId){const user=await actor(token);if(tenantId)requireMembership(user,tenantId);const allowed=new Set(user.memberships.map(m=>m.tenant_id));return Object.values((await repository.read()).jobs).filter(j=>allowed.has(j.tenant_id)&&(!tenantId||j.tenant_id===tenantId)).map(publicJob)},
     async job(token,id){safeId(id,'Job ID');const user=await actor(token);const job=(await repository.read()).jobs[id];invariant(job,'NOT_FOUND','Production job was not found',404);requireMembership(user,job.tenant_id);return publicJob(job)},
     async jobAction(token,id,action,input={}){safeId(id,'Job ID');const user=await actor(token);const job=(await repository.read()).jobs[id];invariant(job,'NOT_FOUND','Production job was not found',404);requireMembership(user,job.tenant_id,['approve','reject','requestChanges'].includes(action)?REVIEW:EDIT);fields(input,action==='start'?[]:action==='approve'?['candidate_sha','review_stage']:['candidate_sha','review_stage','reason']);if(action!=='start')safeId(input.review_stage,'Review stage');rejectSecretMaterial(input);if(input.reason)assertAudienceSafe(input.reason);invariant(execution&&typeof execution[action]==='function','EXECUTION_UNAVAILABLE','Production execution is unavailable',503);return publicJob(await execution[action](user,id,input))},
+    async approveProviderSpend(token,id,input={}){safeId(id,'Job ID');const user=await actor(token);const job=(await repository.read()).jobs[id];invariant(job,'NOT_FOUND','Production job was not found',404);requireMembership(user,job.tenant_id,['owner','admin']);fields(input,['scope_sha','confirm']);invariant(typeof input.scope_sha==='string'&&/^[a-f0-9]{64}$/.test(input.scope_sha),'INVALID_INPUT','La aprobación de gasto no coincide con esta solicitud.',400);invariant(input.confirm===true,'SPEND_APPROVAL_REQUIRED','Confirma explícitamente el gasto estimado para continuar.',409);invariant(execution&&typeof execution.approveProviderSpend==='function','EXECUTION_UNAVAILABLE','Production execution is unavailable',503);return publicJob(await execution.approveProviderSpend(user,id,input))},
     async repairJob(token,id,input){safeId(id,'Job ID');const user=await actor(token);const job=(await repository.read()).jobs[id];invariant(job,'NOT_FOUND','Production job was not found',404);requireMembership(user,job.tenant_id,EDIT);fields(input,['action']);rejectSecretMaterial(input);invariant(execution&&typeof execution.repairBlocked==='function','EXECUTION_UNAVAILABLE','Production execution is unavailable',503);return publicJob(await execution.repairBlocked(user,id,input))},
     async evidence(token,id){return (await service.job(token,id)).evidence},
     async events(token,id){const job=await service.job(token,id);return (await repository.read()).events.filter(e=>e.tenant_id===job.tenant_id&&e.job_id===id).map(({id,type,event,created_at,stage,status,message})=>({id,type,event,created_at,stage,status,message}))},
@@ -69,7 +112,7 @@ export function createService(options = {}) {
     async releases(token,tenantId){const user=await actor(token);if(tenantId)requireMembership(user,tenantId);const allowed=new Set(user.memberships.map(m=>m.tenant_id));return Object.values((await repository.read()).releases).filter(r=>allowed.has(r.tenant_id)&&(!tenantId||r.tenant_id===tenantId)).map(r=>({id:r.id,tenant_id:r.tenant_id,job_id:r.job_id,title:r.title,created_at:r.created_at,version:r.version,aspect_ratio:r.aspect_ratio,candidate_sha:r.candidate_sha||r.artifact_sha256,publication_state:r.publication_state||'NOT_PUBLISHED',provider_execution:publicProviderExecution(r.provider_execution),scene_provenance:r.scene_provenance||null,source_assets:publicSourceAssets(r.source_assets),reviews:(r.reviews||[]).map(a=>({actor_id:a.actor_id||a.actor,scope:a.scope||a.stage,candidate_sha:a.candidate_sha,created_at:a.created_at})),approval:r.approval||{actor_id:r.approved_by},artifact_sha256:r.artifact_sha256,test:r.test,artifact_url:r.artifact_url,artifacts:(r.artifacts||stateArtifact(r)).map(a=>({id:a.id,sha256:a.sha256,mime_type:a.mime_type,size_bytes:a.size_bytes,width:a.width,height:a.height,duration_seconds:a.duration_seconds,generation_attempt_id:a.generation_attempt_id,provider:a.provider,prompt_sha256:a.prompt_sha256,character_asset_sha256:a.character_asset_sha256,environment_reference_sha256:a.environment_reference_sha256,synthetic:a.synthetic,test:a.test,download_url:'/api/v1/jobs/'+r.job_id+'/artifacts/'+a.id}))}))},
     async release(token,id){safeId(id);const release=(await service.releases(token)).find(r=>r.id===id);invariant(release,'NOT_FOUND','Release was not found',404);return release},
     async dashboard(token,id){await context(token,id);const jobs=await service.jobs(token,id);const state=await repository.read();const plans=Object.values(state.plans).filter(p=>p.tenant_id===id);const releases=await service.releases(token,id);return {tenant:await service.getTenant(token,id),planned:plans.filter(p=>p.status!=='LAUNCHED').reduce((n,p)=>n+p.stories.length,0),producing:jobs.filter(j=>!['BRIEF','RELEASED','AWAITING_REVIEW','BLOCKED','FAILED','REJECTED'].includes(j.status)).length,awaiting_review:jobs.filter(j=>['AWAITING_REVIEW','REVIEW_READY'].includes(j.status)).length,released:releases.length,blockers:jobs.flatMap(j=>(j.blockers||[]).map(b=>({job_id:j.id,...(typeof b==='object'?b:{message:b})}))),jobs,plans,activity:state.events.filter(e=>e.tenant_id===id).slice(-30).reverse()}},
-    async providerList(token){await actor(token);return providers.list()},
+    async providerList(token){await actor(token);const stored=await integrationVault.summary();return providers.list().map(p=>{if(!p.credit_bearing||p.manual===true||p.id==='ffmpeg'||p.id==='deterministic-test')return p;const configured=stored.providers[p.id]?.key_configured===true;if(!p.available)return p;return {...p,available:configured,availability:configured?'CONFIGURED':'CREDENTIAL_REQUIRED'}})},
     async health(){let storage=false,authentication=false;try{await repository.read();storage=true}catch{}try{authentication=(await auth.identities()).length>0}catch{}let graph=false;try{graph=execution?.health?Boolean((await execution.health()).graph):false}catch{}return {status:storage&&authentication&&graph?'ready':'degraded',service:'media-factory-web',checks:{storage,authentication,graph},release_sha:options.releaseSha||null}},
   };return Object.assign(service,creationSupport({repository,providers,auth,context}),sceneSupport({repository,providers,auth,context,getExecution:()=>execution,publicJob,append}))
 }

@@ -1130,6 +1130,84 @@
         "assets/**",
         "config/**"
       ]
+    },
+    {
+      "id": "WEB031-PROVIDER-EXECUTION-GATEWAY-V9",
+      "title": "Provider Execution Gateway V9 with human spend approval and authoritative provider telemetry",
+      "kind": "product-completion",
+      "status": "spec_ready",
+      "depends_on": [
+        "WEB030-NEW-USER-TENANT-ONBOARDING-RELEASE"
+      ],
+      "capability": "media-factory-web",
+      "gates": {
+        "review": [
+          "implementation_quality"
+        ]
+      },
+      "allowed_paths": [
+        "app/**",
+        "components/**",
+        "server/**",
+        "plugins/**",
+        "tests/**",
+        "scripts/**",
+        "docs/**",
+        "specs/**",
+        "progress/**",
+        "graph/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "*.mjs",
+        "*.json",
+        "*.yml",
+        "Dockerfile",
+        ".gitignore",
+        ".dockerignore",
+        "README.md",
+        "deploy/**",
+        "assets/**",
+        "config/**"
+      ]
+    },
+    {
+      "id": "WEB032-PROVIDER-EXECUTION-GATEWAY-V9-RELEASE",
+      "title": "Independent verification signed deployment and public confirmation of Provider Execution Gateway V9",
+      "kind": "product-completion",
+      "status": "spec_ready",
+      "depends_on": [
+        "WEB031-PROVIDER-EXECUTION-GATEWAY-V9"
+      ],
+      "capability": "media-factory-web",
+      "gates": {
+        "review": [
+          "implementation_quality"
+        ]
+      },
+      "allowed_paths": [
+        "app/**",
+        "components/**",
+        "server/**",
+        "plugins/**",
+        "tests/**",
+        "scripts/**",
+        "docs/**",
+        "specs/**",
+        "progress/**",
+        "graph/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "*.mjs",
+        "*.json",
+        "*.yml",
+        "Dockerfile",
+        ".gitignore",
+        ".dockerignore",
+        "README.md",
+        "deploy/**",
+        "assets/**",
+        "config/**"
+      ]
     }
   ]
 }

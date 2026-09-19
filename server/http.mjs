@@ -95,6 +95,7 @@ export async function handleApi(request,service){
    if(path[2]==='external-package'&&path.length===3&&method==='GET')return response(await service.externalPackage(session,id))
    if(path[2]==='external-result'&&path.length===3&&method==='POST'){const bytes=await bodyBytes(request,40*1024*1024);return response(await service.uploadExternalResult(session,id,{bytes,mime_type:request.headers.get('content-type')?.split(';')[0]}),202)}
    if(path.length===3&&method==='POST'&&['approve','request-changes','start','reject'].includes(path[2]))return response(await service.jobAction(session,id,path[2]==='request-changes'?'requestChanges':path[2],await jsonBody(request)),path[2]==='start'?202:200)
+   if(path.length===3&&method==='POST'&&path[2]==='approve-provider-spend')return response(await service.approveProviderSpend(session,id,await jsonBody(request)),202)
    if(path.length===3&&method==='POST'&&path[2]==='repair')return response(await service.repairJob(session,id,await jsonBody(request)),202)
    if(path[2]==='evidence'&&path.length===3&&method==='GET')return response(await service.evidence(session,id))
    if(path[2]==='events'&&path.length===3&&method==='GET')return await eventStream(request,service,session,id)
