@@ -22,7 +22,7 @@ const identityFile = join(temp, 'identities.json')
 const password = randomBytes(24).toString('hex')
 const salt = randomBytes(24).toString('hex')
 const email = 'browser-verifier@example.invalid'
-await writeFile(identityFile, JSON.stringify({ users: [{ id: 'browser-verifier', email, name: 'Browser Verifier', password: { salt, hash: scryptSync(password, Buffer.from(salt, 'hex'), 64).toString('hex') }, memberships: [], can_create_tenants: true }] }), { mode: 0o600 })
+await writeFile(identityFile, JSON.stringify({ users: [{ id: 'browser-verifier', email, name: 'Browser Verifier', password: { salt, hash: scryptSync(password, Buffer.from(salt, 'hex'), 64).toString('hex') }, memberships: [], can_create_tenants: true, system_admin: true }] }), { mode: 0o600 })
 const reservation = createServer()
 reservation.listen(0, '127.0.0.1')
 await once(reservation, 'listening')

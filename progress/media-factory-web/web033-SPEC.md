@@ -31,7 +31,7 @@ No automatic approval, publication or provider spend authority is added.
 
 ## Team administration
 
-Only the tenant owner may manage V10 team access.
+The tenant `owner` or `admin` (shown as **IT / Aprobación técnica**) may manage V10 team access. The owner remains immutable from this UI.
 
 Tenant page `Equipo` supports:
 
@@ -42,7 +42,7 @@ Tenant page `Equipo` supports:
 - remove a non-owner member;
 - revoke a pending invitation.
 
-The owner cannot remove or demote the tenant's only owner through this V10 UI.
+Neither owner nor IT can remove or demote the tenant owner through this V10 UI.
 
 ## Google sign-in
 
@@ -50,10 +50,7 @@ Google is the primary departmental sign-in path when configured; the existing us
 
 ### Configuration
 
-Server-only environment variables:
-
-- `MEDIA_FACTORY_GOOGLE_CLIENT_ID`
-- `MEDIA_FACTORY_GOOGLE_CLIENT_SECRET`
+Primary configuration is managed by the configured system administrator (the current product owner) from the tenant **Equipo** page. The Google OAuth client ID and secret are persisted server-side in a private encrypted vault under the Media Factory data volume; the secret is write-only and is never returned by product APIs. Optional server environment variables `MEDIA_FACTORY_GOOGLE_CLIENT_ID` and `MEDIA_FACTORY_GOOGLE_CLIENT_SECRET` remain supported as a bootstrap fallback, but are not required for the normal departmental rollout.
 
 Redirect URI is derived from the trusted `MEDIA_FACTORY_PUBLIC_ORIGIN` as:
 
@@ -110,12 +107,17 @@ External user fields contain provider, Google `sub`, verified email, display nam
 ## Fail-closed behavior
 
 - Google button hidden/disabled when configuration is absent.
+- only the configured system administrator can create, replace or remove the Google OAuth credential; tenant membership alone is insufficient.
+- the Google client secret is encrypted at rest in a private vault and is never returned to the browser after save.
+- a corrupted existing Google credential fails closed and is not silently overwritten.
+- changing Google client configuration invalidates any OAuth flow that started under the previous configuration.
 - callback rejects missing/expired/replayed state.
 - state is one-time-use.
 - token exchange/JWKS/claim verification failures return authentication failure without creating a user.
 - uninvited first-time Google account returns `ACCESS_NOT_INVITED`.
 - invitation email mismatch does not grant access.
-- tenant owner is the only team manager.
+- only tenant owner or IT/admin can manage tenant membership; coordinators/editors/viewers cannot.
+- only the configured system administrator can change the global Google OAuth credential.
 - role change/removal cannot target the tenant owner in V10.
 - municipal coordinator cannot approve RELEASE.
 - IT cannot approve CRITIC.
@@ -135,6 +137,7 @@ Team page:
 
 - concise explanation of the three responsibilities;
 - no generic IAM terminology;
+- owner-facing Google configuration stays collapsed once active and asks only Client ID + Client Secret;
 - invitation form asks only email + responsibility;
 - pending and active users are visually distinct;
 - approval responsibility is shown in plain Spanish.
@@ -151,7 +154,7 @@ Required before DONE:
 
 - repository backward-compatibility tests;
 - local password login regression;
-- Google configuration availability tests;
+- Google configuration availability, encrypted persistence, authorization and corruption tests;
 - OAuth start state/PKCE/nonce tests;
 - callback state replay/expiry rejection;
 - ID token issuer/audience/expiry/nonce/email verification tests using fake JWKS/token transport;
@@ -166,4 +169,4 @@ Required before DONE:
 
 ## Release behavior
 
-WEB034 may deploy with Google OAuth unconfigured. In that state the existing local owner login remains available and Google is truthfully unavailable. The departmental Google flow becomes active only after the server-side client ID and secret are configured and the authorized redirect URI is registered with Google.
+WEB034 may deploy with Google OAuth unconfigured. In that state the existing local owner login remains available and Google is truthfully unavailable. The owner can then configure the Google Web OAuth client once from **Equipo**; the encrypted configuration survives product releases because it lives in the persistent private data volume. The departmental Google flow becomes active only after that credential is saved and the exact authorized redirect URI is registered with Google.
