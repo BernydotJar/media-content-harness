@@ -1,0 +1,238 @@
+TAP version 13
+# Subtest: provider provenance records consumed bytes and excludes private adapter metadata
+ok 1 - provider provenance records consumed bytes and excludes private adapter metadata
+  ---
+  duration_ms: 1.574042
+  type: 'test'
+  ...
+# Subtest: provider cannot claim other sources, omit selected bytes, or relabel an adapter
+ok 2 - provider cannot claim other sources, omit selected bytes, or relabel an adapter
+  ---
+  duration_ms: 0.494417
+  type: 'test'
+  ...
+# Subtest: brand-asset provenance is one-to-one bound to the authorized runtime input
+ok 3 - brand-asset provenance is one-to-one bound to the authorized runtime input
+  ---
+  duration_ms: 0.505416
+  type: 'test'
+  ...
+# Subtest: test origin remains explicit and cannot be represented as consumed customer footage
+ok 4 - test origin remains explicit and cannot be represented as consumed customer footage
+  ---
+  duration_ms: 0.109084
+  type: 'test'
+  ...
+# Subtest: job and tenant-authorized release expose immutable reviewed provenance, not mutable job state
+ok 5 - job and tenant-authorized release expose immutable reviewed provenance, not mutable job state
+  ---
+  duration_ms: 11.03175
+  type: 'test'
+  ...
+# Subtest: configured FFmpeg registry agrees with executable strategies and rejects hybrid preference
+ok 6 - configured FFmpeg registry agrees with executable strategies and rejects hybrid preference
+  ---
+  duration_ms: 1.41175
+  type: 'test'
+  ...
+# Subtest: Seedance 2.5 adapter maps exact request, exposes only lifecycle telemetry, and uses conservative catalog estimate
+ok 7 - Seedance 2.5 adapter maps exact request, exposes only lifecycle telemetry, and uses conservative catalog estimate
+  ---
+  duration_ms: 1.498708
+  type: 'test'
+  ...
+# Subtest: Higgsfield adapter fails closed for reference scenes, missing credentials and ambiguous paid submission
+ok 8 - Higgsfield adapter fails closed for reference scenes, missing credentials and ambiguous paid submission
+  ---
+  duration_ms: 0.461959
+  type: 'test'
+  ...
+# Subtest: Higgsfield adapter rejects unsafe output URLs and moderation/failed states remain explicit
+ok 9 - Higgsfield adapter rejects unsafe output URLs and moderation/failed states remain explicit
+  ---
+  duration_ms: 3.978709
+  type: 'test'
+  ...
+# Subtest: provider discovery is credential-aware and never returns the stored Higgsfield secret
+ok 10 - provider discovery is credential-aware and never returns the stored Higgsfield secret
+  ---
+  duration_ms: 153.543375
+  type: 'test'
+  ...
+# Subtest: V9 Creation Room keeps Graph percentage separate from provider status and gates paid generation behind explicit consent
+ok 11 - V9 Creation Room keeps Graph percentage separate from provider status and gates paid generation behind explicit consent
+  ---
+  duration_ms: 3.89775
+  type: 'test'
+  ...
+# Subtest: paid provider waits for exact human spend approval, then recovery reuses one request id without duplicate submission
+ok 12 - paid provider waits for exact human spend approval, then recovery reuses one request id without duplicate submission
+  ---
+  duration_ms: 4497.819418
+  type: 'test'
+  ...
+# Subtest: provider moderation failure blocks the exact attempt and a blind restart cannot spend again
+ok 13 - provider moderation failure blocks the exact attempt and a blind restart cannot spend again
+  ---
+  duration_ms: 3506.66646
+  type: 'test'
+  ...
+# Subtest: ambiguous paid submission persists fail-closed state and is never automatically resubmitted
+ok 14 - ambiguous paid submission persists fail-closed state and is never automatically resubmitted
+  ---
+  duration_ms: 3484.020085
+  type: 'test'
+  ...
+# Subtest: crash after paid output collection resumes from the durable artifact without a second provider request
+ok 15 - crash after paid output collection resumes from the durable artifact without a second provider request
+  ---
+  duration_ms: 4158.524919
+  type: 'test'
+  ...
+# Subtest: changing a spend-bound job revision invalidates approval before provider submission
+ok 16 - changing a spend-bound job revision invalidates approval before provider submission
+  ---
+  duration_ms: 2972.968001
+  type: 'test'
+  ...
+# Subtest: authentication preserves password bytes, revokes changed identity and starts without tenants
+ok 17 - authentication preserves password bytes, revokes changed identity and starts without tenants
+  ---
+  duration_ms: 145.763917
+  type: 'test'
+  ...
+# Subtest: tenant membership enforced for reads/writes and onboarding has no fake source
+ok 18 - tenant membership enforced for reads/writes and onboarding has no fake source
+  ---
+  duration_ms: 112.555708
+  type: 'test'
+  ...
+# Subtest: strict source/reference separation, provenance and secret validation
+ok 19 - strict source/reference separation, provenance and secret validation
+  ---
+  duration_ms: 96.103917
+  type: 'test'
+  ...
+# Subtest: private, browser and signed source locators are rejected
+ok 20 - private, browser and signed source locators are rejected
+  ---
+  duration_ms: 0.472875
+  type: 'test'
+  ...
+# Subtest: plans reject injected approval and produce same id under concurrent requests
+ok 21 - plans reject injected approval and produce same id under concurrent requests
+  ---
+  duration_ms: 134.156291
+  type: 'test'
+  ...
+# Subtest: source/DNA changes invalidate plans and idempotency includes strategy
+ok 22 - source/DNA changes invalidate plans and idempotency includes strategy
+  ---
+  duration_ms: 106.910083
+  type: 'test'
+  ...
+# Subtest: Free Mode exact mixed Spanish example becomes four unapproved concepts, no-AI remains real
+ok 23 - Free Mode exact mixed Spanish example becomes four unapproved concepts, no-AI remains real
+  ---
+  duration_ms: 93.6775
+  type: 'test'
+  ...
+# Subtest: targeted political or sensitive persuasion cannot enter plans/intent
+ok 24 - targeted political or sensitive persuasion cannot enter plans/intent
+  ---
+  duration_ms: 93.788042
+  type: 'test'
+  ...
+# Subtest: HTTP cookies, CSRF, malformed body, path traversal and safe errors
+ok 25 - HTTP cookies, CSRF, malformed body, path traversal and safe errors
+  ---
+  duration_ms: 119.526625
+  type: 'test'
+  ...
+# Subtest: repository serializes separate instances and rejects symlink state
+ok 26 - repository serializes separate instances and rejects symlink state
+  ---
+  duration_ms: 40.257542
+  type: 'test'
+  ...
+# Subtest: SSE rejects unauthorized reads and pushes durable state updates
+ok 27 - SSE rejects unauthorized reads and pushes durable state updates
+  ---
+  duration_ms: 121.21075
+  type: 'test'
+  ...
+# Subtest: HTTP rejects declared and streamed oversized JSON before parsing
+ok 28 - HTTP rejects declared and streamed oversized JSON before parsing
+  ---
+  duration_ms: 79.800834
+  type: 'test'
+  ...
+# Subtest: viewer cannot approve concepts and configured identity roles override persisted memberships
+ok 29 - viewer cannot approve concepts and configured identity roles override persisted memberships
+  ---
+  duration_ms: 88.99275
+  type: 'test'
+  ...
+# Subtest: reference DNA requires evidence bytes actually stored for the selected reference
+ok 30 - reference DNA requires evidence bytes actually stored for the selected reference
+  ---
+  duration_ms: 91.166041
+  type: 'test'
+  ...
+# Subtest: malformed durable state fails closed with controlled storage error
+ok 31 - malformed durable state fails closed with controlled storage error
+  ---
+  duration_ms: 1.0385
+  type: 'test'
+  ...
+# Subtest: ProductError identity remains stable across independently evaluated server bundles
+ok 32 - ProductError identity remains stable across independently evaluated server bundles
+  ---
+  duration_ms: 0.6565
+  type: 'test'
+  ...
+# Subtest: stored reference evidence tampering invalidates DNA analysis
+ok 33 - stored reference evidence tampering invalidates DNA analysis
+  ---
+  duration_ms: 85.738333
+  type: 'test'
+  ...
+# Subtest: mascot setup binds a selected production source and rejects a reference
+ok 34 - mascot setup binds a selected production source and rejects a reference
+  ---
+  duration_ms: 89.976875
+  type: 'test'
+  ...
+# Subtest: Free Mode respects indirect AI negations and explicit alternative distributions
+ok 35 - Free Mode respects indirect AI negations and explicit alternative distributions
+  ---
+  duration_ms: 94.501208
+  type: 'test'
+  ...
+# Subtest: login concurrency limit reserves capacity before awaiting identity loading
+ok 36 - login concurrency limit reserves capacity before awaiting identity loading
+  ---
+  duration_ms: 118.3425
+  type: 'test'
+  ...
+# Subtest: legacy planner contract rejection returns a controlled HTTP 400
+ok 37 - legacy planner contract rejection returns a controlled HTTP 400
+  ---
+  duration_ms: 89.613875
+  type: 'test'
+  ...
+# Subtest: FIRMES avatar catalog and MCP-ready tool definitions stay membership-bound over HTTP
+ok 38 - FIRMES avatar catalog and MCP-ready tool definitions stay membership-bound over HTTP
+  ---
+  duration_ms: 93.968917
+  type: 'test'
+  ...
+1..38
+# tests 38
+# suites 0
+# pass 38
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 19008.924217
