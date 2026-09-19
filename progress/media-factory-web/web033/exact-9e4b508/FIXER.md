@@ -1,0 +1,8 @@
+# WEB033 Fixer record
+
+No release defect is hidden.
+
+1. The first exact product candidate `8d101408...` exposed two stale test assumptions after departmental role routing: a static human-review callback assertion and a Scene Generation verifier fixture still using `reviewer` instead of IT/admin. Product behavior was correct; the tests were updated and exact candidate `767090c...` passed the full suite.
+2. Before release, operational review found that the existing host reconciler rewrites its private runtime env and does not preserve arbitrary new Google env keys. Shipping env-only Google configuration would therefore be fragile across releases. V10 was hardened in product code: Google Client ID/Secret can now be stored in a dedicated encrypted persistent vault from the Team screen, with environment variables only as optional bootstrap fallback. Final product candidate is `9e4b5089dec3ab4619ae15964d1900db60bf76f7`.
+3. Browser E2E initially expected Google to become active on the local HTTP verification origin after vault save. The implementation correctly requires HTTPS, so the E2E assertion was corrected to distinguish `configured=true` from `available=false` on HTTP. Unit coverage separately proves `available=true` on a trusted HTTPS origin.
+4. A detached-worktree build attempt hit a verifier-environment limitation (`node_modules` symlink outside Turbopack root; then missing fresh worktree `.next/BUILD_ID` in the custom build wrapper). The detached verifier therefore does **not** claim a detached production build. It independently passes 40/40 focused tests, TypeScript, contracts and audit. The exact clean main candidate separately passes the production build and packaged browser/FIRMES runtime checks.
