@@ -12,7 +12,7 @@ import { QuickCreate } from './QuickCreate';
 import { FirmesLockup, isFirmesTenant } from './FirmesBrand';
 import { Onboarding } from './Onboarding';
 
-export default function Studio({ segments }: { segments: string[] }) {
+export default function Studio({ segments, googleAvailable=false }: { segments: string[]; googleAvailable?: boolean }) {
   const router = useRouter();
   const login = segments[0] === 'login';
   const me = useLoad(login ? null : '/me');
@@ -29,7 +29,7 @@ export default function Studio({ segments }: { segments: string[] }) {
 
   useEffect(() => setMobileOpen(false), [segments.join('/')]);
 
-  if (login) return <StudioEntry />;
+  if (login) return <StudioEntry googleAvailable={googleAvailable} />;
   if (me.loading || (!me.data && !me.error)) return <main className="standalone"><Mark /><Loading /></main>;
   if (me.error) return <main className="standalone"><Mark /><Problem error={me.error} retry={me.reload} /><Link href="/login">Volver a iniciar sesión</Link></main>;
 
