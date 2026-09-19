@@ -1284,6 +1284,84 @@
         "assets/**",
         "config/**"
       ]
+    },
+    {
+      "id": "WEB035-LOCAL-USER-REGISTRATION-V11",
+      "title": "Municipality-scoped local registration with protected DPI lookup and admin approval",
+      "kind": "product-completion",
+      "status": "spec_ready",
+      "depends_on": [
+        "WEB034-DEPARTMENTAL-ACCESS-V10-RELEASE"
+      ],
+      "capability": "media-factory-web",
+      "gates": {
+        "review": [
+          "implementation_quality"
+        ]
+      },
+      "allowed_paths": [
+        "app/**",
+        "components/**",
+        "server/**",
+        "plugins/**",
+        "tests/**",
+        "scripts/**",
+        "docs/**",
+        "specs/**",
+        "progress/**",
+        "graph/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "*.mjs",
+        "*.json",
+        "*.yml",
+        "Dockerfile",
+        ".gitignore",
+        ".dockerignore",
+        "README.md",
+        "deploy/**",
+        "assets/**",
+        "config/**"
+      ]
+    },
+    {
+      "id": "WEB036-ADMIN-USER-APPROVAL-V11-RELEASE",
+      "title": "Independent verification signed deployment and public confirmation of local departmental access V11",
+      "kind": "product-completion",
+      "status": "spec_ready",
+      "depends_on": [
+        "WEB035-LOCAL-USER-REGISTRATION-V11"
+      ],
+      "capability": "media-factory-web",
+      "gates": {
+        "review": [
+          "implementation_quality"
+        ]
+      },
+      "allowed_paths": [
+        "app/**",
+        "components/**",
+        "server/**",
+        "plugins/**",
+        "tests/**",
+        "scripts/**",
+        "docs/**",
+        "specs/**",
+        "progress/**",
+        "graph/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "*.mjs",
+        "*.json",
+        "*.yml",
+        "Dockerfile",
+        ".gitignore",
+        ".dockerignore",
+        "README.md",
+        "deploy/**",
+        "assets/**",
+        "config/**"
+      ]
     }
   ]
 }
