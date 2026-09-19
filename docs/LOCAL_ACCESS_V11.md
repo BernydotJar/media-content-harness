@@ -59,3 +59,26 @@ No membership, user, source, production, or private tenant data is included.
 - `POST /api/v1/tenants/:tenantId/team/registrations/:userId` with `action=approve|reject`
 
 The existing login endpoint accepts `identifier` (email or DPI), `password`, and `tenant_id`; legacy configured-operator login remains backwards-compatible.
+
+## Sacatepéquez departmental municipality catalog
+
+The departmental login and self-registration catalog is restricted to these 16 municipalities, in this display order:
+
+1. Antigua Guatemala
+2. Jocotenango
+3. Pastores
+4. Sumpango
+5. Santo Domingo Xenacoj
+6. Santiago Sacatepéquez
+7. San Bartolomé Milpas Altas
+8. San Lucas Sacatepéquez
+9. Santa Lucía Milpas Altas
+10. Magdalena Milpas Altas
+11. Santa María de Jesús
+12. Ciudad Vieja
+13. San Miguel Dueñas
+14. Alotenango
+15. San Antonio Aguas Calientes
+16. Santa Catarina Barahona
+
+The catalog is an allowlist, not a dump of every tenant in the repository. Existing municipal tenants are reused by territory; the current Antigua workspace remains on its existing tenant id instead of being destructively renamed. A missing municipal workspace is created only when the first registration request targets it, and configured operators with tenant-creation authority receive owner membership at that point.

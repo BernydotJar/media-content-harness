@@ -6,6 +6,7 @@ import {tmpdir} from 'node:os'
 import {randomBytes,scryptSync} from 'node:crypto'
 import {createService} from '../server/services.mjs'
 import {handleApi} from '../server/http.mjs'
+import {SACATEPEQUEZ_MUNICIPALITIES} from '../server/sacatepequez-municipalities.mjs'
 
 async function fixture(t){
  const root=await mkdtemp(join(tmpdir(),'media-v11-local-'));t.after(()=>rm(root,{recursive:true,force:true}))
@@ -21,8 +22,12 @@ async function localId(service,email){const state=await service.repository.read(
 
 const request=(path,body)=>new Request('https://media.example.org/api/v1/'+path,{method:body===undefined?'GET':'POST',headers:body===undefined?{}:{origin:'https://media.example.org','content-type':'application/json'},body:body===undefined?undefined:JSON.stringify(body)})
 
-test('municipality catalog is public and exposes only the entry labels needed before authentication',async t=>{
- const f=await fixture(t),response=await handleApi(request('auth/municipalities'),f.service);assert.equal(response.status,200);const data=(await response.json()).data;assert.deepEqual(data.map(v=>v.municipality),['Antigua Guatemala','Jocotenango']);assert.deepEqual(Object.keys(data[0]).sort(),['municipality','organization','tenant_id'])
+test('municipality catalog exposes the exact 16 Sacatepéquez municipalities in departmental order',async t=>{
+ const f=await fixture(t),response=await handleApi(request('auth/municipalities'),f.service);assert.equal(response.status,200);const data=(await response.json()).data;assert.deepEqual(data.map(v=>v.municipality),SACATEPEQUEZ_MUNICIPALITIES.map(v=>v.municipality));assert.equal(data.length,16);assert.equal(data[0].tenant_id,'firmes-antigua');assert.equal(data[1].tenant_id,'firmes-jocotenango');assert.deepEqual(Object.keys(data[0]).sort(),['municipality','organization','tenant_id'])
+})
+
+test('first registration in a configured municipality materializes only that tenant and grants operator ownership',async t=>{
+ const f=await fixture(t),catalog=await f.service.auth.municipalities(),sumpango=catalog.find(v=>v.municipality==='Sumpango');assert.ok(sumpango);await f.service.auth.register({name:'Sumpango Local',email:'sumpango@example.com',dpi:'1234567890114',password:'sumpango-password-v11',tenant_id:sumpango.tenant_id});const state=await f.service.repository.read(),tenant=state.tenants[sumpango.tenant_id]||state.onboarding[sumpango.tenant_id];assert.ok(tenant);assert.equal(tenant.territory,'Sumpango');assert.equal(tenant.organization,'FIRMES Sumpango');assert.ok((state.memberships.owner||[]).some(m=>m.tenant_id===sumpango.tenant_id&&m.role==='owner'));assert.equal(Boolean(state.tenants['firmes-pastores']||state.onboarding['firmes-pastores']),false);const account=Object.values(state.local_accounts).find(v=>v.email==='sumpango@example.com');assert.equal(account.requested_tenant_id,sumpango.tenant_id);assert.equal(account.status,'PENDING_APPROVAL')
 })
 
 test('self-registration stores no plaintext DPI and remains pending without a membership',async t=>{
@@ -50,7 +55,7 @@ test('HTTP registration and login accept the new contract while legacy configure
 })
 
 test('V11 login and Team UI expose municipality registration, DPI privacy copy and admin approval controls',async()=>{
- const login=await readFile('components/StudioEntry.tsx','utf8'),team=await readFile('components/Team.tsx','utf8');assert.match(login,/Correo o DPI/);assert.match(login,/DPI guatemalteco/);assert.match(login,/Municipio/);assert.match(login,/Crear cuenta/);assert.match(login,/PENDING|pendiente/i);assert.match(login,/no consulta RENAP/i);assert.match(team,/Solicitudes pendientes/);assert.match(team,/Aprobar/);assert.match(team,/Rechazar/);assert.ok(team.includes('Correo/DPI + contraseña'))
+ const login=await readFile('components/StudioEntry.tsx','utf8'),team=await readFile('components/Team.tsx','utf8');assert.match(login,/Correo o DPI/);assert.match(login,/DPI guatemalteco/);assert.match(login,/Municipio/);assert.match(login,/Crear cuenta/);assert.doesNotMatch(login,/m\.organization&&m\.organization/);assert.match(login,/PENDING|pendiente/i);assert.match(login,/no consulta RENAP/i);assert.match(team,/Solicitudes pendientes/);assert.match(team,/Aprobar/);assert.match(team,/Rechazar/);assert.ok(team.includes('Correo/DPI + contraseña'))
 })
 
 test('approved IT account can authorize another local request while private credential material stays server-side',async t=>{
