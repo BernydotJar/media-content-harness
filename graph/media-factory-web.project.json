@@ -1362,6 +1362,84 @@
         "assets/**",
         "config/**"
       ]
+    },
+    {
+      "id": "WEB037-SACATEPEQUEZ-MUNICIPAL-CATALOG-V11-1",
+      "title": "Exact 16-municipality Sacatepéquez access catalog with lazy isolated municipal workspaces",
+      "kind": "product-completion",
+      "status": "spec_ready",
+      "depends_on": [
+        "WEB036-ADMIN-USER-APPROVAL-V11-RELEASE"
+      ],
+      "capability": "media-factory-web",
+      "gates": {
+        "review": [
+          "implementation_quality"
+        ]
+      },
+      "allowed_paths": [
+        "app/**",
+        "components/**",
+        "server/**",
+        "plugins/**",
+        "tests/**",
+        "scripts/**",
+        "docs/**",
+        "specs/**",
+        "progress/**",
+        "graph/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "*.mjs",
+        "*.json",
+        "*.yml",
+        "Dockerfile",
+        ".gitignore",
+        ".dockerignore",
+        "README.md",
+        "deploy/**",
+        "assets/**",
+        "config/**"
+      ]
+    },
+    {
+      "id": "WEB038-SACATEPEQUEZ-MUNICIPAL-CATALOG-V11-1-RELEASE",
+      "title": "Independent verification signed deployment and public confirmation of Sacatepéquez municipality catalog",
+      "kind": "product-completion",
+      "status": "spec_ready",
+      "depends_on": [
+        "WEB037-SACATEPEQUEZ-MUNICIPAL-CATALOG-V11-1"
+      ],
+      "capability": "media-factory-web",
+      "gates": {
+        "review": [
+          "implementation_quality"
+        ]
+      },
+      "allowed_paths": [
+        "app/**",
+        "components/**",
+        "server/**",
+        "plugins/**",
+        "tests/**",
+        "scripts/**",
+        "docs/**",
+        "specs/**",
+        "progress/**",
+        "graph/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "*.mjs",
+        "*.json",
+        "*.yml",
+        "Dockerfile",
+        ".gitignore",
+        ".dockerignore",
+        "README.md",
+        "deploy/**",
+        "assets/**",
+        "config/**"
+      ]
     }
   ]
 }
