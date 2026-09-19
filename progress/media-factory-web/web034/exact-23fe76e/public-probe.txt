@@ -1,0 +1,15 @@
+release=23fe76e9b1c1751ab08ccca92598e49587f627f1
+/login status=200 ssl_verify=0
+google_button=ABSENT_EXPECTED_UNCONFIGURED
+/api/v1/auth/google/config anonymous=401
+/api/v1/me anonymous=401
+/health anonymous=401
+robots.txt status=200 ssl_verify=0
+sitemap.xml status=200 ssl_verify=0
+llms.txt status=200 ssl_verify=0
+llm.txt status=200 ssl_verify=0
+favicon.ico status=200 ssl_verify=0
+product_registry reconciliation_state=converged
+product_registry last_commit=23fe76e9b1c1751ab08ccca92598e49587f627f1
+product_registry public_health=PASS_HTTP_200
+product_registry process_recovery=PASS
