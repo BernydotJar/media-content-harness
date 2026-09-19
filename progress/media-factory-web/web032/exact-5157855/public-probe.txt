@@ -1,0 +1,11 @@
+release=515785504c3dbb4d68492cd34dd360cce992be21
+/login status=200 ssl_verify=0
+/robots.txt status=200 ssl_verify=0
+/sitemap.xml status=200 ssl_verify=0
+/llms.txt status=200 ssl_verify=0
+/llm.txt status=200 ssl_verify=0
+/favicon.ico status=200 ssl_verify=0
+/api/v1/me anonymous=401
+/api/v1/providers anonymous=401
+/health anonymous=401
+favicon_exact=PASS
