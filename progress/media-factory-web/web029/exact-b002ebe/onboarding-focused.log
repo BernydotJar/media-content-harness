@@ -1,0 +1,70 @@
+TAP version 13
+# Subtest: private onboarding and brand start routes are recognized without becoming public
+ok 1 - private onboarding and brand start routes are recognized without becoming public
+  ---
+  duration_ms: 0.569625
+  type: 'test'
+  ...
+# Subtest: studio exposes guide, brand summary, and role-aware brand administration
+ok 2 - studio exposes guide, brand summary, and role-aware brand administration
+  ---
+  duration_ms: 4.27925
+  type: 'test'
+  ...
+# Subtest: login enters first-run guide only when server says onboarding is new
+ok 3 - login enters first-run guide only when server says onboarding is new
+  ---
+  duration_ms: 0.808625
+  type: 'test'
+  ...
+# Subtest: V8 guidance stays compact, responsive, and uses human brand vocabulary
+ok 4 - V8 guidance stays compact, responsive, and uses human brand vocabulary
+  ---
+  duration_ms: 2.409334
+  type: 'test'
+  ...
+# Subtest: first-run completion persists per authenticated user and cannot target another user
+ok 5 - first-run completion persists per authenticated user and cannot target another user
+  ---
+  duration_ms: 97.988083
+  type: 'test'
+  ...
+# Subtest: onboarding tenant summary exposes only membership-bound safe brand facts
+ok 6 - onboarding tenant summary exposes only membership-bound safe brand facts
+  ---
+  duration_ms: 89.231959
+  type: 'test'
+  ...
+# Subtest: dismissed guide persists without changing tenant authority or membership
+ok 7 - dismissed guide persists without changing tenant authority or membership
+  ---
+  duration_ms: 83.59975
+  type: 'test'
+  ...
+# Subtest: repository upgrades older state documents with user_onboarding lazily
+ok 8 - repository upgrades older state documents with user_onboarding lazily
+  ---
+  duration_ms: 81.871416
+  type: 'test'
+  ...
+# Subtest: onboarding HTTP remains authenticated and CSRF-protected
+ok 9 - onboarding HTTP remains authenticated and CSRF-protected
+  ---
+  duration_ms: 96.285208
+  type: 'test'
+  ...
+# Subtest: legacy active users are recognized as returning instead of being force-onboarded
+ok 10 - legacy active users are recognized as returning instead of being force-onboarded
+  ---
+  duration_ms: 79.336334
+  type: 'test'
+  ...
+1..10
+# tests 10
+# suites 0
+# pass 10
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 726.328708

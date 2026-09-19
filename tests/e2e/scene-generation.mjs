@@ -1,4 +1,5 @@
 import {chromium,expect} from '@playwright/test'
+import {settleAuthenticatedEntry} from './onboarding.mjs'
 import assert from 'node:assert/strict'
 import {join} from 'node:path'
 import {readFile} from 'node:fs/promises'
@@ -11,7 +12,7 @@ export async function runSceneGenerationE2E({origin,accounts,temp,firstImage,acc
  page.on('pageerror',error=>errors.push(error.message));page.setDefaultTimeout(30000)
  const api=async(path,{method='GET',data,headers={}}={})=>{const response=await context.request.fetch(origin+'/api/v1'+path,{method,headers:{Origin:origin,...headers},...(data===undefined?{}:{data})});let value=null;try{value=await response.json()}catch{};assert.ok(response.ok(),`${method} ${path}: ${response.status()} ${JSON.stringify(value)}`);return value?.data}
  const pollJob=async(id,predicate,label)=>{let value;for(let i=0;i<180;i++){value=await api('/jobs/'+id);if(predicate(value))return value;await wait(120)}throw new Error(label+': '+JSON.stringify({status:value?.status,stage:value?.stage,blockers:value?.blockers}))}
- const login=async account=>{await page.goto(origin+'/login');await page.getByLabel('Usuario o correo').fill(account.email);await page.getByLabel('Contraseña',{exact:true}).fill(account.password);await page.getByRole('button',{name:'Entrar al estudio'}).click();await expect(page).toHaveURL(/dashboard/)}
+ const login=async account=>{await page.goto(origin+'/login');await page.getByLabel('Usuario o correo').fill(account.email);await page.getByLabel('Contraseña',{exact:true}).fill(account.password);await page.getByRole('button',{name:'Entrar al estudio'}).click();await settleAuthenticatedEntry(page)}
  const logout=async()=>{await page.getByRole('button',{name:'Cerrar sesión'}).click();await expect(page).toHaveURL(/login/)}
  const uploadExternal=async file=>{const responsePromise=page.waitForResponse(response=>response.url().includes('/external-result')&&response.request().method()==='POST');await page.locator('.external-upload input[type=file]').setInputFiles(file);const response=await responsePromise;let body=null;try{body=await response.json()}catch{};assert.ok(response.ok(),'external result upload failed: '+response.status()+' '+JSON.stringify(body));return body?.data}
  try{

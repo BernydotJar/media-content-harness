@@ -52,3 +52,12 @@ test('review summary protects long resource chips from collisions',async()=>{
  const v7=css.slice(css.lastIndexOf('Creative Studio V7'))
  assert.match(v7,/\.candidate-summary-card \.summary-chips \.tag\{[^}]*white-space:normal[^}]*overflow-wrap:anywhere/)
 })
+
+
+test('action feedback remains visible when a requested change immediately re-enters Creation Room',async()=>{
+ const source=await readFile('components/jobs.tsx','utf8')
+ const feedback=source.indexOf('global-action-feedback')
+ const branch=source.indexOf("{creatingNow?<CreationRoom")
+ assert.ok(feedback>0&&branch>feedback,'success feedback must render outside and before the Creation Room branch')
+ assert.equal((source.match(/global-action-feedback/g)||[]).length,1)
+})

@@ -1,4 +1,5 @@
 import {chromium,expect} from '@playwright/test';
+import {settleAuthenticatedEntry} from './onboarding.mjs'
 import assert from 'node:assert/strict';
 import {join} from 'node:path';
 import {readFile} from 'node:fs/promises';
@@ -14,7 +15,7 @@ export async function runV2SourceRecovery({origin,email,password,temp,sourceFile
  const api=async(path,{method='GET',data,headers={}}={})=>{const response=await context.request.fetch(origin+'/api/v1'+path,{method,headers:{Origin:origin,...headers},...(data===undefined?{}:{data})});let value=null;try{value=await response.json()}catch{};assert.ok(response.ok(),`${method} ${path}: ${response.status()} ${JSON.stringify(value)}`);return value?.data};
  const pollJob=async(id,predicate,label)=>{let value;for(let i=0;i<80;i++){value=await api('/jobs/'+id);if(predicate(value))return value;await wait(125)}throw new Error(label+': '+JSON.stringify({status:value?.status,stage:value?.stage,blockers:value?.blockers}))};
  try{
-  await page.goto(origin+'/login');await page.getByLabel('Usuario o correo').fill(email);await page.getByLabel('Contraseña',{exact:true}).fill(password);await page.getByRole('button',{name:'Entrar al estudio'}).click();await expect(page).toHaveURL(/dashboard/);
+  await page.goto(origin+'/login');await page.getByLabel('Usuario o correo').fill(email);await page.getByLabel('Contraseña',{exact:true}).fill(password);await page.getByRole('button',{name:'Entrar al estudio'}).click();await settleAuthenticatedEntry(page);
   const profile={schema_version:'tenant-media-profile.v1',tenant_id:'firmes-v2-browser',organization:'FIRMES Izabal',territory:'Izabal',runtime_namespace:'firmes-v2-browser',browser_context_ref:'firmes-v2-browser-context',content_context:'community',audience_policy:{mode:'general-audience',sensitive_trait_targeting:false,voter_microtargeting:false},brand:{display_name:'FIRMES Izabal',logo_asset_key:'brand/firmes-authorized',mascot_asset_key:'brand/firmes-horse',visual_language:'documentary, restrained burgundy identity, activity-first'},sources:[{id:'firmes-reference',locator:'https://www.facebook.com/people/Firmes-Izabal/61593278846959/',authorization:'explicit',match:'exact',purpose:'reference'},{id:'firmes-video',locator:'https://www.facebook.com/people/Firmes-Izabal/61593278846959/',authorization:'explicit',match:'exact',purpose:'source'}],production_defaults:{aspect_ratio:'9:16',cadence:'weekly',duration_seconds:[8,25]}};
   const tenant=await api('/tenants',{method:'POST',data:{profile}}),base='/tenants/'+tenant.tenant_id;
   const evidence=await context.request.post(origin+'/api/v1'+base+'/sources/firmes-reference/evidence',{headers:{Origin:origin,'Content-Type':'text/plain'},data:'Authorized FIRMES Izabal reference observation for isolated V2 UI verification.'});assert.ok(evidence.ok());const evidenceSha=(await evidence.json()).data.sha256;

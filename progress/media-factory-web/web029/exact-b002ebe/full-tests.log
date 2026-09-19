@@ -1,0 +1,1132 @@
+TAP version 13
+# Subtest: requires fail-closed read-only policy
+ok 1 - requires fail-closed read-only policy
+  ---
+  duration_ms: 0.574125
+  type: 'test'
+  ...
+# Subtest: authorizes only the explicit source scope
+ok 2 - authorizes only the explicit source scope
+  ---
+  duration_ms: 0.257208
+  type: 'test'
+  ...
+# Subtest: rejects browser mutation and credential-bearing locators
+ok 3 - rejects browser mutation and credential-bearing locators
+  ---
+  duration_ms: 0.802167
+  type: 'test'
+  ...
+# Subtest: sanitizes observations to bounded public evidence fields
+ok 4 - sanitizes observations to bounded public evidence fields
+  ---
+  duration_ms: 0.959084
+  type: 'test'
+  ...
+# Subtest: registers mediaBrowserPolicy through Cordis provide
+ok 5 - registers mediaBrowserPolicy through Cordis provide
+  ---
+  duration_ms: 0.085709
+  type: 'test'
+  ...
+# Subtest: configuration may narrow but never widen the read-only allowlist
+ok 6 - configuration may narrow but never widen the read-only allowlist
+  ---
+  duration_ms: 0.069208
+  type: 'test'
+  ...
+# Subtest: prefix authorization is path-bounded and sensitive locators are rejected
+ok 7 - prefix authorization is path-bounded and sensitive locators are rejected
+  ---
+  duration_ms: 0.313125
+  type: 'test'
+  ...
+# Subtest: fails closed without runtime, pin, or absolute executables
+ok 8 - fails closed without runtime, pin, or absolute executables
+  ---
+  duration_ms: 0.658458
+  type: 'test'
+  ...
+# Subtest: rejects lexical graph path escape before graph command execution
+ok 9 - rejects lexical graph path escape before graph command execution
+  ---
+  duration_ms: 0.301792
+  type: 'test'
+  ...
+# Subtest: rejects canonical symlink escape from projectRoot
+ok 10 - rejects canonical symlink escape from projectRoot
+  ---
+  duration_ms: 4.337916
+  type: 'test'
+  ...
+# Subtest: rejects an events symlink even when its current target is missing
+ok 11 - rejects an events symlink even when its current target is missing
+  ---
+  duration_ms: 0.760375
+  type: 'test'
+  ...
+# Subtest: registers ctx.mediaGraph using Cordis provide()
+ok 12 - registers ctx.mediaGraph using Cordis provide()
+  ---
+  duration_ms: 0.134667
+  type: 'test'
+  ...
+# Subtest: uses argv flag=value framing and optimistic concurrency without a shell
+ok 13 - uses argv flag=value framing and optimistic concurrency without a shell
+  ---
+  duration_ms: 1.62375
+  type: 'test'
+  ...
+# Subtest: omits --evidence when a non-passing gate has no evidence ids
+ok 14 - omits --evidence when a non-passing gate has no evidence ids
+  ---
+  duration_ms: 1.379834
+  type: 'test'
+  ...
+# Subtest: sanitizes git and python environments
+ok 15 - sanitizes git and python environments
+  ---
+  duration_ms: 1.834209
+  type: 'test'
+  ...
+# Subtest: rejects a drifted Graph Harness runtime revision
+ok 16 - rejects a drifted Graph Harness runtime revision
+  ---
+  duration_ms: 0.585167
+  type: 'test'
+  ...
+# Subtest: integration: real Graph Harness exposes BRIEF flow and SOURCE readiness
+ok 17 - integration: real Graph Harness exposes BRIEF flow and SOURCE readiness # SKIP
+  ---
+  duration_ms: 0.29675
+  type: 'test'
+  ...
+# Subtest: reference observation keeps provenance separate from source copy
+ok 18 - reference observation keeps provenance separate from source copy
+  ---
+  duration_ms: 2.952625
+  type: 'test'
+  ...
+# Subtest: content DNA contains abstractions but not reference bytes or locators
+ok 19 - content DNA contains abstractions but not reference bytes or locators
+  ---
+  duration_ms: 1.148959
+  type: 'test'
+  ...
+# Subtest: content DNA provenance references a structured observation from the same tenant
+ok 20 - content DNA provenance references a structured observation from the same tenant
+  ---
+  duration_ms: 1.093208
+  type: 'test'
+  ...
+# Subtest: schemas fail closed on undeclared fields
+ok 21 - schemas fail closed on undeclared fields
+  ---
+  duration_ms: 1.466042
+  type: 'test'
+  ...
+# Subtest: story devices use a controlled abstraction vocabulary
+ok 22 - story devices use a controlled abstraction vocabulary
+  ---
+  duration_ms: 0.583334
+  type: 'test'
+  ...
+# Subtest: accepts the canonical safe Seedance 2.5 policy
+ok 23 - accepts the canonical safe Seedance 2.5 policy
+  ---
+  duration_ms: 0.57525
+  type: 'test'
+  ...
+# Subtest: rejects credit spend without a human gate
+ok 24 - rejects credit spend without a human gate
+  ---
+  duration_ms: 0.167875
+  type: 'test'
+  ...
+# Subtest: rejects synthetic factual-event reconstruction
+ok 25 - rejects synthetic factual-event reconstruction
+  ---
+  duration_ms: 0.059625
+  type: 'test'
+  ...
+# Subtest: rejects undeclared synthetic use classes
+ok 26 - rejects undeclared synthetic use classes
+  ---
+  duration_ms: 0.060792
+  type: 'test'
+  ...
+# Subtest: accepts a reusable general-audience tenant profile
+ok 27 - accepts a reusable general-audience tenant profile
+  ---
+  duration_ms: 1.629375
+  type: 'test'
+  ...
+# Subtest: rejects raw credentials and browser session material at any depth
+ok 28 - rejects raw credentials and browser session material at any depth
+  ---
+  duration_ms: 0.301292
+  type: 'test'
+  ...
+# Subtest: browser context references are opaque and tenant-owned
+ok 29 - browser context references are opaque and tenant-owned
+  ---
+  duration_ms: 0.270541
+  type: 'test'
+  ...
+# Subtest: runtime namespaces and tenant IDs cannot collide
+ok 30 - runtime namespaces and tenant IDs cannot collide
+  ---
+  duration_ms: 0.347084
+  type: 'test'
+  ...
+# Subtest: public-affairs profiles remain general-audience and cannot enable voter microtargeting
+ok 31 - public-affairs profiles remain general-audience and cannot enable voter microtargeting
+  ---
+  duration_ms: 0.178584
+  type: 'test'
+  ...
+# Subtest: source authorization is explicit, unique, and secret-free
+ok 32 - source authorization is explicit, unique, and secret-free
+  ---
+  duration_ms: 0.308958
+  type: 'test'
+  ...
+# Subtest: production defaults require an ascending positive duration range
+ok 33 - production defaults require an ascending positive duration range
+  ---
+  duration_ms: 0.08625
+  type: 'test'
+  ...
+# Subtest: registers tenant service through Cordis provide
+ok 34 - registers tenant service through Cordis provide
+  ---
+  duration_ms: 0.095375
+  type: 'test'
+  ...
+# Subtest: authorization is semantic only inside a declared source record
+ok 35 - authorization is semantic only inside a declared source record
+  ---
+  duration_ms: 0.266125
+  type: 'test'
+  ...
+# Subtest: two distinct tenants can safely share the reusable engine
+ok 36 - two distinct tenants can safely share the reusable engine
+  ---
+  duration_ms: 0.725291
+  type: 'test'
+  ...
+# Subtest: builds a weekly video-production plan from tenant + DNA + approved stories
+ok 37 - builds a weekly video-production plan from tenant + DNA + approved stories
+  ---
+  duration_ms: 4.841375
+  type: 'test'
+  ...
+# Subtest: production jobs cannot treat a reference-only source as production media
+ok 38 - production jobs cannot treat a reference-only source as production media
+  ---
+  duration_ms: 1.656042
+  type: 'test'
+  ...
+# Subtest: rejects unknown sources and story devices outside Content DNA
+ok 39 - rejects unknown sources and story devices outside Content DNA
+  ---
+  duration_ms: 1.414417
+  type: 'test'
+  ...
+# Subtest: rejects unapproved stories and undeclared story fields
+ok 40 - rejects unapproved stories and undeclared story fields
+  ---
+  duration_ms: 1.107458
+  type: 'test'
+  ...
+# Subtest: rejects cross-tenant DNA and copying-policy drift
+ok 41 - rejects cross-tenant DNA and copying-policy drift
+  ---
+  duration_ms: 1.1335
+  type: 'test'
+  ...
+# Subtest: rejects invalid dates, duplicate job ids, and duplicate source ids
+ok 42 - rejects invalid dates, duplicate job ids, and duplicate source ids
+  ---
+  duration_ms: 1.437541
+  type: 'test'
+  ...
+# Subtest: source snapshot contains only production sources actually used by the weekly jobs
+ok 43 - source snapshot contains only production sources actually used by the weekly jobs
+  ---
+  duration_ms: 1.480541
+  type: 'test'
+  ...
+# Subtest: registers weekly factory through Cordis provide
+ok 44 - registers weekly factory through Cordis provide
+  ---
+  duration_ms: 0.113
+  type: 'test'
+  ...
+# Subtest: weekly planner requires weekly cadence, Monday boundary, and unique DNA references
+ok 45 - weekly planner requires weekly cadence, Monday boundary, and unique DNA references
+  ---
+  duration_ms: 1.315
+  type: 'test'
+  ...
+# Subtest: artifact download advertises byte ranges and preserves full-file integrity metadata
+ok 46 - artifact download advertises byte ranges and preserves full-file integrity metadata
+  ---
+  duration_ms: 106.30525
+  type: 'test'
+  ...
+# Subtest: single ranges return exact closed, open-ended and suffix bytes with clamped boundaries
+ok 47 - single ranges return exact closed, open-ended and suffix bytes with clamped boundaries
+  ---
+  duration_ms: 95.39025
+  type: 'test'
+  ...
+# Subtest: invalid and unsatisfiable single byte ranges return bounded 416 responses
+ok 48 - invalid and unsatisfiable single byte ranges return bounded 416 responses
+  ---
+  duration_ms: 175.154875
+  type: 'test'
+  ...
+# Subtest: If-Range requires the strong current ETag; unknown units and multipart fall back to full bytes
+ok 49 - If-Range requires the strong current ETag; unknown units and multipart fall back to full bytes
+  ---
+  duration_ms: 83.987
+  type: 'test'
+  ...
+# Subtest: range requests enforce fresh session and tenant authorization before revealing metadata
+ok 50 - range requests enforce fresh session and tenant authorization before revealing metadata
+  ---
+  duration_ms: 85.964125
+  type: 'test'
+  ...
+# Subtest: range processing cannot bypass the artifact integrity gate
+ok 51 - range processing cannot bypass the artifact integrity gate
+  ---
+  duration_ms: 77.961958
+  type: 'test'
+  ...
+# Subtest: FIRMES seeds a reusable avatar catalog without fabricating missing turnaround views
+ok 52 - FIRMES seeds a reusable avatar catalog without fabricating missing turnaround views
+  ---
+  duration_ms: 1.748583
+  type: 'test'
+  ...
+# Subtest: beach avatar compiles sunglasses, flip-flops, walking and mandatory FIRMES marker
+ok 53 - beach avatar compiles sunglasses, flip-flops, walking and mandatory FIRMES marker
+  ---
+  duration_ms: 1.888
+  type: 'test'
+  ...
+# Subtest: space avatar preserves FIRMES identity while allowing a requested space helmet
+ok 54 - space avatar preserves FIRMES identity while allowing a requested space helmet
+  ---
+  duration_ms: 1.025083
+  type: 'test'
+  ...
+# Subtest: incompatible add-ons and cross-tenant avatar references fail closed
+ok 55 - incompatible add-ons and cross-tenant avatar references fail closed
+  ---
+  duration_ms: 0.500334
+  type: 'test'
+  ...
+# Subtest: avatar authority drift invalidates a previously compiled job
+ok 56 - avatar authority drift invalidates a previously compiled job
+  ---
+  duration_ms: 0.756458
+  type: 'test'
+  ...
+# Subtest: avatar critic and external package bind identity, marker, add-ons, motion and exact contract hash
+ok 57 - avatar critic and external package bind identity, marker, add-ons, motion and exact contract hash
+  ---
+  duration_ms: 0.958458
+  type: 'test'
+  ...
+# Subtest: MCP-ready avatar tools are deterministic and share the product authority
+ok 58 - MCP-ready avatar tools are deterministic and share the product authority
+  ---
+  duration_ms: 1.075625
+  type: 'test'
+  ...
+# Subtest: avatar authority rejects contradictory hard constraints and makes lower-priority overrides explicit
+ok 59 - avatar authority rejects contradictory hard constraints and makes lower-priority overrides explicit
+  ---
+  duration_ms: 0.892458
+  type: 'test'
+  ...
+# Subtest: intentional space/construction gear is not accidentally prohibited by the identity-source cleanup rule
+ok 60 - intentional space/construction gear is not accidentally prohibited by the identity-source cleanup rule
+  ---
+  duration_ms: 1.340333
+  type: 'test'
+  ...
+# Subtest: MCP critic plan fails closed after avatar catalog authority drifts
+ok 61 - MCP critic plan fails closed after avatar catalog authority drifts
+  ---
+  duration_ms: 0.842167
+  type: 'test'
+  ...
+# Subtest: avatar outfit or add-on cannot silently contradict target-environment exclusions
+ok 62 - avatar outfit or add-on cannot silently contradict target-environment exclusions
+  ---
+  duration_ms: 0.595583
+  type: 'test'
+  ...
+# Subtest: FIRMES V2 is tenant scoped, manual-derived and reduced-motion safe
+ok 63 - FIRMES V2 is tenant scoped, manual-derived and reduced-motion safe
+  ---
+  duration_ms: 4.261917
+  type: 'test'
+  ...
+# Subtest: FIRMES brand memory binds the exact private reference without shipping it
+ok 64 - FIRMES brand memory binds the exact private reference without shipping it
+  ---
+  duration_ms: 0.974875
+  type: 'test'
+  ...
+# Subtest: live legacy caballito tenant activates FIRMES globally and ships the authorized horse asset
+ok 65 - live legacy caballito tenant activates FIRMES globally and ships the authorized horse asset
+  ---
+  duration_ms: 1.176625
+  type: 'test'
+  ...
+# Subtest: running production lands in a truthful celebratory creation room
+ok 66 - running production lands in a truthful celebratory creation room
+  ---
+  duration_ms: 2.759916
+  type: 'test'
+  ...
+# Subtest: desktop top utility row cannot overlap creative content
+ok 67 - desktop top utility row cannot overlap creative content
+  ---
+  duration_ms: 1.095375
+  type: 'test'
+  ...
+# Subtest: source upload uses a glowing file card while preserving the native file input contract
+ok 68 - source upload uses a glowing file card while preserving the native file input contract
+  ---
+  duration_ms: 0.635458
+  type: 'test'
+  ...
+# Subtest: free creation uses the warm prompt bar and liquid-metal creation actions
+ok 69 - free creation uses the warm prompt bar and liquid-metal creation actions
+  ---
+  duration_ms: 1.866584
+  type: 'test'
+  ...
+# Subtest: review summary protects long resource chips from collisions
+ok 70 - review summary protects long resource chips from collisions
+  ---
+  duration_ms: 0.792459
+  type: 'test'
+  ...
+# Subtest: mascot and place snapshots reach actual human treatment review, then block unsupported composition before generation
+ok 71 - mascot and place snapshots reach actual human treatment review, then block unsupported composition before generation
+  ---
+  duration_ms: 3023.63796
+  type: 'test'
+  ...
+# Subtest: system API administration requires explicit live authority, not workspace owner or creator
+ok 72 - system API administration requires explicit live authority, not workspace owner or creator
+  ---
+  duration_ms: 152.924958
+  type: 'test'
+  ...
+# Subtest: host operator fallback exposes global administration without granting it to arbitrary configured identities
+ok 73 - host operator fallback exposes global administration without granting it to arbitrary configured identities
+  ---
+  duration_ms: 140.943417
+  type: 'test'
+  ...
+# Subtest: credentials persist encrypted, rotate/remove, and never activate adapters or enter product state
+ok 74 - credentials persist encrypted, rotate/remove, and never activate adapters or enter product state
+  ---
+  duration_ms: 102.558209
+  type: 'test'
+  ...
+# Subtest: vault corruption and missing/wrong/symlink keys fail closed without overwriting stored credentials
+ok 75 - vault corruption and missing/wrong/symlink keys fail closed without overwriting stored credentials
+  ---
+  duration_ms: 90.717
+  type: 'test'
+  ...
+# Subtest: concurrent first vault writes preserve all providers and ciphertext is bound to its provider
+ok 76 - concurrent first vault writes preserve all providers and ciphertext is bound to its provider
+  ---
+  duration_ms: 88.440458
+  type: 'test'
+  ...
+# Subtest: admin HTTP keeps CSRF, anonymous/outsider denial and rejects unknown endpoints/oversized secret fields
+ok 77 - admin HTTP keeps CSRF, anonymous/outsider denial and rejects unknown endpoints/oversized secret fields
+  ---
+  duration_ms: 94.999667
+  type: 'test'
+  ...
+# Subtest: fictional character/place profiles enforce scope and authorization and freeze in plan/job snapshots
+ok 78 - fictional character/place profiles enforce scope and authorization and freeze in plan/job snapshots
+  ---
+  duration_ms: 101.430709
+  type: 'test'
+  ...
+# Subtest: journey distinguishes a registered link, available media, draft, queued work and review without fake progress
+ok 79 - journey distinguishes a registered link, available media, draft, queued work and review without fake progress
+  ---
+  duration_ms: 83.741833
+  type: 'test'
+  ...
+# Subtest: new admin and profile pages are private metadata routes
+ok 80 - new admin and profile pages are private metadata routes
+  ---
+  duration_ms: 0.205958
+  type: 'test'
+  ...
+# Subtest: fixer: queued admin writes recheck revoked authority before committing
+ok 81 - fixer: queued admin writes recheck revoked authority before committing
+  ---
+  duration_ms: 85.027292
+  type: 'test'
+  ...
+# Subtest: fixer: explicit budget clear differs from omission
+ok 82 - fixer: explicit budget clear differs from omission
+  ---
+  duration_ms: 87.402167
+  type: 'test'
+  ...
+# Subtest: fixer: malformed GCM envelopes reject truncated tags IVs and noncanonical encoding
+ok 83 - fixer: malformed GCM envelopes reject truncated tags IVs and noncanonical encoding
+  ---
+  duration_ms: 89.792125
+  type: 'test'
+  ...
+# Subtest: fixer: Free Mode resolves principal fictional profile and plan links recover exact drafts
+ok 84 - fixer: Free Mode resolves principal fictional profile and plan links recover exact drafts
+  ---
+  duration_ms: 95.52175
+  type: 'test'
+  ...
+# Subtest: fixer: oversized UTF8 key rejected before storage and permitted maximum remains readable
+ok 85 - fixer: oversized UTF8 key rejected before storage and permitted maximum remains readable
+  ---
+  duration_ms: 82.202459
+  type: 'test'
+  ...
+# Subtest: actual pinned Graph runs to hash-bound treatment and release; fixture evidence stays test-labeled
+ok 86 - actual pinned Graph runs to hash-bound treatment and release; fixture evidence stays test-labeled
+  ---
+  duration_ms: 6383.383211
+  type: 'test'
+  ...
+# Subtest: cross-tenant actions and artifacts fail before data access; viewers cannot approve
+ok 87 - cross-tenant actions and artifacts fail before data access; viewers cannot approve
+  ---
+  duration_ms: 2023.713417
+  type: 'test'
+  ...
+# Subtest: localized repair invalidates candidate and descendants while preserving ingested upstream
+ok 88 - localized repair invalidates candidate and descendants while preserving ingested upstream
+  ---
+  duration_ms: 3453.975877
+  type: 'test'
+  ...
+# Subtest: source authorization and DNA changes invalidate human approval
+ok 89 - source authorization and DNA changes invalidate human approval
+  ---
+  duration_ms: 2328.665501
+  type: 'test'
+  ...
+# Subtest: restart recovery and double start preserve one Graph history
+ok 90 - restart recovery and double start preserve one Graph history
+  ---
+  duration_ms: 2214.99796
+  type: 'test'
+  ...
+# Subtest: production missing source bytes is blocked in actual Graph, no fixture adapter exposed
+ok 91 - production missing source bytes is blocked in actual Graph, no fixture adapter exposed
+  ---
+  duration_ms: 1052.540167
+  type: 'test'
+  ...
+# Subtest: blocked production resumes the same Graph after its missing authorized video is uploaded
+ok 92 - blocked production resumes the same Graph after its missing authorized video is uploaded
+  ---
+  duration_ms: 2810.109585
+  type: 'test'
+  ...
+# Subtest: media inspection rejects playlists and local or network indirection before ffprobe
+ok 93 - media inspection rejects playlists and local or network indirection before ffprobe
+  ---
+  duration_ms: 7.16525
+  type: 'test'
+  ...
+# Subtest: provider failure remains a blocker and cannot create release evidence
+ok 94 - provider failure remains a blocker and cannot create release evidence
+  ---
+  duration_ms: 3287.055044
+  type: 'test'
+  ...
+# Subtest: real footage adapter preserves all selected sources, target dimensions, and ambient audio
+ok 95 - real footage adapter preserves all selected sources, target dimensions, and ambient audio
+  ---
+  duration_ms: 472.9775
+  type: 'test'
+  ...
+# Subtest: production uploaded media binds creative candidate, separate real reviewers, and final release
+ok 96 - production uploaded media binds creative candidate, separate real reviewers, and final release
+  ---
+  duration_ms: 8356.741129
+  type: 'test'
+  ...
+# Subtest: same fixture bytes after localized media repair receive a fresh candidate scope
+ok 97 - same fixture bytes after localized media repair receive a fresh candidate scope
+  ---
+  duration_ms: 9294.382546
+  type: 'test'
+  ...
+# Subtest: approval intent survives a crash after Graph approval and resumes without a second decision
+ok 98 - approval intent survives a crash after Graph approval and resumes without a second decision
+  ---
+  duration_ms: 5616.424877
+  type: 'test'
+  ...
+# Subtest: production arbitrary creative repair remains manual and never silently rerenders
+ok 99 - production arbitrary creative repair remains manual and never silently rerenders
+  ---
+  duration_ms: 2078.338876
+  type: 'test'
+  ...
+# Subtest: manual creative blocker can be explicitly withdrawn on the same production without claiming the edit was applied
+ok 100 - manual creative blocker can be explicitly withdrawn on the same production without claiming the edit was applied
+  ---
+  duration_ms: 5726.753086
+  type: 'test'
+  ...
+# Subtest: stable artifact candidate is shared by verifier and release, with stage replay rejected
+ok 101 - stable artifact candidate is shared by verifier and release, with stage replay rejected
+  ---
+  duration_ms: 5404.829753
+  type: 'test'
+  ...
+# Subtest: mascot request reaches human creative review, then fails closed before unsupported composition
+ok 102 - mascot request reaches human creative review, then fails closed before unsupported composition
+  ---
+  duration_ms: 2932.256293
+  type: 'test'
+  ...
+# Subtest: actual adapter paid capability or nonzero estimate is blocked before generate
+ok 103 - actual adapter paid capability or nonzero estimate is blocked before generate
+  ---
+  duration_ms: 3003.373876
+  type: 'test'
+  ...
+# Subtest: repair intent survives a crash after Graph invalidation without duplicating repair plans
+ok 104 - repair intent survives a crash after Graph invalidation without duplicating repair plans
+  ---
+  duration_ms: 3093.511835
+  type: 'test'
+  ...
+# Subtest: kernel job lease excludes concurrent workers and ignores obsolete dead reclaim files
+ok 105 - kernel job lease excludes concurrent workers and ignores obsolete dead reclaim files
+  ---
+  duration_ms: 19.195333
+  type: 'test'
+  ...
+# Subtest: rejection intent survives a crash after blocking Graph and becomes terminal on recovery
+ok 106 - rejection intent survives a crash after blocking Graph and becomes terminal on recovery
+  ---
+  duration_ms: 2281.818751
+  type: 'test'
+  ...
+# Subtest: changed provider provenance invalidates review before Graph approval or release
+ok 107 - changed provider provenance invalidates review before Graph approval or release
+  ---
+  duration_ms: 5433.083335
+  type: 'test'
+  ...
+# Subtest: provenance drift during approval cannot enter the immutable release snapshot
+ok 108 - provenance drift during approval cannot enter the immutable release snapshot
+  ---
+  duration_ms: 6556.256337
+  type: 'test'
+  ...
+# Subtest: requested repair clears current output provenance and keeps historical artifact bytes
+ok 109 - requested repair clears current output provenance and keeps historical artifact bytes
+  ---
+  duration_ms: 5716.385961
+  type: 'test'
+  ...
+# Subtest: blocked mascot production can be explicitly repaired to real footage on the same Graph and requires fresh review
+ok 110 - blocked mascot production can be explicitly repaired to real footage on the same Graph and requires fresh review
+  ---
+  duration_ms: 4040.152211
+  type: 'test'
+  ...
+# Subtest: blocked production repair is role-bound and rejects unsupported mutations
+ok 111 - blocked production repair is role-bound and rejects unsupported mutations
+  ---
+  duration_ms: 3118.073251
+  type: 'test'
+  ...
+# Subtest: source-too-short blocker has an explicit same-job duration-fit repair and fresh creative review
+ok 112 - source-too-short blocker has an explicit same-job duration-fit repair and fresh creative review
+  ---
+  duration_ms: 4614.39096
+  type: 'test'
+  ...
+# Subtest: authorized FIRMES caballito is composited by the local zero-credit adapter with immutable brand provenance
+ok 113 - authorized FIRMES caballito is composited by the local zero-credit adapter with immutable brand provenance
+  ---
+  duration_ms: 5234.81921
+  type: 'test'
+  ...
+# Subtest: critic request to add the FIRMES caballito is executed on the same job instead of entering the manual blocker
+ok 114 - critic request to add the FIRMES caballito is executed on the same job instead of entering the manual blocker
+  ---
+  duration_ms: 8411.802171
+  type: 'test'
+  ...
+# Subtest: legacy manual blocker for the exact Caballito request can be upgraded and applied on the same job
+ok 115 - legacy manual blocker for the exact Caballito request can be upgraded and applied on the same job
+  ---
+  duration_ms: 8469.672504
+  type: 'test'
+  ...
+# Subtest: negated mascot add language is not silently treated as an executable add request
+ok 116 - negated mascot add language is not silently treated as an executable add request
+  ---
+  duration_ms: 4290.01596
+  type: 'test'
+  ...
+# Subtest: creative approval rejects treatment drift after the exact caballito asset was hash-bound
+ok 117 - creative approval rejects treatment drift after the exact caballito asset was hash-bound
+  ---
+  duration_ms: 2128.351001
+  type: 'test'
+  ...
+# Subtest: FIRMES favicon family is app-discoverable and derived without mutating the authorized Caballito asset
+ok 118 - FIRMES favicon family is app-discoverable and derived without mutating the authorized Caballito asset
+  ---
+  duration_ms: 4.605167
+  type: 'test'
+  ...
+# Subtest: existing host login, forward auth, exact workspace probe, logout and revocation share product session
+ok 119 - existing host login, forward auth, exact workspace probe, logout and revocation share product session
+  ---
+  duration_ms: 69.253791
+  type: 'test'
+  ...
+# Subtest: story editor presents the default brand avatar as one atomic visual character decision
+ok 120 - story editor presents the default brand avatar as one atomic visual character decision
+  ---
+  duration_ms: 2.740667
+  type: 'test'
+  ...
+# Subtest: creative review uses compact human summary and leaves raw candidate data behind a disclosure
+ok 121 - creative review uses compact human summary and leaves raw candidate data behind a disclosure
+  ---
+  duration_ms: 1.140917
+  type: 'test'
+  ...
+# Subtest: human review asks for a decision before exposing the change composer
+ok 122 - human review asks for a decision before exposing the change composer
+  ---
+  duration_ms: 1.461167
+  type: 'test'
+  ...
+# Subtest: V6 responsive styles support avatar cards, compact summary and progressive review
+ok 123 - V6 responsive styles support avatar cards, compact summary and progressive review
+  ---
+  duration_ms: 0.866125
+  type: 'test'
+  ...
+# Subtest: single-brand quick create bypasses redundant brand submenu
+ok 124 - single-brand quick create bypasses redundant brand submenu
+  ---
+  duration_ms: 2.634375
+  type: 'test'
+  ...
+# Subtest: desktop navigation exposes four primary actions and collapses brand setup
+ok 125 - desktop navigation exposes four primary actions and collapses brand setup
+  ---
+  duration_ms: 0.820875
+  type: 'test'
+  ...
+# Subtest: liquid-glass menus use layered blur, rim, highlight and reduced-motion safety
+ok 126 - liquid-glass menus use layered blur, rim, highlight and reduced-motion safety
+  ---
+  duration_ms: 1.32725
+  type: 'test'
+  ...
+# Subtest: provider provenance records consumed bytes and excludes private adapter metadata
+ok 127 - provider provenance records consumed bytes and excludes private adapter metadata
+  ---
+  duration_ms: 0.802583
+  type: 'test'
+  ...
+# Subtest: provider cannot claim other sources, omit selected bytes, or relabel an adapter
+ok 128 - provider cannot claim other sources, omit selected bytes, or relabel an adapter
+  ---
+  duration_ms: 0.296375
+  type: 'test'
+  ...
+# Subtest: brand-asset provenance is one-to-one bound to the authorized runtime input
+ok 129 - brand-asset provenance is one-to-one bound to the authorized runtime input
+  ---
+  duration_ms: 0.260709
+  type: 'test'
+  ...
+# Subtest: test origin remains explicit and cannot be represented as consumed customer footage
+ok 130 - test origin remains explicit and cannot be represented as consumed customer footage
+  ---
+  duration_ms: 0.06525
+  type: 'test'
+  ...
+# Subtest: job and tenant-authorized release expose immutable reviewed provenance, not mutable job state
+ok 131 - job and tenant-authorized release expose immutable reviewed provenance, not mutable job state
+  ---
+  duration_ms: 9.352791
+  type: 'test'
+  ...
+# Subtest: private onboarding and brand start routes are recognized without becoming public
+ok 132 - private onboarding and brand start routes are recognized without becoming public
+  ---
+  duration_ms: 0.4025
+  type: 'test'
+  ...
+# Subtest: studio exposes guide, brand summary, and role-aware brand administration
+ok 133 - studio exposes guide, brand summary, and role-aware brand administration
+  ---
+  duration_ms: 3.461166
+  type: 'test'
+  ...
+# Subtest: login enters first-run guide only when server says onboarding is new
+ok 134 - login enters first-run guide only when server says onboarding is new
+  ---
+  duration_ms: 0.556333
+  type: 'test'
+  ...
+# Subtest: V8 guidance stays compact, responsive, and uses human brand vocabulary
+ok 135 - V8 guidance stays compact, responsive, and uses human brand vocabulary
+  ---
+  duration_ms: 1.660208
+  type: 'test'
+  ...
+# Subtest: first-run completion persists per authenticated user and cannot target another user
+ok 136 - first-run completion persists per authenticated user and cannot target another user
+  ---
+  duration_ms: 97.813666
+  type: 'test'
+  ...
+# Subtest: onboarding tenant summary exposes only membership-bound safe brand facts
+ok 137 - onboarding tenant summary exposes only membership-bound safe brand facts
+  ---
+  duration_ms: 89.488917
+  type: 'test'
+  ...
+# Subtest: dismissed guide persists without changing tenant authority or membership
+ok 138 - dismissed guide persists without changing tenant authority or membership
+  ---
+  duration_ms: 87.498584
+  type: 'test'
+  ...
+# Subtest: repository upgrades older state documents with user_onboarding lazily
+ok 139 - repository upgrades older state documents with user_onboarding lazily
+  ---
+  duration_ms: 74.855166
+  type: 'test'
+  ...
+# Subtest: onboarding HTTP remains authenticated and CSRF-protected
+ok 140 - onboarding HTTP remains authenticated and CSRF-protected
+  ---
+  duration_ms: 98.515334
+  type: 'test'
+  ...
+# Subtest: legacy active users are recognized as returning instead of being force-onboarded
+ok 141 - legacy active users are recognized as returning instead of being force-onboarded
+  ---
+  duration_ms: 82.715834
+  type: 'test'
+  ...
+# Subtest: operator provisioning uses interoperable private verifiers and preserves an existing identity
+ok 142 - operator provisioning uses interoperable private verifiers and preserves an existing identity
+  ---
+  duration_ms: 110.633
+  type: 'test'
+  ...
+# Subtest: configured FFmpeg registry agrees with executable strategies and rejects hybrid preference
+ok 143 - configured FFmpeg registry agrees with executable strategies and rejects hybrid preference
+  ---
+  duration_ms: 1.261458
+  type: 'test'
+  ...
+# Subtest: runtime allowlist omits traces and source evidence, protects existing destinations, rejects escaping dependencies
+ok 144 - runtime allowlist omits traces and source evidence, protects existing destinations, rejects escaping dependencies
+  ---
+  duration_ms: 43.084875
+  type: 'test'
+  ...
+# Subtest: FIRMES resolves immutable default mascot across asset, character and tenant profile layers
+ok 145 - FIRMES resolves immutable default mascot across asset, character and tenant profile layers
+  ---
+  duration_ms: 5.128
+  type: 'test'
+  ...
+# Subtest: structured compiler is deterministic, separates reference roles and keeps operator override provenance
+ok 146 - structured compiler is deterministic, separates reference roles and keeps operator override provenance
+  ---
+  duration_ms: 3.292333
+  type: 'test'
+  ...
+# Subtest: reference role and authorization drift invalidate a compiled scene even when bytes are unchanged
+ok 147 - reference role and authorization drift invalidate a compiled scene even when bytes are unchanged
+  ---
+  duration_ms: 1.556375
+  type: 'test'
+  ...
+# Subtest: default is optional, cross-tenant character IDs and wrong reference roles fail closed
+ok 148 - default is optional, cross-tenant character IDs and wrong reference roles fail closed
+  ---
+  duration_ms: 0.784208
+  type: 'test'
+  ...
+# Subtest: generic tenant does not require a FIRMES character and receives neutral preset labels
+ok 149 - generic tenant does not require a FIRMES character and receives neutral preset labels
+  ---
+  duration_ms: 0.199958
+  type: 'test'
+  ...
+# Subtest: provider registry exposes manual external as operational and unconfigured generators truthfully
+ok 150 - provider registry exposes manual external as operational and unconfigured generators truthfully
+  ---
+  duration_ms: 0.107625
+  type: 'test'
+  ...
+# Subtest: external package changes from hero-image creation to exact approved hero animation
+ok 151 - external package changes from hero-image creation to exact approved hero animation
+  ---
+  duration_ms: 0.8365
+  type: 'test'
+  ...
+# Subtest: scene-reference identity is role-bound and non-editors cannot upload references
+ok 152 - scene-reference identity is role-bound and non-editors cannot upload references
+  ---
+  duration_ms: 183.178334
+  type: 'test'
+  ...
+# Subtest: manual external generation resumes the same job, critic repair regenerates, verifier and release bind the exact accepted SHA
+ok 153 - manual external generation resumes the same job, critic repair regenerates, verifier and release bind the exact accepted SHA
+  ---
+  duration_ms: 9184.210462
+  type: 'test'
+  ...
+# Subtest: video scene is image-first and the approved hero SHA becomes an explicit animation input in the same job
+ok 154 - video scene is image-first and the approved hero SHA becomes an explicit animation input in the same job
+  ---
+  duration_ms: 6316.492419
+  type: 'test'
+  ...
+# Subtest: authentication preserves password bytes, revokes changed identity and starts without tenants
+ok 155 - authentication preserves password bytes, revokes changed identity and starts without tenants
+  ---
+  duration_ms: 116.965209
+  type: 'test'
+  ...
+# Subtest: tenant membership enforced for reads/writes and onboarding has no fake source
+ok 156 - tenant membership enforced for reads/writes and onboarding has no fake source
+  ---
+  duration_ms: 95.73075
+  type: 'test'
+  ...
+# Subtest: strict source/reference separation, provenance and secret validation
+ok 157 - strict source/reference separation, provenance and secret validation
+  ---
+  duration_ms: 98.906708
+  type: 'test'
+  ...
+# Subtest: private, browser and signed source locators are rejected
+ok 158 - private, browser and signed source locators are rejected
+  ---
+  duration_ms: 0.619166
+  type: 'test'
+  ...
+# Subtest: plans reject injected approval and produce same id under concurrent requests
+ok 159 - plans reject injected approval and produce same id under concurrent requests
+  ---
+  duration_ms: 115.251625
+  type: 'test'
+  ...
+# Subtest: source/DNA changes invalidate plans and idempotency includes strategy
+ok 160 - source/DNA changes invalidate plans and idempotency includes strategy
+  ---
+  duration_ms: 115.006916
+  type: 'test'
+  ...
+# Subtest: Free Mode exact mixed Spanish example becomes four unapproved concepts, no-AI remains real
+ok 161 - Free Mode exact mixed Spanish example becomes four unapproved concepts, no-AI remains real
+  ---
+  duration_ms: 110.601416
+  type: 'test'
+  ...
+# Subtest: targeted political or sensitive persuasion cannot enter plans/intent
+ok 162 - targeted political or sensitive persuasion cannot enter plans/intent
+  ---
+  duration_ms: 82.9355
+  type: 'test'
+  ...
+# Subtest: HTTP cookies, CSRF, malformed body, path traversal and safe errors
+ok 163 - HTTP cookies, CSRF, malformed body, path traversal and safe errors
+  ---
+  duration_ms: 113.00225
+  type: 'test'
+  ...
+# Subtest: repository serializes separate instances and rejects symlink state
+ok 164 - repository serializes separate instances and rejects symlink state
+  ---
+  duration_ms: 28.628167
+  type: 'test'
+  ...
+# Subtest: SSE rejects unauthorized reads and pushes durable state updates
+ok 165 - SSE rejects unauthorized reads and pushes durable state updates
+  ---
+  duration_ms: 94.257791
+  type: 'test'
+  ...
+# Subtest: HTTP rejects declared and streamed oversized JSON before parsing
+ok 166 - HTTP rejects declared and streamed oversized JSON before parsing
+  ---
+  duration_ms: 73.275459
+  type: 'test'
+  ...
+# Subtest: viewer cannot approve concepts and configured identity roles override persisted memberships
+ok 167 - viewer cannot approve concepts and configured identity roles override persisted memberships
+  ---
+  duration_ms: 83.070792
+  type: 'test'
+  ...
+# Subtest: reference DNA requires evidence bytes actually stored for the selected reference
+ok 168 - reference DNA requires evidence bytes actually stored for the selected reference
+  ---
+  duration_ms: 83.608542
+  type: 'test'
+  ...
+# Subtest: malformed durable state fails closed with controlled storage error
+ok 169 - malformed durable state fails closed with controlled storage error
+  ---
+  duration_ms: 1.017875
+  type: 'test'
+  ...
+# Subtest: ProductError identity remains stable across independently evaluated server bundles
+ok 170 - ProductError identity remains stable across independently evaluated server bundles
+  ---
+  duration_ms: 0.779583
+  type: 'test'
+  ...
+# Subtest: stored reference evidence tampering invalidates DNA analysis
+ok 171 - stored reference evidence tampering invalidates DNA analysis
+  ---
+  duration_ms: 81.398958
+  type: 'test'
+  ...
+# Subtest: mascot setup binds a selected production source and rejects a reference
+ok 172 - mascot setup binds a selected production source and rejects a reference
+  ---
+  duration_ms: 82.107958
+  type: 'test'
+  ...
+# Subtest: Free Mode respects indirect AI negations and explicit alternative distributions
+ok 173 - Free Mode respects indirect AI negations and explicit alternative distributions
+  ---
+  duration_ms: 85.798083
+  type: 'test'
+  ...
+# Subtest: login concurrency limit reserves capacity before awaiting identity loading
+ok 174 - login concurrency limit reserves capacity before awaiting identity loading
+  ---
+  duration_ms: 114.299084
+  type: 'test'
+  ...
+# Subtest: legacy planner contract rejection returns a controlled HTTP 400
+ok 175 - legacy planner contract rejection returns a controlled HTTP 400
+  ---
+  duration_ms: 80.177958
+  type: 'test'
+  ...
+# Subtest: FIRMES avatar catalog and MCP-ready tool definitions stay membership-bound over HTTP
+ok 176 - FIRMES avatar catalog and MCP-ready tool definitions stay membership-bound over HTTP
+  ---
+  duration_ms: 81.790917
+  type: 'test'
+  ...
+# Subtest: only explicitly published HTTPS production login enters the index and sitemap
+ok 177 - only explicitly published HTTPS production login enters the index and sitemap
+  ---
+  duration_ms: 1.038916
+  type: 'test'
+  ...
+# Subtest: private routes never put tenant or job identities into metadata, canonicals, or sitemap
+ok 178 - private routes never put tenant or job identities into metadata, canonicals, or sitemap
+  ---
+  duration_ms: 0.962875
+  type: 'test'
+  ...
+# Subtest: canonical metadata uses only validated operator origin and ignores URL injection
+ok 179 - canonical metadata uses only validated operator origin and ignores URL injection
+  ---
+  duration_ms: 0.412083
+  type: 'test'
+  ...
+# Subtest: catchall rejects unknown or overlong route shapes without reflecting submitted names
+ok 180 - catchall rejects unknown or overlong route shapes without reflecting submitted names
+  ---
+  duration_ms: 0.178792
+  type: 'test'
+  ...
+# Subtest: llms discovery lists public product facts without private resources or invented integrations
+ok 181 - llms discovery lists public product facts without private resources or invented integrations
+  ---
+  duration_ms: 0.119875
+  type: 'test'
+  ...
+# Subtest: job review route resolves safely and production indexing rejects infrastructure origins
+ok 182 - job review route resolves safely and production indexing rejects infrastructure origins
+  ---
+  duration_ms: 0.266583
+  type: 'test'
+  ...
+# Subtest: published OG and Twitter image use only the controlled imported application asset
+ok 183 - published OG and Twitter image use only the controlled imported application asset
+  ---
+  duration_ms: 0.259834
+  type: 'test'
+  ...
+# Subtest: browser exception call logs redact fixture passwords before reporting
+ok 184 - browser exception call logs redact fixture passwords before reporting
+  ---
+  duration_ms: 0.410208
+  type: 'test'
+  ...
+# Subtest: V4 guided flow auto-persists before preview and keeps approval explicit
+ok 185 - V4 guided flow auto-persists before preview and keeps approval explicit
+  ---
+  duration_ms: 2.571
+  type: 'test'
+  ...
+# Subtest: V4 makes authorized media the primary review and dashboard surface
+ok 186 - V4 makes authorized media the primary review and dashboard surface
+  ---
+  duration_ms: 1.284375
+  type: 'test'
+  ...
+# Subtest: V4 liquid glass and 3D motion remain reduced-motion safe
+ok 187 - V4 liquid glass and 3D motion remain reduced-motion safe
+  ---
+  duration_ms: 1.398
+  type: 'test'
+  ...
+1..187
+# tests 187
+# suites 0
+# pass 186
+# fail 0
+# cancelled 0
+# skipped 1
+# todo 0
+# duration_ms 155179.536364
