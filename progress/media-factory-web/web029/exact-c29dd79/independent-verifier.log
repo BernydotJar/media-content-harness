@@ -1,0 +1,480 @@
+reviewed_sha=c29dd79cac99e15371d8344868f62a8b1b670112
+working_tree=CLEAN
+TAP version 13
+# Subtest: running production lands in a truthful celebratory creation room
+ok 1 - running production lands in a truthful celebratory creation room
+  ---
+  duration_ms: 3.683875
+  type: 'test'
+  ...
+# Subtest: desktop top utility row cannot overlap creative content
+ok 2 - desktop top utility row cannot overlap creative content
+  ---
+  duration_ms: 1.676791
+  type: 'test'
+  ...
+# Subtest: source upload uses a glowing file card while preserving the native file input contract
+ok 3 - source upload uses a glowing file card while preserving the native file input contract
+  ---
+  duration_ms: 0.910625
+  type: 'test'
+  ...
+# Subtest: free creation uses the warm prompt bar and liquid-metal creation actions
+ok 4 - free creation uses the warm prompt bar and liquid-metal creation actions
+  ---
+  duration_ms: 2.007167
+  type: 'test'
+  ...
+# Subtest: review summary protects long resource chips from collisions
+ok 5 - review summary protects long resource chips from collisions
+  ---
+  duration_ms: 0.907542
+  type: 'test'
+  ...
+# Subtest: action feedback remains visible when a requested change immediately re-enters Creation Room
+ok 6 - action feedback remains visible when a requested change immediately re-enters Creation Room
+  ---
+  duration_ms: 0.613459
+  type: 'test'
+  ...
+# Subtest: system API administration requires explicit live authority, not workspace owner or creator
+ok 7 - system API administration requires explicit live authority, not workspace owner or creator
+  ---
+  duration_ms: 150.73825
+  type: 'test'
+  ...
+# Subtest: host operator fallback exposes global administration without granting it to arbitrary configured identities
+ok 8 - host operator fallback exposes global administration without granting it to arbitrary configured identities
+  ---
+  duration_ms: 152.771459
+  type: 'test'
+  ...
+# Subtest: credentials persist encrypted, rotate/remove, and never activate adapters or enter product state
+ok 9 - credentials persist encrypted, rotate/remove, and never activate adapters or enter product state
+  ---
+  duration_ms: 101.272042
+  type: 'test'
+  ...
+# Subtest: vault corruption and missing/wrong/symlink keys fail closed without overwriting stored credentials
+ok 10 - vault corruption and missing/wrong/symlink keys fail closed without overwriting stored credentials
+  ---
+  duration_ms: 91.313042
+  type: 'test'
+  ...
+# Subtest: concurrent first vault writes preserve all providers and ciphertext is bound to its provider
+ok 11 - concurrent first vault writes preserve all providers and ciphertext is bound to its provider
+  ---
+  duration_ms: 90.744584
+  type: 'test'
+  ...
+# Subtest: admin HTTP keeps CSRF, anonymous/outsider denial and rejects unknown endpoints/oversized secret fields
+ok 12 - admin HTTP keeps CSRF, anonymous/outsider denial and rejects unknown endpoints/oversized secret fields
+  ---
+  duration_ms: 95.08275
+  type: 'test'
+  ...
+# Subtest: fictional character/place profiles enforce scope and authorization and freeze in plan/job snapshots
+ok 13 - fictional character/place profiles enforce scope and authorization and freeze in plan/job snapshots
+  ---
+  duration_ms: 101.172208
+  type: 'test'
+  ...
+# Subtest: journey distinguishes a registered link, available media, draft, queued work and review without fake progress
+ok 14 - journey distinguishes a registered link, available media, draft, queued work and review without fake progress
+  ---
+  duration_ms: 84.064333
+  type: 'test'
+  ...
+# Subtest: new admin and profile pages are private metadata routes
+ok 15 - new admin and profile pages are private metadata routes
+  ---
+  duration_ms: 0.207167
+  type: 'test'
+  ...
+# Subtest: fixer: queued admin writes recheck revoked authority before committing
+ok 16 - fixer: queued admin writes recheck revoked authority before committing
+  ---
+  duration_ms: 82.44425
+  type: 'test'
+  ...
+# Subtest: fixer: explicit budget clear differs from omission
+ok 17 - fixer: explicit budget clear differs from omission
+  ---
+  duration_ms: 83.571208
+  type: 'test'
+  ...
+# Subtest: fixer: malformed GCM envelopes reject truncated tags IVs and noncanonical encoding
+ok 18 - fixer: malformed GCM envelopes reject truncated tags IVs and noncanonical encoding
+  ---
+  duration_ms: 86.677875
+  type: 'test'
+  ...
+# Subtest: fixer: Free Mode resolves principal fictional profile and plan links recover exact drafts
+ok 19 - fixer: Free Mode resolves principal fictional profile and plan links recover exact drafts
+  ---
+  duration_ms: 98.510001
+  type: 'test'
+  ...
+# Subtest: fixer: oversized UTF8 key rejected before storage and permitted maximum remains readable
+ok 20 - fixer: oversized UTF8 key rejected before storage and permitted maximum remains readable
+  ---
+  duration_ms: 81.557208
+  type: 'test'
+  ...
+# Subtest: private onboarding and brand start routes are recognized without becoming public
+ok 21 - private onboarding and brand start routes are recognized without becoming public
+  ---
+  duration_ms: 0.441209
+  type: 'test'
+  ...
+# Subtest: studio exposes guide, brand summary, and role-aware brand administration
+ok 22 - studio exposes guide, brand summary, and role-aware brand administration
+  ---
+  duration_ms: 3.904416
+  type: 'test'
+  ...
+# Subtest: login enters first-run guide only when server says onboarding is new
+ok 23 - login enters first-run guide only when server says onboarding is new
+  ---
+  duration_ms: 0.681166
+  type: 'test'
+  ...
+# Subtest: V8 guidance stays compact, responsive, and uses human brand vocabulary
+ok 24 - V8 guidance stays compact, responsive, and uses human brand vocabulary
+  ---
+  duration_ms: 2.121167
+  type: 'test'
+  ...
+# Subtest: first-run completion persists per authenticated user and cannot target another user
+ok 25 - first-run completion persists per authenticated user and cannot target another user
+  ---
+  duration_ms: 110.09925
+  type: 'test'
+  ...
+# Subtest: onboarding tenant summary exposes only membership-bound safe brand facts
+ok 26 - onboarding tenant summary exposes only membership-bound safe brand facts
+  ---
+  duration_ms: 101.243875
+  type: 'test'
+  ...
+# Subtest: dismissed guide persists without changing tenant authority or membership
+ok 27 - dismissed guide persists without changing tenant authority or membership
+  ---
+  duration_ms: 89.125708
+  type: 'test'
+  ...
+# Subtest: repository upgrades older state documents with user_onboarding lazily
+ok 28 - repository upgrades older state documents with user_onboarding lazily
+  ---
+  duration_ms: 82.291083
+  type: 'test'
+  ...
+# Subtest: onboarding HTTP remains authenticated and CSRF-protected
+ok 29 - onboarding HTTP remains authenticated and CSRF-protected
+  ---
+  duration_ms: 97.882625
+  type: 'test'
+  ...
+# Subtest: legacy active users are recognized as returning instead of being force-onboarded
+ok 30 - legacy active users are recognized as returning instead of being force-onboarded
+  ---
+  duration_ms: 89.49275
+  type: 'test'
+  ...
+# Subtest: authentication preserves password bytes, revokes changed identity and starts without tenants
+ok 31 - authentication preserves password bytes, revokes changed identity and starts without tenants
+  ---
+  duration_ms: 149.072458
+  type: 'test'
+  ...
+# Subtest: tenant membership enforced for reads/writes and onboarding has no fake source
+ok 32 - tenant membership enforced for reads/writes and onboarding has no fake source
+  ---
+  duration_ms: 98.433333
+  type: 'test'
+  ...
+# Subtest: strict source/reference separation, provenance and secret validation
+ok 33 - strict source/reference separation, provenance and secret validation
+  ---
+  duration_ms: 105.054542
+  type: 'test'
+  ...
+# Subtest: private, browser and signed source locators are rejected
+ok 34 - private, browser and signed source locators are rejected
+  ---
+  duration_ms: 0.4865
+  type: 'test'
+  ...
+# Subtest: plans reject injected approval and produce same id under concurrent requests
+ok 35 - plans reject injected approval and produce same id under concurrent requests
+  ---
+  duration_ms: 125.733542
+  type: 'test'
+  ...
+# Subtest: source/DNA changes invalidate plans and idempotency includes strategy
+ok 36 - source/DNA changes invalidate plans and idempotency includes strategy
+  ---
+  duration_ms: 101.541625
+  type: 'test'
+  ...
+# Subtest: Free Mode exact mixed Spanish example becomes four unapproved concepts, no-AI remains real
+ok 37 - Free Mode exact mixed Spanish example becomes four unapproved concepts, no-AI remains real
+  ---
+  duration_ms: 97.188167
+  type: 'test'
+  ...
+# Subtest: targeted political or sensitive persuasion cannot enter plans/intent
+ok 38 - targeted political or sensitive persuasion cannot enter plans/intent
+  ---
+  duration_ms: 85.341
+  type: 'test'
+  ...
+# Subtest: HTTP cookies, CSRF, malformed body, path traversal and safe errors
+ok 39 - HTTP cookies, CSRF, malformed body, path traversal and safe errors
+  ---
+  duration_ms: 116.112083
+  type: 'test'
+  ...
+# Subtest: repository serializes separate instances and rejects symlink state
+ok 40 - repository serializes separate instances and rejects symlink state
+  ---
+  duration_ms: 28.693208
+  type: 'test'
+  ...
+# Subtest: SSE rejects unauthorized reads and pushes durable state updates
+ok 41 - SSE rejects unauthorized reads and pushes durable state updates
+  ---
+  duration_ms: 96.285209
+  type: 'test'
+  ...
+# Subtest: HTTP rejects declared and streamed oversized JSON before parsing
+ok 42 - HTTP rejects declared and streamed oversized JSON before parsing
+  ---
+  duration_ms: 74.272208
+  type: 'test'
+  ...
+# Subtest: viewer cannot approve concepts and configured identity roles override persisted memberships
+ok 43 - viewer cannot approve concepts and configured identity roles override persisted memberships
+  ---
+  duration_ms: 88.128667
+  type: 'test'
+  ...
+# Subtest: reference DNA requires evidence bytes actually stored for the selected reference
+ok 44 - reference DNA requires evidence bytes actually stored for the selected reference
+  ---
+  duration_ms: 89.721583
+  type: 'test'
+  ...
+# Subtest: malformed durable state fails closed with controlled storage error
+ok 45 - malformed durable state fails closed with controlled storage error
+  ---
+  duration_ms: 1.062875
+  type: 'test'
+  ...
+# Subtest: ProductError identity remains stable across independently evaluated server bundles
+ok 46 - ProductError identity remains stable across independently evaluated server bundles
+  ---
+  duration_ms: 0.700167
+  type: 'test'
+  ...
+# Subtest: stored reference evidence tampering invalidates DNA analysis
+ok 47 - stored reference evidence tampering invalidates DNA analysis
+  ---
+  duration_ms: 85.807917
+  type: 'test'
+  ...
+# Subtest: mascot setup binds a selected production source and rejects a reference
+ok 48 - mascot setup binds a selected production source and rejects a reference
+  ---
+  duration_ms: 81.743625
+  type: 'test'
+  ...
+# Subtest: Free Mode respects indirect AI negations and explicit alternative distributions
+ok 49 - Free Mode respects indirect AI negations and explicit alternative distributions
+  ---
+  duration_ms: 84.388292
+  type: 'test'
+  ...
+# Subtest: login concurrency limit reserves capacity before awaiting identity loading
+ok 50 - login concurrency limit reserves capacity before awaiting identity loading
+  ---
+  duration_ms: 114.633458
+  type: 'test'
+  ...
+# Subtest: legacy planner contract rejection returns a controlled HTTP 400
+ok 51 - legacy planner contract rejection returns a controlled HTTP 400
+  ---
+  duration_ms: 79.590667
+  type: 'test'
+  ...
+# Subtest: FIRMES avatar catalog and MCP-ready tool definitions stay membership-bound over HTTP
+ok 52 - FIRMES avatar catalog and MCP-ready tool definitions stay membership-bound over HTTP
+  ---
+  duration_ms: 81.109167
+  type: 'test'
+  ...
+# Subtest: only explicitly published HTTPS production login enters the index and sitemap
+ok 53 - only explicitly published HTTPS production login enters the index and sitemap
+  ---
+  duration_ms: 1.071792
+  type: 'test'
+  ...
+# Subtest: private routes never put tenant or job identities into metadata, canonicals, or sitemap
+ok 54 - private routes never put tenant or job identities into metadata, canonicals, or sitemap
+  ---
+  duration_ms: 0.908417
+  type: 'test'
+  ...
+# Subtest: canonical metadata uses only validated operator origin and ignores URL injection
+ok 55 - canonical metadata uses only validated operator origin and ignores URL injection
+  ---
+  duration_ms: 0.239
+  type: 'test'
+  ...
+# Subtest: catchall rejects unknown or overlong route shapes without reflecting submitted names
+ok 56 - catchall rejects unknown or overlong route shapes without reflecting submitted names
+  ---
+  duration_ms: 0.213792
+  type: 'test'
+  ...
+# Subtest: llms discovery lists public product facts without private resources or invented integrations
+ok 57 - llms discovery lists public product facts without private resources or invented integrations
+  ---
+  duration_ms: 0.114292
+  type: 'test'
+  ...
+# Subtest: job review route resolves safely and production indexing rejects infrastructure origins
+ok 58 - job review route resolves safely and production indexing rejects infrastructure origins
+  ---
+  duration_ms: 0.244917
+  type: 'test'
+  ...
+# Subtest: published OG and Twitter image use only the controlled imported application asset
+ok 59 - published OG and Twitter image use only the controlled imported application asset
+  ---
+  duration_ms: 0.265917
+  type: 'test'
+  ...
+1..59
+# tests 59
+# suites 0
+# pass 59
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2043.838459
+$ tsc --noEmit
+$ node scripts/build-web.mjs
+▲ Next.js 16.3.5 (Turbopack)
+✓ Running next.config.mjs took 18ms
+⚠ No build cache found. Please configure build caching for faster rebuilds. Read more: https://nextjs.org/docs/messages/no-cache
+Attention: Next.js now collects completely anonymous telemetry regarding usage.
+This information is used to shape Next.js' roadmap and prioritize features.
+You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+https://nextjs.org/telemetry
+
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 4.4s
+  Running TypeScript ...
+  Finished TypeScript in 2.7s ...
+  Collecting page data using 11 workers ...
+  Generating static pages using 11 workers (0/6) ...
+  Generating static pages using 11 workers (1/6) 
+  Generating static pages using 11 workers (2/6) 
+  Generating static pages using 11 workers (4/6) 
+✓ Generating static pages using 11 workers (6/6) in 341ms
+Turbopack build encountered 2 warnings:
+./server/services.mjs:27:63
+Warning: Dynamic filesystem access causes tracing of the whole project
+  [90m25 |[0m ...
+  [90m26 |[0m ... = {}) {
+[33m[1m>[0m [90m27 |[0m ... || [36mnew[0m [33mAtomicRepository[0m(resolve(options.dataRoot || [32m'./data'[0m))
+  [90m   |[0m                             [33m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m28 |[0m ...ory,identityFile:options.identityFile,operatorUsername:options.operatorUsername,operato...
+  [90m29 |[0m ...| [36mnew[0m [33mProviderRegistry[0m({adapters:options.adapters,testMode:options.testMode === [36mtrue[0m &&...
+  [90m30 |[0m ...
+
+Static analysis determined that this filesystem access causes the whole project to be traced and included in the output.
+This is usually unintentional and leads to all source files (including the public folder) to be deployed as part of the server code.
+This can slow down deployments or lead to failures when size limits are exceeded.
+To resolve this, you can
+- make sure the path is statically scoped to some subfolder, for example path.join(process.cwd(), 'data', bar), or
+- only use them in development, or
+- opt out by adding an ignore comment to the highlighted call: path.resolve(/*turbopackIgnore: true*/ ...), or
+- remove them.
+
+Import traces:
+  #1 [Instrumentation]:
+    ./server/services.mjs
+    ./server/singleton.mjs
+    ./instrumentation.ts
+
+  #2 [App Route]:
+    ./server/services.mjs
+    ./server/singleton.mjs
+    ./server/http.mjs
+    ./app/api/v1/[...path]/route.ts
+
+  #3 [App Route]:
+    ./server/services.mjs
+    ./server/singleton.mjs
+    ./server/http.mjs
+    ./app/api/v1/[...path]/route.ts
+
+
+./server/singleton.mjs:8:17
+Warning: Dynamic filesystem access causes tracing of the whole project
+  [90m 6 |[0m [36mexport[0m [36mfunction[0m getService(){
+  [90m 7 |[0m  [36mif[0m(globalThis[key])[36mreturn[0m globalThis[key]
+[33m[1m>[0m [90m 8 |[0m  [36mconst[0m dataRoot=resolve(process.env.[33mMEDIA_FACTORY_DATA_ROOT[0m||[32m'./data'[0m)
+  [90m   |[0m                 [33m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m 9 |[0m  [36mconst[0m repository=[36mnew[0m [33mAtomicRepository[0m(dataRoot)
+  [90m10 |[0m  [36mconst[0m testMode=process.env.[33mMEDIA_FACTORY_TEST_MODE[0m===[32m'1'[0m
+  [90m11 |[0m  [36mconst[0m deploymentClass=process.env.[33mMEDIA_FACTORY_DEPLOYMENT_CLASS[0m||[32m'production'[0m
+
+Static analysis determined that this filesystem access causes the whole project to be traced and included in the output.
+This is usually unintentional and leads to all source files (including the public folder) to be deployed as part of the server code.
+This can slow down deployments or lead to failures when size limits are exceeded.
+To resolve this, you can
+- make sure the path is statically scoped to some subfolder, for example path.join(process.cwd(), 'data', bar), or
+- only use them in development, or
+- opt out by adding an ignore comment to the highlighted call: path.resolve(/*turbopackIgnore: true*/ ...), or
+- remove them.
+
+Import traces:
+  Instrumentation:
+    ./server/singleton.mjs
+    ./instrumentation.ts
+
+  App Route:
+    ./server/singleton.mjs
+    ./server/http.mjs
+    ./app/api/v1/[...path]/route.ts
+
+
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /_not-found
+├ ƒ /[[...segments]]
+├ ƒ /api/preview/[...path]
+├ ƒ /api/v1/[...path]
+├ ○ /apple-icon.png
+├ ƒ /health
+├ ○ /icon.png
+├ ƒ /llm.txt
+├ ƒ /llms.txt
+├ ○ /opengraph-image
+├ ƒ /robots.txt
+└ ƒ /sitemap.xml
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+$ node scripts/validate-examples.mjs
+{"valid":true,"files":13}
+No known vulnerabilities found
+verifier_verdict=PASS
