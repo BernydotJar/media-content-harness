@@ -1,0 +1,45 @@
+{
+  "candidate_sha": "662c5dbde18df3fa3637d317a3e399429510a856",
+  "working_tree_dirty": false,
+  "production_source_sha256": "15ec4e127c454736578b612779e02704f8aae99360d76870577448dd7fce5816",
+  "build_id": "KZ_2VE26lR4KErnhZ8CAF",
+  "runtime_package": {
+    "format": "media-factory-runtime.v1",
+    "files": 1481,
+    "manifest_sha256": "032c9b75bbbd1a48bc13f2dd06066da99f7d19650b4c54faf64077134bfba097",
+    "build_id": "KZ_2VE26lR4KErnhZ8CAF",
+    "forbidden_entries": 0,
+    "external_symlinks": 0
+  },
+  "test_mode": false,
+  "deployment_class": "controlled_single_operator_preview",
+  "source_fixture_sha256": "c1504301d3615a1a577a7fe0406ec6509de2bbe0adb05f6271211f46a0126000",
+  "generated_media": {
+    "sha256": "fb04b3a78dd794b2b7974e41c955f5014e76492090fa98f2538f5aafc931de66",
+    "width": 1080,
+    "height": 1920,
+    "duration_seconds": 8
+  },
+  "elapsed_ms": 44277,
+  "result": {
+    "status": "PASS",
+    "job_id": "mf_95a1c44c58272c1a826325257e30af99",
+    "release_id": "release_72b4b1b87a17b9d730a11d72",
+    "artifact_sha256": "fb04b3a78dd794b2b7974e41c955f5014e76492090fa98f2538f5aafc931de66",
+    "source_sha256": "c1504301d3615a1a577a7fe0406ec6509de2bbe0adb05f6271211f46a0126000",
+    "brand_asset_sha256": "b17c55ffb0eec46bfa719128ee68a9f18475c45afb90d6d73ce9d82567938397",
+    "checks": [
+      "Dashboard is tenant-scoped FIRMES with burgundy/gold tokens and the authorized caballito visible.",
+      "The weekly story editor shows the authorized Caballito image as a first-class character choice with no contradictory mascot checkbox.",
+      "The real workflow fails closed for missing authorized source bytes while presenting one simple recovery decision in the FIRMES shell.",
+      "Exact authorized bytes resume the same job and are frozen into the Graph source snapshot.",
+      "Pre-production review is a six-card scannable summary with friendly creative labels; raw candidate details stay collapsed.",
+      "A non-test real-footage MP4 reaches Critic before any mascot change is applied.",
+      "The exact reviewer request to add the Caballito reruns the same job with the authorized first-class brand asset and returns the new artifact to Critic without a manual blocker.",
+      "A separate authenticated critic approved the exact hash-bound candidate.",
+      "A third authenticated identity independently verified the unchanged artifact candidate.",
+      "Final owner release preserves the exact artifact/provenance snapshot and performs no automatic social publication."
+    ]
+  },
+  "evidence_directory": "/tmp/media-factory-firmes-completion-m6CijL"
+}
