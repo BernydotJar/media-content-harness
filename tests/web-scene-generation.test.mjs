@@ -112,11 +112,10 @@ test('external package changes from hero-image creation to exact approved hero a
 async function integrationFixture(t){
  const root=await mkdtemp(join(tmpdir(),'media-scene-generation-'));t.after(()=>rm(root,{recursive:true,force:true}))
  const password='scene test password';const salt=randomBytes(24).toString('hex');const hash=scryptSync(password,Buffer.from(salt,'hex'),64).toString('hex')
- const membership=[{tenant_id:'firmes',role:'reviewer'}]
  const users=[
   {id:'owner',email:'owner@example.com',name:'Owner',password:{salt,hash},can_create_tenants:true,memberships:[]},
-  {id:'critic',email:'critic@example.com',name:'Critic',password:{salt,hash},memberships:membership},
-  {id:'verifier',email:'verifier@example.com',name:'Verifier',password:{salt,hash},memberships:membership},
+  {id:'critic',email:'critic@example.com',name:'Critic',password:{salt,hash},memberships:[{tenant_id:'firmes',role:'reviewer'}]},
+  {id:'verifier',email:'verifier@example.com',name:'Verifier',password:{salt,hash},memberships:[{tenant_id:'firmes',role:'admin'}]},
  ]
  const identityFile=join(root,'identities.json');await writeFile(identityFile,JSON.stringify({users}))
  const dataRoot=join(root,'data'),service=createService({dataRoot,identityFile,publicOrigin:'http://localhost:3000',deploymentClass:'controlled_single_operator_preview'})
