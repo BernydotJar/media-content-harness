@@ -9,8 +9,10 @@ Media Factory keeps departmental access intentionally small.
 | Propietario | `owner` | Owns the tenant, manages team access, may act at human gates when the independent-review kernel permits it |
 | Coordinador municipal | `reviewer` | Content / Critic review |
 | IT / Aprobación técnica | `admin` | Independent technical verification, final release, and non-owner team administration |
+| Editor | `editor` | Create and edit tenant content without approval authority |
+| Consulta | `viewer` | Read-only tenant access |
 
-Existing `editor` and `viewer` roles remain compatible, but they are not the primary V10 invitation choices.
+All four non-owner roles are assignable from **Equipo**. `owner` is protected and cannot be granted, changed, or removed from that surface.
 
 The production kernel still enforces reviewer independence. Departmental role labels do not create a bypass around hash-bound Critic, Independent Verifier, or Release rules.
 
@@ -46,7 +48,7 @@ The server uses authorization code + PKCE + nonce. OAuth state is one-time, pers
 ## Admission
 
 1. The tenant owner or IT/admin opens **Equipo**.
-2. The owner enters the person's email and chooses either **Coordinador municipal** or **IT / Aprobación técnica**.
+2. The owner or tenant admin enters the person's email and chooses **Coordinador municipal**, **IT / Aprobación técnica**, **Editor**, or **Consulta**.
 3. Media Factory records a 14-day pending invitation. It does not claim to send an email.
 4. The person opens Media Factory and chooses **Continuar con Google**.
 5. Google verifies the identity.
