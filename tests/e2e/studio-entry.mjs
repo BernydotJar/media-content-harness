@@ -19,7 +19,7 @@ export async function verifyStudioEntry({page,context,temp}){
  await page.screenshot({path:join(temp,'login-hero-desktop.png'),fullPage:true})
  await page.setViewportSize({width:390,height:844});await page.evaluate(()=>window.scrollTo(0,0));await expect(hero).toBeVisible();await expect(page.getByRole('heading',{level:1})).toBeVisible();assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),true)
  const artBox=await art.boundingBox(),formBox=await page.locator('#studio-access').boundingBox();assert.ok(artBox&&formBox&&formBox.y>=artBox.y+artBox.height)
- await page.screenshot({path:join(temp,'login-hero-mobile.png'),fullPage:true});await page.getByRole('link',{name:'Entrar',exact:true}).click();await expect(page.getByLabel('Usuario o correo')).toBeVisible();await expect(page.getByRole('button',{name:'Entrar al estudio',exact:true})).toBeVisible()
+ await page.screenshot({path:join(temp,'login-hero-mobile.png'),fullPage:true});await page.getByRole('link',{name:'Entrar',exact:true}).click();await expect(page.getByLabel('Correo o DPI')).toBeVisible();await expect(page.getByRole('button',{name:'Entrar al municipio',exact:true})).toBeVisible()
  checks.push('mobile hero and accessible sign-in remain ordered with no horizontal overflow')
  await page.setViewportSize({width:1440,height:1000});await page.evaluate(()=>window.scrollTo(0,0));await writeFile(join(temp,'studio-entry-checks.json'),JSON.stringify({checks,hero:{sha256:imageSha,width:image.width,height:image.height},visibility_test:'simulated visibilitychange using document.hidden'},null,2));return checks
 }

@@ -14,7 +14,7 @@ export async function runFirmesCompletion({origin,accounts,temp,sourceFile}){
  page.on('pageerror',error=>errors.push(error.message));page.setDefaultTimeout(30000)
  const api=async(path,{method='GET',data,headers={}}={})=>{const response=await context.request.fetch(origin+'/api/v1'+path,{method,headers:{Origin:origin,...headers},...(data===undefined?{}:{data})});let value=null;try{value=await response.json()}catch{};assert.ok(response.ok(),`${method} ${path}: ${response.status()} ${JSON.stringify(value)}`);return value?.data}
  const pollJob=async(id,predicate,label)=>{let value;for(let i=0;i<160;i++){value=await api('/jobs/'+id);if(predicate(value))return value;await wait(150)}throw new Error(label+': '+JSON.stringify({status:value?.status,stage:value?.stage,blockers:value?.blockers}))}
- const login=async account=>{await page.goto(origin+'/login');await page.getByLabel('Usuario o correo').fill(account.email);await page.getByLabel('Contraseña',{exact:true}).fill(account.password);await page.getByRole('button',{name:'Entrar al estudio'}).click();await settleAuthenticatedEntry(page)}
+ const login=async account=>{await page.goto(origin+'/login');await page.getByLabel('Correo o DPI').fill(account.email);await page.getByLabel('Contraseña',{exact:true}).fill(account.password);await page.getByRole('button',{name:'Entrar al municipio'}).click();await settleAuthenticatedEntry(page)}
  const logout=async()=>{await page.getByRole('button',{name:'Cerrar sesión'}).click();await expect(page).toHaveURL(/login/)}
  try{
   await login(accounts.owner)

@@ -29,7 +29,7 @@ export function createTeamService({repository,auth,requireMembership,tenantIn,ap
  }
  function protectTarget(state,id,userId,locals){
   invariant(!locals.some(u=>u.id===userId),'CONFIGURED_MEMBERSHIP_IMMUTABLE','El acceso administrativo se gestiona en la configuración del operador.',409)
-  const user=state.external_users?.[userId],member=(state.memberships[userId]||[]).find(m=>m.tenant_id===id)
+  const user=state.external_users?.[userId]||state.local_accounts?.[userId],member=(state.memberships[userId]||[]).find(m=>m.tenant_id===id)
   invariant(user&&member,'NOT_FOUND','Miembro no encontrado.',404)
   invariant(member.role!=='owner','OWNER_IMMUTABLE','El propietario no se puede cambiar ni eliminar desde Equipo.',409)
   return {user,member}
@@ -55,6 +55,11 @@ export function createTeamService({repository,auth,requireMembership,tenantIn,ap
    const member=(state.memberships[user.id]||[]).find(m=>m.tenant_id===id)
    if(member)rows.push({user_id:user.id,name:user.name||user.email,email:user.email,role:member.role,responsibility:LABELS[member.role],auth_provider:user.provider,configured_membership:false,protected:member.role==='owner'})
   }
+  for(const user of Object.values(state.local_accounts||{})){
+   if(user.status!=='ACTIVE'||user.disabled===true)continue
+   const member=(state.memberships[user.id]||[]).find(m=>m.tenant_id===id)
+   if(member)rows.push({user_id:user.id,name:user.name||user.email,email:user.email,role:member.role,responsibility:LABELS[member.role],auth_provider:'local',account_type:'self_service',configured_membership:false,protected:member.role==='owner'})
+  }
   return rows.sort((a,b)=>(a.role==='owner'?-1:0)-(b.role==='owner'?-1:0)||String(a.name).localeCompare(String(b.name)))
  }
  return {
@@ -63,7 +68,29 @@ export function createTeamService({repository,auth,requireMembership,tenantIn,ap
    tenantIn(state,id)
    const canManage=MANAGERS.includes(membership.role),canConfigureGoogle=user.manage_integrations===true,members=await directory(state,id),vaultGoogle=canConfigureGoogle&&googleAuthVault?await googleAuthVault.summary():null,google_auth=canConfigureGoogle?{...(vaultGoogle||{configured:false,client_id:null,updated_at:null}),available:(await auth.googleConfig()).available}:null
    const invitations=canManage?Object.values(state.invitations||{}).filter(i=>i.tenant_id===id&&i.status==='PENDING'&&i.expires_at>Date.now()).sort((a,b)=>b.created_at.localeCompare(a.created_at)).map(i=>({id:i.id,email:i.email,role:i.role,responsibility:LABELS[i.role],status:i.status,created_at:i.created_at,expires_at:i.expires_at})):[]
-   return{tenant_id:id,current_user_id:user.id,current_role:membership.role,can_manage:canManage,can_configure_google:canConfigureGoogle,google_auth,members,invitations,approval_flow:[{stage:'CRITIC',label:'Aprobación de contenido',responsibility:'Coordinador municipal',roles:['owner','reviewer']},{stage:'INDEPENDENT_VERIFIER',label:'Verificación técnica',responsibility:'IT',roles:['owner','admin']},{stage:'RELEASE',label:'Aprobación final',responsibility:'Propietario o IT',roles:['owner','admin']}]}
+   const registrations=canManage?(await auth.pendingLocalRegistrations(state,id)).sort((a,b)=>String(b.requested_at).localeCompare(String(a.requested_at))):[]
+   return{tenant_id:id,current_user_id:user.id,current_role:membership.role,can_manage:canManage,can_configure_google:canConfigureGoogle,google_auth,members,invitations,registrations,approval_flow:[{stage:'CRITIC',label:'Aprobación de contenido',responsibility:'Coordinador municipal',roles:['owner','reviewer']},{stage:'INDEPENDENT_VERIFIER',label:'Verificación técnica',responsibility:'IT',roles:['owner','admin']},{stage:'RELEASE',label:'Aprobación final',responsibility:'Propietario o IT',roles:['owner','admin']}]}
+  },
+  async approveRegistration(token,id,userId,input){
+   safeId(userId,'User ID');fields(input,['responsibility']);const role=roleFor(input.responsibility)
+   return repository.transact(async state=>{
+    const actor=await manager(token,id,state),account=state.local_accounts?.[userId]
+    invariant(account&&account.status==='PENDING_APPROVAL'&&account.requested_tenant_id===id,'NOT_FOUND','Solicitud de acceso no encontrada.',404)
+    state.memberships[userId]??=[];const existing=state.memberships[userId].find(m=>m.tenant_id===id);if(existing)existing.role=role;else state.memberships[userId].push({tenant_id:id,role})
+    account.status='ACTIVE';account.approved_by=actor.id;account.approved_at=new Date().toISOString();account.updated_at=account.approved_at
+    append(state,id,'LOCAL_ACCESS_APPROVED',{actor_id:actor.id,user_id:userId,role})
+    return{user_id:userId,status:account.status,name:account.name,email:account.email,role,responsibility:LABELS[role]}
+   })
+  },
+  async rejectRegistration(token,id,userId){
+   safeId(userId,'User ID')
+   return repository.transact(async state=>{
+    const actor=await manager(token,id,state),account=state.local_accounts?.[userId]
+    invariant(account&&account.status==='PENDING_APPROVAL'&&account.requested_tenant_id===id,'NOT_FOUND','Solicitud de acceso no encontrada.',404)
+    account.status='REJECTED';account.rejected_by=actor.id;account.rejected_at=new Date().toISOString();account.updated_at=account.rejected_at
+    append(state,id,'LOCAL_ACCESS_REJECTED',{actor_id:actor.id,user_id:userId})
+    return{user_id:userId,status:account.status}
+   })
   },
   async inviteTeamMember(token,id,input){
    fields(input,['email','responsibility'])
