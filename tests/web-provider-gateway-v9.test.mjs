@@ -20,7 +20,7 @@ const baseJob={id:'job-v9',creation_mode:'GUIDED_SCENE',mascot:false,scene_reque
 
 test('Seedance 2.5 adapter maps exact request, exposes only lifecycle telemetry, and uses conservative catalog estimate',async()=>{
  const calls=[]
- const adapter=new HiggsfieldSeedanceAdapter({credentialResolver:async()=> 'key-id:key-secret',lookupImpl:async()=>[{address:'203.0.113.10',family:4}],clock:()=>Date.parse('2026-09-18T12:00:00Z'),fetchImpl:async(url,init)=>{calls.push({url,init});if(init.method==='POST')return response({status:'queued',request_id:'12345678-abcd-4000-8000-123456789abc',status_url:'https://api.higgsfield.ai/requests/12345678-abcd-4000-8000-123456789abc/status'});return response({status:'in_progress',request_id:'12345678-abcd-4000-8000-123456789abc'})}})
+ const adapter=new HiggsfieldSeedanceAdapter({credentialResolver:async()=> 'key-id:key-secret',lookupImpl:async()=>[{address:'8.8.8.8',family:4}],clock:()=>Date.parse('2026-09-18T12:00:00Z'),fetchImpl:async(url,init)=>{calls.push({url,init});if(init.method==='POST')return response({status:'queued',request_id:'12345678-abcd-4000-8000-123456789abc',status_url:'https://api.higgsfield.ai/requests/12345678-abcd-4000-8000-123456789abc/status'});return response({status:'in_progress',request_id:'12345678-abcd-4000-8000-123456789abc'})}})
  const capabilities=adapter.capabilities(),estimate=adapter.estimate({job:baseJob}),prepared=await adapter.prepare({job:baseJob,assets:[]})
  assert.equal(capabilities.model,HIGGSFIELD_SEEDANCE_MODEL);assert.equal(capabilities.authoritative_numeric_progress,false)
  assert.equal(estimate.kind,'CATALOG_UPPER_BOUND');assert.equal(estimate.rate_usd_per_second,HIGGSFIELD_CATALOG_RATE.max_usd_per_second);assert.equal(estimate.cost,1.9416)
@@ -31,21 +31,22 @@ test('Seedance 2.5 adapter maps exact request, exposes only lifecycle telemetry,
 })
 
 test('Higgsfield adapter fails closed for reference scenes, missing credentials and ambiguous paid submission',async()=>{
- const missing=new HiggsfieldSeedanceAdapter({credentialResolver:async()=>null,lookupImpl:async()=>[{address:'203.0.113.10',family:4}],fetchImpl:async()=>{throw Error('should not call')}})
+ const missing=new HiggsfieldSeedanceAdapter({credentialResolver:async()=>null,lookupImpl:async()=>[{address:'8.8.8.8',family:4}],fetchImpl:async()=>{throw Error('should not call')}})
  await assert.rejects(missing.ready(),e=>e.code==='PROVIDER_CREDENTIAL_MISSING')
  const referenceJob=structuredClone(baseJob);referenceJob.mascot=true;referenceJob.prompt_compilation.reference_roles=[{asset_id:'avatar',role:'CHARACTER_IDENTITY_ONLY',sha256:'c'.repeat(64)}]
  await assert.rejects(missing.prepare({job:referenceJob,assets:[],mascotAsset:{id:'avatar'}}),e=>e.code==='PROVIDER_REFERENCE_UPLOAD_REQUIRED')
- const ambiguous=new HiggsfieldSeedanceAdapter({credentialResolver:async()=> 'key-id:key-secret',lookupImpl:async()=>[{address:'203.0.113.10',family:4}],fetchImpl:async()=>{throw new Error('socket reset')}})
+ const ambiguous=new HiggsfieldSeedanceAdapter({credentialResolver:async()=> 'key-id:key-secret',lookupImpl:async()=>[{address:'8.8.8.8',family:4}],fetchImpl:async()=>{throw new Error('socket reset')}})
  const prepared=await ambiguous.prepare({job:baseJob,assets:[]})
  await assert.rejects(ambiguous.generate(prepared),e=>e.code==='PROVIDER_SUBMISSION_UNKNOWN')
 })
 
 test('Higgsfield adapter rejects unsafe output URLs and moderation/failed states remain explicit',async()=>{
- const adapter=new HiggsfieldSeedanceAdapter({credentialResolver:async()=> 'key-id:key-secret',lookupImpl:async(host)=>[{address:host==='127.0.0.1'?'127.0.0.1':'203.0.113.10',family:4}],fetchImpl:async()=>videoResponse(Buffer.from('x'))})
+ const adapter=new HiggsfieldSeedanceAdapter({credentialResolver:async()=> 'key-id:key-secret',lookupImpl:async(host)=>[{address:host==='127.0.0.1'?'127.0.0.1':'8.8.8.8',family:4}],mediaRequestImpl:async()=>videoResponse(Buffer.from('x')),fetchImpl:async()=>response({status:'completed',request_id:'12345678-abcd-4000-8000-123456789abc'})})
  await assert.rejects(adapter.collect({status:'completed',video:{url:'http://example.com/out.mp4'}}),e=>e.code==='PROVIDER_OUTPUT_INVALID')
  await assert.rejects(adapter.collect({status:'completed',video:{url:'https://127.0.0.1/out.mp4'}}),e=>e.code==='PROVIDER_OUTPUT_INVALID')
- const rebinding=new HiggsfieldSeedanceAdapter({credentialResolver:async()=> 'key-id:key-secret',lookupImpl:async()=>[{address:'10.0.0.7',family:4}],fetchImpl:async()=>videoResponse(Buffer.from('x'))});await assert.rejects(rebinding.collect({status:'completed',video:{url:'https://cdn.example.com/out.mp4'}}),e=>e.code==='PROVIDER_OUTPUT_INVALID')
- const statuses=[];const polling=new HiggsfieldSeedanceAdapter({credentialResolver:async()=> 'key-id:key-secret',lookupImpl:async()=>[{address:'203.0.113.10',family:4}],fetchImpl:async()=>response({status:statuses.shift(),request_id:'12345678-abcd-4000-8000-123456789abc'})})
+ const rebinding=new HiggsfieldSeedanceAdapter({credentialResolver:async()=> 'key-id:key-secret',lookupImpl:async()=>[{address:'10.0.0.7',family:4}],mediaRequestImpl:async()=>videoResponse(Buffer.from('x'))});await assert.rejects(rebinding.collect({status:'completed',video:{url:'https://cdn.example.com/out.mp4'}}),e=>e.code==='PROVIDER_OUTPUT_INVALID')
+ let pinned=null;const pinnedDownload=new HiggsfieldSeedanceAdapter({credentialResolver:async()=> 'key-id:key-secret',lookupImpl:async()=>[{address:'8.8.4.4',family:4}],mediaRequestImpl:async(url,resolved)=>{pinned={url,resolved};return videoResponse(Buffer.from('x'))}});await pinnedDownload.collect({status:'completed',video:{url:'https://cdn.example.com/out.mp4'}});assert.equal(pinned.resolved.address,'8.8.4.4');assert.equal(pinned.resolved.family,4)
+ const statuses=[];const polling=new HiggsfieldSeedanceAdapter({credentialResolver:async()=> 'key-id:key-secret',lookupImpl:async()=>[{address:'8.8.8.8',family:4}],fetchImpl:async()=>response({status:statuses.shift(),request_id:'12345678-abcd-4000-8000-123456789abc'})})
  statuses.push('nsfw','failed')
  assert.equal((await polling.poll({request_id:'12345678-abcd-4000-8000-123456789abc'})).status,'nsfw')
  assert.equal((await polling.poll({request_id:'12345678-abcd-4000-8000-123456789abc'})).status,'failed')

@@ -1,5 +1,6 @@
 import {isIP} from 'node:net'
 import {lookup as dnsLookup} from 'node:dns/promises'
+import {request as httpsRequest} from 'node:https'
 import {ProductError,invariant} from './errors.mjs'
 
 const API_ORIGIN='https://api.higgsfield.ai'
@@ -31,7 +32,7 @@ function credentialParts(value){
 }
 function safeRequestId(value){invariant(typeof value==='string'&&/^[a-zA-Z0-9][a-zA-Z0-9-]{7,127}$/.test(value),'PROVIDER_RESPONSE_INVALID','Higgsfield did not return a valid request ID.',502);return value}
 function statusUrl(requestId){return API_ORIGIN+'/requests/'+encodeURIComponent(safeRequestId(requestId))+'/status'}
-function publicAddress(address){const host=String(address||'').toLowerCase().replace(/^\[|\]$/g,'');const ip=isIP(host);if(ip===4){const [a,b]=host.split('.').map(Number);return !(a===0||a===10||a===127||a>=224||(a===169&&b===254)||(a===172&&b>=16&&b<=31)||(a===192&&[0,168].includes(b))||(a===100&&b>=64&&b<=127)||a===198)}if(ip===6)return !(/^(::|fc|fd|ff|fe[89ab]|2001:db8)/i.test(host)||host.includes('.'));return false}
+function publicAddress(address){const host=String(address||'').toLowerCase().replace(/^\[|\]$/g,'');const ip=isIP(host);if(ip===4){const [a,b,c]=host.split('.').map(Number);return !(a===0||a===10||a===127||a>=224||(a===169&&b===254)||(a===172&&b>=16&&b<=31)||(a===192&&[0,168].includes(b))||(a===100&&b>=64&&b<=127)||a===198||(a===203&&b===0&&c===113))}if(ip===6)return !(/^(::|fc|fd|ff|fe[89ab]|2001:db8)/i.test(host)||host.includes('.'));return false}
 function safeOutputUrl(value){
  let url;try{url=new URL(value)}catch{throw new ProductError('PROVIDER_OUTPUT_INVALID','Higgsfield returned an invalid media URL.',502)}
  invariant(url.protocol==='https:'&&!url.username&&!url.password&&url.port!=='9222'&&url.port!=='9223','PROVIDER_OUTPUT_INVALID','Provider media must use a credential-free HTTPS URL.',502)
@@ -39,6 +40,20 @@ function safeOutputUrl(value){
  if(isIP(host))invariant(publicAddress(host),'PROVIDER_OUTPUT_INVALID','Provider media URL is not public.',502)
  return url.toString()
 }
+
+function pinnedHttpsResponse(value,{address,family}){
+ const url=new URL(value)
+ return new Promise((resolve,reject)=>{
+  const req=httpsRequest(url,{method:'GET',headers:{Accept:'video/mp4,video/quicktime;q=0.9,*/*;q=0.1'},servername:url.hostname,lookup:(_hostname,_options,callback)=>callback(null,address,family)},res=>{
+   const status=res.statusCode||0,headers={get:key=>{const value=res.headers[String(key).toLowerCase()];return Array.isArray(value)?value[0]:(value??null)}}
+   resolve({status,ok:status>=200&&status<300,headers,body:res})
+  })
+  req.setTimeout(OUTPUT_TIMEOUT_MS,()=>req.destroy(new Error('provider output timeout')))
+  req.once('error',reject)
+  req.end()
+ })
+}
+
 async function jsonResponse(response){
  const declared=Number(response.headers?.get?.('content-length')||0);invariant(!declared||declared<=MAX_JSON_BYTES,'PROVIDER_RESPONSE_INVALID','Provider response is unexpectedly large.',502)
  const text=await response.text();invariant(Buffer.byteLength(text)<=MAX_JSON_BYTES,'PROVIDER_RESPONSE_INVALID','Provider response is unexpectedly large.',502)
@@ -51,7 +66,7 @@ function mappedStatus(value){invariant(ALL_STATUS.has(value),'PROVIDER_RESPONSE_
 function telemetry(response,observedAt){return {source:'provider',provider:'higgsfield',request_id:safeRequestId(response.request_id),status:mappedStatus(response.status),kind:'status',percent:null,observed_at:observedAt}}
 
 export class HiggsfieldSeedanceAdapter {
- constructor({credentialResolver,fetchImpl=globalThis.fetch,lookupImpl=dnsLookup,clock=()=>Date.now()}={}){this.credentialResolver=credentialResolver;this.fetch=fetchImpl;this.lookup=lookupImpl;this.clock=clock}
+ constructor({credentialResolver,fetchImpl=globalThis.fetch,lookupImpl=dnsLookup,mediaRequestImpl=null,clock=()=>Date.now()}={}){this.credentialResolver=credentialResolver;this.fetch=fetchImpl;this.lookup=lookupImpl;this.mediaRequest=mediaRequestImpl;this.clock=clock}
  capabilities(){return {strategies:['GENERATIVE'],paid:true,automatic_social_publish:false,async:true,provider:'higgsfield',model:MODEL,text_to_video:true,reference_to_video:false,authoritative_numeric_progress:false}}
  estimate(input){
   const duration=Number(input.job?.scene_request?.output?.duration_seconds??input.job?.target?.duration_seconds?.[0]??0)
@@ -88,12 +103,12 @@ export class HiggsfieldSeedanceAdapter {
   const status=mappedStatus(body.status)
   return {...value,...body,request_id:requestId,status,status_url:statusUrl(requestId),terminal:TERMINAL.has(status),telemetry:telemetry({...body,request_id:requestId,status},new Date(this.clock()).toISOString())}
  }
- async assertPublicOutput(value){const url=safeOutputUrl(value),host=new URL(url).hostname;let addresses;try{addresses=await this.lookup(host,{all:true,verbatim:true})}catch{throw new ProductError('PROVIDER_OUTPUT_UNAVAILABLE','The provider media host could not be resolved safely.',503)}invariant(Array.isArray(addresses)&&addresses.length>0&&addresses.every(v=>publicAddress(v.address)),'PROVIDER_OUTPUT_INVALID','Provider media resolved to a private or reserved address.',502);return url}
- async outputResponse(value){let current=await this.assertPublicOutput(value);for(let redirects=0;redirects<=3;redirects++){let response;try{response=await this.fetch(current,{method:'GET',signal:AbortSignal.timeout(OUTPUT_TIMEOUT_MS),redirect:'manual'})}catch{throw new ProductError('PROVIDER_OUTPUT_UNAVAILABLE','The completed provider video could not be downloaded.',503)}if(response.status>=300&&response.status<400){const location=response.headers?.get?.('location');invariant(location,'PROVIDER_OUTPUT_INVALID','Provider media redirect is missing its destination.',502);current=await this.assertPublicOutput(new URL(location,current).toString());continue}invariant(response.ok,'PROVIDER_OUTPUT_UNAVAILABLE','The completed provider video could not be downloaded.',503);return response}throw new ProductError('PROVIDER_OUTPUT_INVALID','Provider media redirected too many times.',502)}
+ async resolvePublicOutput(value){const url=safeOutputUrl(value),host=new URL(url).hostname;let addresses;try{addresses=await this.lookup(host,{all:true,verbatim:true})}catch{throw new ProductError('PROVIDER_OUTPUT_UNAVAILABLE','The provider media host could not be resolved safely.',503)}invariant(Array.isArray(addresses)&&addresses.length>0&&addresses.every(v=>publicAddress(v.address)),'PROVIDER_OUTPUT_INVALID','Provider media resolved to a private or reserved address.',502);return {url,address:addresses[0].address,family:addresses[0].family}}
+ async outputResponse(value){let current=safeOutputUrl(value);for(let redirects=0;redirects<=3;redirects++){const resolved=await this.resolvePublicOutput(current);let response;try{response=this.mediaRequest?await this.mediaRequest(resolved.url,resolved):await pinnedHttpsResponse(resolved.url,resolved)}catch{throw new ProductError('PROVIDER_OUTPUT_UNAVAILABLE','The completed provider video could not be downloaded.',503)}if(response.status>=300&&response.status<400){const location=response.headers?.get?.('location');response.body?.destroy?.();invariant(location,'PROVIDER_OUTPUT_INVALID','Provider media redirect is missing its destination.',502);current=safeOutputUrl(new URL(location,resolved.url).toString());continue}invariant(response.ok,'PROVIDER_OUTPUT_UNAVAILABLE','The completed provider video could not be downloaded.',503);return response}throw new ProductError('PROVIDER_OUTPUT_INVALID','Provider media redirected too many times.',502)}
  async collect(value){
   invariant(value.status==='completed','PROVIDER_PENDING','Provider generation is not complete.',409)
   const response=await this.outputResponse(value.video?.url),declared=Number(response.headers?.get?.('content-length')||0);invariant(!declared||declared<=MAX_MEDIA_BYTES,'INVALID_ARTIFACT','Provider media exceeds the permitted size.',422)
-  let bytes;if(response.body?.getReader){const chunks=[];let size=0,reader=response.body.getReader();while(true){const {done,value:chunk}=await reader.read();if(done)break;size+=chunk.byteLength;invariant(size<=MAX_MEDIA_BYTES,'INVALID_ARTIFACT','Provider media exceeds the permitted size.',422);chunks.push(Buffer.from(chunk))}bytes=Buffer.concat(chunks,size)}else bytes=Buffer.from(await response.arrayBuffer())
+  let bytes;if(response.body?.getReader){const chunks=[];let size=0,reader=response.body.getReader();while(true){const {done,value:chunk}=await reader.read();if(done)break;size+=chunk.byteLength;invariant(size<=MAX_MEDIA_BYTES,'INVALID_ARTIFACT','Provider media exceeds the permitted size.',422);chunks.push(Buffer.from(chunk))}bytes=Buffer.concat(chunks,size)}else if(response.body?.[Symbol.asyncIterator]){const chunks=[];let size=0;for await(const chunk of response.body){size+=chunk.length;invariant(size<=MAX_MEDIA_BYTES,'INVALID_ARTIFACT','Provider media exceeds the permitted size.',422);chunks.push(Buffer.from(chunk))}bytes=Buffer.concat(chunks,size)}else bytes=Buffer.from(await response.arrayBuffer())
   invariant(bytes.length>0&&bytes.length<=MAX_MEDIA_BYTES,'INVALID_ARTIFACT','Provider media exceeds the permitted size.',422)
   const mime=(response.headers?.get?.('content-type')||'video/mp4').split(';')[0].trim().toLowerCase();invariant(['video/mp4','video/quicktime'].includes(mime),'INVALID_ARTIFACT','Provider did not return a supported video.',422)
   return {...value,bytes,mime_type:mime,production_note:'Synthetic video generated by Higgsfield Seedance 2.5 after explicit Media Factory spend approval. No automatic publication.'}
