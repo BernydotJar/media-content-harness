@@ -7,7 +7,7 @@ async function boundedAuthPost(request){invariant(request.headers.get('content-t
 export async function handlePreview(request,service){
  const path=new URL(request.url).pathname
  try{
-  if(path==='/api/preview/login'&&request.method==='POST'){const input=await boundedAuthPost(request);return await handleApi(mapped(request,input.action==='register'?'auth/register':'auth/login',input.body),service)}
+  if(path==='/api/preview/login'&&request.method==='POST'){const input=await boundedAuthPost(request);if(input.action==='login'&&input.body.tenant_id===undefined&&input.body.administrative_login===undefined)input.body.administrative_login=true;return await handleApi(mapped(request,input.action==='register'?'auth/register':'auth/login',input.body),service)}
   if(path==='/api/preview/logout'&&request.method==='POST'){const response=await handleApi(mapped(request,'auth/logout',{}),service);if(!response.ok)return response;const headers=new Headers(response.headers);headers.set('location','/login');headers.delete('content-type');return new Response(null,{status:303,headers})}
   if(['/api/preview/session','/api/preview/workspace-status'].includes(path)&&request.method==='GET'){
    const response=await handleApi(mapped(request,'me'),service)

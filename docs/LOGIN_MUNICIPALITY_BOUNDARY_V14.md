@@ -24,3 +24,7 @@ Departmental sign-in is municipality-bound.
 Pressing Enter on the public departmental login with the municipality left on “Selecciona tu municipio” must not create a session and must not navigate into a workspace.
 
 The server independently enforces the same boundary for non-system departmental identities, so bypassing browser validation does not create an unbound departmental session.
+
+## Host reconciler compatibility
+
+The versioned departmental endpoint `/api/v1/auth/login` never infers administrative access. The legacy `/api/preview/login` adapter used by the controlled host reconciler may translate an old no-tenant probe into `administrative_login:true`. This translation is safe because the shared authentication service still requires `system_admin=true`; ordinary configured identities receive `FORBIDDEN`. This preserves the L9 form-session deployment probe without reopening the public departmental fallback.
