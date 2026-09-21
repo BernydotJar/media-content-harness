@@ -15,7 +15,7 @@ async function fixture(t,bytes=Buffer.from('0123456789')){
  const sha256=createHash('sha256').update(bytes).digest('hex');let calls=0,failure=null
  const service=createService({dataRoot:join(root,'data'),identityFile,publicOrigin:'http://localhost',execution:{async artifact(actor,id,artifactId){calls++;assert.equal(actor.id,'viewer');assert.equal(id,'job_one');assert.equal(artifactId,'artifact_one');if(failure)throw failure;return {bytes,mime_type:'video/mp4',filename:'safe video.mp4',sha256}}}})
  await service.repository.transact(s=>{s.jobs.job_one={id:'job_one',tenant_id:'studio'};return null})
- const inside=await service.auth.login({email:users[0].email,password}),outside=await service.auth.login({email:users[1].email,password})
+ const inside=await service.auth.login({email:users[0].email,password,tenant_id:'studio'}),outside=await service.auth.login({email:users[1].email,password})
  const request=(headers={},session=inside.token)=>handleApi(new Request('http://localhost/api/v1/jobs/job_one/artifacts/artifact_one',{headers:{...(session?{cookie:'media_factory_session='+session}:{}),...headers}}),service)
  return {request,bytes,sha256,etag:'"'+sha256+'"',users,identityFile,outside:outside.token,calls:()=>calls,fail(error){failure=error}}
 }
