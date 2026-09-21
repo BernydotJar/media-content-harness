@@ -1520,6 +1520,86 @@
         "assets/**",
         "config/**"
       ]
+    },
+    {
+      "id": "WEB041-SINGLE-OPERATOR-REVIEW-AUTONOMY-V13",
+      "title": "Explicit owner/admin self-review autonomy for controlled single-operator preview while production keeps reviewer separation",
+      "kind": "product-completion",
+      "status": "spec_ready",
+      "depends_on": [
+        "WEB040-AUDIO-FINISHING-ENGINE-V12-RELEASE"
+      ],
+      "capability": "media-factory-web",
+      "gates": {
+        "review": [
+          "implementation_quality"
+        ]
+      },
+      "allowed_paths": [
+        "app/**",
+        "components/**",
+        "server/**",
+        "plugins/**",
+        "tests/**",
+        "scripts/**",
+        "docs/**",
+        "examples/**",
+        "specs/**",
+        "progress/**",
+        "graph/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "*.mjs",
+        "*.json",
+        "*.yml",
+        "Dockerfile",
+        ".gitignore",
+        ".dockerignore",
+        "README.md",
+        "deploy/**",
+        "assets/**",
+        "config/**"
+      ]
+    },
+    {
+      "id": "WEB042-SINGLE-OPERATOR-REVIEW-AUTONOMY-V13-RELEASE",
+      "title": "Independent verification signed deployment and production confirmation of single-operator review autonomy V13",
+      "kind": "product-completion",
+      "status": "spec_ready",
+      "depends_on": [
+        "WEB041-SINGLE-OPERATOR-REVIEW-AUTONOMY-V13"
+      ],
+      "capability": "media-factory-web",
+      "gates": {
+        "review": [
+          "implementation_quality"
+        ]
+      },
+      "allowed_paths": [
+        "app/**",
+        "components/**",
+        "server/**",
+        "plugins/**",
+        "tests/**",
+        "scripts/**",
+        "docs/**",
+        "examples/**",
+        "specs/**",
+        "progress/**",
+        "graph/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "*.mjs",
+        "*.json",
+        "*.yml",
+        "Dockerfile",
+        ".gitignore",
+        ".dockerignore",
+        "README.md",
+        "deploy/**",
+        "assets/**",
+        "config/**"
+      ]
     }
   ]
 }
