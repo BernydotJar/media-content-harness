@@ -1,0 +1,34 @@
+TAP version 13
+# Subtest: controlled single-operator preview lets IT/admin act at Critic and projects the autonomy policy explicitly
+ok 1 - controlled single-operator preview lets IT/admin act at Critic and projects the autonomy policy explicitly
+  ---
+  duration_ms: 215.310459
+  type: 'test'
+  ...
+# Subtest: production uploaded media binds creative candidate, separate real reviewers, and final release
+ok 2 - production uploaded media binds creative candidate, separate real reviewers, and final release
+  ---
+  duration_ms: 8670.477795
+  type: 'test'
+  ...
+# Subtest: controlled single-operator preview lets the owner approve Critic and Verifier on the same hash while labeling the relaxed separation
+ok 3 - controlled single-operator preview lets the owner approve Critic and Verifier on the same hash while labeling the relaxed separation
+  ---
+  duration_ms: 8879.440213
+  type: 'test'
+  ...
+# Subtest: production still rejects producer self-review even when the producer is an owner
+ok 4 - production still rejects producer self-review even when the producer is an owner
+  ---
+  duration_ms: 4651.916544
+  type: 'test'
+  ...
+1..4
+# tests 4
+# suites 0
+# pass 4
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 22418.425886
