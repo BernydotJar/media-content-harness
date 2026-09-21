@@ -1600,6 +1600,86 @@
         "assets/**",
         "config/**"
       ]
+    },
+    {
+      "id": "WEB043-LOGIN-MUNICIPALITY-BOUNDARY-V14",
+      "title": "Fail-closed municipality-bound departmental login with explicit system-admin contingency path",
+      "kind": "product-completion",
+      "status": "spec_ready",
+      "depends_on": [
+        "WEB042-SINGLE-OPERATOR-REVIEW-AUTONOMY-V13-RELEASE"
+      ],
+      "capability": "media-factory-web",
+      "gates": {
+        "review": [
+          "implementation_quality"
+        ]
+      },
+      "allowed_paths": [
+        "app/**",
+        "components/**",
+        "server/**",
+        "plugins/**",
+        "tests/**",
+        "scripts/**",
+        "docs/**",
+        "examples/**",
+        "specs/**",
+        "progress/**",
+        "graph/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "*.mjs",
+        "*.json",
+        "*.yml",
+        "Dockerfile",
+        ".gitignore",
+        ".dockerignore",
+        "README.md",
+        "deploy/**",
+        "assets/**",
+        "config/**"
+      ]
+    },
+    {
+      "id": "WEB044-LOGIN-MUNICIPALITY-BOUNDARY-V14-RELEASE",
+      "title": "Independent critique verification deployment and distribution readiness of municipality-bound login V14",
+      "kind": "product-completion",
+      "status": "spec_ready",
+      "depends_on": [
+        "WEB043-LOGIN-MUNICIPALITY-BOUNDARY-V14"
+      ],
+      "capability": "media-factory-web",
+      "gates": {
+        "review": [
+          "implementation_quality"
+        ]
+      },
+      "allowed_paths": [
+        "app/**",
+        "components/**",
+        "server/**",
+        "plugins/**",
+        "tests/**",
+        "scripts/**",
+        "docs/**",
+        "examples/**",
+        "specs/**",
+        "progress/**",
+        "graph/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "*.mjs",
+        "*.json",
+        "*.yml",
+        "Dockerfile",
+        ".gitignore",
+        ".dockerignore",
+        "README.md",
+        "deploy/**",
+        "assets/**",
+        "config/**"
+      ]
     }
   ]
 }

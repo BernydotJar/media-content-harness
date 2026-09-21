@@ -119,7 +119,7 @@ async function integrationFixture(t){
  ]
  const identityFile=join(root,'identities.json');await writeFile(identityFile,JSON.stringify({users}))
  const dataRoot=join(root,'data'),service=createService({dataRoot,identityFile,publicOrigin:'http://localhost:3000',deploymentClass:'controlled_single_operator_preview'})
- const owner=(await service.auth.login({email:'owner@example.com',password})).token,critic=(await service.auth.login({email:'critic@example.com',password})).token,verifier=(await service.auth.login({email:'verifier@example.com',password})).token
+ const owner=(await service.auth.login({email:'owner@example.com',password})).token,critic=(await service.auth.login({email:'critic@example.com',password,tenant_id:'firmes'})).token,verifier=(await service.auth.login({email:'verifier@example.com',password,tenant_id:'firmes'})).token
  await service.createTenant(owner,{organization:'FIRMES',tenant_id:'firmes',content_context:'community',visual_language:'Burgundy, warm, community-first'})
  await service.addSource(owner,'firmes',{source:{id:'activation-source',locator:'https://example.org/authorized-video',purpose:'source',authorization:'explicit',match:'exact'}})
  const execution=new ExecutionService({repository:service.repository,dataRoot,graphRuntimeRoot:runtime,testMode:false,deploymentClass:'controlled_single_operator_preview',releaseSha:'a'.repeat(40)})
