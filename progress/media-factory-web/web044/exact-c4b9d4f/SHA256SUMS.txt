@@ -1,0 +1,13 @@
+c64f2954134641a66c0160365e025230bef17fc2c7e3d2344861ac1c47cc5ebd  progress/media-factory-web/web044/exact-c4b9d4f/CRITIC.md
+d9e3c6e874c9a144ad67a69baa1ccdb7f8410dbe3c9c947b548cde7a323c9a0a  progress/media-factory-web/web044/exact-c4b9d4f/INDEPENDENT_VERIFIER.md
+1d690a953beebf941e220320a7418c1f75ab26c73aaf0bf2b5e469208989f156  progress/media-factory-web/web044/exact-c4b9d4f/PUBLIC_PROBE.md
+d38dca3198e7ab8567f3e785b78174decab2ccab13522cc0f61a215444652fd0  progress/media-factory-web/web044/exact-c4b9d4f/RELEASE.md
+8a741f91968c1d803d45ef2888e250417cb0b2af444545e35fbf12b04c4a51d2  progress/media-factory-web/web044/exact-c4b9d4f/deploy-request.json
+6e9d692aea3d695b3bac1aaf937d68588b575e892d8d01f43845009e224f8c77  progress/media-factory-web/web044/exact-c4b9d4f/detached-browser.log
+078b89cb6405bfa3ccad581073e94e5d94c2e656bb3f3813612edd089b4bedb4  progress/media-factory-web/web044/exact-c4b9d4f/detached-focused.log
+9771a2d172c83522773cb1f0366b7dba8338e85f5e2ef1b5daf3b26125971f42  progress/media-factory-web/web044/exact-c4b9d4f/finalizer-output.json
+e0648b604ca58d044102b0191fb0aaf6a273428e76083d4723c014ea31f4250f  progress/media-factory-web/web044/exact-c4b9d4f/full-tests.log
+97e60fe8c26742250e56740f0999bc9c15b22152566bc56b991389d7a6c43f9e  progress/media-factory-web/web044/exact-c4b9d4f/granite-risk-raw.json
+25d9c01f3b3e1484061dfcfc9bb3fdfb55410ccebeaf28fdff8cf46de8f170d3  progress/media-factory-web/web044/exact-c4b9d4f/granite-rubric-raw.json
+4d4a2c8d452604b499b38aec33d995d5f4c0298643dc72cd8330d7979be36124  progress/media-factory-web/web044/exact-c4b9d4f/host-reconcile.json
+0a6a410aa2bab4765d09567fee3fb7124aa23c2e55b7cbbb6423f07fdcaa4cc5  progress/media-factory-web/web044/exact-c4b9d4f/product-status.json

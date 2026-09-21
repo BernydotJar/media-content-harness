@@ -1,0 +1,478 @@
+TAP version 13
+# Subtest: artifact download advertises byte ranges and preserves full-file integrity metadata
+ok 1 - artifact download advertises byte ranges and preserves full-file integrity metadata
+  ---
+  duration_ms: 166.430916
+  type: 'test'
+  ...
+# Subtest: single ranges return exact closed, open-ended and suffix bytes with clamped boundaries
+ok 2 - single ranges return exact closed, open-ended and suffix bytes with clamped boundaries
+  ---
+  duration_ms: 127.4065
+  type: 'test'
+  ...
+# Subtest: invalid and unsatisfiable single byte ranges return bounded 416 responses
+ok 3 - invalid and unsatisfiable single byte ranges return bounded 416 responses
+  ---
+  duration_ms: 183.372292
+  type: 'test'
+  ...
+# Subtest: If-Range requires the strong current ETag; unknown units and multipart fall back to full bytes
+ok 4 - If-Range requires the strong current ETag; unknown units and multipart fall back to full bytes
+  ---
+  duration_ms: 95.27075
+  type: 'test'
+  ...
+# Subtest: range requests enforce fresh session and tenant authorization before revealing metadata
+ok 5 - range requests enforce fresh session and tenant authorization before revealing metadata
+  ---
+  duration_ms: 83.3835
+  type: 'test'
+  ...
+# Subtest: range processing cannot bypass the artifact integrity gate
+ok 6 - range processing cannot bypass the artifact integrity gate
+  ---
+  duration_ms: 96.198709
+  type: 'test'
+  ...
+# Subtest: repository reads pre-V10 state and adds departmental auth collections lazily
+ok 7 - repository reads pre-V10 state and adds departmental auth collections lazily
+  ---
+  duration_ms: 5.205458
+  type: 'test'
+  ...
+# Subtest: Google ID token verification fails closed on signature and every identity-binding claim
+ok 8 - Google ID token verification fails closed on signature and every identity-binding claim
+  ---
+  duration_ms: 24.356792
+  type: 'test'
+  ...
+# Subtest: owner can persist Google OAuth configuration in the private encrypted vault without another deploy
+ok 9 - owner can persist Google OAuth configuration in the private encrypted vault without another deploy
+  ---
+  duration_ms: 96.7155
+  type: 'test'
+  ...
+# Subtest: corrupted Google OAuth ciphertext fails closed and cannot be silently overwritten
+ok 10 - corrupted Google OAuth ciphertext fails closed and cannot be silently overwritten
+  ---
+  duration_ms: 130.751334
+  type: 'test'
+  ...
+# Subtest: Google OAuth configuration is system-admin only and can be removed without affecting local break-glass login
+ok 11 - Google OAuth configuration is system-admin only and can be removed without affecting local break-glass login
+  ---
+  duration_ms: 92.547709
+  type: 'test'
+  ...
+# Subtest: Google authorization start uses one-time state, PKCE and nonce and callback admits only an invited email
+ok 12 - Google authorization start uses one-time state, PKCE and nonce and callback admits only an invited email
+  ---
+  duration_ms: 105.3285
+  type: 'test'
+  ...
+# Subtest: Google HTTP start/callback keeps the OAuth state server-side and returns the regular secure product session
+ok 13 - Google HTTP start/callback keeps the OAuth state server-side and returns the regular secure product session
+  ---
+  duration_ms: 114.6975
+  type: 'test'
+  ...
+# Subtest: Google OAuth state is bound to the browser flow cookie to prevent login CSRF
+ok 14 - Google OAuth state is bound to the browser flow cookie to prevent login CSRF
+  ---
+  duration_ms: 109.134042
+  type: 'test'
+  ...
+# Subtest: first Google login without a pending invitation fails closed after identity verification
+ok 15 - first Google login without a pending invitation fails closed after identity verification
+  ---
+  duration_ms: 80.373125
+  type: 'test'
+  ...
+# Subtest: Google sign-in is unavailable without complete confidential-client configuration
+ok 16 - Google sign-in is unavailable without complete confidential-client configuration
+  ---
+  duration_ms: 1.759584
+  type: 'test'
+  ...
+# Subtest: owner and IT manage non-owner team access while coordinators stay tenant-scoped and non-admin
+ok 17 - owner and IT manage non-owner team access while coordinators stay tenant-scoped and non-admin
+  ---
+  duration_ms: 127.134292
+  type: 'test'
+  ...
+# Subtest: all four non-owner departmental roles are invitation-only and activate only after verified Google sign-in
+ok 18 - all four non-owner departmental roles are invitation-only and activate only after verified Google sign-in
+  ---
+  duration_ms: 129.416333
+  type: 'test'
+  ...
+# Subtest: a stored Google email never grants a new tenant until that email is freshly verified again
+ok 19 - a stored Google email never grants a new tenant until that email is freshly verified again
+  ---
+  duration_ms: 127.249959
+  type: 'test'
+  ...
+# Subtest: pending invitations cannot overwrite memberships and role changes or removals revoke stale invitations
+ok 20 - pending invitations cannot overwrite memberships and role changes or removals revoke stale invitations
+  ---
+  duration_ms: 113.087458
+  type: 'test'
+  ...
+# Subtest: team mutation authority is rechecked inside the transaction after an admin is revoked
+ok 21 - team mutation authority is rechecked inside the transaction after an admin is revoked
+  ---
+  duration_ms: 85.07175
+  type: 'test'
+  ...
+# Subtest: role input is an explicit allowlist and local administrative identities stay protected
+ok 22 - role input is an explicit allowlist and local administrative identities stay protected
+  ---
+  duration_ms: 79.818917
+  type: 'test'
+  ...
+# Subtest: Google signing-key rotation refreshes a cached JWKS after the bounded refresh interval
+ok 23 - Google signing-key rotation refreshes a cached JWKS after the bounded refresh interval
+  ---
+  duration_ms: 62.076917
+  type: 'test'
+  ...
+# Subtest: departmental review roles are stage-specific and owner remains an authorized boundary actor
+ok 24 - departmental review roles are stage-specific and owner remains an authorized boundary actor
+  ---
+  duration_ms: 146.682208
+  type: 'test'
+  ...
+# Subtest: controlled single-operator preview lets IT/admin act at Critic and projects the autonomy policy explicitly
+ok 25 - controlled single-operator preview lets IT/admin act at Critic and projects the autonomy policy explicitly
+  ---
+  duration_ms: 141.803083
+  type: 'test'
+  ...
+# Subtest: V10 interface keeps Google primary, local break-glass, simple team roles and stage-specific review copy
+ok 26 - V10 interface keeps Google primary, local break-glass, simple team roles and stage-specific review copy
+  ---
+  duration_ms: 1.142083
+  type: 'test'
+  ...
+# Subtest: existing host login, forward auth, exact workspace probe, logout and revocation share product session
+ok 27 - existing host login, forward auth, exact workspace probe, logout and revocation share product session
+  ---
+  duration_ms: 88.726667
+  type: 'test'
+  ...
+# Subtest: municipality catalog exposes the exact 16 Sacatepéquez municipalities in departmental order
+ok 28 - municipality catalog exposes the exact 16 Sacatepéquez municipalities in departmental order
+  ---
+  duration_ms: 86.574125
+  type: 'test'
+  ...
+# Subtest: first registration in a configured municipality materializes only that tenant and grants operator ownership
+ok 29 - first registration in a configured municipality materializes only that tenant and grants operator ownership
+  ---
+  duration_ms: 103.078
+  type: 'test'
+  ...
+# Subtest: self-registration stores no plaintext DPI and remains pending without a membership
+ok 30 - self-registration stores no plaintext DPI and remains pending without a membership
+  ---
+  duration_ms: 225.116709
+  type: 'test'
+  ...
+# Subtest: pending registration is visible only to managers of the requested municipality and approval assigns an explicit role
+ok 31 - pending registration is visible only to managers of the requested municipality and approval assigns an explicit role
+  ---
+  duration_ms: 190.365375
+  type: 'test'
+  ...
+# Subtest: approved account can authenticate by DPI, and membership removal invalidates municipality-bound sessions
+ok 32 - approved account can authenticate by DPI, and membership removal invalidates municipality-bound sessions
+  ---
+  duration_ms: 145.973792
+  type: 'test'
+  ...
+# Subtest: rejected accounts stay denied and approval inputs use the same non-owner role allowlist
+ok 33 - rejected accounts stay denied and approval inputs use the same non-owner role allowlist
+  ---
+  duration_ms: 122.665125
+  type: 'test'
+  ...
+# Subtest: registration validates email, 13-digit DPI, password strength, municipality, and duplicate identity
+ok 34 - registration validates email, 13-digit DPI, password strength, municipality, and duplicate identity
+  ---
+  duration_ms: 197.287334
+  type: 'test'
+  ...
+# Subtest: HTTP registration and login accept the new contract while legacy configured operator login remains compatible
+ok 35 - HTTP registration and login accept the new contract while legacy configured operator login remains compatible
+  ---
+  duration_ms: 145.501083
+  type: 'test'
+  ...
+# Subtest: configured departmental identity cannot create an unbound session once it has a municipality membership
+ok 36 - configured departmental identity cannot create an unbound session once it has a municipality membership
+  ---
+  duration_ms: 105.640167
+  type: 'test'
+  ...
+# Subtest: administrative contingency login is explicit and restricted to system admin
+ok 37 - administrative contingency login is explicit and restricted to system admin
+  ---
+  duration_ms: 128.960541
+  type: 'test'
+  ...
+# Subtest: V11 login and Team UI expose municipality registration, DPI privacy copy and admin approval controls
+ok 38 - V11 login and Team UI expose municipality registration, DPI privacy copy and admin approval controls
+  ---
+  duration_ms: 0.97525
+  type: 'test'
+  ...
+# Subtest: approved IT account can authorize another local request while private credential material stays server-side
+ok 39 - approved IT account can authorize another local request while private credential material stays server-side
+  ---
+  duration_ms: 168.946209
+  type: 'test'
+  ...
+# Subtest: pending registration queue is bounded per municipality without weakening duplicate privacy
+ok 40 - pending registration queue is bounded per municipality without weakening duplicate privacy
+  ---
+  duration_ms: 115.11475
+  type: 'test'
+  ...
+# Subtest: first-run completion persists per authenticated user and cannot target another user
+ok 41 - first-run completion persists per authenticated user and cannot target another user
+  ---
+  duration_ms: 105.994208
+  type: 'test'
+  ...
+# Subtest: onboarding tenant summary exposes only membership-bound safe brand facts
+ok 42 - onboarding tenant summary exposes only membership-bound safe brand facts
+  ---
+  duration_ms: 113.041042
+  type: 'test'
+  ...
+# Subtest: dismissed guide persists without changing tenant authority or membership
+ok 43 - dismissed guide persists without changing tenant authority or membership
+  ---
+  duration_ms: 87.348833
+  type: 'test'
+  ...
+# Subtest: repository upgrades older state documents with user_onboarding lazily
+ok 44 - repository upgrades older state documents with user_onboarding lazily
+  ---
+  duration_ms: 79.117625
+  type: 'test'
+  ...
+# Subtest: onboarding HTTP remains authenticated and CSRF-protected
+ok 45 - onboarding HTTP remains authenticated and CSRF-protected
+  ---
+  duration_ms: 115.336916
+  type: 'test'
+  ...
+# Subtest: legacy active users are recognized as returning instead of being force-onboarded
+ok 46 - legacy active users are recognized as returning instead of being force-onboarded
+  ---
+  duration_ms: 83.338083
+  type: 'test'
+  ...
+# Subtest: FIRMES resolves immutable default mascot across asset, character and tenant profile layers
+ok 47 - FIRMES resolves immutable default mascot across asset, character and tenant profile layers
+  ---
+  duration_ms: 5.299416
+  type: 'test'
+  ...
+# Subtest: structured compiler is deterministic, separates reference roles and keeps operator override provenance
+ok 48 - structured compiler is deterministic, separates reference roles and keeps operator override provenance
+  ---
+  duration_ms: 3.35
+  type: 'test'
+  ...
+# Subtest: reference role and authorization drift invalidate a compiled scene even when bytes are unchanged
+ok 49 - reference role and authorization drift invalidate a compiled scene even when bytes are unchanged
+  ---
+  duration_ms: 1.067833
+  type: 'test'
+  ...
+# Subtest: default is optional, cross-tenant character IDs and wrong reference roles fail closed
+ok 50 - default is optional, cross-tenant character IDs and wrong reference roles fail closed
+  ---
+  duration_ms: 1.328208
+  type: 'test'
+  ...
+# Subtest: generic tenant does not require a FIRMES character and receives neutral preset labels
+ok 51 - generic tenant does not require a FIRMES character and receives neutral preset labels
+  ---
+  duration_ms: 0.215125
+  type: 'test'
+  ...
+# Subtest: provider registry exposes manual external as operational and unconfigured generators truthfully
+ok 52 - provider registry exposes manual external as operational and unconfigured generators truthfully
+  ---
+  duration_ms: 0.107167
+  type: 'test'
+  ...
+# Subtest: external package changes from hero-image creation to exact approved hero animation
+ok 53 - external package changes from hero-image creation to exact approved hero animation
+  ---
+  duration_ms: 0.85325
+  type: 'test'
+  ...
+# Subtest: scene-reference identity is role-bound and non-editors cannot upload references
+ok 54 - scene-reference identity is role-bound and non-editors cannot upload references
+  ---
+  duration_ms: 479.279917
+  type: 'test'
+  ...
+# Subtest: manual external generation resumes the same job, critic repair regenerates, verifier and release bind the exact accepted SHA
+ok 55 - manual external generation resumes the same job, critic repair regenerates, verifier and release bind the exact accepted SHA
+  ---
+  duration_ms: 10509.406004
+  type: 'test'
+  ...
+# Subtest: video scene is image-first and the approved hero SHA becomes an explicit animation input in the same job
+ok 56 - video scene is image-first and the approved hero SHA becomes an explicit animation input in the same job
+  ---
+  duration_ms: 7943.343629
+  type: 'test'
+  ...
+# Subtest: authentication preserves password bytes, revokes changed identity and starts without tenants
+ok 57 - authentication preserves password bytes, revokes changed identity and starts without tenants
+  ---
+  duration_ms: 185.92025
+  type: 'test'
+  ...
+# Subtest: tenant membership enforced for reads/writes and onboarding has no fake source
+ok 58 - tenant membership enforced for reads/writes and onboarding has no fake source
+  ---
+  duration_ms: 100.570041
+  type: 'test'
+  ...
+# Subtest: strict source/reference separation, provenance and secret validation
+ok 59 - strict source/reference separation, provenance and secret validation
+  ---
+  duration_ms: 111.904376
+  type: 'test'
+  ...
+# Subtest: private, browser and signed source locators are rejected
+ok 60 - private, browser and signed source locators are rejected
+  ---
+  duration_ms: 0.702459
+  type: 'test'
+  ...
+# Subtest: plans reject injected approval and produce same id under concurrent requests
+ok 61 - plans reject injected approval and produce same id under concurrent requests
+  ---
+  duration_ms: 140.118709
+  type: 'test'
+  ...
+# Subtest: source/DNA changes invalidate plans and idempotency includes strategy
+ok 62 - source/DNA changes invalidate plans and idempotency includes strategy
+  ---
+  duration_ms: 92.112917
+  type: 'test'
+  ...
+# Subtest: Free Mode exact mixed Spanish example becomes four unapproved concepts, no-AI remains real
+ok 63 - Free Mode exact mixed Spanish example becomes four unapproved concepts, no-AI remains real
+  ---
+  duration_ms: 95.974708
+  type: 'test'
+  ...
+# Subtest: targeted political or sensitive persuasion cannot enter plans/intent
+ok 64 - targeted political or sensitive persuasion cannot enter plans/intent
+  ---
+  duration_ms: 91.210583
+  type: 'test'
+  ...
+# Subtest: HTTP cookies, CSRF, malformed body, path traversal and safe errors
+ok 65 - HTTP cookies, CSRF, malformed body, path traversal and safe errors
+  ---
+  duration_ms: 130.210209
+  type: 'test'
+  ...
+# Subtest: repository serializes separate instances and rejects symlink state
+ok 66 - repository serializes separate instances and rejects symlink state
+  ---
+  duration_ms: 32.034583
+  type: 'test'
+  ...
+# Subtest: SSE rejects unauthorized reads and pushes durable state updates
+ok 67 - SSE rejects unauthorized reads and pushes durable state updates
+  ---
+  duration_ms: 102.841292
+  type: 'test'
+  ...
+# Subtest: HTTP rejects declared and streamed oversized JSON before parsing
+ok 68 - HTTP rejects declared and streamed oversized JSON before parsing
+  ---
+  duration_ms: 80.377167
+  type: 'test'
+  ...
+# Subtest: viewer cannot approve concepts and configured identity roles override persisted memberships
+ok 69 - viewer cannot approve concepts and configured identity roles override persisted memberships
+  ---
+  duration_ms: 91.116166
+  type: 'test'
+  ...
+# Subtest: reference DNA requires evidence bytes actually stored for the selected reference
+ok 70 - reference DNA requires evidence bytes actually stored for the selected reference
+  ---
+  duration_ms: 92.605042
+  type: 'test'
+  ...
+# Subtest: malformed durable state fails closed with controlled storage error
+ok 71 - malformed durable state fails closed with controlled storage error
+  ---
+  duration_ms: 1.171875
+  type: 'test'
+  ...
+# Subtest: ProductError identity remains stable across independently evaluated server bundles
+ok 72 - ProductError identity remains stable across independently evaluated server bundles
+  ---
+  duration_ms: 0.419791
+  type: 'test'
+  ...
+# Subtest: stored reference evidence tampering invalidates DNA analysis
+ok 73 - stored reference evidence tampering invalidates DNA analysis
+  ---
+  duration_ms: 88.572833
+  type: 'test'
+  ...
+# Subtest: mascot setup binds a selected production source and rejects a reference
+ok 74 - mascot setup binds a selected production source and rejects a reference
+  ---
+  duration_ms: 87.974375
+  type: 'test'
+  ...
+# Subtest: Free Mode respects indirect AI negations and explicit alternative distributions
+ok 75 - Free Mode respects indirect AI negations and explicit alternative distributions
+  ---
+  duration_ms: 89.073917
+  type: 'test'
+  ...
+# Subtest: login concurrency limit reserves capacity before awaiting identity loading
+ok 76 - login concurrency limit reserves capacity before awaiting identity loading
+  ---
+  duration_ms: 121.03675
+  type: 'test'
+  ...
+# Subtest: legacy planner contract rejection returns a controlled HTTP 400
+ok 77 - legacy planner contract rejection returns a controlled HTTP 400
+  ---
+  duration_ms: 86.035125
+  type: 'test'
+  ...
+# Subtest: FIRMES avatar catalog and MCP-ready tool definitions stay membership-bound over HTTP
+ok 78 - FIRMES avatar catalog and MCP-ready tool definitions stay membership-bound over HTTP
+  ---
+  duration_ms: 83.908208
+  type: 'test'
+  ...
+1..78
+# tests 78
+# suites 0
+# pass 78
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 26581.822053
