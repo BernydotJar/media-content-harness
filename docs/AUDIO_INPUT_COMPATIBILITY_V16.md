@@ -27,3 +27,7 @@ MIME is not trusted by itself. Uploads must also match binary signatures:
 - WebM: EBML magic
 
 All formats remain capped at 40 MB, are inspected by FFprobe for an actual audio stream, stored by SHA-256, and retain the existing owner/admin/editor authorization boundary. Audio finishing, picture-lock verification, mastering QA, and release behavior are unchanged.
+
+## QA audit fix
+
+Real-asset QA also exposed that the stored request contract and the engine execution contract used different serialization strategies when computing `contract_sha256`. They represented the same normalized contract but produced different hashes. V16 now uses the same canonical `digest()` function for both, so request, repair evidence, and engine execution carry one identical contract hash.

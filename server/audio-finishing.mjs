@@ -1,8 +1,8 @@
 import { execFile as callback } from 'node:child_process'
 import { promisify } from 'node:util'
 import { readFile } from 'node:fs/promises'
-import { createHash } from 'node:crypto'
 import { fields, invariant, boundedText } from './errors.mjs'
+import { digest } from './worker-policy.mjs'
 
 const execFile=promisify(callback)
 const MAX_MEDIA_BYTES=40*1024*1024
@@ -125,6 +125,6 @@ export class AudioFinishingEngine {
   invariant(loudnessDelta<=1.0,'LOUDNESS_QA_FAILED','Finished audio missed the loudness target',409)
   invariant(qa.true_peak_dbtp<=normalized.master.true_peak_max_dbtp+0.25,'TRUE_PEAK_QA_FAILED','Finished audio exceeds the true-peak ceiling',409)
   invariant(!normalized.sync.lock_to_video_duration||durationDelta<=0.04,'AV_SYNC_QA_FAILED','Finished audio and video durations are not locked',409)
-  return {contract:normalized,contract_sha256:createHash('sha256').update(JSON.stringify(normalized)).digest('hex'),picture_stream_sha256:pictureHashBefore,qa,output_duration_seconds:round3(duration)}
+  return {contract:normalized,contract_sha256:digest(normalized),picture_stream_sha256:pictureHashBefore,qa,output_duration_seconds:round3(duration)}
  }
 }
