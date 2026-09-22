@@ -95,6 +95,19 @@ test('creative approval rejects treatment drift after the exact caballito asset 
  const f=await fixture({testMode:false,deploymentClass:'controlled_single_operator_preview'});await f.repository.transact(s=>{s.tenants['tenant-a'].organization='FIRMES';s.tenants['tenant-a'].brand={display_name:'FIRMES',identity_key:'firmes'};s.jobs['job-one'].mascot=true;s.jobs['job-one'].creative_context={character:{id:'caballito-main',kind:'character',name:'Caballito de Firmes',rights_confirmed:true,principal:true}};return null});const dir=join(f.root,'firmes-treatment-drift');await mkdir(dir);const source=join(dir,'source.mp4');await execFile('/usr/bin/ffmpeg',['-nostdin','-v','error','-y','-f','lavfi','-i','color=c=white:s=180x320:d=2','-c:v','libx264','-threads','1','-pix_fmt','yuv420p',source]);await f.service.uploadSource(actor,'tenant-a','real-source',{bytes:await readFile(source),mime_type:'video/mp4'});const j=await runToReview(f);assert.equal(j.stage,'CREATIVE_GATE');await f.repository.transact(s=>{s.jobs[j.id].treatment.authorized_brand_assets[0].sha256='f'.repeat(64);return null});await assert.rejects(f.service.approve(actor,j.id,{candidate_sha:j.candidate_sha,review_stage:j.stage}),{code:'TREATMENT_CHANGED'});const after=(await f.repository.read()).jobs[j.id];assert.equal(after.stage,'CREATIVE_GATE');assert.equal(after.artifact_sha256??null,null)
 })
 
+test('soundtrack upload accepts real MP3 WAV and M4A files while rejecting MIME-disguised bytes',async()=>{
+ const f=await fixture({testMode:false,deploymentClass:'controlled_single_operator_preview'}),dir=join(f.root,'audio-input-formats');await mkdir(dir)
+ const mp3=join(dir,'soundtrack.mp3'),wav=join(dir,'soundtrack.wav'),m4a=join(dir,'soundtrack.m4a')
+ await execFile('/usr/bin/ffmpeg',['-nostdin','-v','error','-y','-f','lavfi','-i','sine=frequency=220:duration=1.2','-c:a','libmp3lame','-b:a','192k',mp3])
+ await execFile('/usr/bin/ffmpeg',['-nostdin','-v','error','-y','-f','lavfi','-i','sine=frequency=330:duration=1.2','-c:a','pcm_s16le',wav])
+ await execFile('/usr/bin/ffmpeg',['-nostdin','-v','error','-y','-f','lavfi','-i','sine=frequency=440:duration=1.2','-c:a','aac','-b:a','192k',m4a])
+ const a=await f.service.uploadAudioAsset(actor,'job-one',{bytes:await readFile(mp3),mime_type:'audio/mpeg'}),b=await f.service.uploadAudioAsset(actor,'job-one',{bytes:await readFile(wav),mime_type:'audio/wav'}),c=await f.service.uploadAudioAsset(actor,'job-one',{bytes:await readFile(m4a),mime_type:'audio/mp4'})
+ assert.equal(a.codec,'mp3');assert.equal(a.sample_rate,44100);assert.ok(a.duration_seconds>1)
+ assert.match(b.codec,/pcm_/);assert.equal(b.sample_rate,44100);assert.ok(b.duration_seconds>1)
+ assert.equal(c.codec,'aac');assert.equal(c.sample_rate,44100);assert.ok(c.duration_seconds>1)
+ await assert.rejects(f.service.uploadAudioAsset(actor,'job-one',{bytes:Buffer.from('not-an-mp3'),mime_type:'audio/mpeg'}),e=>e.code==='INVALID_SOUNDTRACK')
+})
+
 test('audio finishing preserves picture lock, creates a fresh master, and returns the same job to Critic',async()=>{
  const f=await fixture({testMode:false,deploymentClass:'controlled_single_operator_preview'}),dir=join(f.root,'audio-finishing');await mkdir(dir)
  const source=join(dir,'picture.mp4'),soundtrack=join(dir,'soundtrack.mp4')

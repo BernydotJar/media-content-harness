@@ -26,7 +26,7 @@ test('V12 HTTP surface keeps audio upload binary and finishing contract JSON on 
 
 test('review stays decision-first while Studio exposes advanced audio controls and explicit outro IN/OUT',async()=>{
  const [source,studio,metadata,css]=await Promise.all([readFile('components/jobs.tsx','utf8'),readFile('components/studio.tsx','utf8'),readFile('server/site-metadata.mjs','utf8'),readFile('app/globals.css','utf8')])
- for(const text of ['TU DECISIÓN','¿Esta versión está bien?','Pedir un cambio','Abrir Studio','Ajusta música, voz y cierre.','Música','Voz','Final','Terminar audio','Crear nueva versión'])assert.ok(source.includes(text),text)
+ for(const text of ['TU DECISIÓN','¿Esta versión está bien?','Pedir un cambio','Abrir Studio','Ajusta música, voz y cierre.','Música','Voz','Final','Terminar audio','Crear nueva versión','audio/mpeg','audio/wav','.mp3','.wav','.m4a','MP3, WAV, M4A, MP4, MOV o WebM'])assert.ok(source.includes(text),text)
  assert.ok(source.includes('studioMode?<>'));assert.ok(source.includes('reviewable&&hasVideo?<AudioFinishingPanel'));assert.match(source,/IN \(s\)/);assert.match(source,/OUT \(s\)/);assert.match(source,/Si quieres usar un fragmento exacto al final/);assert.match(source,/Picture lock/)
  assert.match(studio,/studioMode=\{segments\[2\] === 'studio'\}/);assert.match(metadata,/Studio de producción/);assert.match(css,/\.audio-finishing-panel/);assert.match(css,/\.review-studio-entry/);assert.match(css,/\.advanced-job-info/)
 })
