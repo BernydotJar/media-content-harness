@@ -1,0 +1,124 @@
+TAP version 13
+# Subtest: Seedance 2.5 adapter maps exact request, exposes only lifecycle telemetry, and uses conservative catalog estimate
+ok 1 - Seedance 2.5 adapter maps exact request, exposes only lifecycle telemetry, and uses conservative catalog estimate
+  ---
+  duration_ms: 1.472916
+  type: 'test'
+  ...
+# Subtest: Higgsfield adapter fails closed for reference scenes, missing credentials and ambiguous paid submission
+ok 2 - Higgsfield adapter fails closed for reference scenes, missing credentials and ambiguous paid submission
+  ---
+  duration_ms: 0.411375
+  type: 'test'
+  ...
+# Subtest: Higgsfield adapter rejects unsafe output URLs and moderation/failed states remain explicit
+ok 3 - Higgsfield adapter rejects unsafe output URLs and moderation/failed states remain explicit
+  ---
+  duration_ms: 3.651709
+  type: 'test'
+  ...
+# Subtest: provider discovery is credential-aware and never returns the stored Higgsfield secret
+ok 4 - provider discovery is credential-aware and never returns the stored Higgsfield secret
+  ---
+  duration_ms: 148.223917
+  type: 'test'
+  ...
+# Subtest: V9 Creation Room keeps Graph percentage separate from provider status and gates paid generation behind explicit consent
+ok 5 - V9 Creation Room keeps Graph percentage separate from provider status and gates paid generation behind explicit consent
+  ---
+  duration_ms: 1.550541
+  type: 'test'
+  ...
+# Subtest: paid provider waits for exact human spend approval, then recovery reuses one request id without duplicate submission
+ok 6 - paid provider waits for exact human spend approval, then recovery reuses one request id without duplicate submission
+  ---
+  duration_ms: 3925.42521
+  type: 'test'
+  ...
+# Subtest: provider moderation failure blocks the exact attempt and a blind restart cannot spend again
+ok 7 - provider moderation failure blocks the exact attempt and a blind restart cannot spend again
+  ---
+  duration_ms: 3014.113252
+  type: 'test'
+  ...
+# Subtest: ambiguous paid submission persists fail-closed state and is never automatically resubmitted
+ok 8 - ambiguous paid submission persists fail-closed state and is never automatically resubmitted
+  ---
+  duration_ms: 3032.428876
+  type: 'test'
+  ...
+# Subtest: crash after paid output collection resumes from the durable artifact without a second provider request
+ok 9 - crash after paid output collection resumes from the durable artifact without a second provider request
+  ---
+  duration_ms: 3735.218585
+  type: 'test'
+  ...
+# Subtest: changing a spend-bound job revision invalidates approval before provider submission
+ok 10 - changing a spend-bound job revision invalidates approval before provider submission
+  ---
+  duration_ms: 2603.423085
+  type: 'test'
+  ...
+# Subtest: runtime allowlist omits traces and source evidence, protects existing destinations, rejects escaping dependencies
+ok 11 - runtime allowlist omits traces and source evidence, protects existing destinations, rejects escaping dependencies
+  ---
+  duration_ms: 33.54375
+  type: 'test'
+  ...
+# Subtest: Q200 weekly policy exposes one daily new-video slot and protected repair reserve
+ok 12 - Q200 weekly policy exposes one daily new-video slot and protected repair reserve
+  ---
+  duration_ms: 10.54675
+  type: 'test'
+  ...
+# Subtest: an in-flight first paid attempt remains NEW_GENERATION during polling and recovery
+ok 13 - an in-flight first paid attempt remains NEW_GENERATION during polling and recovery
+  ---
+  duration_ms: 0.188875
+  type: 'test'
+  ...
+# Subtest: unused days never accumulate extra daily slots and a new week resets availability
+ok 14 - unused days never accumulate extra daily slots and a new week resets availability
+  ---
+  duration_ms: 0.650959
+  type: 'test'
+  ...
+# Subtest: seven Q22 new generations plus two Q23 repairs consume exactly Q200 without overage
+ok 15 - seven Q22 new generations plus two Q23 repairs consume exactly Q200 without overage
+  ---
+  duration_ms: 1.760667
+  type: 'test'
+  ...
+# Subtest: per-item caps prevent one render or repair from consuming future days
+ok 16 - per-item caps prevent one render or repair from consuming future days
+  ---
+  duration_ms: 0.33625
+  type: 'test'
+  ...
+# Subtest: reserved usage can be released before submission but committed provider spend cannot be fabricated back
+ok 17 - reserved usage can be released before submission but committed provider spend cannot be fabricated back
+  ---
+  duration_ms: 0.401042
+  type: 'test'
+  ...
+# Subtest: AtomicRepository serializes two same-day approvals so only one daily slot can reserve
+ok 18 - AtomicRepository serializes two same-day approvals so only one daily slot can reserve
+  ---
+  duration_ms: 9.92075
+  type: 'test'
+  ...
+# Subtest: V17 UX presents weekly usage as a protected creation week rather than an open credit wallet
+ok 19 - V17 UX presents weekly usage as a protected creation week rather than an open credit wallet
+  ---
+  duration_ms: 2.190083
+  type: 'test'
+  ...
+1..19
+# tests 19
+# suites 0
+# pass 19
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 16646.156008

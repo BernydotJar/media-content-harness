@@ -92,8 +92,9 @@ test('V9 Creation Room keeps Graph percentage separate from provider status and 
  assert.match(jobs,/Higgsfield · \{providerStatus\}/)
  assert.match(jobs,/El proveedor informa el estado, no un porcentaje de render/)
  assert.match(jobs,/provider-spend-card/)
- assert.match(jobs,/Estimado máximo de catálogo/)
- assert.match(jobs,/Autorizar esta generación/)
+ assert.match(jobs,/¿Usamos el video IA incluido de hoy\?/)
+ assert.match(jobs,/Uso estimado del video de hoy/)
+ assert.match(jobs,/Usar video de hoy/)
  assert.match(jobs,/approve-provider-spend/)
  assert.match(http,/approve-provider-spend/)
  assert.match(css,/provider-live-status/)
@@ -102,12 +103,12 @@ test('V9 Creation Room keeps Graph percentage separate from provider status and 
 test('paid provider waits for exact human spend approval, then recovery reuses one request id without duplicate submission',async t=>{
  const f=await gatewayFixture(t),created=await f.service.createScene(f.owner,'firmes',f.scene),id=created.id
  await f.execution.drain();let job=await f.service.job(f.owner,id)
- assert.equal(job.status,'AWAITING_SPEND_APPROVAL',JSON.stringify(job.blockers));assert.equal(f.stats.generate,0);assert.equal(job.provider_spend_request.provider,'higgsfield');assert.equal(job.provider_spend_request.estimate.kind,'CATALOG_UPPER_BOUND')
+ assert.equal(job.status,'AWAITING_SPEND_APPROVAL',JSON.stringify(job.blockers));assert.equal(f.stats.generate,0);assert.equal(job.provider_spend_request.provider,'higgsfield');assert.equal(job.provider_spend_request.estimate.kind,'CATALOG_UPPER_BOUND');assert.equal(job.provider_spend_request.budget_quote.category,'NEW_GENERATION');assert.equal(job.provider_spend_request.budget_quote.estimated_gtq,14.81);assert.equal(job.provider_spend_request.budget_quote.item_cap_gtq,22);assert.equal(job.provider_spend_request.budget_quote.within_item_cap,true)
  await assert.rejects(f.service.approveProviderSpend(f.owner,id,{scope_sha:'0'.repeat(64),confirm:true}),e=>e.code==='SPEND_APPROVAL_STALE')
- await f.service.approveProviderSpend(f.owner,id,{scope_sha:job.provider_spend_request.scope_sha,confirm:true});await f.execution.drain();job=await f.service.job(f.owner,id)
- assert.equal(f.stats.generate,1);assert.equal(f.stats.poll,1);assert.equal(job.generation_attempts.length,1);assert.equal(job.generation_attempts[0].provider_request_id,'12345678-abcd-4000-8000-123456789abc');assert.equal(job.generation_attempts[0].status,'IN_PROGRESS');assert.equal(job.provider_telemetry.at(-1).percent,null)
+ await f.service.approveProviderSpend(f.owner,id,{scope_sha:job.provider_spend_request.scope_sha,confirm:true});await f.execution.drain();job=await f.service.job(f.owner,id);let usage=await f.service.usageBudget(f.owner,'firmes')
+ assert.equal(f.stats.generate,1);assert.equal(f.stats.poll,1);assert.equal(job.generation_attempts.length,1);assert.equal(job.generation_attempts[0].provider_request_id,'12345678-abcd-4000-8000-123456789abc');assert.equal(job.generation_attempts[0].status,'IN_PROGRESS');assert.equal(job.provider_telemetry.at(-1).percent,null);assert.equal(job.provider_spend_approval.budget.amount_gtq,14.81);assert.equal(job.provider_spend_approval.budget.category,'NEW_GENERATION');assert.equal(usage.used_gtq,14.81);assert.equal(usage.new_generation.available_today,false);assert.equal(usage.entries[0].status,'COMMITTED')
  const recovered=new ExecutionService({repository:f.service.repository,dataRoot:f.dataRoot,graphRuntimeRoot:runtime,testMode:false,deploymentClass:'controlled_single_operator_preview',releaseSha:'a'.repeat(40),providers:f.providers});recovered.providerPollDelayMs=1_000_000;f.service.setExecution(recovered);await recovered.recover();await recovered.drain();job=await f.service.job(f.owner,id)
- assert.equal(f.stats.generate,1,'recovery must not submit a second paid request');assert.equal(f.stats.poll,2);assert.equal(job.generation_attempts.length,1);assert.equal(job.generation_attempts[0].status,'COMPLETED');assert.equal(job.stage,'CRITIC');assert.equal(job.status,'AWAITING_REVIEW');assert.equal(job.provider_execution.provenance.paid,true);assert.equal(job.provider_execution.spend_approval.scope_sha,job.provider_spend_approval.scope_sha)
+ usage=await f.service.usageBudget(f.owner,'firmes');assert.equal(f.stats.generate,1,'recovery must not submit a second paid request');assert.equal(f.stats.poll,2);assert.equal(job.generation_attempts.length,1);assert.equal(job.generation_attempts[0].status,'COMPLETED');assert.equal(job.stage,'CRITIC');assert.equal(job.status,'AWAITING_REVIEW');assert.equal(job.provider_execution.provenance.paid,true);assert.equal(job.provider_execution.spend_approval.scope_sha,job.provider_spend_approval.scope_sha);assert.equal(job.provider_execution.spend_approval.budget.amount_gtq,14.81);assert.equal(usage.used_gtq,14.81);assert.equal(usage.entries[0].status,'SETTLED_ESTIMATE')
 })
 
 
@@ -141,5 +142,5 @@ test('changing a spend-bound job revision invalidates approval before provider s
  await f.execution.drain();let job=await f.service.job(f.owner,id);f.execution.onJobsQueued=()=>{};await f.execution.approveProviderSpend({id:'owner',memberships:[{tenant_id:'firmes',role:'owner'}]},id,{scope_sha:job.provider_spend_request.scope_sha,confirm:true})
  await f.service.repository.transact(state=>{state.jobs[id].job_revision+=1;return null})
  await f.execution.run(id);job=await f.service.job(f.owner,id)
- assert.equal(job.status,'AWAITING_SPEND_APPROVAL');assert.equal(job.provider_spend_approval,null);assert.notEqual(job.provider_spend_request.scope_sha,'');assert.equal(f.stats.generate,0,'changed bound inputs must require a fresh approval before any paid request')
+ const usage=await f.service.usageBudget(f.owner,'firmes');assert.equal(job.status,'AWAITING_SPEND_APPROVAL');assert.equal(job.provider_spend_approval,null);assert.notEqual(job.provider_spend_request.scope_sha,'');assert.equal(f.stats.generate,0,'changed bound inputs must require a fresh approval before any paid request');assert.equal(usage.used_gtq,0,'an unsubmitted reservation must be released when spend-bound inputs change');assert.equal(usage.new_generation.available_today,true)
 })

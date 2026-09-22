@@ -1,4 +1,4 @@
-import { cp, mkdir, readdir, lstat, realpath, writeFile } from 'node:fs/promises'
+import { mkdir, readdir, lstat, realpath, writeFile, copyFile, readlink, symlink, chmod } from 'node:fs/promises'
 import { resolve, join, relative, isAbsolute } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { createHash } from 'node:crypto'
@@ -8,13 +8,20 @@ export async function prepareRuntime(output){
  if(target===project||target.startsWith(source+'/'))throw new Error('Runtime destination must be a fresh separate directory')
  await mkdir(target,{recursive:false,mode:0o755})
  const skip=path=>!path.endsWith('.nft.json')&&!relative(source,path).split('/').some(p=>p==='cache'||p==='standalone')
- const copy=async(from,to,filter)=>cp(from,to,{recursive:true,dereference:false,verbatimSymlinks:true,errorOnExist:true,force:false,...(filter?{filter}: {})})
+ const copy=async function copy(from,to,filter){
+  if(filter&&!filter(from))return
+  const meta=await lstat(from),mode=meta.mode&0o777
+  if(meta.isSymbolicLink()){await symlink(await readlink(from),to);return}
+  if(meta.isDirectory()){await mkdir(to,{recursive:false,mode});for(const entry of await readdir(from,{withFileTypes:true}))await copy(join(from,entry.name),join(to,entry.name),filter);await chmod(to,mode);return}
+  if(meta.isFile()){await copyFile(from,to);await chmod(to,mode);return}
+  throw new Error('Unsupported runtime source file type: '+relative(project,from))
+ }
  for(const name of ['server.js','package.json','node_modules','.next'])await copy(join(source,name),join(target,name),name==='.next'?skip:undefined)
  await copy(join(project,'.next','static'),join(target,'.next','static'))
  for(const name of ['schemas','config','examples'])await copy(join(project,name),join(target,name))
  await mkdir(join(target,'scripts'));await copy(join(project,'scripts','provision-operator.py'),join(target,'scripts','provision-operator.py'))
  const files=[]
- async function audit(dir){for(const entry of await readdir(dir,{withFileTypes:true})){const path=join(dir,entry.name),rel=relative(target,path);if(['.git','.env','data','.media-factory','progress','specs','tests','__pycache__'].includes(entry.name)||entry.name.startsWith('.critic')||entry.name.startsWith('.env'))throw new Error('Forbidden runtime content: '+rel);const meta=await lstat(path);if(meta.isSymbolicLink()){const actual=await realpath(path);const confined=relative(target,actual);if(confined==='..'||confined.startsWith('../')||isAbsolute(confined))throw new Error('Runtime dependency link escapes package: '+rel);files.push({path:rel,link:confined})}else if(meta.isDirectory())await audit(path);else if(meta.isFile())files.push({path:rel,sha256:createHash('sha256').update(await readFile(path)).digest('hex')});else throw new Error('Unsupported runtime file type: '+rel)}}
+ async function audit(dir){let entries;try{entries=await readdir(dir,{withFileTypes:true})}catch(error){error.message='Runtime package directory could not be read: '+relative(target,dir)+' · '+error.message;throw error}for(const entry of entries){const path=join(dir,entry.name),rel=relative(target,path);if(['.git','.env','data','.media-factory','progress','specs','tests','__pycache__'].includes(entry.name)||entry.name.startsWith('.critic')||entry.name.startsWith('.env'))throw new Error('Forbidden runtime content: '+rel);const meta=await lstat(path);if(meta.isSymbolicLink()){const actual=await realpath(path);const confined=relative(target,actual);if(confined==='..'||confined.startsWith('../')||isAbsolute(confined))throw new Error('Runtime dependency link escapes package: '+rel);files.push({path:rel,link:confined})}else if(meta.isDirectory())await audit(path);else if(meta.isFile())files.push({path:rel,sha256:createHash('sha256').update(await readFile(path)).digest('hex')});else throw new Error('Unsupported runtime file type: '+rel)}}
  await audit(target)
  const report={format:'media-factory-runtime.v1',files:files.length,manifest_sha256:createHash('sha256').update(JSON.stringify(files.sort((a,b)=>a.path.localeCompare(b.path)))).digest('hex'),build_id:(await readFile(join(target,'.next','BUILD_ID'),'utf8')).trim(),forbidden_entries:0,external_symlinks:0}
  await writeFile(join(target,'runtime-package.json'),JSON.stringify(report,null,2)+'\n')

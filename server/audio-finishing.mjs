@@ -1,8 +1,8 @@
 import { execFile as callback } from 'node:child_process'
 import { promisify } from 'node:util'
 import { readFile } from 'node:fs/promises'
-import { createHash } from 'node:crypto'
 import { fields, invariant, boundedText } from './errors.mjs'
+import { digest } from './worker-policy.mjs'
 
 const execFile=promisify(callback)
 const MAX_MEDIA_BYTES=40*1024*1024
@@ -12,8 +12,11 @@ async function safeMediaInputArgs(path){
  const bytes=await readFile(path)
  invariant(bytes.length>0&&bytes.length<=MAX_MEDIA_BYTES,'INVALID_MEDIA','Media exceeds the permitted size',422)
  if(bytes.subarray(4,8).toString()==='ftyp')return ['-protocol_whitelist','file,pipe','-format_whitelist','mov','-f','mov','-enable_drefs','0','-use_absolute_path','0']
- invariant(bytes.subarray(0,4).equals(Buffer.from([0x1a,0x45,0xdf,0xa3])),'INVALID_MEDIA','Only binary MP4, MOV, and WebM media is accepted',422)
- return ['-protocol_whitelist','file,pipe','-format_whitelist','matroska,webm','-f','matroska']
+ if(bytes.subarray(0,4).equals(Buffer.from([0x1a,0x45,0xdf,0xa3])))return ['-protocol_whitelist','file,pipe','-format_whitelist','matroska,webm','-f','matroska']
+ if(bytes.subarray(0,4).toString()==='RIFF'&&bytes.subarray(8,12).toString()==='WAVE')return ['-protocol_whitelist','file,pipe','-format_whitelist','wav','-f','wav']
+ const id3=bytes.subarray(0,3).toString()==='ID3',mpegFrame=bytes.length>=2&&bytes[0]===0xff&&(bytes[1]&0xe0)===0xe0
+ invariant(id3||mpegFrame,'INVALID_MEDIA','Only binary MP3, WAV, M4A, MP4, MOV, and WebM media is accepted',422)
+ return ['-protocol_whitelist','file,pipe','-format_whitelist','mp3','-f','mp3']
 }
 
 function finite(value,label,min,max,defaultValue){
@@ -122,6 +125,6 @@ export class AudioFinishingEngine {
   invariant(loudnessDelta<=1.0,'LOUDNESS_QA_FAILED','Finished audio missed the loudness target',409)
   invariant(qa.true_peak_dbtp<=normalized.master.true_peak_max_dbtp+0.25,'TRUE_PEAK_QA_FAILED','Finished audio exceeds the true-peak ceiling',409)
   invariant(!normalized.sync.lock_to_video_duration||durationDelta<=0.04,'AV_SYNC_QA_FAILED','Finished audio and video durations are not locked',409)
-  return {contract:normalized,contract_sha256:createHash('sha256').update(JSON.stringify(normalized)).digest('hex'),picture_stream_sha256:pictureHashBefore,qa,output_duration_seconds:round3(duration)}
+  return {contract:normalized,contract_sha256:digest(normalized),picture_stream_sha256:pictureHashBefore,qa,output_duration_seconds:round3(duration)}
  }
 }

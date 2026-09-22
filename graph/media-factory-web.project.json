@@ -1760,6 +1760,167 @@
         "assets/**",
         "config/**"
       ]
+    },
+    {
+      "id": "WEB047-AUDIO-FILE-INPUT-V16",
+      "title": "Accept MP3 WAV and M4A soundtrack files in Studio with binary format validation",
+      "kind": "product-completion",
+      "status": "spec_ready",
+      "depends_on": [
+        "WEB046-REVIEW-UX-SIMPLIFICATION-V15-RELEASE"
+      ],
+      "capability": "media-factory-web",
+      "gates": {
+        "review": [
+          "implementation_quality"
+        ]
+      },
+      "allowed_paths": [
+        "app/**",
+        "components/**",
+        "server/**",
+        "plugins/**",
+        "tests/**",
+        "scripts/**",
+        "docs/**",
+        "examples/**",
+        "specs/**",
+        "progress/**",
+        "graph/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "*.mjs",
+        "*.json",
+        "*.yml",
+        "Dockerfile",
+        ".gitignore",
+        ".dockerignore",
+        "README.md",
+        "deploy/**",
+        "assets/**",
+        "config/**"
+      ]
+    },
+    {
+      "id": "WEB048-AUDIO-FILE-INPUT-V16-RELEASE",
+      "title": "Real-asset QA and controlled release of audio file input compatibility V16",
+      "kind": "product-completion",
+      "status": "spec_ready",
+      "depends_on": [
+        "WEB047-AUDIO-FILE-INPUT-V16"
+      ],
+      "capability": "media-factory-web",
+      "gates": {
+        "review": [
+          "implementation_quality"
+        ]
+      },
+      "allowed_paths": [
+        "app/**",
+        "components/**",
+        "server/**",
+        "plugins/**",
+        "tests/**",
+        "scripts/**",
+        "docs/**",
+        "examples/**",
+        "specs/**",
+        "progress/**",
+        "graph/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "*.mjs",
+        "*.json",
+        "*.yml",
+        "Dockerfile",
+        ".gitignore",
+        ".dockerignore",
+        "README.md",
+        "deploy/**",
+        "assets/**",
+        "config/**"
+      ]
+    },
+    {
+      "id": "WEB049-WEEKLY-USAGE-BUDGET-V17",
+      "title": "Govern Q200 weekly paid-generation usage with daily video pacing and protected repair reserve",
+      "kind": "product-completion",
+      "status": "spec_ready",
+      "depends_on": [
+        "WEB047-AUDIO-FILE-INPUT-V16"
+      ],
+      "capability": "media-factory-web",
+      "gates": {
+        "review": [
+          "implementation_quality"
+        ]
+      },
+      "allowed_paths": [
+        "app/**",
+        "components/**",
+        "server/**",
+        "plugins/**",
+        "tests/**",
+        "scripts/**",
+        "docs/**",
+        "examples/**",
+        "specs/**",
+        "progress/**",
+        "graph/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "*.mjs",
+        "*.json",
+        "*.yml",
+        "Dockerfile",
+        ".gitignore",
+        ".dockerignore",
+        "README.md",
+        "deploy/**",
+        "assets/**",
+        "config/**"
+      ]
+    },
+    {
+      "id": "WEB050-WEEKLY-USAGE-BUDGET-V17-RELEASE",
+      "title": "Independent verification and controlled release of weekly usage budget V17",
+      "kind": "product-completion",
+      "status": "spec_ready",
+      "depends_on": [
+        "WEB049-WEEKLY-USAGE-BUDGET-V17",
+        "WEB048-AUDIO-FILE-INPUT-V16-RELEASE"
+      ],
+      "capability": "media-factory-web",
+      "gates": {
+        "review": [
+          "implementation_quality"
+        ]
+      },
+      "allowed_paths": [
+        "app/**",
+        "components/**",
+        "server/**",
+        "plugins/**",
+        "tests/**",
+        "scripts/**",
+        "docs/**",
+        "examples/**",
+        "specs/**",
+        "progress/**",
+        "graph/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "*.mjs",
+        "*.json",
+        "*.yml",
+        "Dockerfile",
+        ".gitignore",
+        ".dockerignore",
+        "README.md",
+        "deploy/**",
+        "assets/**",
+        "config/**"
+      ]
     }
   ]
 }
