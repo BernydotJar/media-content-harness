@@ -1,0 +1,148 @@
+TAP version 13
+# Subtest: AudioFinishingContract is versioned, normalized and idempotent while semantic lyric markers fail closed
+ok 1 - AudioFinishingContract is versioned, normalized and idempotent while semantic lyric markers fail closed
+  ---
+  duration_ms: 0.997875
+  type: 'test'
+  ...
+# Subtest: V12 HTTP surface keeps audio upload binary and finishing contract JSON on the authenticated job route
+ok 2 - V12 HTTP surface keeps audio upload binary and finishing contract JSON on the authenticated job route
+  ---
+  duration_ms: 13.2825
+  type: 'test'
+  ...
+# Subtest: review stays decision-first while Studio exposes advanced audio controls and explicit outro IN/OUT
+ok 3 - review stays decision-first while Studio exposes advanced audio controls and explicit outro IN/OUT
+  ---
+  duration_ms: 3.697792
+  type: 'test'
+  ...
+# Subtest: golden reference manifest documents exact measurable studio characteristics without committing the binary
+ok 4 - golden reference manifest documents exact measurable studio characteristics without committing the binary
+  ---
+  duration_ms: 0.775917
+  type: 'test'
+  ...
+# Subtest: Seedance 2.5 adapter maps exact request, exposes only lifecycle telemetry, and uses conservative catalog estimate
+ok 5 - Seedance 2.5 adapter maps exact request, exposes only lifecycle telemetry, and uses conservative catalog estimate
+  ---
+  duration_ms: 1.327375
+  type: 'test'
+  ...
+# Subtest: Higgsfield adapter fails closed for reference scenes, missing credentials and ambiguous paid submission
+ok 6 - Higgsfield adapter fails closed for reference scenes, missing credentials and ambiguous paid submission
+  ---
+  duration_ms: 0.400458
+  type: 'test'
+  ...
+# Subtest: Higgsfield adapter rejects unsafe output URLs and moderation/failed states remain explicit
+ok 7 - Higgsfield adapter rejects unsafe output URLs and moderation/failed states remain explicit
+  ---
+  duration_ms: 3.371
+  type: 'test'
+  ...
+# Subtest: provider discovery is credential-aware and never returns the stored Higgsfield secret
+ok 8 - provider discovery is credential-aware and never returns the stored Higgsfield secret
+  ---
+  duration_ms: 190.349125
+  type: 'test'
+  ...
+# Subtest: V9 Creation Room keeps Graph percentage separate from provider status and gates paid generation behind explicit consent
+ok 9 - V9 Creation Room keeps Graph percentage separate from provider status and gates paid generation behind explicit consent
+  ---
+  duration_ms: 1.016667
+  type: 'test'
+  ...
+# Subtest: paid provider waits for exact human spend approval, then recovery reuses one request id without duplicate submission
+ok 10 - paid provider waits for exact human spend approval, then recovery reuses one request id without duplicate submission
+  ---
+  duration_ms: 3811.062627
+  type: 'test'
+  ...
+# Subtest: provider moderation failure blocks the exact attempt and a blind restart cannot spend again
+ok 11 - provider moderation failure blocks the exact attempt and a blind restart cannot spend again
+  ---
+  duration_ms: 3072.752043
+  type: 'test'
+  ...
+# Subtest: ambiguous paid submission persists fail-closed state and is never automatically resubmitted
+ok 12 - ambiguous paid submission persists fail-closed state and is never automatically resubmitted
+  ---
+  duration_ms: 3106.738418
+  type: 'test'
+  ...
+# Subtest: crash after paid output collection resumes from the durable artifact without a second provider request
+ok 13 - crash after paid output collection resumes from the durable artifact without a second provider request
+  ---
+  duration_ms: 3867.368085
+  type: 'test'
+  ...
+# Subtest: changing a spend-bound job revision invalidates approval before provider submission
+ok 14 - changing a spend-bound job revision invalidates approval before provider submission
+  ---
+  duration_ms: 2820.090751
+  type: 'test'
+  ...
+# Subtest: runtime allowlist omits traces and source evidence, protects existing destinations, rejects escaping dependencies
+ok 15 - runtime allowlist omits traces and source evidence, protects existing destinations, rejects escaping dependencies
+  ---
+  duration_ms: 34.608
+  type: 'test'
+  ...
+# Subtest: Q200 weekly policy exposes one daily new-video slot and protected repair reserve
+ok 16 - Q200 weekly policy exposes one daily new-video slot and protected repair reserve
+  ---
+  duration_ms: 10.157542
+  type: 'test'
+  ...
+# Subtest: an in-flight first paid attempt remains NEW_GENERATION during polling and recovery
+ok 17 - an in-flight first paid attempt remains NEW_GENERATION during polling and recovery
+  ---
+  duration_ms: 0.147541
+  type: 'test'
+  ...
+# Subtest: unused days never accumulate extra daily slots and a new week resets availability
+ok 18 - unused days never accumulate extra daily slots and a new week resets availability
+  ---
+  duration_ms: 0.661541
+  type: 'test'
+  ...
+# Subtest: seven Q22 new generations plus two Q23 repairs consume exactly Q200 without overage
+ok 19 - seven Q22 new generations plus two Q23 repairs consume exactly Q200 without overage
+  ---
+  duration_ms: 1.517083
+  type: 'test'
+  ...
+# Subtest: per-item caps prevent one render or repair from consuming future days
+ok 20 - per-item caps prevent one render or repair from consuming future days
+  ---
+  duration_ms: 0.310625
+  type: 'test'
+  ...
+# Subtest: reserved usage can be released before submission but committed provider spend cannot be fabricated back
+ok 21 - reserved usage can be released before submission but committed provider spend cannot be fabricated back
+  ---
+  duration_ms: 0.374167
+  type: 'test'
+  ...
+# Subtest: AtomicRepository serializes two same-day approvals so only one daily slot can reserve
+ok 22 - AtomicRepository serializes two same-day approvals so only one daily slot can reserve
+  ---
+  duration_ms: 10.725166
+  type: 'test'
+  ...
+# Subtest: V17 UX presents weekly usage as a protected creation week rather than an open credit wallet
+ok 23 - V17 UX presents weekly usage as a protected creation week rather than an open credit wallet
+  ---
+  duration_ms: 1.361875
+  type: 'test'
+  ...
+1..23
+# tests 23
+# suites 0
+# pass 23
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 17174.202049
