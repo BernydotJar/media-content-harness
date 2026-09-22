@@ -1,0 +1,256 @@
+TAP version 13
+# Subtest: AudioFinishingContract is versioned, normalized and idempotent while semantic lyric markers fail closed
+ok 1 - AudioFinishingContract is versioned, normalized and idempotent while semantic lyric markers fail closed
+  ---
+  duration_ms: 1.3545
+  type: 'test'
+  ...
+# Subtest: V12 HTTP surface keeps audio upload binary and finishing contract JSON on the authenticated job route
+ok 2 - V12 HTTP surface keeps audio upload binary and finishing contract JSON on the authenticated job route
+  ---
+  duration_ms: 14.40925
+  type: 'test'
+  ...
+# Subtest: review stays decision-first while Studio exposes advanced audio controls and explicit outro IN/OUT
+ok 3 - review stays decision-first while Studio exposes advanced audio controls and explicit outro IN/OUT
+  ---
+  duration_ms: 4.150333
+  type: 'test'
+  ...
+# Subtest: golden reference manifest documents exact measurable studio characteristics without committing the binary
+ok 4 - golden reference manifest documents exact measurable studio characteristics without committing the binary
+  ---
+  duration_ms: 1.120583
+  type: 'test'
+  ...
+# Subtest: running production lands in a truthful celebratory creation room
+ok 5 - running production lands in a truthful celebratory creation room
+  ---
+  duration_ms: 6.484625
+  type: 'test'
+  ...
+# Subtest: desktop top utility row cannot overlap creative content
+ok 6 - desktop top utility row cannot overlap creative content
+  ---
+  duration_ms: 3.429625
+  type: 'test'
+  ...
+# Subtest: source upload uses a glowing file card while preserving the native file input contract
+ok 7 - source upload uses a glowing file card while preserving the native file input contract
+  ---
+  duration_ms: 3.235333
+  type: 'test'
+  ...
+# Subtest: free creation uses the warm prompt bar and liquid-metal creation actions
+ok 8 - free creation uses the warm prompt bar and liquid-metal creation actions
+  ---
+  duration_ms: 1.535875
+  type: 'test'
+  ...
+# Subtest: review summary protects long resource chips from collisions
+ok 9 - review summary protects long resource chips from collisions
+  ---
+  duration_ms: 1.000916
+  type: 'test'
+  ...
+# Subtest: action feedback remains visible when a requested change immediately re-enters Creation Room
+ok 10 - action feedback remains visible when a requested change immediately re-enters Creation Room
+  ---
+  duration_ms: 0.585917
+  type: 'test'
+  ...
+# Subtest: repository reads pre-V10 state and adds departmental auth collections lazily
+ok 11 - repository reads pre-V10 state and adds departmental auth collections lazily
+  ---
+  duration_ms: 7.11425
+  type: 'test'
+  ...
+# Subtest: Google ID token verification fails closed on signature and every identity-binding claim
+ok 12 - Google ID token verification fails closed on signature and every identity-binding claim
+  ---
+  duration_ms: 70.307375
+  type: 'test'
+  ...
+# Subtest: owner can persist Google OAuth configuration in the private encrypted vault without another deploy
+ok 13 - owner can persist Google OAuth configuration in the private encrypted vault without another deploy
+  ---
+  duration_ms: 178.099333
+  type: 'test'
+  ...
+# Subtest: corrupted Google OAuth ciphertext fails closed and cannot be silently overwritten
+ok 14 - corrupted Google OAuth ciphertext fails closed and cannot be silently overwritten
+  ---
+  duration_ms: 91.25675
+  type: 'test'
+  ...
+# Subtest: Google OAuth configuration is system-admin only and can be removed without affecting local break-glass login
+ok 15 - Google OAuth configuration is system-admin only and can be removed without affecting local break-glass login
+  ---
+  duration_ms: 87.340208
+  type: 'test'
+  ...
+# Subtest: Google authorization start uses one-time state, PKCE and nonce and callback admits only an invited email
+ok 16 - Google authorization start uses one-time state, PKCE and nonce and callback admits only an invited email
+  ---
+  duration_ms: 77.26025
+  type: 'test'
+  ...
+# Subtest: Google HTTP start/callback keeps the OAuth state server-side and returns the regular secure product session
+ok 17 - Google HTTP start/callback keeps the OAuth state server-side and returns the regular secure product session
+  ---
+  duration_ms: 130.000001
+  type: 'test'
+  ...
+# Subtest: Google OAuth state is bound to the browser flow cookie to prevent login CSRF
+ok 18 - Google OAuth state is bound to the browser flow cookie to prevent login CSRF
+  ---
+  duration_ms: 98.082917
+  type: 'test'
+  ...
+# Subtest: first Google login without a pending invitation fails closed after identity verification
+ok 19 - first Google login without a pending invitation fails closed after identity verification
+  ---
+  duration_ms: 96.200291
+  type: 'test'
+  ...
+# Subtest: Google sign-in is unavailable without complete confidential-client configuration
+ok 20 - Google sign-in is unavailable without complete confidential-client configuration
+  ---
+  duration_ms: 1.849583
+  type: 'test'
+  ...
+# Subtest: owner and IT manage non-owner team access while coordinators stay tenant-scoped and non-admin
+ok 21 - owner and IT manage non-owner team access while coordinators stay tenant-scoped and non-admin
+  ---
+  duration_ms: 109.690166
+  type: 'test'
+  ...
+# Subtest: all four non-owner departmental roles are invitation-only and activate only after verified Google sign-in
+ok 22 - all four non-owner departmental roles are invitation-only and activate only after verified Google sign-in
+  ---
+  duration_ms: 105.7915
+  type: 'test'
+  ...
+# Subtest: a stored Google email never grants a new tenant until that email is freshly verified again
+ok 23 - a stored Google email never grants a new tenant until that email is freshly verified again
+  ---
+  duration_ms: 105.226958
+  type: 'test'
+  ...
+# Subtest: pending invitations cannot overwrite memberships and role changes or removals revoke stale invitations
+ok 24 - pending invitations cannot overwrite memberships and role changes or removals revoke stale invitations
+  ---
+  duration_ms: 106.678876
+  type: 'test'
+  ...
+# Subtest: team mutation authority is rechecked inside the transaction after an admin is revoked
+ok 25 - team mutation authority is rechecked inside the transaction after an admin is revoked
+  ---
+  duration_ms: 92.432334
+  type: 'test'
+  ...
+# Subtest: role input is an explicit allowlist and local administrative identities stay protected
+ok 26 - role input is an explicit allowlist and local administrative identities stay protected
+  ---
+  duration_ms: 61.775417
+  type: 'test'
+  ...
+# Subtest: Google signing-key rotation refreshes a cached JWKS after the bounded refresh interval
+ok 27 - Google signing-key rotation refreshes a cached JWKS after the bounded refresh interval
+  ---
+  duration_ms: 58.096916
+  type: 'test'
+  ...
+# Subtest: departmental review roles are stage-specific and owner remains an authorized boundary actor
+ok 28 - departmental review roles are stage-specific and owner remains an authorized boundary actor
+  ---
+  duration_ms: 139.357041
+  type: 'test'
+  ...
+# Subtest: controlled single-operator preview lets IT/admin act at Critic and projects the autonomy policy explicitly
+ok 29 - controlled single-operator preview lets IT/admin act at Critic and projects the autonomy policy explicitly
+  ---
+  duration_ms: 132.297792
+  type: 'test'
+  ...
+# Subtest: V10 interface keeps Google primary, local break-glass, simple team roles and stage-specific review copy
+ok 30 - V10 interface keeps Google primary, local break-glass, simple team roles and stage-specific review copy
+  ---
+  duration_ms: 1.304583
+  type: 'test'
+  ...
+# Subtest: story editor presents the default brand avatar as one atomic visual character decision
+ok 31 - story editor presents the default brand avatar as one atomic visual character decision
+  ---
+  duration_ms: 2.465917
+  type: 'test'
+  ...
+# Subtest: creative review uses compact human summary and leaves raw candidate data behind a disclosure
+ok 32 - creative review uses compact human summary and leaves raw candidate data behind a disclosure
+  ---
+  duration_ms: 0.78075
+  type: 'test'
+  ...
+# Subtest: human review asks for a decision before exposing the change composer
+ok 33 - human review asks for a decision before exposing the change composer
+  ---
+  duration_ms: 1.081375
+  type: 'test'
+  ...
+# Subtest: V6 responsive styles support avatar cards, compact summary and progressive review
+ok 34 - V6 responsive styles support avatar cards, compact summary and progressive review
+  ---
+  duration_ms: 0.867041
+  type: 'test'
+  ...
+# Subtest: only explicitly published HTTPS production login enters the index and sitemap
+ok 35 - only explicitly published HTTPS production login enters the index and sitemap
+  ---
+  duration_ms: 0.9525
+  type: 'test'
+  ...
+# Subtest: private routes never put tenant or job identities into metadata, canonicals, or sitemap
+ok 36 - private routes never put tenant or job identities into metadata, canonicals, or sitemap
+  ---
+  duration_ms: 0.729416
+  type: 'test'
+  ...
+# Subtest: canonical metadata uses only validated operator origin and ignores URL injection
+ok 37 - canonical metadata uses only validated operator origin and ignores URL injection
+  ---
+  duration_ms: 0.212083
+  type: 'test'
+  ...
+# Subtest: catchall rejects unknown or overlong route shapes without reflecting submitted names
+ok 38 - catchall rejects unknown or overlong route shapes without reflecting submitted names
+  ---
+  duration_ms: 0.175625
+  type: 'test'
+  ...
+# Subtest: llms discovery lists public product facts without private resources or invented integrations
+ok 39 - llms discovery lists public product facts without private resources or invented integrations
+  ---
+  duration_ms: 0.111958
+  type: 'test'
+  ...
+# Subtest: job review route resolves safely and production indexing rejects infrastructure origins
+ok 40 - job review route resolves safely and production indexing rejects infrastructure origins
+  ---
+  duration_ms: 0.26125
+  type: 'test'
+  ...
+# Subtest: published OG and Twitter image use only the controlled imported application asset
+ok 41 - published OG and Twitter image use only the controlled imported application asset
+  ---
+  duration_ms: 0.273583
+  type: 'test'
+  ...
+1..41
+# tests 41
+# suites 0
+# pass 41
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2125.473876
