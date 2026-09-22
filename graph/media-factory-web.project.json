@@ -1680,6 +1680,86 @@
         "assets/**",
         "config/**"
       ]
+    },
+    {
+      "id": "WEB045-REVIEW-UX-SIMPLIFICATION-V15",
+      "title": "Decision-first review UX with Studio-only advanced editing and progressive technical disclosure",
+      "kind": "product-completion",
+      "status": "spec_ready",
+      "depends_on": [
+        "WEB044-LOGIN-MUNICIPALITY-BOUNDARY-V14-RELEASE"
+      ],
+      "capability": "media-factory-web",
+      "gates": {
+        "review": [
+          "implementation_quality"
+        ]
+      },
+      "allowed_paths": [
+        "app/**",
+        "components/**",
+        "server/**",
+        "plugins/**",
+        "tests/**",
+        "scripts/**",
+        "docs/**",
+        "examples/**",
+        "specs/**",
+        "progress/**",
+        "graph/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "*.mjs",
+        "*.json",
+        "*.yml",
+        "Dockerfile",
+        ".gitignore",
+        ".dockerignore",
+        "README.md",
+        "deploy/**",
+        "assets/**",
+        "config/**"
+      ]
+    },
+    {
+      "id": "WEB046-REVIEW-UX-SIMPLIFICATION-V15-RELEASE",
+      "title": "Independent UX verification and controlled release of Review UX V15",
+      "kind": "product-completion",
+      "status": "spec_ready",
+      "depends_on": [
+        "WEB045-REVIEW-UX-SIMPLIFICATION-V15"
+      ],
+      "capability": "media-factory-web",
+      "gates": {
+        "review": [
+          "implementation_quality"
+        ]
+      },
+      "allowed_paths": [
+        "app/**",
+        "components/**",
+        "server/**",
+        "plugins/**",
+        "tests/**",
+        "scripts/**",
+        "docs/**",
+        "examples/**",
+        "specs/**",
+        "progress/**",
+        "graph/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "*.mjs",
+        "*.json",
+        "*.yml",
+        "Dockerfile",
+        ".gitignore",
+        ".dockerignore",
+        "README.md",
+        "deploy/**",
+        "assets/**",
+        "config/**"
+      ]
     }
   ]
 }

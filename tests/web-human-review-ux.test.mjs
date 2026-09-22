@@ -33,14 +33,14 @@ test('creative review uses compact human summary and leaves raw candidate data b
 test('human review asks for a decision before exposing the change composer',async()=>{
  const source=await readFile('components/jobs.tsx','utf8')
  assert.match(source,/reviewMode,setReviewMode.*'decision'/)
- assert.match(source,/¿Qué quieres hacer con esta versión\?/)
- assert.match(source,/Quiero hacer cambios/)
+ assert.match(source,/¿Esta versión está bien\?/)
+ assert.match(source,/Pedir un cambio/)
  assert.match(source,/reviewMode==='decision'\?/) 
  assert.match(source,/review-change-composer/)
  assert.match(source,/ref=\{changeInput\} aria-label="Comentarios para la revisión"/)
  assert.match(source,/changeSuggestions=\['Agregar Caballito','Cambiar inicio','Usar otro clip','Más corto','Más emocional'\]/)
- assert.match(source,/CriticRubricPanel rubric=\{j\.critic_rubric\} onFinding=\{value=>\{if\(canReviewStage\)openChanges\(value\)\}\}/)
- assert.match(source,/disabled=\{busy\|\|!reason\.trim\(\)\}>Solicitar cambios/)
+ assert.match(source,/CriticRubricPanel rubric=\{j\.critic_rubric\} onFinding=\{value=>\{if\(canReviewStage\)openChanges\(value\)\}\}/);assert.match(source,/Abrir Studio/);assert.match(source,/Quién puede aprobar esta etapa/)
+ assert.match(source,/disabled=\{busy\|\|!reason\.trim\(\)\}>Enviar cambio/)
 })
 
 test('V6 responsive styles support avatar cards, compact summary and progressive review',async()=>{
@@ -48,7 +48,7 @@ test('V6 responsive styles support avatar cards, compact summary and progressive
  const v6=css.slice(css.lastIndexOf('Creative Studio V6'))
  assert.match(v6,/character-choice-grid/)
  assert.match(v6,/candidate-summary-grid/)
- assert.match(v6,/review-decision-grid/)
+ assert.match(v6,/review-primary-actions/)
  assert.match(v6,/review-change-composer/)
  assert.match(v6,/@media\(max-width:800px\)/)
  assert.match(v6,/@media\(max-width:540px\)/)
