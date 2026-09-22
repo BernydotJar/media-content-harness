@@ -92,6 +92,7 @@ export async function handleApi(request,service){
    if(path[2]==='journey'&&path.length===3&&method==='GET')return response(await service.journey(session,id))
    if(path[2]==='creative-profiles'&&path.length===3){if(method==='GET')return response(await service.creativeProfiles(session,id));if(method==='POST')return response(await service.saveCreativeProfile(session,id,await jsonBody(request)),201)}
    if(path[2]==='dashboard'&&path.length===3&&method==='GET')return response(await service.dashboard(session,id))
+   if(path[2]==='usage-budget'&&path.length===3&&method==='GET')return response(await service.usageBudget(session,id))
    if(path[2]==='mascot'&&path.length===3&&method==='POST')return response(await service.setMascot(session,id,await jsonBody(request)))
    if(path[2]==='sources'){
      if(path.length===3){if(method==='GET')return response(await service.sources(session,id));if(method==='POST')return response(await service.addSource(session,id,await jsonBody(request)),201)}
