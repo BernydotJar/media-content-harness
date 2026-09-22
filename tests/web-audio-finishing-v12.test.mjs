@@ -24,11 +24,11 @@ test('V12 HTTP surface keeps audio upload binary and finishing contract JSON on 
  assert.equal(finish.status,202);assert.deepEqual(calls[1].slice(0,3),['finish','session-token','job_one']);assert.deepEqual(calls[1][3],{soundtrack:{asset_id:'audio_test'}})
 })
 
-test('review UI exposes Music, Voice, Final and Master abstractions and explicitly requires approved outro IN/OUT',async()=>{
- const [source,css]=await Promise.all([readFile('components/jobs.tsx','utf8'),readFile('app/globals.css','utf8')])
- for(const text of ['ACABADO DE AUDIO','Música','Voz','Final','Master','Mantener canción desde 00:00','Reducir música mientras hablan','Frase aprobada','Crear master'])assert.ok(source.includes(text),text)
- assert.match(source,/IN \(s\)/);assert.match(source,/OUT \(s\)/);assert.match(source,/engine no adivina dónde está una frase/);assert.match(source,/Picture lock/)
- assert.match(css,/\.audio-finishing-panel/);assert.match(css,/\.audio-finishing-grid/)
+test('review stays decision-first while Studio exposes advanced audio controls and explicit outro IN/OUT',async()=>{
+ const [source,studio,metadata,css]=await Promise.all([readFile('components/jobs.tsx','utf8'),readFile('components/studio.tsx','utf8'),readFile('server/site-metadata.mjs','utf8'),readFile('app/globals.css','utf8')])
+ for(const text of ['TU DECISIÓN','¿Esta versión está bien?','Pedir un cambio','Abrir Studio','Ajusta música, voz y cierre.','Música','Voz','Final','Terminar audio','Crear nueva versión'])assert.ok(source.includes(text),text)
+ assert.ok(source.includes('studioMode?<>'));assert.ok(source.includes('reviewable&&hasVideo?<AudioFinishingPanel'));assert.match(source,/IN \(s\)/);assert.match(source,/OUT \(s\)/);assert.match(source,/Si quieres usar un fragmento exacto al final/);assert.match(source,/Picture lock/)
+ assert.match(studio,/studioMode=\{segments\[2\] === 'studio'\}/);assert.match(metadata,/Studio de producción/);assert.match(css,/\.audio-finishing-panel/);assert.match(css,/\.review-studio-entry/);assert.match(css,/\.advanced-job-info/)
 })
 
 test('golden reference manifest documents exact measurable studio characteristics without committing the binary',async()=>{

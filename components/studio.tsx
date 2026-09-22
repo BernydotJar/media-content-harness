@@ -63,7 +63,7 @@ export default function Studio({ segments, googleAvailable=false, municipalities
   else if (segments[0] === 'workspaces') content = <Workspaces resource={tenants} user={me.data} />;
   else if (segments[0] === 'workspace' && tenantId) content = <TenantSurface id={tenantId} view={current || 'weekly'} />;
   else if (segments[0] === 'admin') content = <Integrations allowed={me.data.manage_integrations === true} />;
-  else if (segments[0] === 'jobs' && segments[1]) content = <JobDetail id={segments[1]} manageIntegrations={me.data.manage_integrations === true} />;
+  else if (segments[0] === 'jobs' && segments[1]) content = <JobDetail id={segments[1]} manageIntegrations={me.data.manage_integrations === true} studioMode={segments[2] === 'studio'} />;
   else if (segments[0] === 'review' || segments[0] === 'releases') content = <JobLibrary tenants={tenants} releases={segments[0] === 'releases'} />;
   else content = <Empty title="Esta página no está en el estudio." action={<Link className="button primary" href="/dashboard">Ir al inicio</Link>}>Elige un espacio para continuar.</Empty>;
 

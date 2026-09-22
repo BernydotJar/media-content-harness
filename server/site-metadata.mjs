@@ -17,7 +17,7 @@ export function pageInfo(segments=[]){
  const [kind,key,view]=segments
  if(kind==='admin'&&key==='integrations'&&segments.length===2)return {title:'APIs e integraciones',description:'Administración privada de integraciones del estudio.',public:false}
  if(segments.length===1&&Object.hasOwn(titles,kind))return {title:titles[kind],description:descriptions[kind],public:kind==='login'}
- if(kind==='jobs'&&(segments.length===2||segments.length===3&&view==='review')&&id(key))return {title:view==='review'?'Revisión de producción':'Detalle de producción',description:'Consulta el avance, la revisión y la procedencia de tu producción.',public:false}
+ if(kind==='jobs'&&(segments.length===2||segments.length===3&&['review','studio'].includes(view))&&id(key))return {title:view==='studio'?'Studio de producción':view==='review'?'Revisión de producción':'Detalle de producción',description:view==='studio'?'Realiza ajustes avanzados sobre una versión antes de volver a revisión.':'Consulta el avance, la revisión y la procedencia de tu producción.',public:false}
  if(kind==='workspace'&&id(key)&&(segments.length===2||segments.length===3&&Object.hasOwn(views,view))){const [title,description]=views[view||'weekly'];return {title,description,public:false}}
  return null
 }
