@@ -1,0 +1,58 @@
+{
+  "contract": {
+    "schema_version": "audio-finishing.v1",
+    "preserve_original_intro": {
+      "enabled": true,
+      "from_seconds": 0
+    },
+    "soundtrack": {
+      "asset_id": "qa",
+      "start_seconds": 0,
+      "gain_db": -8
+    },
+    "voice": {
+      "preserve": true,
+      "delay_ms": 0
+    },
+    "mix": {
+      "voice_priority": true,
+      "duck_under_voice": true,
+      "duck_threshold": 0.05,
+      "duck_ratio": 8
+    },
+    "outro": {
+      "enabled": false,
+      "source_in_seconds": 0,
+      "source_out_seconds": 0,
+      "approved_phrase": null,
+      "tail_ms": 900,
+      "echo": true,
+      "reverb": true,
+      "gain_db": 0
+    },
+    "master": {
+      "integrated_lufs": -14,
+      "true_peak_max_dbtp": -1.5,
+      "compressor": "gentle",
+      "limiter": true
+    },
+    "sync": {
+      "lock_to_video_duration": true
+    }
+  },
+  "contract_sha256": "5c8de37c284e7e4a71a20bb55c847d12afa4dfd500ab82b91ff9d461a6a1e250",
+  "picture_stream_sha256": "97117cf5bc030b1e55c29d4c5041668a62c4d53e2b50e8bfa4daaeeabd5fe6d7",
+  "qa": {
+    "duration_seconds": 4.8,
+    "video_duration_seconds": 4.8,
+    "audio_duration_seconds": 4.8,
+    "sample_rate": 48000,
+    "channels": 2,
+    "integrated_lufs": -14,
+    "lra_lu": 3,
+    "true_peak_dbtp": -1.5,
+    "decode_ok": true
+  },
+  "loudness_correction_passes": 1,
+  "output_duration_seconds": 4.8
+}

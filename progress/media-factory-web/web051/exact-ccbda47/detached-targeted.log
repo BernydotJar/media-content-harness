@@ -1,0 +1,280 @@
+TAP version 13
+# Subtest: AudioFinishingContract is versioned, normalized and idempotent while semantic lyric markers fail closed
+ok 1 - AudioFinishingContract is versioned, normalized and idempotent while semantic lyric markers fail closed
+  ---
+  duration_ms: 1.27125
+  type: 'test'
+  ...
+# Subtest: V12 HTTP surface keeps audio upload binary and finishing contract JSON on the authenticated job route
+ok 2 - V12 HTTP surface keeps audio upload binary and finishing contract JSON on the authenticated job route
+  ---
+  duration_ms: 10.041375
+  type: 'test'
+  ...
+# Subtest: review stays decision-first while Studio exposes advanced audio controls and explicit outro IN/OUT
+ok 3 - review stays decision-first while Studio exposes advanced audio controls and explicit outro IN/OUT
+  ---
+  duration_ms: 3.883834
+  type: 'test'
+  ...
+# Subtest: short dynamic 4.8 second master uses bounded loudness correction without changing picture lock
+ok 4 - short dynamic 4.8 second master uses bounded loudness correction without changing picture lock
+  ---
+  duration_ms: 2728.456792
+  type: 'test'
+  ...
+# Subtest: V18 UX hides stale repair copy on audio QA blockers and normalizes chosen week to Monday
+ok 5 - V18 UX hides stale repair copy on audio QA blockers and normalizes chosen week to Monday
+  ---
+  duration_ms: 1.034208
+  type: 'test'
+  ...
+# Subtest: golden reference manifest documents exact measurable studio characteristics without committing the binary
+ok 6 - golden reference manifest documents exact measurable studio characteristics without committing the binary
+  ---
+  duration_ms: 0.990916
+  type: 'test'
+  ...
+# Subtest: actual pinned Graph runs to hash-bound treatment and release; fixture evidence stays test-labeled
+ok 7 - actual pinned Graph runs to hash-bound treatment and release; fixture evidence stays test-labeled
+  ---
+  duration_ms: 6613.193337
+  type: 'test'
+  ...
+# Subtest: cross-tenant actions and artifacts fail before data access; viewers cannot approve
+ok 8 - cross-tenant actions and artifacts fail before data access; viewers cannot approve
+  ---
+  duration_ms: 2147.701709
+  type: 'test'
+  ...
+# Subtest: localized repair invalidates candidate and descendants while preserving ingested upstream
+ok 9 - localized repair invalidates candidate and descendants while preserving ingested upstream
+  ---
+  duration_ms: 3308.631793
+  type: 'test'
+  ...
+# Subtest: source authorization and DNA changes invalidate human approval
+ok 10 - source authorization and DNA changes invalidate human approval
+  ---
+  duration_ms: 2134.196167
+  type: 'test'
+  ...
+# Subtest: restart recovery and double start preserve one Graph history
+ok 11 - restart recovery and double start preserve one Graph history
+  ---
+  duration_ms: 2141.393376
+  type: 'test'
+  ...
+# Subtest: production missing source bytes is blocked in actual Graph, no fixture adapter exposed
+ok 12 - production missing source bytes is blocked in actual Graph, no fixture adapter exposed
+  ---
+  duration_ms: 1042.335958
+  type: 'test'
+  ...
+# Subtest: blocked production resumes the same Graph after its missing authorized video is uploaded
+ok 13 - blocked production resumes the same Graph after its missing authorized video is uploaded
+  ---
+  duration_ms: 2974.261584
+  type: 'test'
+  ...
+# Subtest: media inspection rejects playlists and local or network indirection before ffprobe
+ok 14 - media inspection rejects playlists and local or network indirection before ffprobe
+  ---
+  duration_ms: 8.225334
+  type: 'test'
+  ...
+# Subtest: provider failure remains a blocker and cannot create release evidence
+ok 15 - provider failure remains a blocker and cannot create release evidence
+  ---
+  duration_ms: 3371.643835
+  type: 'test'
+  ...
+# Subtest: real footage adapter preserves all selected sources, target dimensions, and ambient audio
+ok 16 - real footage adapter preserves all selected sources, target dimensions, and ambient audio
+  ---
+  duration_ms: 1004.991668
+  type: 'test'
+  ...
+# Subtest: production uploaded media binds creative candidate, separate real reviewers, and final release
+ok 17 - production uploaded media binds creative candidate, separate real reviewers, and final release
+  ---
+  duration_ms: 8219.494461
+  type: 'test'
+  ...
+# Subtest: controlled single-operator preview lets the owner approve Critic and Verifier on the same hash while labeling the relaxed separation
+ok 18 - controlled single-operator preview lets the owner approve Critic and Verifier on the same hash while labeling the relaxed separation
+  ---
+  duration_ms: 9054.528963
+  type: 'test'
+  ...
+# Subtest: production still rejects producer self-review even when the producer is an owner
+ok 19 - production still rejects producer self-review even when the producer is an owner
+  ---
+  duration_ms: 4660.072711
+  type: 'test'
+  ...
+# Subtest: same fixture bytes after localized media repair receive a fresh candidate scope
+ok 20 - same fixture bytes after localized media repair receive a fresh candidate scope
+  ---
+  duration_ms: 9787.523713
+  type: 'test'
+  ...
+# Subtest: approval intent survives a crash after Graph approval and resumes without a second decision
+ok 21 - approval intent survives a crash after Graph approval and resumes without a second decision
+  ---
+  duration_ms: 5890.409001
+  type: 'test'
+  ...
+# Subtest: production arbitrary creative repair remains manual and never silently rerenders
+ok 22 - production arbitrary creative repair remains manual and never silently rerenders
+  ---
+  duration_ms: 2159.118209
+  type: 'test'
+  ...
+# Subtest: manual creative blocker can be explicitly withdrawn on the same production without claiming the edit was applied
+ok 23 - manual creative blocker can be explicitly withdrawn on the same production without claiming the edit was applied
+  ---
+  duration_ms: 6519.096628
+  type: 'test'
+  ...
+# Subtest: stable artifact candidate is shared by verifier and release, with stage replay rejected
+ok 24 - stable artifact candidate is shared by verifier and release, with stage replay rejected
+  ---
+  duration_ms: 5605.856627
+  type: 'test'
+  ...
+# Subtest: mascot request reaches human creative review, then fails closed before unsupported composition
+ok 25 - mascot request reaches human creative review, then fails closed before unsupported composition
+  ---
+  duration_ms: 3219.416502
+  type: 'test'
+  ...
+# Subtest: actual adapter paid capability or nonzero estimate is blocked before generate
+ok 26 - actual adapter paid capability or nonzero estimate is blocked before generate
+  ---
+  duration_ms: 3380.016918
+  type: 'test'
+  ...
+# Subtest: repair intent survives a crash after Graph invalidation without duplicating repair plans
+ok 27 - repair intent survives a crash after Graph invalidation without duplicating repair plans
+  ---
+  duration_ms: 3414.56246
+  type: 'test'
+  ...
+# Subtest: kernel job lease excludes concurrent workers and ignores obsolete dead reclaim files
+ok 28 - kernel job lease excludes concurrent workers and ignores obsolete dead reclaim files
+  ---
+  duration_ms: 21.661708
+  type: 'test'
+  ...
+# Subtest: rejection intent survives a crash after blocking Graph and becomes terminal on recovery
+ok 29 - rejection intent survives a crash after blocking Graph and becomes terminal on recovery
+  ---
+  duration_ms: 2317.789918
+  type: 'test'
+  ...
+# Subtest: changed provider provenance invalidates review before Graph approval or release
+ok 30 - changed provider provenance invalidates review before Graph approval or release
+  ---
+  duration_ms: 5957.332835
+  type: 'test'
+  ...
+# Subtest: provenance drift during approval cannot enter the immutable release snapshot
+ok 31 - provenance drift during approval cannot enter the immutable release snapshot
+  ---
+  duration_ms: 6563.622254
+  type: 'test'
+  ...
+# Subtest: requested repair clears current output provenance and keeps historical artifact bytes
+ok 32 - requested repair clears current output provenance and keeps historical artifact bytes
+  ---
+  duration_ms: 87332.071664
+  type: 'test'
+  ...
+# Subtest: blocked mascot production can be explicitly repaired to real footage on the same Graph and requires fresh review
+ok 33 - blocked mascot production can be explicitly repaired to real footage on the same Graph and requires fresh review
+  ---
+  duration_ms: 115575.268595
+  type: 'test'
+  ...
+# Subtest: blocked production repair is role-bound and rejects unsupported mutations
+ok 34 - blocked production repair is role-bound and rejects unsupported mutations
+  ---
+  duration_ms: 3252.84321
+  type: 'test'
+  ...
+# Subtest: source-too-short blocker has an explicit same-job duration-fit repair and fresh creative review
+ok 35 - source-too-short blocker has an explicit same-job duration-fit repair and fresh creative review
+  ---
+  duration_ms: 4773.742378
+  type: 'test'
+  ...
+# Subtest: authorized FIRMES caballito is composited by the local zero-credit adapter with immutable brand provenance
+ok 36 - authorized FIRMES caballito is composited by the local zero-credit adapter with immutable brand provenance
+  ---
+  duration_ms: 5382.708169
+  type: 'test'
+  ...
+# Subtest: critic request to add the FIRMES caballito is executed on the same job instead of entering the manual blocker
+ok 37 - critic request to add the FIRMES caballito is executed on the same job instead of entering the manual blocker
+  ---
+  duration_ms: 9190.154337
+  type: 'test'
+  ...
+# Subtest: legacy manual blocker for the exact Caballito request can be upgraded and applied on the same job
+ok 38 - legacy manual blocker for the exact Caballito request can be upgraded and applied on the same job
+  ---
+  duration_ms: 8715.123919
+  type: 'test'
+  ...
+# Subtest: negated mascot add language is not silently treated as an executable add request
+ok 39 - negated mascot add language is not silently treated as an executable add request
+  ---
+  duration_ms: 78098.355536
+  type: 'test'
+  ...
+# Subtest: creative approval rejects treatment drift after the exact caballito asset was hash-bound
+ok 40 - creative approval rejects treatment drift after the exact caballito asset was hash-bound
+  ---
+  duration_ms: 50027.934939
+  type: 'test'
+  ...
+# Subtest: soundtrack upload accepts real MP3 WAV and M4A files while rejecting MIME-disguised bytes
+ok 41 - soundtrack upload accepts real MP3 WAV and M4A files while rejecting MIME-disguised bytes
+  ---
+  duration_ms: 602.124001
+  type: 'test'
+  ...
+# Subtest: audio finishing preserves picture lock, creates a fresh master, and returns the same job to Critic
+ok 42 - audio finishing preserves picture lock, creates a fresh master, and returns the same job to Critic
+  ---
+  duration_ms: 8572.349462
+  type: 'test'
+  ...
+# Subtest: audio QA failure can retry the same finishing contract without changing picture lock or creative revision
+ok 43 - audio QA failure can retry the same finishing contract without changing picture lock or creative revision
+  ---
+  duration_ms: 8141.613545
+  type: 'test'
+  ...
+# Subtest: a later visual repair invalidates the prior audio master but keeps the uploaded soundtrack available
+ok 44 - a later visual repair invalidates the prior audio master but keeps the uploaded soundtrack available
+  ---
+  duration_ms: 8751.764337
+  type: 'test'
+  ...
+# Subtest: audio finishing requires explicit outro timecodes and an uploaded soundtrack; reviewers cannot mutate the master
+ok 45 - audio finishing requires explicit outro timecodes and an uploaded soundtrack; reviewers cannot mutate the master
+  ---
+  duration_ms: 5987.86492
+  type: 'test'
+  ...
+1..45
+# tests 45
+# suites 0
+# pass 45
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 498876.924894
