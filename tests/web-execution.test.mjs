@@ -120,6 +120,20 @@ test('audio finishing preserves picture lock, creates a fresh master, and return
  const state=await f.service.service().status(f.service.paths(j));assert.equal(state.nodes.find(n=>n.id==='PROVIDER_PRODUCTION').revision,0);assert.equal(state.nodes.find(n=>n.id==='PROVIDER_PRODUCTION').status,'done');assert.equal(state.nodes.find(n=>n.id==='TECHNICAL_QA').revision,1);assert.equal(state.nodes.find(n=>n.id==='TECHNICAL_QA').status,'done');assert.equal(state.nodes.find(n=>n.id==='CRITIC').revision,0);assert.equal(state.nodes.find(n=>n.id==='CRITIC').status,'spec_ready');await assert.rejects(f.service.approve({id:'critic-human',memberships:[{tenant_id:'tenant-a',role:'reviewer'}]},j.id,{candidate_sha:oldCandidate,review_stage:'CRITIC'}),e=>e.code==='STALE_CANDIDATE')
 })
 
+test('audio QA failure can retry the same finishing contract without changing picture lock or creative revision',async()=>{
+ const f=await fixture({testMode:false,deploymentClass:'controlled_single_operator_preview'}),dir=join(f.root,'audio-retry');await mkdir(dir)
+ const source=join(dir,'picture.mp4'),soundtrack=join(dir,'soundtrack.mp4')
+ await execFile('/usr/bin/ffmpeg',['-nostdin','-v','error','-y','-f','lavfi','-i','testsrc2=size=360x640:rate=30:duration=2','-f','lavfi','-i','sine=frequency=440:duration=2','-c:v','libx264','-threads','1','-c:a','aac','-pix_fmt','yuv420p','-shortest',source])
+ await execFile('/usr/bin/ffmpeg',['-nostdin','-v','error','-y','-f','lavfi','-i','sine=frequency=220:duration=4','-c:a','aac','-vn',soundtrack])
+ await f.service.uploadSource(actor,'tenant-a','real-source',{bytes:await readFile(source),mime_type:'video/mp4'});let j=await runToReview(f);j=await approve(f);assert.equal(j.stage,'CRITIC',JSON.stringify(j.blockers));const pictureLock=j.artifact_sha256,providerExecution=digest(j.provider_execution)
+ const audio=await f.service.uploadAudioAsset(actor,j.id,{bytes:await readFile(soundtrack),mime_type:'video/mp4'}),realEngine=f.service.audioFinishingEngine
+ f.service.audioFinishingEngine={finish:async()=>{const error=new Error('simulated loudness miss');error.code='LOUDNESS_QA_FAILED';throw error}}
+ await f.service.configureAudioFinishing(actor,j.id,{soundtrack:{asset_id:audio.id},master:{integrated_lufs:-14,true_peak_max_dbtp:-1.5}});await f.service.drain();j=(await f.repository.read()).jobs[j.id]
+ assert.equal(j.status,'BLOCKED');assert.equal(j.stage,'TECHNICAL_QA');assert.equal(j.blockers[0].code,'LOUDNESS_QA_FAILED');assert.equal(j.audio_finishing.status,'REQUESTED');assert.equal(j.audio_finishing.picture_lock_sha256,pictureLock);assert.equal(j.artifact_sha256,pictureLock);assert.equal(digest(j.provider_execution),providerExecution);const revision=j.repair_revision,contractSha=j.audio_finishing.contract_sha256
+ f.service.audioFinishingEngine=realEngine;await f.service.repairBlocked(actor,j.id,{action:'RETRY_AUDIO_FINISHING'});await f.service.drain();j=(await f.repository.read()).jobs[j.id]
+ assert.equal(j.status,'AWAITING_REVIEW',JSON.stringify(j.blockers));assert.equal(j.stage,'CRITIC');assert.equal(j.audio_finishing.status,'APPLIED');assert.equal(j.audio_finishing.contract_sha256,contractSha);assert.equal(j.audio_finishing_execution.picture_lock_sha256,pictureLock);assert.equal(digest(j.provider_execution),providerExecution);assert.equal(j.repair_revision,revision);assert.deepEqual(j.repair_controls,{blocker_action:'RETRY_AUDIO_FINISHING'});assert.equal(j.repair_instructions,null);assert.equal(j.blockers.length,0)
+})
+
 test('a later visual repair invalidates the prior audio master but keeps the uploaded soundtrack available',async()=>{
  const f=await fixture({testMode:false,deploymentClass:'controlled_single_operator_preview'}),dir=join(f.root,'audio-invalidated-by-picture');await mkdir(dir)
  const source=join(dir,'picture.mp4'),soundtrack=join(dir,'soundtrack.mp4')

@@ -1,6 +1,6 @@
 import { execFile as callback } from 'node:child_process'
 import { promisify } from 'node:util'
-import { readFile } from 'node:fs/promises'
+import { readFile, rename } from 'node:fs/promises'
 import { fields, invariant, boundedText } from './errors.mjs'
 import { digest } from './worker-policy.mjs'
 
@@ -121,10 +121,23 @@ export class AudioFinishingEngine {
   args.push('-filter_complex_threads','1','-filter_complex',filters.join(';'),'-map','0:v:0','-map','[aout]','-t',String(duration),'-c:v','copy','-c:a','aac','-b:a','256k','-ar','48000','-ac','2','-movflags','+faststart',outputPath)
   await execFile('/usr/bin/ffmpeg',args,{timeout:180000,maxBuffer:4*1024*1024})
   const pictureHashAfter=await videoStreamSha256(outputPath);invariant(pictureHashAfter===pictureHashBefore,'PICTURE_LOCK_CHANGED','Audio finishing changed the picture stream',409)
-  const qa=await inspectAudioMaster(outputPath),loudnessDelta=Math.abs(qa.integrated_lufs-normalized.master.integrated_lufs),durationDelta=Math.max(Math.abs(qa.audio_duration_seconds-duration),Math.abs(qa.video_duration_seconds-duration))
+  let qa=await inspectAudioMaster(outputPath),loudnessDelta=Math.abs(qa.integrated_lufs-normalized.master.integrated_lufs),correctionDb=normalized.master.integrated_lufs-qa.integrated_lufs,correctionApplied=false
+  if(loudnessDelta>1.0&&Math.abs(correctionDb)<=3.0){
+    const correctedPath=outputPath+'.loudness-corrected.mp4',inputArgs=await safeMediaInputArgs(outputPath),correctionFilters=['volume='+correctionDb.toFixed(2)+'dB']
+    if(normalized.master.limiter)correctionFilters.push('alimiter=limit='+Math.pow(10,normalized.master.true_peak_max_dbtp/20).toFixed(6)+':attack=5:release=50:level=false')
+    correctionFilters.push('aresample=48000')
+    await execFile('/usr/bin/ffmpeg',['-nostdin','-v','error','-y',...inputArgs,'-i',outputPath,'-map','0:v:0','-map','0:a:0','-t',String(duration),'-c:v','copy','-af',correctionFilters.join(','),'-c:a','aac','-b:a','256k','-ar','48000','-ac','2','-movflags','+faststart',correctedPath],{timeout:180000,maxBuffer:4*1024*1024})
+    const correctedPictureHash=await videoStreamSha256(correctedPath);invariant(correctedPictureHash===pictureHashBefore,'PICTURE_LOCK_CHANGED','Loudness correction changed the picture stream',409)
+    const correctedQa=await inspectAudioMaster(correctedPath),correctedDelta=Math.abs(correctedQa.integrated_lufs-normalized.master.integrated_lufs),correctedDurationDelta=Math.max(Math.abs(correctedQa.audio_duration_seconds-duration),Math.abs(correctedQa.video_duration_seconds-duration))
+    invariant(correctedDelta<=1.0,'LOUDNESS_QA_FAILED','Finished audio missed the loudness target after bounded correction',409)
+    invariant(correctedQa.true_peak_dbtp<=normalized.master.true_peak_max_dbtp+0.25,'TRUE_PEAK_QA_FAILED','Finished audio exceeds the true-peak ceiling after bounded correction',409)
+    invariant(!normalized.sync.lock_to_video_duration||correctedDurationDelta<=0.04,'AV_SYNC_QA_FAILED','Finished audio and video durations are not locked after bounded correction',409)
+    await rename(correctedPath,outputPath);qa=correctedQa;loudnessDelta=correctedDelta;correctionApplied=true
+  }
+  const durationDelta=Math.max(Math.abs(qa.audio_duration_seconds-duration),Math.abs(qa.video_duration_seconds-duration))
   invariant(loudnessDelta<=1.0,'LOUDNESS_QA_FAILED','Finished audio missed the loudness target',409)
   invariant(qa.true_peak_dbtp<=normalized.master.true_peak_max_dbtp+0.25,'TRUE_PEAK_QA_FAILED','Finished audio exceeds the true-peak ceiling',409)
   invariant(!normalized.sync.lock_to_video_duration||durationDelta<=0.04,'AV_SYNC_QA_FAILED','Finished audio and video durations are not locked',409)
-  return {contract:normalized,contract_sha256:digest(normalized),picture_stream_sha256:pictureHashBefore,qa,output_duration_seconds:round3(duration)}
+  return {contract:normalized,contract_sha256:digest(normalized),picture_stream_sha256:pictureHashBefore,qa,output_duration_seconds:round3(duration),loudness_correction_applied:correctionApplied,loudness_correction_db:correctionApplied?round3(correctionDb):0}
  }
 }

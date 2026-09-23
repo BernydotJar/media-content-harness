@@ -1921,6 +1921,86 @@
         "assets/**",
         "config/**"
       ]
+    },
+    {
+      "id": "WEB051-SHORT-CLIP-AUDIO-QA-V18",
+      "title": "Correct short-clip audio mastering and active blocker UX from real Mac acceptance QA",
+      "kind": "product-completion",
+      "status": "spec_ready",
+      "depends_on": [
+        "WEB050-WEEKLY-USAGE-BUDGET-V17-RELEASE"
+      ],
+      "capability": "media-factory-web",
+      "gates": {
+        "review": [
+          "implementation_quality"
+        ]
+      },
+      "allowed_paths": [
+        "app/**",
+        "components/**",
+        "server/**",
+        "plugins/**",
+        "tests/**",
+        "scripts/**",
+        "docs/**",
+        "examples/**",
+        "specs/**",
+        "progress/**",
+        "graph/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "*.mjs",
+        "*.json",
+        "*.yml",
+        "Dockerfile",
+        ".gitignore",
+        ".dockerignore",
+        "README.md",
+        "deploy/**",
+        "assets/**",
+        "config/**"
+      ]
+    },
+    {
+      "id": "WEB052-SHORT-CLIP-AUDIO-QA-V18-RELEASE",
+      "title": "Independent verification and controlled release of short-clip audio QA V18",
+      "kind": "product-completion",
+      "status": "spec_ready",
+      "depends_on": [
+        "WEB051-SHORT-CLIP-AUDIO-QA-V18"
+      ],
+      "capability": "media-factory-web",
+      "gates": {
+        "review": [
+          "implementation_quality"
+        ]
+      },
+      "allowed_paths": [
+        "app/**",
+        "components/**",
+        "server/**",
+        "plugins/**",
+        "tests/**",
+        "scripts/**",
+        "docs/**",
+        "examples/**",
+        "specs/**",
+        "progress/**",
+        "graph/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "*.mjs",
+        "*.json",
+        "*.yml",
+        "Dockerfile",
+        ".gitignore",
+        ".dockerignore",
+        "README.md",
+        "deploy/**",
+        "assets/**",
+        "config/**"
+      ]
     }
   ]
 }

@@ -1,8 +1,13 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { readFile } from 'node:fs/promises'
-import { normalizeAudioFinishingContract } from '../server/audio-finishing.mjs'
+import { readFile, mkdtemp, mkdir, rm } from 'node:fs/promises'
+import { normalizeAudioFinishingContract, AudioFinishingEngine, videoStreamSha256 } from '../server/audio-finishing.mjs'
 import { handleApi } from '../server/http.mjs'
+import { tmpdir } from 'node:os'
+import { join } from 'node:path'
+import { execFile as callback } from 'node:child_process'
+import { promisify } from 'node:util'
+const execFile=promisify(callback)
 
 const origin='https://media.example.org'
 
@@ -27,8 +32,23 @@ test('V12 HTTP surface keeps audio upload binary and finishing contract JSON on 
 test('review stays decision-first while Studio exposes advanced audio controls and explicit outro IN/OUT',async()=>{
  const [source,studio,metadata,css]=await Promise.all([readFile('components/jobs.tsx','utf8'),readFile('components/studio.tsx','utf8'),readFile('server/site-metadata.mjs','utf8'),readFile('app/globals.css','utf8')])
  for(const text of ['TU DECISIÓN','¿Esta versión está bien?','Pedir un cambio','Abrir Studio','Ajusta música, voz y cierre.','Música','Voz','Final','Terminar audio','Crear nueva versión','audio/mpeg','audio/wav','.mp3','.wav','.m4a','MP3, WAV, M4A, MP4, MOV o WebM'])assert.ok(source.includes(text),text)
- assert.ok(source.includes('studioMode?<>'));assert.ok(source.includes('reviewable&&hasVideo?<AudioFinishingPanel'));assert.match(source,/IN \(s\)/);assert.match(source,/OUT \(s\)/);assert.match(source,/Si quieres usar un fragmento exacto al final/);assert.match(source,/Picture lock/)
+ assert.ok(source.includes('studioMode?<>'));assert.ok(source.includes('reviewable&&hasVideo?<AudioFinishingPanel'));assert.match(source,/IN \(s\)/);assert.match(source,/OUT \(s\)/);assert.match(source,/Si quieres usar un fragmento exacto al final/);assert.match(source,/Picture lock/);assert.match(source,/El audio necesita un último ajuste/);assert.match(source,/Reintentar master de audio/);assert.match(source,/showRepairInstructions/)
  assert.match(studio,/studioMode=\{segments\[2\] === 'studio'\}/);assert.match(metadata,/Studio de producción/);assert.match(css,/\.audio-finishing-panel/);assert.match(css,/\.review-studio-entry/);assert.match(css,/\.advanced-job-info/)
+})
+
+test('short dynamic 4.8 second master uses bounded loudness correction without changing picture lock',async t=>{
+ const root=await mkdtemp(join(tmpdir(),'short-audio-v18-'));t.after(()=>rm(root,{recursive:true,force:true}));await mkdir(root,{recursive:true})
+ const picture=join(root,'picture.mp4'),soundtrack=join(root,'soundtrack.mp3'),output=join(root,'out.mp4')
+ await execFile('/usr/bin/ffmpeg',['-nostdin','-v','error','-y','-f','lavfi','-i','testsrc2=size=180x320:rate=30:duration=4.8','-f','lavfi','-i',"aevalsrc='if(lt(t,0.7),0.9*sin(2*PI*440*t),0.03*sin(2*PI*440*t))':s=48000:d=4.8",'-c:v','libx264','-threads','1','-c:a','aac','-pix_fmt','yuv420p','-shortest',picture])
+ await execFile('/usr/bin/ffmpeg',['-nostdin','-v','error','-y','-f','lavfi','-i',"aevalsrc='if(mod(floor(t*4),2),0.5*sin(2*PI*220*t),0.02*sin(2*PI*220*t))':s=48000:d=12",'-c:a','libmp3lame','-b:a','192k',soundtrack])
+ const before=await videoStreamSha256(picture),result=await new AudioFinishingEngine().finish({picturePath:picture,soundtrackPath:soundtrack,outputPath:output,contract:{soundtrack:{asset_id:'audio_test',start_seconds:0,gain_db:-8},voice:{preserve:true},mix:{duck_under_voice:true},outro:{enabled:false},master:{integrated_lufs:-14,true_peak_max_dbtp:-1.5,compressor:'gentle',limiter:true},sync:{lock_to_video_duration:true}}}),after=await videoStreamSha256(output)
+ assert.equal(result.loudness_correction_applied,true);assert.ok(result.loudness_correction_db>1&&result.loudness_correction_db<=3);assert.ok(Math.abs(result.qa.integrated_lufs+14)<=1);assert.ok(result.qa.true_peak_dbtp<=-1.25);assert.equal(result.qa.sample_rate,48000);assert.equal(result.qa.channels,2);assert.equal(result.qa.duration_seconds,4.8);assert.equal(before,after)
+})
+
+test('V18 UX hides stale repair copy on audio QA blockers and normalizes chosen week to Monday',async()=>{
+ const [jobs,planner]=await Promise.all([readFile('components/jobs.tsx','utf8'),readFile('components/planner.tsx','utf8')])
+ for(const value of ['El audio necesita un último ajuste','Reintentar master de audio','RETRY_AUDIO_FINISHING','showRepairInstructions'])assert.ok(jobs.includes(value),value)
+ assert.match(planner,/setWeek\(weekStart\(e\.target\.value\)\)/);assert.match(planner,/Elegimos automáticamente el lunes de esa semana/)
 })
 
 test('golden reference manifest documents exact measurable studio characteristics without committing the binary',async()=>{

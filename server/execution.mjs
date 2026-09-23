@@ -163,11 +163,12 @@ export class ExecutionService {
       const j=(await this.repository.read()).jobs[id]
       requireActor(actor,j.tenant_id)
       const action=input?.action
-      invariant(['USE_REAL_FOOTAGE','REMOVE_MASCOT','FIT_SOURCE_DURATION','WITHDRAW_MANUAL_CHANGE','APPLY_SUPPORTED_CHANGE'].includes(action),'INVALID_REPAIR_ACTION','Choose a supported production repair',400)
+      invariant(['USE_REAL_FOOTAGE','REMOVE_MASCOT','FIT_SOURCE_DURATION','WITHDRAW_MANUAL_CHANGE','APPLY_SUPPORTED_CHANGE','RETRY_AUDIO_FINISHING'].includes(action),'INVALID_REPAIR_ACTION','Choose a supported production repair',400)
       const blockerCodes=new Set((j.blockers||[]).map(b=>typeof b==='string'?b:b?.code).filter(Boolean))
       invariant(j.status==='BLOCKED','JOB_NOT_BLOCKED','This production is not currently blocked',409)
       const providerDecision=[...blockerCodes].some(code=>['MASCOT_RENDER_UNAVAILABLE','ADAPTER_REQUIRED','PROVIDER_UNAVAILABLE','PROVIDER_CREDENTIAL_MISSING'].includes(code))
       const durationDecision=blockerCodes.has('SOURCE_TOO_SHORT')
+      const audioQaDecision=[...blockerCodes].some(code=>['LOUDNESS_QA_FAILED','TRUE_PEAK_QA_FAILED','AV_SYNC_QA_FAILED','AUDIO_QA_UNAVAILABLE'].includes(code))
       const manualDecision=blockerCodes.has('MANUAL_REPAIR_REQUIRED')&&j.repair_requires_manual===true
       const supportedBlockedRepair=action==='APPLY_SUPPORTED_CHANGE'?requestedMascotRepair(j.repair_instructions,j):null
       let supportedBlockedAsset=null
@@ -180,6 +181,11 @@ export class ExecutionService {
         }
       }
       if(action==='FIT_SOURCE_DURATION')invariant(durationDecision,'REPAIR_NOT_APPLICABLE','This production is not blocked by source duration',409)
+      else if(action==='RETRY_AUDIO_FINISHING'){
+        invariant(audioQaDecision&&j.stage==='TECHNICAL_QA'&&j.audio_finishing?.status==='REQUESTED','REPAIR_NOT_APPLICABLE','This production is not waiting on a retryable audio QA step',409)
+        await this.repository.transact(st=>{const x=st.jobs[id];assertCurrent(st,x);x.pending_review=null;x.repair_instructions=null;x.repair_requires_manual=false;x.repair_controls={blocker_action:'RETRY_AUDIO_FINISHING'};x.review_state='CHANGES_REQUESTED';x.candidate_sha=null;x.review_candidate=null;x.stage='TECHNICAL_QA';x.status='QUEUED';x.blockers=[];event(st,x,'audio_finishing_retry_requested','Authenticated retry of the same audio-finishing contract and picture lock',this.clock());return null})
+        this.onJobsQueued([id]);return (await this.repository.read()).jobs[id]
+      }
       else if(action==='WITHDRAW_MANUAL_CHANGE')invariant(manualDecision,'REPAIR_NOT_APPLICABLE','This production is not waiting on an unsupported manual creative edit',409)
       else if(action!=='APPLY_SUPPORTED_CHANGE')invariant(providerDecision,'REPAIR_NOT_APPLICABLE','This blocker needs a different resolution path',409)
       if(action==='REMOVE_MASCOT')invariant(j.mascot===true,'REPAIR_NOT_APPLICABLE','This production does not currently use a mascot',409)
