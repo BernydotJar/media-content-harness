@@ -1,0 +1,76 @@
+TAP version 13
+# Subtest: V19 keeps Create focused on one composer while weekly usage stays visible
+ok 1 - V19 keeps Create focused on one composer while weekly usage stays visible
+  ---
+  duration_ms: 4.03975
+  type: 'test'
+  ...
+# Subtest: V19 preserves Dashboard/Create decision surfaces without adding budget chrome to brand start
+ok 2 - V19 preserves Dashboard/Create decision surfaces without adding budget chrome to brand start
+  ---
+  duration_ms: 1.84475
+  type: 'test'
+  ...
+# Subtest: V19 uses the existing CSS media depth and does not add a WebGL UI runtime dependency
+ok 3 - V19 uses the existing CSS media depth and does not add a WebGL UI runtime dependency
+  ---
+  duration_ms: 2.226916
+  type: 'test'
+  ...
+# Subtest: Q200 weekly policy exposes one daily new-video slot and protected repair reserve
+ok 4 - Q200 weekly policy exposes one daily new-video slot and protected repair reserve
+  ---
+  duration_ms: 10.062417
+  type: 'test'
+  ...
+# Subtest: an in-flight first paid attempt remains NEW_GENERATION during polling and recovery
+ok 5 - an in-flight first paid attempt remains NEW_GENERATION during polling and recovery
+  ---
+  duration_ms: 0.208583
+  type: 'test'
+  ...
+# Subtest: unused days never accumulate extra daily slots and a new week resets availability
+ok 6 - unused days never accumulate extra daily slots and a new week resets availability
+  ---
+  duration_ms: 0.588958
+  type: 'test'
+  ...
+# Subtest: seven Q22 new generations plus two Q23 repairs consume exactly Q200 without overage
+ok 7 - seven Q22 new generations plus two Q23 repairs consume exactly Q200 without overage
+  ---
+  duration_ms: 1.773667
+  type: 'test'
+  ...
+# Subtest: per-item caps prevent one render or repair from consuming future days
+ok 8 - per-item caps prevent one render or repair from consuming future days
+  ---
+  duration_ms: 0.294167
+  type: 'test'
+  ...
+# Subtest: reserved usage can be released before submission but committed provider spend cannot be fabricated back
+ok 9 - reserved usage can be released before submission but committed provider spend cannot be fabricated back
+  ---
+  duration_ms: 0.380042
+  type: 'test'
+  ...
+# Subtest: AtomicRepository serializes two same-day approvals so only one daily slot can reserve
+ok 10 - AtomicRepository serializes two same-day approvals so only one daily slot can reserve
+  ---
+  duration_ms: 9.647917
+  type: 'test'
+  ...
+# Subtest: V17 UX presents weekly usage as a protected creation week rather than an open credit wallet
+ok 11 - V17 UX presents weekly usage as a protected creation week rather than an open credit wallet
+  ---
+  duration_ms: 1.592667
+  type: 'test'
+  ...
+1..11
+# tests 11
+# suites 0
+# pass 11
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 59.923708
