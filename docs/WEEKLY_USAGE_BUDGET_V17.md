@@ -52,6 +52,7 @@ fx_rate_checked_at: 2026-09-22
 ```
 
 For the existing six-second Seedance 2.5 upper-bound estimate of USD 1.9416, the governed amount is **Q14.81**.
+For the V20 eight-second Veo 3.1 Fast 720p reference-video estimate of USD 0.80, the same policy produces **Q6.10**, below the Q22 per-item new-generation cap. The spend still consumes the one-paid-video daily slot and weekly allocation when approved; the lower estimate does not create extra daily entitlements.
 
 The accounting rate is versioned policy data, not a claim that Media Factory controls the external provider's eventual invoice. A policy/rate change changes the exact spend scope and requires a fresh approval.
 

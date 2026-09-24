@@ -7,7 +7,7 @@ const execFile=promisify(callback)
 const RESOLUTIONS={'9:16':[1080,1920],'1:1':[1080,1080],'16:9':[1920,1080]}
 async function inputArgs(path){const bytes=await readFile(path);invariant(bytes.length>0&&bytes.length<=40*1024*1024,'INVALID_MEDIA','Media exceeds the permitted size',422);if(bytes.subarray(4,8).toString()==='ftyp')return ['-protocol_whitelist','file,pipe','-format_whitelist','mov','-f','mov','-enable_drefs','0','-use_absolute_path','0'];invariant(bytes.subarray(0,4).equals(Buffer.from([0x1a,0x45,0xdf,0xa3])),'INVALID_MEDIA','Only binary MP4, MOV, and WebM media is accepted',422);return ['-protocol_whitelist','file,pipe','-format_whitelist','matroska,webm','-f','matroska']}
 export class FFmpegAdapter {
-  capabilities(){return {strategies:['REAL_FOOTAGE'],paid:false,automatic_social_publish:false}}
+  capabilities(){return {strategies:['REAL_FOOTAGE'],paid:false,automatic_social_publish:false,sticker_overlay:true}}
   estimate(){return {credits:0}}
   async prepare(input){invariant(input.assets?.length>0&&input.assets.length<=8,'SOURCE_BYTES_REQUIRED','Upload one to eight authorized videos to continue',409);return input}
   async generate(input){
@@ -35,12 +35,12 @@ export class FFmpegAdapter {
     }else filters.push('[basev]null[v]')
     args.push('-filter_complex_threads','1','-filter_complex',filters.join(';'),'-map','[v]','-map','[a]','-t',String(duration),'-c:v','libx264','-threads','2','-preset','veryfast','-pix_fmt','yuv420p','-c:a','aac','-movflags','+faststart',output)
     await execFile('/usr/bin/ffmpeg',args,{timeout:180000,maxBuffer:1024*1024})
-    return {output,mime_type:'video/mp4',test:false,production_note:input.mascotAsset?'Authorized FIRMES caballito reference composited locally over authorized real footage; no model-generated character and no automatic publication.':'Every selected authorized source contributes an equal-duration segment; original audio is retained where present, with silence for sources without audio. Footage is fitted with padding; creative review remains required.'}
+    return {output,mime_type:'video/mp4',test:false,production_note:input.mascotAsset?'STICKER_OVERLAY: approved FIRMES Caballito artwork composited deterministically over authorized real footage. This is not a model-generated character scene and is not automatically published.':'Every selected authorized source contributes an equal-duration segment; original audio is retained where present, with silence for sources without audio. Footage is fitted with padding; creative review remains required.'}
   }
 
   async poll(value){return {...value,status:'completed'}}
   async collect(value){return {...value,bytes:await readFile(value.output)}}
-  provenance(input){return {adapter:'ffmpeg',synthetic:false,used_sources:input.assets.map(a=>({source_id:a.source_id,sha256:a.sha256})),brand_assets:input.mascotAsset?[{asset_id:input.mascotAsset.id,sha256:input.mascotAsset.sha256,synthetic:false}]:[],paid:false,external_review:false}}
+  provenance(input){return {adapter:'ffmpeg',generation_kind:input.mascotAsset?'STICKER_OVERLAY':null,synthetic:false,used_sources:input.assets.map(a=>({source_id:a.source_id,sha256:a.sha256})),brand_assets:input.mascotAsset?[{asset_id:input.mascotAsset.id,sha256:input.mascotAsset.sha256,synthetic:false}]:[],reference_assets:[],paid:false,external_review:false}}
 }
 export class DeterministicTestAdapter extends FFmpegAdapter {
   capabilities(){return {strategies:['AUTO','REAL_FOOTAGE','HYBRID','GENERATIVE'],test:true,paid:false}}

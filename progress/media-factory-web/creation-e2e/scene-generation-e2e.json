@@ -1,29 +1,29 @@
 {
   "candidate_sha": null,
   "working_tree_dirty": true,
-  "production_source_sha256": "c8ae6138e0ee45dc48a87ded7fe1bbdbaea721196c48b4ae335c5d3d9fe8b248",
-  "build_id": "iGYGrj80zk85ZoXcVYsb-",
+  "production_source_sha256": "4d058bf6c995139d0f7560c6e12c35a04560dca0be2ba6fc69357541e1a0312e",
+  "build_id": "EktzjDa9Cu8Mkkf6iBs4L",
   "runtime_package": {
     "format": "media-factory-runtime.v1",
-    "files": 1481,
-    "manifest_sha256": "c327be60661557c3cd2692f0648a7375cde8fcee598c41d8c9680b028548c965",
-    "build_id": "iGYGrj80zk85ZoXcVYsb-",
+    "files": 1482,
+    "manifest_sha256": "8148c99591f480ccb58f8b29cd229857e16a9a897e3c9f44dc84a08f5972814d",
+    "build_id": "EktzjDa9Cu8Mkkf6iBs4L",
     "forbidden_entries": 0,
     "external_symlinks": 0
   },
   "test_mode": false,
   "deployment_class": "controlled_single_operator_preview",
-  "elapsed_ms": 21024,
+  "elapsed_ms": 24311,
   "result": {
     "status": "PASS",
-    "job_id": "mf_scene_ff8e1642e17df55e704a8a21508c",
-    "release_id": "release_5a88d552f844223e5dd82c2e",
+    "job_id": "mf_scene_fe5b6df6369c2d34afc51e31037e",
+    "release_id": "release_dd2d7fb0ebf3c56b528511a5",
     "artifact_sha256": "b05193935207058e1c1bf30ce37849245f886b36f0195e1b1aee6fba428a0b3d",
     "approved_hero_sha256": "28de0345ff8ffd02a368631bbd5052d01f475b514964c50b73aa766c410a4f63",
     "generation_attempt_count": 3,
     "scene_provenance": {
       "tenant_id": "firmes-scene",
-      "job_id": "mf_scene_ff8e1642e17df55e704a8a21508c",
+      "job_id": "mf_scene_fe5b6df6369c2d34afc51e31037e",
       "job_revision": 6,
       "character_id": "brand_character_firmes_caballito_v1",
       "character_asset_id": "brand_asset_firmes_caballito_v1",
@@ -151,7 +151,7 @@
       "final_prompt_sha256": "d53233b9fb25c7696ccc2611f4473e04b248084400a67349fd8f705da488f81d",
       "operator_override_sha256": null,
       "tenant_brand_profile_version": 1,
-      "generation_attempt_id": "gen_9635761d-949d-4627-8986-24b6055b701d",
+      "generation_attempt_id": "gen_5fc017c8-2fc2-4564-95ad-a38e19813211",
       "generation_adapter_id": "manual-external",
       "provider_model": null,
       "generation_request_sha256": "22544b3dec8d8b9a40b6687ecb0e2e3fc296b084aa7b90b3219a61509e0f07a7",
@@ -177,28 +177,31 @@
         "artifact_id": "artifact_28de0345ff8ffd02a368631bbd5052d01f475b514964c50b73aa766c410a4f63",
         "sha256": "28de0345ff8ffd02a368631bbd5052d01f475b514964c50b73aa766c410a4f63",
         "prompt_sha256": "d53233b9fb25c7696ccc2611f4473e04b248084400a67349fd8f705da488f81d",
-        "approved_candidate_sha": "56e7a15ee2d801f164e10892b1f84dc23b62dd2144af770b667d9338badb08b3",
+        "approved_candidate_sha": "59d90e8d26b34b926a81d3bc091058bfe8294d9dfe0098c0d322b4b96a5a8452",
         "approved_by": "scene-critic",
-        "approved_at": "2026-09-18T18:34:04.172Z"
+        "approved_at": "2026-09-24T18:56:29.701Z"
       },
       "result_sha256": "b05193935207058e1c1bf30ce37849245f886b36f0195e1b1aee6fba428a0b3d",
       "critic_decision": {
         "stage": "CRITIC",
-        "candidate_sha": "e0a6ee91314022e9998406d3a7273b77dafac7db0a3ad47bf6045718a687b696",
+        "candidate_sha": "004cc350c6874637b8304122e70d536f48462f2c7a1882efd5a535bbff814234",
         "actor": "scene-critic",
-        "created_at": "2026-09-18T18:34:07.981Z"
+        "review_policy": "INDEPENDENT_REVIEW",
+        "created_at": "2026-09-24T18:56:34.476Z"
       },
       "verifier_decision": {
         "stage": "INDEPENDENT_VERIFIER",
-        "candidate_sha": "e0a6ee91314022e9998406d3a7273b77dafac7db0a3ad47bf6045718a687b696",
+        "candidate_sha": "004cc350c6874637b8304122e70d536f48462f2c7a1882efd5a535bbff814234",
         "actor": "scene-verifier",
-        "created_at": "2026-09-18T18:34:10.001Z"
+        "review_policy": "SINGLE_OPERATOR_PREVIEW",
+        "created_at": "2026-09-24T18:56:36.906Z"
       }
     },
     "checks": [
+      "V20 separa explícitamente video con personaje y sticker; sin credencial no finge generación automática.",
       "Avatar reutilizable compila playa + lentes + chanclas + caminar sin perder identidad ni distintivo FIRMES.",
       "El mismo avatar compila traje espacial + casco espacial manteniendo identidad y marca.",
-      "Escena guiada abre con Caballito FIRMES preseleccionado, referencia de entorno aislada y video image-first.",
+      "Escena guiada abre con Caballito FIRMES preseleccionado, referencia de entorno aislada y fallback manual externo explícito para el E2E sin API.",
       "El compilador determinista materializa identidad, Antigua, acción selfie y exclusiones con roles explícitos.",
       "Generación externa es un estado operativo del mismo job; video exige primero una hero image y conserva las dos referencias por rol.",
       "El resultado vuelve al mismo job y Critic recibe la rúbrica estructurada de la escena.",

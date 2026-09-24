@@ -38,7 +38,7 @@ test('human review asks for a decision before exposing the change composer',asyn
  assert.match(source,/reviewMode==='decision'\?/) 
  assert.match(source,/review-change-composer/)
  assert.match(source,/ref=\{changeInput\} aria-label="Comentarios para la revisión"/)
- assert.match(source,/changeSuggestions=\['Agregar Caballito','Cambiar inicio','Usar otro clip','Más corto','Más emocional'\]/)
+ assert.match(source,/changeSuggestions=j\.creation_mode==='GUIDED_SCENE'\?\['Cambiar personaje','Cambiar acción','Cambiar lugar','Más corto','Más cinematográfico'\]:\['Agregar sticker del Caballito','Cambiar inicio','Usar otro clip','Más corto','Más emocional'\]/)
  assert.match(source,/CriticRubricPanel rubric=\{j\.critic_rubric\} onFinding=\{value=>\{if\(canReviewStage\)openChanges\(value\)\}\}/);assert.match(source,/Abrir Studio/);assert.match(source,/Quién puede aprobar esta etapa/)
  assert.match(source,/disabled=\{busy\|\|!reason\.trim\(\)\}>Enviar cambio/)
 })

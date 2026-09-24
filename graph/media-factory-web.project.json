@@ -2081,6 +2081,87 @@
         "assets/**",
         "config/**"
       ]
+    },
+    {
+      "id": "WEB055-CHARACTER-VIDEO-GENERATION-V20",
+      "title": "Generate videos with the approved character reference and expose sticker composition as a separate mode",
+      "kind": "product-completion",
+      "status": "spec_ready",
+      "depends_on": [
+        "WEB053-CREATION-FOCUS-SURFACE-V19"
+      ],
+      "capability": "media-factory-web",
+      "gates": {
+        "review": [
+          "implementation_quality"
+        ]
+      },
+      "allowed_paths": [
+        "app/**",
+        "components/**",
+        "server/**",
+        "plugins/**",
+        "tests/**",
+        "scripts/**",
+        "docs/**",
+        "examples/**",
+        "specs/**",
+        "progress/**",
+        "graph/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "*.mjs",
+        "*.json",
+        "*.yml",
+        "Dockerfile",
+        ".gitignore",
+        ".dockerignore",
+        "README.md",
+        "deploy/**",
+        "assets/**",
+        "config/**"
+      ]
+    },
+    {
+      "id": "WEB056-CHARACTER-VIDEO-GENERATION-V20-RELEASE",
+      "title": "Independent verification and controlled release of character-reference video generation V20",
+      "kind": "product-completion",
+      "status": "spec_ready",
+      "depends_on": [
+        "WEB055-CHARACTER-VIDEO-GENERATION-V20",
+        "WEB054-CREATION-FOCUS-SURFACE-V19-RELEASE"
+      ],
+      "capability": "media-factory-web",
+      "gates": {
+        "review": [
+          "implementation_quality"
+        ]
+      },
+      "allowed_paths": [
+        "app/**",
+        "components/**",
+        "server/**",
+        "plugins/**",
+        "tests/**",
+        "scripts/**",
+        "docs/**",
+        "examples/**",
+        "specs/**",
+        "progress/**",
+        "graph/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "*.mjs",
+        "*.json",
+        "*.yml",
+        "Dockerfile",
+        ".gitignore",
+        ".dockerignore",
+        "README.md",
+        "deploy/**",
+        "assets/**",
+        "config/**"
+      ]
     }
   ]
 }

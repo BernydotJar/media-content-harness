@@ -130,6 +130,12 @@ export function normalizeSceneRequest(input,state,tenantId){
  const operator_override=optionalText(input.operator_override,'Ajuste manual',4000)
  const generation_mode=input.generation_mode||'manual_external'
  invariant(generation_mode==='manual_external'||/^provider:[a-z0-9_-]+$/.test(generation_mode),'INVALID_SCENE','Elige una ruta de generación válida.')
+ if(generation_mode==='provider:gemini'){
+  invariant(subject.mode!=='none'&&subject.identity_reference_asset_id,'PROVIDER_REFERENCE_REQUIRED','Gemini/Veo necesita el personaje aprobado para generar este video.',409)
+  invariant(output.medium==='video','PROVIDER_CAPABILITY','Gemini/Veo con personaje genera video, no una imagen fija.',409)
+  invariant(output.duration_seconds===8,'PROVIDER_DURATION_UNSUPPORTED','Gemini/Veo con referencia de personaje requiere un video de 8 segundos.',409)
+  invariant(['9:16','16:9'].includes(output.aspect_ratio),'PROVIDER_CAPABILITY','Gemini/Veo con personaje admite 9:16 o 16:9.',409)
+ }
  return {tenant_id:tenantId,subject,avatar_contract,environment,action,visual_style,hard_constraints,output,operator_override,generation_mode,preset_id:input.preset_id||null}
 }
 

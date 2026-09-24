@@ -10,7 +10,7 @@ const EDIT=['owner','admin','editor']
 const now=()=>new Date().toISOString()
 const copy=value=>structuredClone(value)
 
-export function sceneSupport({repository,providers,auth,context,getExecution,publicJob,append}){
+export function sceneSupport({repository,providers,providerCatalog,auth,context,getExecution,publicJob,append}){
  async function actor(token){return auth.resolve(token)}
  async function activeState(id){return repository.transact(state=>{invariant(state.tenants[id],'SOURCE_REQUIRED','El espacio debe estar activo antes de producir.',409);seedTenantBrandModels(state,id);return state})}
  return {
@@ -33,10 +33,11 @@ export function sceneSupport({repository,providers,auth,context,getExecution,pub
   async previewScene(token,id,input){await context(token,id,EDIT);rejectSecretMaterial(input);return compileMascotScenePrompt(input,await activeState(id),id)},
   async createScene(token,id,input){
    const {user}=await context(token,id,EDIT);rejectSecretMaterial(input)
+   const providerAvailability=providerCatalog?await providerCatalog():providers.list()
    const job=await repository.transact(state=>{
     invariant(state.tenants[id],'SOURCE_REQUIRED','El espacio debe estar activo antes de producir.',409);seedTenantBrandModels(state,id)
     const compilation=compileMascotScenePrompt(input,state,id);assertAudienceSafe(compilation.final_prompt);const request=compilation.structured_request
-    const requestedProvider=request.generation_mode.startsWith('provider:')?request.generation_mode.slice('provider:'.length):'manual-external';const provider=providers.list().find(p=>p.id===requestedProvider)
+    const requestedProvider=request.generation_mode.startsWith('provider:')?request.generation_mode.slice('provider:'.length):'manual-external';const provider=providerAvailability.find(p=>p.id===requestedProvider)
     invariant(provider,'INVALID_PROVIDER','El generador seleccionado no existe.')
     if(requestedProvider!=='manual-external')invariant(provider.available===true,'PROVIDER_UNAVAILABLE','Este generador no está configurado. Usa generación externa o elige otro generador.',409)
     const jobId='mf_scene_'+contentHash({tenant_id:id,request_sha:compilation.structured_request_sha256,prompt_sha:compilation.final_prompt_sha256,nonce:randomUUID()}).slice(0,28)
