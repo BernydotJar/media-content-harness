@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/schemas/creator-content-insight.schema.json",
+  "title": "Creator Content Insight",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "id", "tenant_id", "topic", "signal", "content_gap", "plan", "status", "graph", "created_at"],
+  "properties": {
+    "schema_version": {"const": "creator-content-insight.v1"},
+    "id": {"type": "string", "pattern": "^insight_[A-Za-z0-9-]+$"},
+    "tenant_id": {"type": "string", "minLength": 1},
+    "topic": {"type": "string", "minLength": 1, "maxLength": 180},
+    "signal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "observation", "source_url", "source_status", "live_platform_data"],
+      "properties": {
+        "type": {"enum": ["manual", "search", "comments", "analytics"]},
+        "observation": {"type": "string", "maxLength": 1200},
+        "source_url": {"type": ["string", "null"]},
+        "source_status": {"enum": ["USER_PROVIDED_REFERENCE", "MANUAL_OBSERVATION"]},
+        "live_platform_data": {"const": false}
+      }
+    },
+    "content_gap": {"type": "boolean"},
+    "plan": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["idea", "title", "description", "hashtags", "purpose", "audience_mode", "automatic_publish", "plan_sha"],
+      "properties": {
+        "idea": {"type": "string", "minLength": 1, "maxLength": 500},
+        "title": {"type": "string", "minLength": 1, "maxLength": 200},
+        "description": {"type": "string", "minLength": 1, "maxLength": 1200},
+        "hashtags": {"type": "array", "minItems": 1, "maxItems": 8, "uniqueItems": true, "items": {"type": "string", "pattern": "^#[^\\s#]+$"}},
+        "purpose": {"const": "informational"},
+        "audience_mode": {"const": "general-audience"},
+        "automatic_publish": {"const": false},
+        "plan_sha": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+      }
+    },
+    "status": {"enum": ["DRAFT", "APPROVED"]},
+    "graph": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["graph_id", "nodes"],
+      "properties": {
+        "graph_id": {"const": "creator-content-insight-v1"},
+        "nodes": {
+          "type": "array",
+          "minItems": 6,
+          "maxItems": 6,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "status"],
+            "properties": {
+              "id": {"enum": ["SIGNAL_CAPTURE", "TOPIC_SYNTHESIS", "CONTENT_GAP_REVIEW", "PLAN_DRAFT", "HUMAN_REVIEW", "READY_TO_CREATE"]},
+              "status": {"enum": ["done", "review", "spec_ready"]}
+            }
+          }
+        }
+      }
+    },
+    "created_at": {"type": "string"},
+    "updated_at": {"type": "string"},
+    "created_by": {"type": "string"},
+    "updated_by": {"type": "string"},
+    "approved_at": {"type": ["string", "null"]},
+    "approved_by": {"type": ["string", "null"]},
+    "insight_sha": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  }
+}

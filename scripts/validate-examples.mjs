@@ -7,11 +7,13 @@ const files = [
   'schemas/reference-observation.schema.json',
   'schemas/content-dna.schema.json',
   'schemas/weekly-production-plan.schema.json',
+  'schemas/creator-content-insight.schema.json',
   'examples/media-treatment.example.json',
   'examples/tenant-media-profile.example.json',
   'examples/reference-observation.example.json',
   'examples/content-dna.example.json',
   'examples/weekly-production-plan.example.json',
+  'examples/creator-content-insight.example.json',
   'examples/media-production.graph.json',
   'config/upstreams.json',
 ]
@@ -60,6 +62,14 @@ for (const job of weekly.jobs) {
   assert(job.source_ids.every(id => weekly.source_authorization_snapshot.some(source => source.id === id && source.purpose === 'source')), 'weekly authorized production sources')
   assert(job.story_devices.every(device => dna.story_devices.includes(device)), 'weekly story devices bounded by DNA')
 }
+
+const insight = parsed.get('examples/creator-content-insight.example.json')
+assert(insight.schema_version === 'creator-content-insight.v1', 'creator insight schema_version')
+assert(insight.signal.live_platform_data === false, 'creator insight live data truthfulness')
+for (const key of ['idea','title','description','hashtags']) assert(insight.plan[key] !== undefined, `creator insight plan missing ${key}`)
+assert(insight.plan.audience_mode === 'general-audience', 'creator insight audience mode')
+assert(insight.plan.automatic_publish === false, 'creator insight no autopublish')
+assert(Array.isArray(insight.graph.nodes) && insight.graph.nodes.length === 6, 'creator insight graph nodes')
 
 const graph = parsed.get('examples/media-production.graph.json')
 assert(graph.schema_version === 'graph-harness.project.v1', 'graph schema_version')

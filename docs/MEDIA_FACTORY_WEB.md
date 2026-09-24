@@ -24,6 +24,12 @@ A preferred provider is a constraint handled by the server, separate from the ge
 
 Reference observations describe permitted abstractions. Reference media never automatically becomes production footage. Content DNA revision and production authorization snapshots participate in idempotency and review integrity. Tests use only isolated fixtures; fixtures are not production releases.
 
+## Creator Content Insight
+
+`/workspace/:tenantId/insights` convierte una señal aportada por el usuario en un plan editable mediante un graph explícito: `SIGNAL_CAPTURE → TOPIC_SYNTHESIS → CONTENT_GAP_REVIEW → PLAN_DRAFT → HUMAN_REVIEW → READY_TO_CREATE`. El plan siempre expone **idea, título, descripción y hashtags**, conserva un `plan_sha` exacto y no activa ninguna publicación automática.
+
+La experiencia toma inspiración del patrón de herramientas de descubrimiento para creadores, pero no finge analítica de TikTok ni de otra plataforma: un enlace aportado se etiqueta como referencia del usuario y `live_platform_data` permanece `false` hasta que exista un conector autorizado. La aprobación humana del hash actual es obligatoria antes del handoff a **Crear con tus palabras**. En espacios `public-affairs`, Creator Insight está limitado a planificación informativa para audiencia general y rechaza llamados electorales o persuasión política, además de las restricciones existentes contra microtargeting y segmentación por atributos sensibles.
+
 ## Authentication deployment
 
 The established host reconciler supports a form-session operator verifier without exposing the password. The deployment adapter maps its host-owned preview verifier and username into the server's neutral operator configuration. External Google/enterprise identity is an extension point; it is not claimed as implemented. The MVP deploys one service process with durable storage. Multi-process/distributed storage requires a repository implementation with a shared transactional lock before scaling.

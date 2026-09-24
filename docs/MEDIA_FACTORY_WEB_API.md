@@ -27,6 +27,10 @@ JSON responses use `{ "data": ... }`. Errors use `{ "error": { "code", "message"
 | `/api/v1/tenants/:id/mascot` | POST | `source_id`; explicitly binds the character to authorized production material |
 | `/api/v1/tenants/:id/content-dna` | GET | Current abstract narrative identity and revision |
 | `/api/v1/tenants/:id/content-dna/analyze` | POST | Validated `observations` referencing uploaded proof hashes |
+| `/api/v1/tenants/:id/creator-insights` | GET, POST | List or create a grounded creator signal and editable content-plan draft |
+| `/api/v1/tenants/:id/creator-insights/:insight` | GET | Read one tenant-bound insight and its six-stage graph |
+| `/api/v1/tenants/:id/creator-insights/:insight/plan` | POST | Edit `idea`, `title`, `description`, `hashtags`; recalculates exact `plan_sha` |
+| `/api/v1/tenants/:id/creator-insights/:insight/approve` | POST | Approve exact `plan_sha`; no publication action |
 | `/api/v1/tenants/:id/free-draft` | POST | `text`, Monday `week_of`, optional `source_ids` |
 | `/api/v1/tenants/:id/weekly-plans` | GET, POST | `week_of`, `mode`, structured `stories`; saves unapproved draft |
 | `/api/v1/tenants/:id/weekly-plans/:plan/approve` | POST | Explicit `story_ids`; content remains unproduced |
@@ -50,6 +54,8 @@ The existing host edge uses `/api/preview/login`, `/api/preview/logout`, an inte
 ## Plans and provider strategy
 
 A story includes `id`, `title`, `objective`, `source_ids`, `story_devices`, `strategy`, `preferred_provider` and `mascot`. Strategies are `AUTO`, `REAL_FOOTAGE`, `HYBRID`, `GENERATIVE`; preferred provider is `AUTO` or a registered provider ID. Unknown fields are rejected. The plan key includes tenant, week, normalized story definitions, authorization snapshot and Content DNA revision. Launch is idempotent per approved plan/story.
+
+Creator Content Insight uses a separate tenant-bound signal → topic → content-gap → plan → human-review → ready-to-create graph. Its draft contract contains `idea`, `title`, `description` and `hashtags`, is explicitly general-audience/informational, and never auto-publishes. User-provided URLs remain reference metadata and `live_platform_data` stays false until an authorized platform connector actually supplies live data. Public-affairs workspaces reject direct electoral persuasion and calls to vote in this planning surface in addition to the existing sensitive-trait and voter-microtargeting safeguards.
 
 Free Mode currently uses a bounded deterministic Spanish/English interpreter, not an undisclosed language-model service. It creates editable concepts and asks for clarification when it cannot safely map a request. It does not execute arbitrary chat commands. Guided and Free drafts converge on identical plan validation and approval methods. Content DNA is derived from explicit, evidence-backed human observations; automatic browser observation or multimodal analysis is not configured.
 

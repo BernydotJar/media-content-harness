@@ -2162,6 +2162,88 @@
         "assets/**",
         "config/**"
       ]
+    },
+    {
+      "id": "WEB057-CREATOR-CONTENT-INSIGHT-V21",
+      "title": "Turn grounded creator signals into a human-reviewed idea, title, description and hashtags content plan",
+      "kind": "product-completion",
+      "status": "spec_ready",
+      "depends_on": [
+        "WEB055-CHARACTER-VIDEO-GENERATION-V20"
+      ],
+      "capability": "media-factory-web",
+      "gates": {
+        "review": [
+          "implementation_quality"
+        ]
+      },
+      "allowed_paths": [
+        "app/**",
+        "components/**",
+        "server/**",
+        "plugins/**",
+        "tests/**",
+        "scripts/**",
+        "docs/**",
+        "examples/**",
+        "schemas/**",
+        "specs/**",
+        "progress/**",
+        "graph/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "*.mjs",
+        "*.json",
+        "*.yml",
+        "Dockerfile",
+        ".gitignore",
+        ".dockerignore",
+        "README.md",
+        "deploy/**",
+        "assets/**",
+        "config/**"
+      ]
+    },
+    {
+      "id": "WEB058-CREATOR-CONTENT-INSIGHT-V21-RELEASE",
+      "title": "Independent browser verification and controlled release of Creator Content Insight V21",
+      "kind": "product-completion",
+      "status": "spec_ready",
+      "depends_on": [
+        "WEB057-CREATOR-CONTENT-INSIGHT-V21"
+      ],
+      "capability": "media-factory-web",
+      "gates": {
+        "review": [
+          "implementation_quality"
+        ]
+      },
+      "allowed_paths": [
+        "app/**",
+        "components/**",
+        "server/**",
+        "plugins/**",
+        "tests/**",
+        "scripts/**",
+        "docs/**",
+        "examples/**",
+        "schemas/**",
+        "specs/**",
+        "progress/**",
+        "graph/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "*.mjs",
+        "*.json",
+        "*.yml",
+        "Dockerfile",
+        ".gitignore",
+        ".dockerignore",
+        "README.md",
+        "deploy/**",
+        "assets/**",
+        "config/**"
+      ]
     }
   ]
 }
