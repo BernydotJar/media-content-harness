@@ -24,6 +24,12 @@ A preferred provider is a constraint handled by the server, separate from the ge
 
 Reference observations describe permitted abstractions. Reference media never automatically becomes production footage. Content DNA revision and production authorization snapshots participate in idempotency and review integrity. Tests use only isolated fixtures; fixtures are not production releases.
 
+## Creator Content Insight
+
+`/workspace/:tenantId/insights` convierte una señal aportada por el usuario en un plan editable mediante un graph explícito: `SIGNAL_CAPTURE → TOPIC_SYNTHESIS → CONTENT_GAP_REVIEW → PLAN_DRAFT → HUMAN_REVIEW → READY_TO_CREATE`. El plan siempre expone **idea, título, descripción y hashtags**, conserva un `plan_sha` exacto y no activa ninguna publicación automática.
+
+La experiencia toma inspiración del patrón de herramientas de descubrimiento para creadores, pero no finge analítica de TikTok ni de otra plataforma: un enlace aportado se etiqueta como referencia del usuario y `live_platform_data` permanece `false` hasta que exista un conector autorizado. La aprobación humana del hash actual es obligatoria antes del handoff a **Crear con tus palabras**. En espacios `public-affairs`, Creator Insight está limitado a planificación informativa para audiencia general y rechaza llamados electorales o persuasión política, además de las restricciones existentes contra microtargeting y segmentación por atributos sensibles.
+
 ## Authentication deployment
 
 The established host reconciler supports a form-session operator verifier without exposing the password. The deployment adapter maps its host-owned preview verifier and username into the server's neutral operator configuration. External Google/enterprise identity is an extension point; it is not claimed as implemented. The MVP deploys one service process with durable storage. Multi-process/distributed storage requires a repository implementation with a shared transactional lock before scaling.
@@ -83,9 +89,11 @@ En **Personajes y lugares**, FIRMES resuelve el **Caballito FIRMES** desde el pe
 
 **Escena guiada** es la ruta operacional para crear con personaje, entorno y acción. La solicitud estructurada compila de forma determinista un prompt con roles de referencia explícitos: `CHARACTER_IDENTITY_ONLY` conserva identidad; `ENVIRONMENT_ONLY` aporta únicamente el lugar; `STYLE_ONLY` se reserva para lenguaje visual. El entorno accidental de la referencia del personaje no es transferible. Si una referencia cambia de SHA, rol semántico, tenant o estado de autorización, el trabajo falla cerrado y exige recompilar. Un ajuste manual del prompt es de menor prioridad y no puede debilitar esos roles ni las exclusiones del contrato.
 
-Cuando no existe un API adapter ejecutable, **Generación externa** (`manual-external`) es una ruta formal del mismo job, no un bloqueo ni una integración fingida. Media Factory prepara el prompt, referencias, hashes y checklist; el operador genera en una herramienta aprobada y devuelve el resultado al mismo trabajo. Cada intento conserva `retry_of`, request/prompt SHA, inputs y output SHA. Seedance, Higgsfield, CapCut y Gemini continúan reportándose como `INTEGRATION_REQUIRED` salvo que exista un adapter real configurado.
+Cuando no existe un API adapter ejecutable, **Generación externa** (`manual-external`) es una ruta formal del mismo job, no un bloqueo ni una integración fingida. Media Factory prepara el prompt, referencias, hashes y checklist; el operador genera en una herramienta aprobada y devuelve el resultado al mismo trabajo. Cada intento conserva `retry_of`, request/prompt SHA, inputs y output SHA. Seedance y CapCut siguen como integraciones pendientes; Higgsfield ejecuta text-to-video sin referencias; **Gemini · Veo 3.1 Fast** dispone de un adapter server-side para video con referencia de personaje cuando la Gemini Developer API está configurada.
 
-Para video con mascota, el flujo es **image-first**: primero se importa una imagen hero, Critic la revisa, y solo su SHA aprobado puede convertirse en `APPROVED_HERO_IMAGE` para la fase image-to-video. El video final vuelve a Critic, pasa por un Independent Verifier separado y solo después puede liberarse. La liberación conserva el input hero aprobado, los roles/hashes de referencia, el intento de generación y el SHA exacto del video final. Liberar no publica automáticamente en redes sociales.
+V20 separa dos operaciones que antes podían confundirse. **Crear video con personaje** envía los bytes exactos de la referencia autorizada como `CHARACTER_IDENTITY_ONLY` a Veo, exige ocho segundos y formato `9:16` o `16:9`, pasa por el gate de gasto antes de enviar, y conserva `generation_kind=REFERENCE_VIDEO`, prompt SHA y reference SHA en provenance. **Agregar como sticker** usa FFmpeg para superponer determinísticamente el arte autorizado sobre material real y se marca `generation_kind=STICKER_OVERLAY`; nunca se presenta como personaje generado. No existe fallback silencioso entre ambas rutas.
+
+La ruta `manual-external` para video con personaje continúa siendo **image-first**: primero se importa una imagen hero, Critic la revisa, y solo su SHA aprobado puede convertirse en `APPROVED_HERO_IMAGE` para la fase image-to-video. En la ruta automática Gemini/Veo la referencia del personaje entra directamente en el request de video y el resultado vuelve al mismo Critic/Verifier/Release. Liberar no publica automáticamente en redes sociales.
 
 ### Mascot Avatar System v1
 
@@ -103,7 +111,7 @@ El operador del despliegue compartido tiene **APIs e integraciones** en el menú
 
 Las claves se guardan cifradas con AES-256-GCM en el almacén privado y nunca se devuelven a la interfaz. Puedes reemplazarlas o retirarlas; el historial registra actor y fecha sin revelar secretos. Guarda copias de seguridad del almacén y de su clave separada, ambos bajo permisos privados: perder la clave impide recuperar las credenciales. El sistema falla sin regenerarla cuando existe ciphertext.
 
-Guardar una API no implementa un adaptador ni autoriza consumo. El presupuesto es una referencia administrativa, no un límite aplicado. FFmpeg funciona localmente con material real; Seedance, Higgsfield, CapCut y Gemini continúan identificados según su disponibilidad real. No hay registro público: el administrador provisiona usuarios. La URL y acceso existentes se conservan.
+Guardar una API no autoriza consumo. El presupuesto mostrado por cada integración es una referencia administrativa; el gate de uso semanal y la aprobación de gasto siguen siendo controles separados y obligatorios antes de una solicitud pagada. FFmpeg funciona localmente con material real; Higgsfield y Gemini/Veo tienen adapters server-side con capacidades distintas; Seedance y CapCut continúan identificados según su disponibilidad real. Una clave Gemini se usa únicamente en el servidor para solicitudes aprobadas y nunca se devuelve al navegador. No hay registro público: el administrador provisiona usuarios. La URL y acceso existentes se conservan.
 
 ## FIRMES Brand Memory V2
 

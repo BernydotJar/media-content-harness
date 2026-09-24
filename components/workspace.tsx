@@ -12,6 +12,7 @@ import {FirmesCaballito,FirmesFrame,isFirmesTenant} from './FirmesBrand';
 import {BrandStart,NewUserCallout} from './Onboarding';
 import {Team} from './Team';
 import {UsageBudgetCard} from './UsageBudgetCard';
+import {CreatorContentInsights} from './CreatorContentInsights';
 export function Dashboard({ tenants, user, tenant, onboarding }: { tenants: Resource; user: Item; tenant?:Item|null; onboarding:Resource }) {
  const list = items(tenants.data), firmes=isFirmesTenant(tenant), heroTenant=list.find(t=>isFirmesTenant(t))||list[0];
  const heroFeed=useLoad(heroTenant?'/tenants/'+encodeURIComponent(heroTenant.tenant_id)+'/dashboard':null);
@@ -50,6 +51,7 @@ export function TenantSurface({ id, view }: { id: string; view: string }) {
  else if (view === 'scene') content=<SceneBuilder tenant={tenant.data}/>;
  else if (view === 'weekly' || view === 'free') content=<><CreationGuide id={id}/><Planner tenant={tenant.data} free={view === 'free'} key={id + view} /></>;
  else if(view==='creative-profiles')content=<CreativeProfiles tenant={tenant.data}/>;
+ else if(view==='insights')content=<CreatorContentInsights tenant={tenant.data}/>;
  else if(view==='team')content=<Team tenant={tenant.data}/>;
  else content=<Empty title="Esta sección no existe.">Elige una sección del menú de tu espacio.</Empty>;
  return <FirmesFrame tenant={tenant.data}>{content}</FirmesFrame>;

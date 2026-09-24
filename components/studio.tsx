@@ -38,11 +38,13 @@ export default function Studio({ segments, googleAvailable=false, municipalities
   const tenant = tenantList.find(t => t.tenant_id === shellTenantId);
   const firmesShell = isFirmesTenant(tenant);
   const createHref = shellTenantId ? '/workspace/' + encodeURIComponent(shellTenantId) + '/free' : '/workspaces';
+  const insightHref = shellTenantId ? '/workspace/' + encodeURIComponent(shellTenantId) + '/insights' : '/workspaces';
   const creating = segments[0] === 'workspace' && ['free', 'weekly', 'scene'].includes(current);
 
   const primary = [
     { href: '/dashboard', label: 'Inicio', icon: 'home', active: !segments.length || segments[0] === 'dashboard' },
     { href: createHref, label: 'Crear', icon: 'spark', active: creating },
+    { href: insightHref, label: 'Insights', icon: 'dna', active: segments[0] === 'workspace' && current === 'insights' },
     { href: '/review', label: 'Revisar', icon: 'review', active: segments[0] === 'review' },
     { href: '/releases', label: 'Entregas', icon: 'release', active: segments[0] === 'releases' }
   ];

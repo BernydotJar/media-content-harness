@@ -69,6 +69,7 @@ async function gatewayFixture(t,options={}){
  const providers=new ProviderRegistry({adapters:{higgsfield:adapter}}),service=createService({dataRoot,identityFile,publicOrigin:'http://localhost:3000',deploymentClass:'controlled_single_operator_preview',providers}),owner=(await service.auth.login({email:'owner@example.com',password})).token
  await service.createTenant(owner,{organization:'FIRMES',tenant_id:'firmes',content_context:'commercial',visual_language:'clean'})
  await service.addSource(owner,'firmes',{source:{id:'activation-source',locator:'https://example.org/authorized',purpose:'source',authorization:'explicit',match:'exact'}})
+ if(options.configureCredential!==false)await service.updateIntegration(owner,'higgsfield',{api_key:'key-id:key-secret',budget_reference:25})
  const execution=new ExecutionService({repository:service.repository,dataRoot,graphRuntimeRoot:runtime,testMode:false,deploymentClass:'controlled_single_operator_preview',releaseSha:'a'.repeat(40),providers});execution.providerPollDelayMs=1_000_000;service.setExecution(execution)
  const scene={subject:{mode:'none'},environment:{location_name:'Antigua Guatemala',required_elements:['colonial street'],forbidden_elements:[],civilian_only:true},action:{verb:'slow cinematic camera move'},visual_style:{realism:'photorealistic',look:['cinematic'],lighting:['golden hour']},hard_constraints:[],output:{medium:'video',aspect_ratio:'9:16',duration_seconds:6,motion_intent:'slow motion',camera_intent:'stable'},generation_mode:'provider:higgsfield'}
  return {root,dataRoot,service,execution,owner,stats,providers,scene}
@@ -76,7 +77,7 @@ async function gatewayFixture(t,options={}){
 
 
 test('provider discovery is credential-aware and never returns the stored Higgsfield secret',async t=>{
- const f=await gatewayFixture(t)
+ const f=await gatewayFixture(t,{configureCredential:false})
  let providers=await f.service.providerList(f.owner),higgsfield=providers.find(p=>p.id==='higgsfield')
  assert.equal(higgsfield.available,false);assert.equal(higgsfield.availability,'CREDENTIAL_REQUIRED')
  await f.service.updateIntegration(f.owner,'higgsfield',{api_key:'key-id:key-secret',budget_reference:25})
@@ -89,7 +90,7 @@ test('provider discovery is credential-aware and never returns the stored Higgsf
 test('V9 Creation Room keeps Graph percentage separate from provider status and gates paid generation behind explicit consent',async()=>{
  const jobs=await readFile('components/jobs.tsx','utf8'),css=await readFile('app/globals.css','utf8'),http=await readFile('server/http.mjs','utf8')
  assert.match(jobs,/provider_telemetry/)
- assert.match(jobs,/Higgsfield · \{providerStatus\}/)
+ assert.match(jobs,/\{providerName\} · \{providerStatus\}/)
  assert.match(jobs,/El proveedor informa el estado, no un porcentaje de render/)
  assert.match(jobs,/provider-spend-card/)
  assert.match(jobs,/¿Usamos el video IA incluido de hoy\?/)

@@ -13,6 +13,7 @@ import { interpretDraft } from './intent.mjs'
 import { creationSupport, profileSnapshot } from './creation-support.mjs'
 import { publicProviderExecution, publicSourceAssets } from './media-projection.mjs'
 import {sceneSupport} from './scene-support.mjs'
+import {creatorContentInsightSupport} from './creator-content-insights.mjs'
 import {IntegrationVault} from './integration-vault.mjs'
 import {GoogleAuthVault} from './google-auth-vault.mjs'
 import {usageBudgetProjection,DEFAULT_WEEKLY_USAGE_POLICY} from './usage-budget.mjs'
@@ -77,6 +78,7 @@ export function createService(options = {}) {
   const providers=options.providers || new ProviderRegistry({adapters:options.adapters,testMode:options.testMode === true && options.deploymentClass==='test'})
   const integrationVault=options.integrationVault || new IntegrationVault(repository.root)
   const singleOperatorDeployment=options.deploymentClass==='controlled_single_operator_preview'
+  async function providerCatalog(){const stored=await integrationVault.summary();return providers.list().map(p=>{if(!p.credit_bearing||p.manual===true||p.id==='ffmpeg'||p.id==='deterministic-test')return p;const configured=stored.providers[p.id]?.key_configured===true;if(!p.available)return p;return {...p,available:configured,availability:configured?'CONFIGURED':'CREDENTIAL_REQUIRED'}})}
   function projectJob(user,job){const role=user?.memberships?.find(m=>m.tenant_id===job.tenant_id)?.role||null,singleOperatorAllowed=singleOperatorDeployment&&['owner','admin'].includes(role);return publicJob(job,{review_policy:{deployment_class:options.deploymentClass||'production',mode:singleOperatorAllowed?'SINGLE_OPERATOR_PREVIEW':'INDEPENDENT_REVIEW',single_operator_allowed:singleOperatorAllowed,independence_required:!singleOperatorAllowed&&['CRITIC','INDEPENDENT_VERIFIER'].includes(job.stage)}})}
   let execution=options.execution
   async function actor(token) {return auth.resolve(token)}
@@ -131,7 +133,7 @@ export function createService(options = {}) {
     async release(token,id){safeId(id);const release=(await service.releases(token)).find(r=>r.id===id);invariant(release,'NOT_FOUND','Release was not found',404);return release},
     async usageBudget(token,id){const {user}=await context(token,id);if(execution?.usageBudget)return execution.usageBudget(user,id);const state=await repository.read();return usageBudgetProjection(state,id,{policy:options.usageBudgetPolicy||DEFAULT_WEEKLY_USAGE_POLICY,epochMs:(options.clock||Date.now)()})},
     async dashboard(token,id){await context(token,id);const jobs=await service.jobs(token,id);const state=await repository.read();const plans=Object.values(state.plans).filter(p=>p.tenant_id===id);const releases=await service.releases(token,id),usage_budget=await service.usageBudget(token,id);return {usage_budget,tenant:await service.getTenant(token,id),planned:plans.filter(p=>p.status!=='LAUNCHED').reduce((n,p)=>n+p.stories.length,0),producing:jobs.filter(j=>!['BRIEF','RELEASED','AWAITING_REVIEW','BLOCKED','FAILED','REJECTED'].includes(j.status)).length,awaiting_review:jobs.filter(j=>['AWAITING_REVIEW','REVIEW_READY'].includes(j.status)).length,released:releases.length,blockers:jobs.flatMap(j=>(j.blockers||[]).map(b=>({job_id:j.id,...(typeof b==='object'?b:{message:b})}))),jobs,plans,activity:state.events.filter(e=>e.tenant_id===id).slice(-30).reverse()}},
-    async providerList(token){await actor(token);const stored=await integrationVault.summary();return providers.list().map(p=>{if(!p.credit_bearing||p.manual===true||p.id==='ffmpeg'||p.id==='deterministic-test')return p;const configured=stored.providers[p.id]?.key_configured===true;if(!p.available)return p;return {...p,available:configured,availability:configured?'CONFIGURED':'CREDENTIAL_REQUIRED'}})},
+    async providerList(token){await actor(token);return providerCatalog()},
     async health(){let storage=false,authentication=false;try{await repository.read();storage=true}catch{}try{authentication=(await auth.identities()).length>0}catch{}let graph=false;try{graph=execution?.health?Boolean((await execution.health()).graph):false}catch{}return {status:storage&&authentication&&graph?'ready':'degraded',service:'media-factory-web',checks:{storage,authentication,graph},release_sha:options.releaseSha||null}},
-  };return Object.assign(service,creationSupport({repository,providers,auth,context}),sceneSupport({repository,providers,auth,context,getExecution:()=>execution,publicJob,append}))
+  };return Object.assign(service,creationSupport({repository,providers,auth,context}),creatorContentInsightSupport({repository,context}),sceneSupport({repository,providers,providerCatalog,auth,context,getExecution:()=>execution,publicJob,append}))
 }

@@ -1,0 +1,42 @@
+{
+  "schema_version": "creator-content-insight.v1",
+  "id": "insight_example-01",
+  "tenant_id": "demo-brand",
+  "topic": "cómo cuidar el agua en casa",
+  "signal": {
+    "type": "search",
+    "observation": "La misma pregunta aparece repetidamente en conversaciones de la comunidad.",
+    "source_url": "https://example.org/community-water",
+    "source_status": "USER_PROVIDED_REFERENCE",
+    "live_platform_data": false
+  },
+  "content_gap": true,
+  "plan": {
+    "idea": "Explicar hábitos sencillos para reducir el desperdicio de agua en casa.",
+    "title": "Guía breve: cómo cuidar el agua en casa",
+    "description": "Contenido informativo para audiencia general con pasos simples y fuentes verificables.",
+    "hashtags": ["#CuidarAgua", "#Hogar", "#ContenidoUtil"],
+    "purpose": "informational",
+    "audience_mode": "general-audience",
+    "automatic_publish": false,
+    "plan_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  "status": "DRAFT",
+  "graph": {
+    "graph_id": "creator-content-insight-v1",
+    "nodes": [
+      {"id": "SIGNAL_CAPTURE", "status": "done"},
+      {"id": "TOPIC_SYNTHESIS", "status": "done"},
+      {"id": "CONTENT_GAP_REVIEW", "status": "done"},
+      {"id": "PLAN_DRAFT", "status": "done"},
+      {"id": "HUMAN_REVIEW", "status": "review"},
+      {"id": "READY_TO_CREATE", "status": "spec_ready"}
+    ]
+  },
+  "created_at": "2026-09-24T19:30:00.000Z",
+  "updated_at": "2026-09-24T19:30:00.000Z",
+  "created_by": "creator",
+  "approved_at": null,
+  "approved_by": null,
+  "insight_sha": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+}

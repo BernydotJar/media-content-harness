@@ -1,0 +1,83 @@
+{
+  "schema_version": "graph-harness.project.v1",
+  "project_id": "creator-content-insight-v1",
+  "mode": "SHIP",
+  "gate_definitions": [
+    {
+      "id": "insight_grounding_quality",
+      "required_evidence_kinds": ["insight_review"],
+      "blocking": true
+    },
+    {
+      "id": "plan_handoff_quality",
+      "required_evidence_kinds": ["plan_review"],
+      "blocking": true
+    }
+  ],
+  "nodes": [
+    {
+      "id": "CCI001-SIGNAL-CAPTURE",
+      "kind": "source-analysis",
+      "title": "Capture a user-provided creator signal without claiming live platform analytics",
+      "status": "spec_ready",
+      "depends_on": [],
+      "capability": "creator-insight",
+      "gates": {},
+      "allowed_paths": ["server/**", "components/**", "schemas/**", "examples/**", "docs/**", "specs/**", "tests/**", "graph/**"]
+    },
+    {
+      "id": "CCI002-TOPIC-SYNTHESIS",
+      "kind": "analysis",
+      "title": "Normalize the topic and preserve source and provenance status",
+      "status": "spec_ready",
+      "depends_on": ["CCI001-SIGNAL-CAPTURE"],
+      "capability": "creator-insight",
+      "gates": {},
+      "allowed_paths": ["server/**", "schemas/**", "tests/**", "graph/**"]
+    },
+    {
+      "id": "CCI003-CONTENT-GAP-REVIEW",
+      "kind": "analysis",
+      "title": "Record a content-gap opportunity as an operator observation, not an invented platform metric",
+      "status": "spec_ready",
+      "depends_on": ["CCI002-TOPIC-SYNTHESIS"],
+      "capability": "creator-insight",
+      "gates": {
+        "review": ["insight_grounding_quality"]
+      },
+      "allowed_paths": ["server/**", "components/**", "schemas/**", "tests/**", "graph/**"]
+    },
+    {
+      "id": "CCI004-PLAN-DRAFT",
+      "kind": "planning",
+      "title": "Draft idea, title, description and hashtags for general-audience informational content",
+      "status": "spec_ready",
+      "depends_on": ["CCI003-CONTENT-GAP-REVIEW"],
+      "capability": "content-plan",
+      "gates": {},
+      "allowed_paths": ["server/**", "components/**", "schemas/**", "examples/**", "tests/**", "graph/**"]
+    },
+    {
+      "id": "CCI005-HUMAN-REVIEW",
+      "kind": "human-gate",
+      "title": "Human edits and explicitly approves the exact plan hash",
+      "status": "spec_ready",
+      "depends_on": ["CCI004-PLAN-DRAFT"],
+      "capability": "review",
+      "gates": {
+        "review": ["plan_handoff_quality"]
+      },
+      "allowed_paths": ["server/**", "components/**", "tests/**", "graph/**"]
+    },
+    {
+      "id": "CCI006-READY-TO-CREATE",
+      "kind": "handoff",
+      "title": "Hand the approved plan to the existing creation flow without automatic publication",
+      "status": "spec_ready",
+      "depends_on": ["CCI005-HUMAN-REVIEW"],
+      "capability": "media-factory-web",
+      "gates": {},
+      "allowed_paths": ["components/**", "server/**", "tests/**", "docs/**", "graph/**"]
+    }
+  ]
+}
