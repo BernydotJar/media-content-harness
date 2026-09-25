@@ -56,6 +56,29 @@ export function creatorContentInsightSupport({repository,context}){
    const state=await repository.read()
    return Object.values(state.creator_insights?.[id]||{}).sort((a,b)=>b.created_at.localeCompare(a.created_at)).map(publicInsight)
   },
+  async creatorInsightDiscovery(token,id){
+   await context(token,id)
+   const state=await repository.read()
+   const insights=Object.values(state.creator_insights?.[id]||{}).sort((a,b)=>b.created_at.localeCompare(a.created_at))
+   const signal_types={manual:0,search:0,comments:0,analytics:0}
+   for(const insight of insights)if(Object.hasOwn(signal_types,insight.signal?.type))signal_types[insight.signal.type]+=1
+   return {
+    schema_version:'creator-content-discovery.v1',
+    tenant_id:id,
+    source_scope:'workspace-recorded-signals',
+    live_platform_data:false,
+    ordering:'created_at_desc',
+    overview:{
+     total_signals:insights.length,
+     content_gaps:insights.filter(value=>value.content_gap===true).length,
+     draft_plans:insights.filter(value=>value.status==='DRAFT').length,
+     approved_plans:insights.filter(value=>value.status==='APPROVED').length,
+     last_updated_at:insights[0]?.updated_at||insights[0]?.created_at||null
+    },
+    signal_types,
+    insights:insights.map(publicInsight)
+   }
+  },
   async creatorInsight(token,id,insightId){
    await context(token,id);safeId(insightId,'Insight ID')
    const value=(await repository.read()).creator_insights?.[id]?.[insightId]

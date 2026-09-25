@@ -8,12 +8,14 @@ const files = [
   'schemas/content-dna.schema.json',
   'schemas/weekly-production-plan.schema.json',
   'schemas/creator-content-insight.schema.json',
+  'schemas/creator-content-discovery.schema.json',
   'examples/media-treatment.example.json',
   'examples/tenant-media-profile.example.json',
   'examples/reference-observation.example.json',
   'examples/content-dna.example.json',
   'examples/weekly-production-plan.example.json',
   'examples/creator-content-insight.example.json',
+  'examples/creator-content-discovery.example.json',
   'examples/media-production.graph.json',
   'config/upstreams.json',
 ]
@@ -70,6 +72,16 @@ for (const key of ['idea','title','description','hashtags']) assert(insight.plan
 assert(insight.plan.audience_mode === 'general-audience', 'creator insight audience mode')
 assert(insight.plan.automatic_publish === false, 'creator insight no autopublish')
 assert(Array.isArray(insight.graph.nodes) && insight.graph.nodes.length === 6, 'creator insight graph nodes')
+
+const discovery = parsed.get('examples/creator-content-discovery.example.json')
+assert(discovery.schema_version === 'creator-content-discovery.v1', 'creator discovery schema_version')
+assert(discovery.source_scope === 'workspace-recorded-signals', 'creator discovery source scope')
+assert(discovery.live_platform_data === false, 'creator discovery live data truthfulness')
+assert(discovery.ordering === 'created_at_desc', 'creator discovery chronological ordering')
+assert(discovery.overview.total_signals === discovery.insights.length, 'creator discovery total signals')
+assert(discovery.overview.content_gaps === discovery.insights.filter(item => item.content_gap).length, 'creator discovery gaps')
+assert(Object.values(discovery.signal_types).reduce((sum, value) => sum + value, 0) === discovery.insights.length, 'creator discovery signal counts')
+assert(discovery.insights.every(item => item.plan.idea && item.plan.title && item.plan.description && item.plan.hashtags.length), 'creator discovery content plan fields')
 
 const graph = parsed.get('examples/media-production.graph.json')
 assert(graph.schema_version === 'graph-harness.project.v1', 'graph schema_version')

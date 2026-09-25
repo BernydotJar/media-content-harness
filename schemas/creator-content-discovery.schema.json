@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/schemas/creator-content-discovery.schema.json",
+  "title": "Creator Content Discovery Projection",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "tenant_id", "source_scope", "live_platform_data", "ordering", "overview", "signal_types", "insights"],
+  "properties": {
+    "schema_version": {"const": "creator-content-discovery.v1"},
+    "tenant_id": {"type": "string", "minLength": 1},
+    "source_scope": {"const": "workspace-recorded-signals"},
+    "live_platform_data": {"const": false},
+    "ordering": {"const": "created_at_desc"},
+    "overview": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["total_signals", "content_gaps", "draft_plans", "approved_plans", "last_updated_at"],
+      "properties": {
+        "total_signals": {"type": "integer", "minimum": 0},
+        "content_gaps": {"type": "integer", "minimum": 0},
+        "draft_plans": {"type": "integer", "minimum": 0},
+        "approved_plans": {"type": "integer", "minimum": 0},
+        "last_updated_at": {"type": ["string", "null"]}
+      }
+    },
+    "signal_types": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["manual", "search", "comments", "analytics"],
+      "properties": {
+        "manual": {"type": "integer", "minimum": 0},
+        "search": {"type": "integer", "minimum": 0},
+        "comments": {"type": "integer", "minimum": 0},
+        "analytics": {"type": "integer", "minimum": 0}
+      }
+    },
+    "insights": {
+      "type": "array",
+      "items": {"$ref": "creator-content-insight.schema.json"}
+    }
+  }
+}
