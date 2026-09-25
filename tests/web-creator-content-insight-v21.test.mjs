@@ -55,6 +55,24 @@ test('Creator Content Insight creates a truthful editable plan and six-stage gra
  assert.equal((await f.service.creatorInsight(f.token,'creator-studio',insight.id)).id,insight.id)
 })
 
+test('Creator Insight discovery projects only workspace-recorded signals with neutral chronological ordering',async t=>{
+ const f=await fixture(t)
+ const first=await f.service.createCreatorInsight(f.token,'creator-studio',{topic:'edición de video móvil',signal_type:'comments',content_gap:false})
+ let second=await f.service.createCreatorInsight(f.token,'creator-studio',{topic:'iluminación para entrevistas',signal_type:'search',content_gap:true})
+ second=await f.service.approveCreatorInsight(f.token,'creator-studio',second.id,{plan_sha:second.plan.plan_sha})
+ const discovery=await f.service.creatorInsightDiscovery(f.token,'creator-studio')
+ assert.equal(discovery.schema_version,'creator-content-discovery.v1')
+ assert.equal(discovery.source_scope,'workspace-recorded-signals')
+ assert.equal(discovery.live_platform_data,false)
+ assert.equal(discovery.ordering,'created_at_desc')
+ assert.deepEqual(discovery.overview,{total_signals:2,content_gaps:1,draft_plans:1,approved_plans:1,last_updated_at:second.updated_at})
+ assert.deepEqual(discovery.signal_types,{manual:0,search:1,comments:1,analytics:0})
+ assert.equal(discovery.insights.length,2)
+ assert.equal(discovery.insights[0].id,second.id)
+ assert.equal(discovery.insights[1].id,first.id)
+ await assert.rejects(f.service.creatorInsightDiscovery(f.outside,'creator-studio'),{code:'FORBIDDEN'})
+})
+
 test('Creator Insight edit invalidates stale approval and approved plan becomes ready to create',async t=>{
  const f=await fixture(t)
  let insight=await f.service.createCreatorInsight(f.token,'creator-studio',{topic:'reciclaje en casa',signal_type:'manual',content_gap:true})
@@ -79,6 +97,7 @@ test('Creator Insight is tenant-bound and outsider access fails closed',async t=
  const insight=await f.service.createCreatorInsight(f.token,'creator-studio',{topic:'fotografía de producto',signal_type:'analytics'})
  for(const operation of [
   ()=>f.service.creatorInsights(f.outside,'creator-studio'),
+  ()=>f.service.creatorInsightDiscovery(f.outside,'creator-studio'),
   ()=>f.service.creatorInsight(f.outside,'creator-studio',insight.id),
   ()=>f.service.createCreatorInsight(f.outside,'creator-studio',{topic:'otro tema'}),
   ()=>f.service.updateCreatorInsightPlan(f.outside,'creator-studio',insight.id,{idea:'Idea',title:'Título',description:'Descripción',hashtags:['#Tema']}),
@@ -104,6 +123,8 @@ test('Creator Insight HTTP API exposes create list get edit and hash-bound appro
  let insight=(await createdResponse.json()).data
  const list=await handleApi(req('tenants/creator-studio/creator-insights',f.token),f.service)
  assert.equal(list.status,200);assert.equal((await list.json()).data.length,1)
+ const discovery=await handleApi(req('tenants/creator-studio/creator-insights/discovery',f.token),f.service)
+ assert.equal(discovery.status,200);const discoveryData=(await discovery.json()).data;assert.equal(discoveryData.source_scope,'workspace-recorded-signals');assert.equal(discoveryData.live_platform_data,false);assert.equal(discoveryData.overview.total_signals,1)
  const get=await handleApi(req('tenants/creator-studio/creator-insights/'+insight.id,f.token),f.service)
  assert.equal(get.status,200)
  const edit=await handleApi(req('tenants/creator-studio/creator-insights/'+insight.id+'/plan',f.token,{idea:'Mostrar una iluminación simple con una sola fuente de luz.',title:'Iluminación simple para video',description:'Una explicación breve de una configuración sencilla.',hashtags:['#Video','#Iluminacion']}),f.service)
@@ -120,7 +141,14 @@ test('Creator Insight graph definition and UI remain truthful about platform dat
  assert.ok(graph.nodes.every(n=>!/publish/i.test(n.id)))
  const ui=await readFile(new URL('../components/CreatorContentInsights.tsx',import.meta.url),'utf8')
  for(const label of ['IDEA','TÍTULO','DESCRIPCIÓN','HASHTAGS'])assert.match(ui,new RegExp(label))
- assert.match(ui,/No muestra datos de TikTok en vivo sin un conector autorizado/)
+ assert.match(ui,/No inventamos métricas externas ni datos de TikTok/)
+ assert.match(ui,/Vista cronológica del material registrado por tu equipo; no es un ranking ni una recomendación de plataforma/)
+ assert.match(ui,/Señales registradas/)
+ assert.match(ui,/Oportunidades/)
+ assert.match(ui,/Planes en borrador/)
+ assert.match(ui,/Planes aprobados/)
+ assert.match(ui,/Analítica interna/)
+ assert.match(ui,/Solo datos registrados en este espacio/)
  assert.match(ui,/Crear con este plan/)
  const planner=await readFile(new URL('../components/planner.tsx',import.meta.url),'utf8')
  assert.match(planner,/query\.get\('insight'\)/)

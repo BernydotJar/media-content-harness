@@ -2244,6 +2244,88 @@
         "assets/**",
         "config/**"
       ]
+    },
+    {
+      "id": "WEB059-CREATOR-INSIGHT-DISCOVERY-V22",
+      "title": "Add workspace-grounded Creator Insight discovery, analytics summary, search and filters",
+      "kind": "product-completion",
+      "status": "spec_ready",
+      "depends_on": [
+        "WEB058-CREATOR-CONTENT-INSIGHT-V21-RELEASE"
+      ],
+      "capability": "media-factory-web",
+      "gates": {
+        "review": [
+          "implementation_quality"
+        ]
+      },
+      "allowed_paths": [
+        "app/**",
+        "components/**",
+        "server/**",
+        "plugins/**",
+        "tests/**",
+        "scripts/**",
+        "docs/**",
+        "examples/**",
+        "schemas/**",
+        "specs/**",
+        "progress/**",
+        "graph/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "*.mjs",
+        "*.json",
+        "*.yml",
+        "Dockerfile",
+        ".gitignore",
+        ".dockerignore",
+        "README.md",
+        "deploy/**",
+        "assets/**",
+        "config/**"
+      ]
+    },
+    {
+      "id": "WEB060-CREATOR-INSIGHT-DISCOVERY-V22-RELEASE",
+      "title": "Independent browser verification and controlled release of Creator Insight Discovery V22",
+      "kind": "product-completion",
+      "status": "spec_ready",
+      "depends_on": [
+        "WEB059-CREATOR-INSIGHT-DISCOVERY-V22"
+      ],
+      "capability": "media-factory-web",
+      "gates": {
+        "review": [
+          "implementation_quality"
+        ]
+      },
+      "allowed_paths": [
+        "app/**",
+        "components/**",
+        "server/**",
+        "plugins/**",
+        "tests/**",
+        "scripts/**",
+        "docs/**",
+        "examples/**",
+        "schemas/**",
+        "specs/**",
+        "progress/**",
+        "graph/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "*.mjs",
+        "*.json",
+        "*.yml",
+        "Dockerfile",
+        ".gitignore",
+        ".dockerignore",
+        "README.md",
+        "deploy/**",
+        "assets/**",
+        "config/**"
+      ]
     }
   ]
 }

@@ -1,0 +1,25 @@
+{
+  "status": "PASS",
+  "candidate_sha": "2da69b94847633fed1604c15560622150517e1ad",
+  "working_tree_dirty": false,
+  "build_id": "KiC47SgZaVl0r2HwtuDHr",
+  "production_source_sha256": "0590302d0c7e3876af3d3fed1e4f6ac98e270c273b71d820b19d776cbcab4132",
+  "runtime_package": {
+    "format": "media-factory-runtime.v1",
+    "files": 1486,
+    "manifest_sha256": "b091e7957587b28b2ec47b8c40295418a95d8dfcf5a5525e719e88f6045a6c54",
+    "build_id": "KiC47SgZaVl0r2HwtuDHr",
+    "forbidden_entries": 0,
+    "external_symlinks": 0
+  },
+  "checks": [
+    "workspace-only discovery provenance",
+    "four overview metrics",
+    "internal signal analytics",
+    "search and filters",
+    "idea/title/description/hashtags",
+    "exact human approval",
+    "Create handoff"
+  ],
+  "evidence_directory": "/tmp/creator-insight-v22-e2e-ui5cuZ"
+}
